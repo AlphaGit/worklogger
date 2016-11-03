@@ -1,0 +1,8 @@
+{
+	"inputs": [{
+		"name": "My Google Calendar",
+		"type": "GoogleCalendarInput",
+		"googleAccountName": "jraimondi@makingsense.com",
+		"googleAccountPassword": "123"
+	}]
+}

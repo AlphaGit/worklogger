@@ -1,0 +1,30 @@
+{
+  "name": "worklogger",
+  "version": "0.0.1",
+  "description": "Reads worklogs from a variety of sources and consolidates them to several outputs.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlphaGit/worklogger.git"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "work",
+    "logger",
+    "worklog",
+    "jira",
+    "tempo"
+  ],
+  "author": "Alpha <alphagma@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlphaGit/worklogger/issues"
+  },
+  "homepage": "https://github.com/AlphaGit/worklogger#readme",
+  "dependencies": {
+    "google-auth-library": "^0.9.9",
+    "googleapis": "^14.1.0"
+  }
+}
