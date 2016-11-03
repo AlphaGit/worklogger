@@ -8,56 +8,72 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_DIR = '.credentials/';
 const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
 
+const Worklog = require('../../model/Worklog');
+
 class GoogleCalendarInput {
     set configuration(value) {
         this.inputConfiguration = value;
     }
 
     getWorkLogs() {
-        var self = this;
-        fs.readFile('_private/client_secret.json', function processClientSecrets(err, content) {
-            if (err) {
-                console.log(`Error loading client secret file: ${err}`);
-                return;
-            }
+        return this._readCredentials()
+            .then(this._authorize)
+            .then(this._getEventsFromApi)
+            .then(this._mapToDomainModel);
+    }
 
-            self._authorize(JSON.parse(content), self._listEvents);
+    _readCredentials() {
+        var self = this;
+        return new Promise((resolve, reject) => {
+            fs.readFile('_private/client_secret.json', (err, content) => {
+                if (err) {
+                    reject(`Error loading client secret file: ${err}`);
+                    return;
+                }
+
+                resolve(JSON.parse(content));
+            });
         });
     }
 
-    _listEvents(auth) {
+    _getEventsFromApi(auth) {
         var calendar = google.calendar('v3');
-        calendar.events.list({
-            auth: auth,
-            calendarId: 'primary',
-            timeMin: (new Date()).toISOString(),
-            maxResults: 10,
-            singleEvents: true,
-            orderBy: 'startTime'
-        }, function(err, response) {
-            if (err) {
-                console.log(`The API returned an error: ${err}`);
-                return;
-            }
-            for (let item of response.items) {
-                console.log(`Received API item: ${item.start.dateTime || item.start.date} - ${item.summary}`);
-            }
-        })
+        return new Promise((resolve, reject) => {
+            calendar.events.list({
+                auth: auth,
+                calendarId: 'primary',
+                timeMin: (new Date()).toISOString(),
+                maxResults: 10,
+                singleEvents: true,
+                orderBy: 'startTime'
+            }, (err, response) => {
+                if (err) {
+                    reject(`The API returned an error: ${err}`);
+                    return;
+                }
+                for (let item of response.items) {
+                    console.log(`Received API item: ${item.start.dateTime || item.start.date} - ${item.summary}`);
+                }
+                resolve(response.items);
+            });
+        });
     }
 
     _storeToken(token) {
-        try {
-            fs.mkdirSync(TOKEN_DIR);
-        } catch (err) {
-            if (err.code != 'EEXIST')
-                throw err;
-        }
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token));
-
-        console.log(`Token stored to ${TOKEN_PATH}`);
+        return new Promise((resolve, reject) => {
+            try {
+                fs.mkdirSync(TOKEN_DIR);
+            } catch (err) {
+                if (err.code != 'EEXIST')
+                    throw err;
+            }
+            fs.writeFile(TOKEN_PATH, JSON.stringify(token));
+            console.log(`Token stored to ${TOKEN_PATH}`);
+            resolve(token);
+        });
     }
 
-    _authorize(credentials, callback) {
+    _authorize(credentials) {
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
         var redirectUrl = credentials.installed.redirect_uris[0];
@@ -66,14 +82,16 @@ class GoogleCalendarInput {
         var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         console.log(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
-        fs.readFile(TOKEN_PATH, function(err, token) {
-            if (err) {
-                this._getNewtoken(oauth2Client, callback);
-            } else {
-                oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client);
-            }
-        })
+        return new Promise((resolve) => {
+            fs.readFile(TOKEN_PATH, (err, token) => {
+                if (err) {
+                    resolve(self._getNewtoken(oauth2Client));
+                } else {
+                    oauth2Client.credentials = JSON.parse(token);
+                    resolve(oauth2Client);
+                }
+            })
+        });
     };
 
     _getNewtoken(oauth2Client, callback) {
@@ -86,19 +104,28 @@ class GoogleCalendarInput {
             input: process.stdin,
             output: process.stdout
         });
-        rl.question('Enter the code from that page here: ', function(code) {
-            rl.close();
-            oauth2Client.getToken(code, function(err, token) {
-                if (err) {
-                    console.log(`Error while trying to retrieve access token: ${err}`);
-                    return;
-                }
-                oauth2Client.credentials = token;
-                this._storeToken(token);
-                callback(oauth2Client);
+        var self = this;
+        return new Promise((resolve, reject) => {
+            rl.question('Enter the code from that page here: ', (code) => {
+                rl.close();
+                oauth2Client.getToken(code, (err, token) => {
+                    if (err) {
+                        reject(`Error while trying to retrieve access token: ${err}`);
+                        return;
+                    }
+
+                    self._storeToken(token).then(() => {
+                        oauth2Client.credentials = token;
+                        resolve(oauth2Client)
+                    });
+                });
             });
         });
-    };
+    }
+
+    _mapToDomainModel(apiResponseItems) {
+        return apiResponseItems.map(item => new Worklog(item.summary));
+    }
 }
 
 module.exports = GoogleCalendarInput;
