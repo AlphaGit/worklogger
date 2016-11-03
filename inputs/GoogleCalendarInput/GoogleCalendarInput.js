@@ -124,7 +124,9 @@ class GoogleCalendarInput {
     }
 
     _mapToDomainModel(apiResponseItems) {
-        return apiResponseItems.map(item => new Worklog(item.summary));
+        return apiResponseItems
+            .filter(item => !!item.start.dateTime && !!item.end.dateTime)
+            .map(item => new Worklog(item.summary, item.start.dateTime, item.end.dateTime));
     }
 }
 
