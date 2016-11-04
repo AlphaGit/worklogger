@@ -3,9 +3,13 @@
 		"name": "My Google Calendar",
 		"type": "GoogleCalendarInput",
 		"calendars": [{
-			"id": "mainCalendarId",
-			"client": "Company1",
-			"project": "Company1Project"
+			"id": "[redacted]",
+			"client": "[redacted]",
+			"project": "[redacted]"
+		}, {
+			"id": "[redacted]",
+			"client": "[redacted]",
+			"project": "[redacted]"
 		}]
 	}]
 }

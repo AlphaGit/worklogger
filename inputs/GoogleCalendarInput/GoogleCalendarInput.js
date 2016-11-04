@@ -136,10 +136,10 @@ class GoogleCalendarInput {
     }
 
     _mapToWorklogs(calendarEvents) {
-        var calendar = calendarEvents.calendarConfig;
+        var calendarConfig = calendarEvents.calendarConfig;
         return calendarEvents.events
             .filter(e => !!e.start.dateTime && !!e.end.dateTime)
-            .map(e => new Worklog(e.summary, e.start.dateTime, e.end.dateTime));
+            .map(e => new Worklog(e.summary, e.start.dateTime, e.end.dateTime, calendarConfig.client, calendarConfig.project));
 
     }
 }
