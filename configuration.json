@@ -2,7 +2,10 @@
 	"inputs": [{
 		"name": "My Google Calendar",
 		"type": "GoogleCalendarInput",
-		"googleAccountName": "jraimondi@makingsense.com",
-		"googleAccountPassword": "123"
+		"calendars": [{
+			"id": "mainCalendarId",
+			"client": "Company1",
+			"project": "Company1Project"
+		}]
 	}]
 }

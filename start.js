@@ -15,5 +15,5 @@ Promise.all(worklogPromises).then(worklogInputResult => {
             console.log(`Worklog: ${worklog}`);
         }
     }
-});
+}).catch(console.log);
 

@@ -12,14 +12,14 @@ const Worklog = require('../../model/Worklog');
 
 class GoogleCalendarInput {
     set configuration(value) {
-        this.inputConfiguration = value;
+        this._configuration = value;
     }
 
     getWorkLogs() {
         return this._readCredentials()
             .then(this._authorize)
-            .then(this._getEventsFromApi)
-            .then(this._mapToDomainModel);
+            .then(auth => this._getEventsFromApi(auth)) // arrow function needed to preserve 'this' context
+            .then(apiResponses => this._mapToDomainModel(apiResponses));
     }
 
     _readCredentials() {
@@ -37,11 +37,16 @@ class GoogleCalendarInput {
     }
 
     _getEventsFromApi(auth) {
-        var calendar = google.calendar('v3');
+        var calendarReturnPromises = this._configuration.calendars
+            .map(calendar => this._getEventsFromApiSingleCalendar(auth, calendar));
+        return Promise.all(calendarReturnPromises);
+    }
+
+    _getEventsFromApiSingleCalendar(auth, calendar) {
         return new Promise((resolve, reject) => {
-            calendar.events.list({
+            google.calendar('v3').events.list({
                 auth: auth,
-                calendarId: 'primary',
+                calendarId: calendar.id,
                 timeMin: (new Date()).toISOString(),
                 maxResults: 10,
                 singleEvents: true,
@@ -51,10 +56,11 @@ class GoogleCalendarInput {
                     reject(`The API returned an error: ${err}`);
                     return;
                 }
-                for (let item of response.items) {
-                    console.log(`Received API item: ${item.start.dateTime || item.start.date} - ${item.summary}`);
-                }
-                resolve(response.items);
+
+                resolve({
+                    calendarConfig: calendar,
+                    events: response.items
+                });
             });
         });
     }
@@ -123,10 +129,18 @@ class GoogleCalendarInput {
         });
     }
 
-    _mapToDomainModel(apiResponseItems) {
-        return apiResponseItems
-            .filter(item => !!item.start.dateTime && !!item.end.dateTime)
-            .map(item => new Worklog(item.summary, item.start.dateTime, item.end.dateTime));
+    _mapToDomainModel(apiResponses) {
+        return apiResponses
+            .map(item => this._mapToWorklogs(item))
+            .reduce((a, b) => a.concat(b), []); // flatten
+    }
+
+    _mapToWorklogs(calendarEvents) {
+        var calendar = calendarEvents.calendarConfig;
+        return calendarEvents.events
+            .filter(e => !!e.start.dateTime && !!e.end.dateTime)
+            .map(e => new Worklog(e.summary, e.start.dateTime, e.end.dateTime));
+
     }
 }
 
