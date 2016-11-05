@@ -19,7 +19,7 @@ class GoogleCalendarInput {
         return this._readCredentials()
             .then(this._authorize)
             .then(auth => this._getEventsFromApi(auth)) // arrow function needed to preserve 'this' context
-            .then(apiResponses => this._mapToDomainModel(apiResponses));
+            .then(apiResponses => this._mapToDomainModel(apiResponses, this._configuration));
     }
 
     _readCredentials() {
@@ -129,17 +129,26 @@ class GoogleCalendarInput {
         });
     }
 
-    _mapToDomainModel(apiResponses) {
+    _mapToDomainModel(apiResponses, configuration) {
         return apiResponses
-            .map(item => this._mapToWorklogs(item))
+            .map(item => this._mapToWorklogs(item, configuration))
             .reduce((a, b) => a.concat(b), []); // flatten
     }
 
-    _mapToWorklogs(calendarEvents) {
+    _mapToWorklogs(calendarEvents, configuration) {
         var calendarConfig = calendarEvents.calendarConfig;
+        var minimumTimeSlotMinutes = configuration.minimumLoggableTimeSlotInMinutes;
         return calendarEvents.events
             .filter(e => !!e.start.dateTime && !!e.end.dateTime)
-            .map(e => new Worklog(e.summary, e.start.dateTime, e.end.dateTime, calendarConfig.client, calendarConfig.project));
+            .map(e => {
+                var startTime = Date.parse(e.start.dateTime);
+                var endTime = Date.parse(e.end.dateTime);
+                var duration = (endTime - startTime) / 1000 / 60;
+                if (duration % minimumTimeSlotMinutes != 0) {
+                    duration = minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
+                }
+                return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project)
+            });
 
     }
 }

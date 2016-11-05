@@ -1,25 +1,43 @@
 class GoogleCalendarInputConfiguration {
     constructor(configurationInput) {
-        if (!configurationInput.calendars || !configurationInput.calendars.length)
-            throw `Google Calendar Input Configuration ${configurationInput.name} does not have calendars configured.`;
+        this.name = configurationInput.name;
+        this.calendars = configurationInput.calendars;
+        this.minimumLoggableTimeSlotInMinutes = configurationInput.minimumLoggableTimeSlotInMinutes;
+    }
 
-        var errorStringPrefix = `Google Calendar Input Configuration '${configurationInput.name}`;
-        for (var i = 0; i < configurationInput.calendars.length; i++) {
-            var calendar = configurationInput.calendars[i];
+    set minimumLoggableTimeSlotInMinutes(value) {
+        if (Number.isNaN(value) || value <= 0 || !Number.isInteger(value))
+            throw `MinimumTimeSlotMinutes needs to be a positive integer`;
+
+        this._minimumLoggableTimeSlotInMinutes = value;
+    }
+
+    get minimumLoggableTimeSlotInMinutes() {
+        return this._minimumLoggableTimeSlotInMinutes;
+    }
+
+    set calendars(value) {
+        if (!value || !value.length)
+            throw `Need at least one calendar.`;
+
+        for (var i = 0; i < value.length; i++) {
+            var calendar = value[i];
 
             if (!calendar.id)
-                throw `${errorStringPrefix} calendar element ${i} (zero-based) does not have an id.`;
-
-            errorStringPrefix = errorStringPrefix + `calendar element ${calendar.id}`;
+                throw `Calendar element ${i} (zero-based) does not have an id.`;
 
             if (!calendar.client)
-                throw `${errorStringPrefix} does not have a client assigned.`;
+                throw `Calendar does not have a client assigned.`;
 
             if (!calendar.project)
-                throw `${errorStringPrefix} does not have a project assigned.`;
+                throw `Calendar does not have a project assigned.`;
         }
 
-        this.calendars = configurationInput.calendars;
+        this._calendars = value;
+    }
+
+    get calendars() {
+        return this._calendars;
     }
 }
 
