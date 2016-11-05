@@ -1,5 +1,8 @@
 class GoogleCalendarInputConfiguration {
     constructor(configurationInput) {
+        if (!configurationInput)
+            throw 'A configuration JSON is required.';
+
         this.name = configurationInput.name;
         this.calendars = configurationInput.calendars;
         this.minimumLoggableTimeSlotInMinutes = configurationInput.minimumLoggableTimeSlotInMinutes;

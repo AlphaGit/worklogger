@@ -11,7 +11,14 @@ const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
 const Worklog = require('../../model/Worklog');
 
 class GoogleCalendarInput {
+    constructor(configuration) {
+        this.configuration = configuration;
+    }
+
     set configuration(value) {
+        if (!value)
+            throw 'Configuration for GoogleCalendarInput is missing';
+
         this._configuration = value;
     }
 

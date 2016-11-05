@@ -8,8 +8,7 @@ const loadInputs = function() {
         var inputConfiguration = new inputConfigurationClass(input);
 
         var inputSystemClass = require(`./inputs/${input.type}/${input.type}`);
-        var inputSystem = new inputSystemClass();
-        inputSystem.configuration = inputConfiguration;
+        var inputSystem = new inputSystemClass(inputConfiguration);
 
         loadedInputs.push(inputSystem);
     }
