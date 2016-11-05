@@ -7,7 +7,7 @@ class GoogleCalendarInputConfiguration {
 
     set minimumLoggableTimeSlotInMinutes(value) {
         if (Number.isNaN(value) || value <= 0 || !Number.isInteger(value))
-            throw `MinimumTimeSlotMinutes needs to be a positive integer`;
+            throw 'MinimumTimeSlotMinutes needs to be a positive integer';
 
         this._minimumLoggableTimeSlotInMinutes = value;
     }
@@ -18,7 +18,7 @@ class GoogleCalendarInputConfiguration {
 
     set calendars(value) {
         if (!value || !value.length)
-            throw `Need at least one calendar.`;
+            throw 'Need at least one calendar.';
 
         for (var i = 0; i < value.length; i++) {
             var calendar = value[i];
@@ -27,10 +27,10 @@ class GoogleCalendarInputConfiguration {
                 throw `Calendar element ${i} (zero-based) does not have an id.`;
 
             if (!calendar.client)
-                throw `Calendar does not have a client assigned.`;
+                throw 'Calendar does not have a client assigned.';
 
             if (!calendar.project)
-                throw `Calendar does not have a project assigned.`;
+                throw 'Calendar does not have a project assigned.';
         }
 
         this._calendars = value;

@@ -16,14 +16,14 @@ class GoogleCalendarInput {
     }
 
     getWorkLogs() {
+        // arrow functions needed to preserve 'this' context
         return this._readCredentials()
-            .then(this._authorize)
-            .then(auth => this._getEventsFromApi(auth)) // arrow function needed to preserve 'this' context
+            .then(credentials => this._authorize(credentials))
+            .then(auth => this._getEventsFromApi(auth))
             .then(apiResponses => this._mapToDomainModel(apiResponses, this._configuration));
     }
 
     _readCredentials() {
-        var self = this;
         return new Promise((resolve, reject) => {
             fs.readFile('_private/client_secret.json', (err, content) => {
                 if (err) {
@@ -66,7 +66,7 @@ class GoogleCalendarInput {
     }
 
     _storeToken(token) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             try {
                 fs.mkdirSync(TOKEN_DIR);
             } catch (err) {
@@ -91,16 +91,16 @@ class GoogleCalendarInput {
         return new Promise((resolve) => {
             fs.readFile(TOKEN_PATH, (err, token) => {
                 if (err) {
-                    resolve(self._getNewtoken(oauth2Client));
+                    resolve(this._getNewtoken(oauth2Client));
                 } else {
                     oauth2Client.credentials = JSON.parse(token);
                     resolve(oauth2Client);
                 }
-            })
+            });
         });
-    };
+    }
 
-    _getNewtoken(oauth2Client, callback) {
+    _getNewtoken(oauth2Client) {
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
@@ -122,7 +122,7 @@ class GoogleCalendarInput {
 
                     self._storeToken(token).then(() => {
                         oauth2Client.credentials = token;
-                        resolve(oauth2Client)
+                        resolve(oauth2Client);
                     });
                 });
             });
@@ -147,7 +147,7 @@ class GoogleCalendarInput {
                 if (duration % minimumTimeSlotMinutes != 0) {
                     duration = minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
                 }
-                return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project)
+                return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project);
             });
 
     }

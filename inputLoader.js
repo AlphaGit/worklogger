@@ -15,6 +15,6 @@ const loadInputs = function() {
     }
 
     return loadedInputs;
-}
+};
 
 module.exports.loadInputs = loadInputs;

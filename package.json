@@ -26,5 +26,10 @@
   "dependencies": {
     "google-auth-library": "^0.9.9",
     "googleapis": "^14.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1"
   }
 }
