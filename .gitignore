@@ -3,3 +3,4 @@ node_modules/
 *.sublime-workspace
 .credentials/
 npm-debug.log.*
+coverage/
