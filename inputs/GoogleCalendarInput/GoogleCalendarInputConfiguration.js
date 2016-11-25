@@ -1,7 +1,7 @@
 class GoogleCalendarInputConfiguration {
     constructor(configurationInput) {
         if (!configurationInput)
-            throw 'A configuration JSON is required.';
+            throw new Error('A configuration JSON is required.');
 
         this.name = configurationInput.name;
         this.calendars = configurationInput.calendars;
@@ -10,7 +10,7 @@ class GoogleCalendarInputConfiguration {
 
     set minimumLoggableTimeSlotInMinutes(value) {
         if (Number.isNaN(value) || value <= 0 || !Number.isInteger(value))
-            throw 'MinimumTimeSlotMinutes needs to be a positive integer';
+            throw new Error('MinimumTimeSlotMinutes needs to be a positive integer number');
 
         this._minimumLoggableTimeSlotInMinutes = value;
     }
@@ -20,20 +20,23 @@ class GoogleCalendarInputConfiguration {
     }
 
     set calendars(value) {
+        if (!Array.isArray(value))
+            throw new Error('An array is required');
+
         if (!value || !value.length)
-            throw 'Need at least one calendar.';
+            throw new Error('Need at least one calendar.');
 
         for (var i = 0; i < value.length; i++) {
             var calendar = value[i];
 
             if (!calendar.id)
-                throw `Calendar element ${i} (zero-based) does not have an id.`;
+                throw new Error(`Calendar element ${i} (zero-based) does not have an id.`);
 
             if (!calendar.client)
-                throw 'Calendar does not have a client assigned.';
+                throw new Error('Calendar does not have a client assigned.');
 
             if (!calendar.project)
-                throw 'Calendar does not have a project assigned.';
+                throw new Error('Calendar does not have a project assigned.');
         }
 
         this._calendars = value;
