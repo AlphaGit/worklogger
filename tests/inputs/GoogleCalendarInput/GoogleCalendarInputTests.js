@@ -1,6 +1,6 @@
 var assert = require('assert');
-var GoogleCalendarInput = require('../../../inputs/GoogleCalendarInput/GoogleCalendarInput');
-var GoogleCalendarInputConfiguration = require('../../../inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
+var GoogleCalendarInput = require('inputs/GoogleCalendarInput/GoogleCalendarInput');
+var GoogleCalendarInputConfiguration = require('inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
 
 describe('GoogleCalendarInput', () => {
     describe('#constructor', () => {

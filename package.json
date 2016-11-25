@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
+    "app-module-path": "^2.1.0",
     "google-auth-library": "^0.9.9",
     "googleapis": "^14.1.0"
   },

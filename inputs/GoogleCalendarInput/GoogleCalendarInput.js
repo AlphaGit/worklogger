@@ -8,7 +8,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_DIR = '.credentials/';
 const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
 
-const Worklog = require('../../model/Worklog');
+const Worklog = require('model/Worklog');
 
 class GoogleCalendarInput {
     constructor(configuration) {

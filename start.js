@@ -1,3 +1,5 @@
+require('app-module-path').addPath(__dirname);
+
 var inputLoader = require('./inputLoader');
 var loadedInputs = inputLoader.loadInputs();
 

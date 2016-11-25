@@ -1,3 +1,5 @@
+require('app-module-path').addPath(__dirname);
+
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');

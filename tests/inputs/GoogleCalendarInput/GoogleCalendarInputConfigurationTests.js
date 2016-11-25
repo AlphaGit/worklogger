@@ -1,5 +1,5 @@
 var assert = require('assert');
-var GoogleCalendarInputConfiguration = require('../../../inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
+var GoogleCalendarInputConfiguration = require('inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
 
 const validConfigJson = {
     name: 'input name',
