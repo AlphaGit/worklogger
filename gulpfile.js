@@ -6,7 +6,7 @@ var mocha = require('gulp-mocha');
 var gutil = require('gulp-util');
 var istanbul = require('gulp-istanbul');
 
-const sourcesGlob = ['**/*.js','!node_modules/**'];
+const sourcesGlob = ['**/*.js', '!node_modules/**', '!coverage/**'];
 const testsGlob = ['tests/**/*.js'];
 
 gulp.task('default', function() {
@@ -32,7 +32,7 @@ gulp.task('test', ['instrument-code'], () =>
         .pipe(istanbul.writeReports())
 );
 
-gulp.task('watch-test', () =>
-    gulp.watch(testsGlob.concat(sourcesGlob), ['test'])
+gulp.task('watch', ['lint', 'test'], () =>
+    gulp.watch(testsGlob.concat(sourcesGlob), ['lint', 'test'])
         .on('error', gutil.log)
 );
