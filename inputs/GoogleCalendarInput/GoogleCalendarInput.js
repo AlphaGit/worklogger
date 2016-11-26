@@ -1,12 +1,6 @@
-// from https://developers.google.com/google-apps/calendar/quickstart/nodejs
-let fs = require('fs');
-let readline = require('readline');
 let google = require('googleapis');
-let googleAuth = require('google-auth-library');
-
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const TOKEN_DIR = '.credentials/';
-const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
+let appCredentialStorage = require('./GoogleAppCredentialStorage');
+var googleTokenStorage = require('./GoogleTokenStorage');
 
 const Worklog = require('model/Worklog');
 
@@ -17,30 +11,17 @@ class GoogleCalendarInput {
 
     set configuration(value) {
         if (!value)
-            throw 'Configuration for GoogleCalendarInput is missing';
+            throw new Error('Configuration for GoogleCalendarInput is required');
 
         this._configuration = value;
     }
 
     getWorkLogs() {
         // arrow functions needed to preserve 'this' context
-        return this._readCredentials()
-            .then(credentials => this._authorize(credentials))
+        return appCredentialStorage.retrieveAppCredentials()
+            .then(credentials => googleTokenStorage.authorize(credentials))
             .then(auth => this._getEventsFromApi(auth))
             .then(apiResponses => this._mapToDomainModel(apiResponses, this._configuration));
-    }
-
-    _readCredentials() {
-        return new Promise((resolve, reject) => {
-            fs.readFile('_private/client_secret.json', (err, content) => {
-                if (err) {
-                    reject(`Error loading client secret file: ${err}`);
-                    return;
-                }
-
-                resolve(JSON.parse(content));
-            });
-        });
     }
 
     _getEventsFromApi(auth) {
@@ -67,70 +48,6 @@ class GoogleCalendarInput {
                 resolve({
                     calendarConfig: calendar,
                     events: response.items
-                });
-            });
-        });
-    }
-
-    _storeToken(token) {
-        return new Promise((resolve) => {
-            try {
-                fs.mkdirSync(TOKEN_DIR);
-            } catch (err) {
-                if (err.code != 'EEXIST')
-                    throw err;
-            }
-            fs.writeFile(TOKEN_PATH, JSON.stringify(token));
-            console.log(`Token stored to ${TOKEN_PATH}`);
-            resolve(token);
-        });
-    }
-
-    _authorize(credentials) {
-        var clientSecret = credentials.installed.client_secret;
-        var clientId = credentials.installed.client_id;
-        var redirectUrl = credentials.installed.redirect_uris[0];
-        var auth = new googleAuth();
-
-        var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
-
-        console.log(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
-        return new Promise((resolve) => {
-            fs.readFile(TOKEN_PATH, (err, token) => {
-                if (err) {
-                    resolve(this._getNewtoken(oauth2Client));
-                } else {
-                    oauth2Client.credentials = JSON.parse(token);
-                    resolve(oauth2Client);
-                }
-            });
-        });
-    }
-
-    _getNewtoken(oauth2Client) {
-        var authUrl = oauth2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: SCOPES
-        });
-        console.log(`Authorize this app by visiting this url: ${authUrl}`);
-        var rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-        var self = this;
-        return new Promise((resolve, reject) => {
-            rl.question('Enter the code from that page here: ', (code) => {
-                rl.close();
-                oauth2Client.getToken(code, (err, token) => {
-                    if (err) {
-                        reject(`Error while trying to retrieve access token: ${err}`);
-                        return;
-                    }
-
-                    self._storeToken(token).then(() => {
-                        oauth2Client.credentials = token;
-                        resolve(oauth2Client);
-                    });
                 });
             });
         });

@@ -5,7 +5,7 @@ var GoogleCalendarInputConfiguration = require('inputs/GoogleCalendarInput/Googl
 describe('GoogleCalendarInput', () => {
     describe('#constructor', () => {
         it('requires a configuration parameter', () => {
-            assert.throws(() => new GoogleCalendarInput());
+            assert.throws(() => new GoogleCalendarInput(), /required/);
 
             var configurationJson = {
                 name: 'test',
@@ -17,7 +17,7 @@ describe('GoogleCalendarInput', () => {
                 minimumLoggableTimeSlotInMinutes: 15
             };
             var configuration = new GoogleCalendarInputConfiguration(configurationJson);
-            assert.doesNotThrow(() => new GoogleCalendarInput(configuration))
+            assert.doesNotThrow(() => new GoogleCalendarInput(configuration));
         });
     });
 });
