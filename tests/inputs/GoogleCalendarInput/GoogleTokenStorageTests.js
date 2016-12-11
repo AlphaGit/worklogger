@@ -30,10 +30,10 @@ describe('GoogleTokenStorage', () => {
             readline.createInterface.restore();
         });
 
-        it('returns a Promise', (done) => {
+        it('returns a Promise', () => {
             var result = GoogleTokenStorage.authorize(validCredentials).catch(e => {});
             assert.ok(result instanceof Promise);
-            result.then(done);
+            result.catch(() => {}).then();
         });
 
         it('requires existing credentials', () => {
