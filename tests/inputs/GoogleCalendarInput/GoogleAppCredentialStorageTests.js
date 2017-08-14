@@ -6,13 +6,13 @@ var sinon = require('sinon');
 describe('GoogleAppCredentialStorage', () => {
     describe('#retrieveAppCredentials', () => {
         it('returns a Promise', () => {
-            var result = GoogleAppCredentialStorage.retrieveAppCredentials().catch(e => {});
+            var result = GoogleAppCredentialStorage.retrieveAppCredentials().catch(() => {});
             assert.ok(result instanceof Promise);
         });
 
         it('reads from a local file', () => {
             sinon.spy(fs, 'readFile');
-            GoogleAppCredentialStorage.retrieveAppCredentials().catch(e => {});
+            GoogleAppCredentialStorage.retrieveAppCredentials().catch(() => {});
             assert.ok(fs.readFile.calledOnce);
             fs.readFile.restore();
         });
@@ -24,8 +24,8 @@ describe('GoogleAppCredentialStorage', () => {
                 .then(credentials => {
                     assert.equal(1, credentials.a);
                     assert.equal(2, credentials.b);
-                }).catch(e => {})
-                .then(e => {
+                }).catch(() => {})
+                .then(() => {
                     stub.restore();
                     done();
                 });
@@ -36,9 +36,8 @@ describe('GoogleAppCredentialStorage', () => {
             GoogleAppCredentialStorage.retrieveAppCredentials()
                 .then(contents => assert.fail(`Did not reject promise, returned content: ${contents}`))
                 .catch(e => {
-                    console.log(e);
                     assert.ok(e.indexOf('FileError') >= 0);
-                }).then(e => {
+                }).then(() => {
                     stub.restore();
                     done();
                 });
