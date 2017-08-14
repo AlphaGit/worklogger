@@ -1,12 +1,18 @@
-let google = require('googleapis');
-let appCredentialStorage = require('./GoogleAppCredentialStorage');
-var googleTokenStorage = require('./GoogleTokenStorage');
+let googleApisRequired = require('googleapis');
+let appCredentialStorageRequired = require('./GoogleAppCredentialStorage');
+let googleTokenStorageRequired = require('./GoogleTokenStorage');
 
 const Worklog = require('model/Worklog');
 
 class GoogleCalendarInput {
-    constructor(configuration) {
+    constructor(configuration,
+        appCredentialStorage = appCredentialStorageRequired,
+        googleTokenStorage = googleTokenStorageRequired,
+        google = googleApisRequired) {
         this.configuration = configuration;
+        this.appCredentialStorage = appCredentialStorage;
+        this.googleTokenStorage = googleTokenStorage;
+        this.google = google;
     }
 
     set configuration(value) {
@@ -18,8 +24,8 @@ class GoogleCalendarInput {
 
     getWorkLogs() {
         // arrow functions needed to preserve 'this' context
-        return appCredentialStorage.retrieveAppCredentials()
-            .then(credentials => googleTokenStorage.authorize(credentials))
+        return this.appCredentialStorage.retrieveAppCredentials()
+            .then(credentials => this.googleTokenStorage.authorize(credentials))
             .then(auth => this._getEventsFromApi(auth))
             .then(apiResponses => this._mapToDomainModel(apiResponses, this._configuration));
     }
@@ -32,7 +38,7 @@ class GoogleCalendarInput {
 
     _getEventsFromApiSingleCalendar(auth, calendar) {
         return new Promise((resolve, reject) => {
-            google.calendar('v3').events.list({
+            this.google.calendar('v3').events.list({
                 auth: auth,
                 calendarId: calendar.id,
                 timeMin: (new Date()).toISOString(),
@@ -53,6 +59,7 @@ class GoogleCalendarInput {
         });
     }
 
+    //TODO export to a different file and unit test
     _mapToDomainModel(apiResponses, configuration) {
         return apiResponses
             .map(item => this._mapToWorklogs(item, configuration))
