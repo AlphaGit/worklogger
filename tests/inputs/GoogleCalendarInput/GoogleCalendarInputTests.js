@@ -32,7 +32,7 @@ describe('GoogleCalendarInput', () => {
             googleCalendarInput.getWorkLogs().then(() => {
                 assert.fail('Promise was not rejected on error.');
                 done();
-            }).catch(done);
+            }).catch(() => done());
         });
 
         it('authorizes through the google token storage', (done) => {
@@ -45,13 +45,14 @@ describe('GoogleCalendarInput', () => {
             }).catch(done);
         });
 
-        it('returns a failed promise if the toen storage fails', (done) => {
+        it('returns a failed promise if the token storage fails', (done) => {
             const tokenStorage = { authorize: sinon.stub().returns(Promise.reject()) };
 
             const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage });
             googleCalendarInput.getWorkLogs().then(() => {
                 assert.fail('Promise was not rejected on error');
-            }).catch(done);
+                done();
+            }).catch(() => done());
         });
 
         it('calls google events API with the authorization values retrieved', (done) => {
@@ -115,6 +116,24 @@ describe('GoogleCalendarInput', () => {
                 done();
             }).catch(done);
         });
+
+        it('returns a failed response if the google API fails', (done) => {
+            let googleApis = {
+                calendar: function() {
+                    return {
+                        events: {
+                            list: (args, callback) => callback('Some API error')
+                        }
+                    };
+                }
+            };
+
+            const googleCalendarInput = getTestSubject({ googleApis: googleApis });
+            googleCalendarInput.getWorkLogs().then(() => {
+                assert.fail('Promise was not rejected on error');
+                done();
+            }).catch(() => done());
+        });
     }); // #getWorkLogs
 });
 
@@ -148,13 +167,21 @@ const defaultGoogleApis = {
     }
 };
 
-function getTestSubject({ configuration = defaultConfiguration,
+const defaultMapper = function() {
+    return {
+        map: sinon.stub()
+    };
+};
+
+function getTestSubject({
+    configuration = defaultConfiguration,
     credentialStorage = defaultCredentialStorage,
     tokenStorage = defaultTokenStorage,
-    googleApis = defaultGoogleApis } = {}) {
+    googleApis = defaultGoogleApis,
+    mapper = defaultMapper } = {}) {
     const googleCalendarConfiguration = configuration
         ? new GoogleCalendarInputConfiguration(configuration)
         : undefined;
 
-    return new GoogleCalendarInput(googleCalendarConfiguration, credentialStorage, tokenStorage, googleApis);
+    return new GoogleCalendarInput(googleCalendarConfiguration, credentialStorage, tokenStorage, googleApis, mapper);
 }

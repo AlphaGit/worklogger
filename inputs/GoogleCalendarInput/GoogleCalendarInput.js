@@ -1,18 +1,20 @@
-let googleApisRequired = require('googleapis');
-let appCredentialStorageRequired = require('./GoogleAppCredentialStorage');
-let googleTokenStorageRequired = require('./GoogleTokenStorage');
+const googleApisRequired = require('googleapis');
+const appCredentialStorageRequired = require('./GoogleAppCredentialStorage');
+const googleTokenStorageRequired = require('./GoogleTokenStorage');
 
-const Worklog = require('model/Worklog');
+const GoogleCalendarToModelMapperRequired = require('./GoogleCalendarToModelMapper');
 
 class GoogleCalendarInput {
     constructor(configuration,
         appCredentialStorage = appCredentialStorageRequired,
         googleTokenStorage = googleTokenStorageRequired,
-        google = googleApisRequired) {
+        google = googleApisRequired,
+        GoogleCalendarToModelMapper = GoogleCalendarToModelMapperRequired) {
         this.configuration = configuration;
         this.appCredentialStorage = appCredentialStorage;
         this.googleTokenStorage = googleTokenStorage;
         this.google = google;
+        this.GoogleCalendarToModelMapper = GoogleCalendarToModelMapper;
     }
 
     set configuration(value) {
@@ -27,7 +29,7 @@ class GoogleCalendarInput {
         return this.appCredentialStorage.retrieveAppCredentials()
             .then(credentials => this.googleTokenStorage.authorize(credentials))
             .then(auth => this._getEventsFromApi(auth))
-            .then(apiResponses => this._mapToDomainModel(apiResponses, this._configuration));
+            .then(apiResponses => this._mapToDomainModel(apiResponses));
     }
 
     _getEventsFromApi(auth) {
@@ -59,28 +61,9 @@ class GoogleCalendarInput {
         });
     }
 
-    //TODO export to a different file and unit test
-    _mapToDomainModel(apiResponses, configuration) {
-        return apiResponses
-            .map(item => this._mapToWorklogs(item, configuration))
-            .reduce((a, b) => a.concat(b), []); // flatten
-    }
-
-    _mapToWorklogs(calendarEvents, configuration) {
-        var calendarConfig = calendarEvents.calendarConfig;
-        var minimumTimeSlotMinutes = configuration.minimumLoggableTimeSlotInMinutes;
-        return calendarEvents.events
-            .filter(e => !!e.start.dateTime && !!e.end.dateTime)
-            .map(e => {
-                var startTime = Date.parse(e.start.dateTime);
-                var endTime = Date.parse(e.end.dateTime);
-                var duration = (endTime - startTime) / 1000 / 60;
-                if (duration % minimumTimeSlotMinutes != 0) {
-                    duration = minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
-                }
-                return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project);
-            });
-
+    _mapToDomainModel(apiResponses) {
+        let mapper = new this.GoogleCalendarToModelMapper(this._configuration);
+        return mapper.map(apiResponses);
     }
 }
 
