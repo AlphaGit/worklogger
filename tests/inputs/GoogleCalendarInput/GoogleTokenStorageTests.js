@@ -17,7 +17,7 @@ describe('GoogleTokenStorage', () => {
     describe('#authorize', () => {
         it('returns a Promise', () => {
             const googleTokenStorage = getTestSubject();
-            var result =  googleTokenStorage.authorize(validCredentials).catch(() => {});
+            const result =  googleTokenStorage.authorize(validCredentials).catch(() => {});
             assert.ok(result instanceof Promise);
             result.catch(() => {}).then();
         });
@@ -28,23 +28,36 @@ describe('GoogleTokenStorage', () => {
             assert.throws(() => googleTokenStorage.authorize(null));
             assert.throws(() => googleTokenStorage.authorize({}));
         });
+
+        it('returns the parsed token if token file is found', (done) => {
+            const fsMock = {
+                readFile: function(tokenPath, cb) { cb(null, '{ "username": "username", "password": "password" }' ); }
+            };
+            const googleTokenStorage = getTestSubject({ fsMock });
+
+            googleTokenStorage.authorize(validCredentials).then(client => {
+                assert.equal('username', client.credentials.username);
+                assert.equal('password', client.credentials.password);
+                done();
+            }).catch(done);
+        });
     });
 });
 
 // Stubs for the instantiation of the test subject
 
-const readlineMock = {
+const defaultReadlineMock = {
     question: sinon.stub().callsArg(0),
     close: function() { }
 };
 
-const fsMock = {
+const defaultFsMock = {
     readFile: function() { },
     mkdirSync: function() { },
     writeFile: function() { }
 };
 
-const googleAuthMock = function() {
+const defaultGoogleAuthMock = function() {
     return {
         OAuth2: function() {
             return {
@@ -55,6 +68,10 @@ const googleAuthMock = function() {
     };
 };
 
-function getTestSubject() {
+function getTestSubject({
+    fsMock = defaultFsMock,
+    readlineMock = defaultReadlineMock,
+    googleAuthMock = defaultGoogleAuthMock
+} = {}) {
     return new GoogleTokenStorage(fsMock, readlineMock, googleAuthMock);
 }
