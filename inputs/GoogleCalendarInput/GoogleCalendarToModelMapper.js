@@ -6,6 +6,7 @@ class GoogleCalendarToModelMapper {
     }
 
     map(apiResponses) {
+        console.log('apiResponses:', apiResponses);
         return apiResponses
             .map(item => this._mapToWorklogs(item))
             .reduce((a, b) => a.concat(b), []); // flatten
@@ -14,7 +15,8 @@ class GoogleCalendarToModelMapper {
     _mapToWorklogs(calendarEvents) {
         var calendarConfig = calendarEvents.calendarConfig;
         var minimumTimeSlotMinutes = this.minimumLoggableTimeSlotInMinutes;
-        return calendarEvents.events
+        var events = calendarEvents.events || [];
+        return events
             .filter(e => !!e.start.dateTime && !!e.end.dateTime)
             .map(e => {
                 var startTime = Date.parse(e.start.dateTime);
