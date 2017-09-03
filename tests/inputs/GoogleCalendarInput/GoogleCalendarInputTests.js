@@ -15,9 +15,8 @@ describe('GoogleCalendarInput', () => {
         it('requests app credentials from the credential storage', (done) => {
             const credentialStorage = { retrieveAppCredentials: sinon.stub() };
             credentialStorage.retrieveAppCredentials.returns(Promise.resolve());
-            const tokenStorage = { authorize: function() {} };
 
-            const googleCalendarInput = getTestSubject({ credentialStorage: credentialStorage, tokenStorage: tokenStorage });
+            const googleCalendarInput = getTestSubject({ credentialStorage: credentialStorage });
             googleCalendarInput.getWorkLogs().then(() => {
                 assert(credentialStorage.retrieveAppCredentials.called);
                 done();
@@ -36,17 +35,19 @@ describe('GoogleCalendarInput', () => {
         });
 
         it('authorizes through the google token storage', (done) => {
-            const tokenStorage = { authorize: sinon.stub() };
+            const authorizeStub = sinon.stub();
+            const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage });
             googleCalendarInput.getWorkLogs().then(() => {
-                assert(tokenStorage.authorize.called);
+                assert(authorizeStub.called);
                 done();
             }).catch(done);
         });
 
         it('returns a failed promise if the token storage fails', (done) => {
-            const tokenStorage = { authorize: sinon.stub().returns(Promise.reject()) };
+            const authorizeStub = sinon.stub().returns(Promise.reject());
+            const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage });
             googleCalendarInput.getWorkLogs().then(() => {
@@ -57,7 +58,8 @@ describe('GoogleCalendarInput', () => {
 
         it('calls google events API with the authorization values retrieved', (done) => {
             const authenticationCredentials = { my: 'test credentials' };
-            const tokenStorage = { authorize: sinon.stub().returns(Promise.resolve(authenticationCredentials)) };
+            const authorizeStub = sinon.stub().returns(Promise.resolve(authenticationCredentials));
+            const tokenStorage = function() { return { authorize: authorizeStub }; };
             const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
             const googleApis = {
                 calendar: function() {
@@ -153,8 +155,8 @@ const defaultCredentialStorage = {
     retrieveAppCredentials: sinon.stub().returns(Promise.resolve())
 };
 
-const defaultTokenStorage = {
-    authorize: function() { }
+const defaultTokenStorage = class {
+    authorize() { }
 };
 
 const defaultGoogleApis = {

@@ -12,7 +12,7 @@ class GoogleCalendarInput {
         GoogleCalendarToModelMapper = GoogleCalendarToModelMapperRequired) {
         this.configuration = configuration;
         this.appCredentialStorage = appCredentialStorage;
-        this.googleTokenStorage = googleTokenStorage;
+        this.googleTokenStorage = new googleTokenStorage();
         this.google = google;
         this.GoogleCalendarToModelMapper = GoogleCalendarToModelMapper;
     }
