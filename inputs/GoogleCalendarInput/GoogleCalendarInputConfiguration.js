@@ -5,18 +5,6 @@ class GoogleCalendarInputConfiguration {
 
         this.name = configurationInput.name;
         this.calendars = configurationInput.calendars;
-        this.minimumLoggableTimeSlotInMinutes = configurationInput.minimumLoggableTimeSlotInMinutes;
-    }
-
-    set minimumLoggableTimeSlotInMinutes(value) {
-        if (Number.isNaN(value) || value <= 0 || !Number.isInteger(value))
-            throw new Error('MinimumTimeSlotMinutes needs to be a positive integer number');
-
-        this._minimumLoggableTimeSlotInMinutes = value;
-    }
-
-    get minimumLoggableTimeSlotInMinutes() {
-        return this._minimumLoggableTimeSlotInMinutes;
     }
 
     set calendars(value) {

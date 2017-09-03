@@ -1,6 +1,6 @@
 const logger = require('services/logger');
 
-const loadInputs = function() {
+const loadInputs = function(appConfiguration) {
     var configuration = require('./configuration.json');
 
     var loadedInputs = [];
@@ -12,7 +12,7 @@ const loadInputs = function() {
         var inputConfiguration = new inputConfigurationClass(input);
 
         var inputSystemClass = require(`./inputs/${input.type}/${input.type}`);
-        var inputSystem = new inputSystemClass(inputConfiguration);
+        var inputSystem = new inputSystemClass(appConfiguration, inputConfiguration);
 
         loadedInputs.push(inputSystem);
     }

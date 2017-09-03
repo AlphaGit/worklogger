@@ -1,16 +1,16 @@
 {
-	"inputs": [{
-		"name": "My Google Calendar",
-		"type": "GoogleCalendarInput",
-		"calendars": [{
-			"id": "[redacted]",
-			"client": "[redacted]",
-			"project": "[redacted]"
-		}, {
-			"id": "[redacted]",
-			"client": "[redacted]",
-			"project": "[redacted]"
-		}],
-		"minimumLoggableTimeSlotInMinutes": 15
-	}]
+    "inputs": [{
+        "type": "GoogleCalendarInput",
+        "name": "My Google Calendar",
+        "calendars": [{
+            "id": "[redacted]",
+            "client": "[redacted]",
+            "project": "[redacted]"
+        }, {
+            "id": "[redacted]",
+            "client": "[redacted]",
+            "project": "[redacted]"
+        }]
+    }],
+    "minimumLoggableTimeSlotInMinutes": 30
 }

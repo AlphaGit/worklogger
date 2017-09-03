@@ -9,8 +9,7 @@ const validConfigJson = {
         id: 1,
         client: 1,
         project: 1
-    }],
-    minimumLoggableTimeSlotInMinutes: 15
+    }]
 };
 
 describe('GoogleCalendarInputConfiguration', () => {
@@ -24,37 +23,6 @@ describe('GoogleCalendarInputConfiguration', () => {
 
             assert.equal(validConfigJson.name, inputConfiguration.name);
             assert.equal(validConfigJson.calendars, inputConfiguration.calendars);
-            assert.equal(validConfigJson.minimumLoggableTimeSlotInMinutes, inputConfiguration.minimumLoggableTimeSlotInMinutes);
-        });
-    });
-
-    describe('#minimumLoggableTimeSlotInMinutes', () => {
-        it('accepts only numbers', () => {
-            var inputConfiguration = new GoogleCalendarInputConfiguration(validConfigJson);
-
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 'a', /number/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = null, /number/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = undefined, /number/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = NaN, /number/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = {}, /number/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = [], /number/);
-            assert.doesNotThrow(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 10);
-        });
-
-        it('accepts only positive numbers', () => {
-            var inputConfiguration = new GoogleCalendarInputConfiguration(validConfigJson);
-
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = -1, /positive/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 0, /positive/);
-            assert.doesNotThrow(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 10);
-        });
-
-        it('accepts only integer numbers', () => {
-            var inputConfiguration = new GoogleCalendarInputConfiguration(validConfigJson);
-
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 5.3, /integer/);
-            assert.throws(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = Infinity, /integer/);
-            assert.doesNotThrow(() => inputConfiguration.minimumLoggableTimeSlotInMinutes = 10);
         });
     });
 

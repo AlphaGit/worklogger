@@ -7,8 +7,13 @@ require('tests/harness/log4js').setLevel('off');
 
 describe('GoogleCalendarInput', () => {
     describe('#constructor', () => {
-        it('requires a configuration parameter', () => {
-            assert.throws(() => getTestSubject({ configuration: null }), /required/);
+        it('requires an input configuration parameter', () => {
+            assert.throws(() => getTestSubject({ inputConfiguration: null }), /required/);
+            assert.doesNotThrow(() => getTestSubject());
+        });
+
+        it('requires an app configuration parameter', () => {
+            assert.throws(() => getTestSubject({ appConfiguration: null }), /required/);
             assert.doesNotThrow(() => getTestSubject());
         });
     });
@@ -96,8 +101,7 @@ describe('GoogleCalendarInput', () => {
                     id: 'c',
                     client: 'My client 3',
                     project: 'My project 3'
-                }],
-                minimumLoggableTimeSlotInMinutes: 15
+                }]
             };
             const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
             const googleApis = {
@@ -110,7 +114,7 @@ describe('GoogleCalendarInput', () => {
                 }
             };
 
-            const googleCalendarInput = getTestSubject({ configuration: configuration, googleApis: googleApis });
+            const googleCalendarInput = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
             googleCalendarInput.getWorkLogs().then(() => {
                 assert.ok(eventListStub.calledThrice);
                 const calendarIdArguments = eventListStub.getCalls().map(call => call.args[0].calendarId);
@@ -143,14 +147,17 @@ describe('GoogleCalendarInput', () => {
 
 // Stubs for the instantiation of the test subject
 
-const defaultConfiguration = {
+const defaultAppConfiguration = {
+    minimumLoggableTimeSlotInMinutes: 15
+};
+
+const defaultInputConfiguration = {
     name: 'test',
     calendars: [{
         id: 'a',
         client: 'My client',
         project: 'My project'
-    }],
-    minimumLoggableTimeSlotInMinutes: 15
+    }]
 };
 
 const defaultCredentialStorage = {
@@ -178,14 +185,15 @@ const defaultMapper = function() {
 };
 
 function getTestSubject({
-    configuration = defaultConfiguration,
+    appConfiguration = defaultAppConfiguration,
+    inputConfiguration = defaultInputConfiguration,
     credentialStorage = defaultCredentialStorage,
     tokenStorage = defaultTokenStorage,
     googleApis = defaultGoogleApis,
     mapper = defaultMapper } = {}) {
-    const googleCalendarConfiguration = configuration
-        ? new GoogleCalendarInputConfiguration(configuration)
+    const googleCalendarConfiguration = inputConfiguration
+        ? new GoogleCalendarInputConfiguration(inputConfiguration)
         : undefined;
 
-    return new GoogleCalendarInput(googleCalendarConfiguration, credentialStorage, tokenStorage, googleApis, mapper);
+    return new GoogleCalendarInput(appConfiguration, googleCalendarConfiguration, credentialStorage, tokenStorage, googleApis, mapper);
 }

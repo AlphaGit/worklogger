@@ -6,23 +6,32 @@ const googleTokenStorageRequired = require('./GoogleTokenStorage');
 const GoogleCalendarToModelMapperRequired = require('./GoogleCalendarToModelMapper');
 
 class GoogleCalendarInput {
-    constructor(configuration,
+    constructor(appConfiguration,
+        inputConfiguration,
         appCredentialStorage = appCredentialStorageRequired,
         googleTokenStorage = googleTokenStorageRequired,
         google = googleApisRequired,
         GoogleCalendarToModelMapper = GoogleCalendarToModelMapperRequired) {
-        this.configuration = configuration;
+        this.appConfiguration = appConfiguration;
+        this.inputConfiguration = inputConfiguration;
         this.appCredentialStorage = appCredentialStorage;
         this.googleTokenStorage = new googleTokenStorage();
         this.google = google;
         this.GoogleCalendarToModelMapper = GoogleCalendarToModelMapper;
     }
 
-    set configuration(value) {
+    set inputConfiguration(value) {
         if (!value)
             throw new Error('Configuration for GoogleCalendarInput is required');
 
-        this._configuration = value;
+        this._inputConfiguration = value;
+    }
+
+    set appConfiguration(value) {
+        if (!value)
+            throw new Error('Application configuration is required');
+
+        this._appConfiguration = value;
     }
 
     getWorkLogs() {
@@ -35,7 +44,7 @@ class GoogleCalendarInput {
     }
 
     _getEventsFromApi(auth) {
-        var calendarReturnPromises = this._configuration.calendars
+        var calendarReturnPromises = this._inputConfiguration.calendars
             .map(calendar => this._getEventsFromApiSingleCalendar(auth, calendar));
         return Promise.all(calendarReturnPromises);
     }
@@ -65,7 +74,7 @@ class GoogleCalendarInput {
     }
 
     _mapToDomainModel(apiResponses) {
-        let mapper = new this.GoogleCalendarToModelMapper(this._configuration);
+        let mapper = new this.GoogleCalendarToModelMapper(this._appConfiguration);
         return mapper.map(apiResponses);
     }
 }

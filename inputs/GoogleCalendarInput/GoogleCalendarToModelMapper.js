@@ -2,8 +2,8 @@ const Worklog = require('model/Worklog');
 const logger = require('services/logger');
 
 class GoogleCalendarToModelMapper {
-    constructor(configuration) {
-        this.minimumLoggableTimeSlotInMinutes = configuration.minimumLoggableTimeSlotInMinutes;
+    constructor(appConfiguration) {
+        this.minimumLoggableTimeSlotInMinutes = appConfiguration.minimumLoggableTimeSlotInMinutes;
     }
 
     map(apiResponses) {
