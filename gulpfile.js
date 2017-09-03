@@ -6,7 +6,7 @@ var mocha = require('gulp-mocha');
 var gutil = require('gulp-util');
 var istanbul = require('gulp-istanbul');
 
-const sourcesGlob = ['**/*.js', '!node_modules/**', '!coverage/**'];
+const sourcesGlob = ['**/*.js', '!tests/**', '!node_modules/**', '!coverage/**'];
 const testsGlob = ['tests/**/*.js'];
 
 gulp.task('default', function() {
