@@ -1,5 +1,8 @@
 require('app-module-path').addPath(__dirname);
 
+const logger = require('services/logger');
+logger.debug('Application starting');
+
 var inputLoader = require('./inputLoader');
 var loadedInputs = inputLoader.loadInputs();
 
@@ -10,12 +13,12 @@ for (let input of loadedInputs) {
 }
 
 Promise.all(worklogPromises).then(worklogInputResult => {
-    console.log(`${worklogInputResult.length} inputs retrieved`);
+    logger.info(`${worklogInputResult.length} inputs retrieved`);
     for (let worklogs of worklogInputResult) {
-        console.log(`${worklogs.length} worklogs retrieved`);
+        logger.info(`${worklogs.length} worklogs retrieved`);
         for (let worklog of worklogs) {
-            console.log(`Worklog: ${worklog}`);
+            logger.debug(`Worklog: ${worklog}`);
         }
     }
-}).catch(console.log);
+}).catch((e) => logger.error(e));
 

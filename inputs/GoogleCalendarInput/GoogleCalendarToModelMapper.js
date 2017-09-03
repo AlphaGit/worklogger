@@ -1,4 +1,5 @@
 const Worklog = require('model/Worklog');
+const logger = require('services/logger');
 
 class GoogleCalendarToModelMapper {
     constructor(configuration) {
@@ -6,7 +7,6 @@ class GoogleCalendarToModelMapper {
     }
 
     map(apiResponses) {
-        console.log('apiResponses:', apiResponses);
         return apiResponses
             .map(item => this._mapToWorklogs(item))
             .reduce((a, b) => a.concat(b), []); // flatten
@@ -16,6 +16,7 @@ class GoogleCalendarToModelMapper {
         var calendarConfig = calendarEvents.calendarConfig;
         var minimumTimeSlotMinutes = this.minimumLoggableTimeSlotInMinutes;
         var events = calendarEvents.events || [];
+        logger.trace('Events retrieved:', events);
         return events
             .filter(e => !!e.start.dateTime && !!e.end.dateTime)
             .map(e => {

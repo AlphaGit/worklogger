@@ -1,3 +1,4 @@
+const logger = require('services/logger');
 const googleApisRequired = require('googleapis');
 const appCredentialStorageRequired = require('./GoogleAppCredentialStorage');
 const googleTokenStorageRequired = require('./GoogleTokenStorage');
@@ -25,6 +26,7 @@ class GoogleCalendarInput {
     }
 
     getWorkLogs() {
+        logger.info('Retrieving worklogs from Google Calendar');
         // arrow functions needed to preserve 'this' context
         return this.appCredentialStorage.retrieveAppCredentials()
             .then(credentials => this.googleTokenStorage.authorize(credentials))
@@ -40,6 +42,7 @@ class GoogleCalendarInput {
 
     _getEventsFromApiSingleCalendar(auth, calendar) {
         return new Promise((resolve, reject) => {
+            logger.debug('Retrieving entries from calendar', calendar.id);
             this.google.calendar('v3').events.list({
                 auth: auth,
                 calendarId: calendar.id,

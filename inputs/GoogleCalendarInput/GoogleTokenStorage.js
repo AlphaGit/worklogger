@@ -2,6 +2,7 @@
 const fsRequired = require('fs');
 const readlineRequired = require('readline');
 const googleAuthRequired = require('google-auth-library');
+const logger = require('services/logger');
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_DIR = '.credentials/';
@@ -22,13 +23,14 @@ module.exports = class GoogleTokenStorage {
 
         const oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
-        //TODO configuration for logging
-        //console.log(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
+        logger.info(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
         return new Promise((resolve) => {
             this.fs.readFile(TOKEN_PATH, (err, token) => {
                 if (err) {
+                    logger.warn('Token could not be read:', err);
                     resolve(this._getNewtoken(oauth2Client));
                 } else {
+                    logger.trace('Google App token read:', token.toString());
                     oauth2Client.credentials = JSON.parse(token);
                     resolve(oauth2Client);
                 }
@@ -45,7 +47,7 @@ module.exports = class GoogleTokenStorage {
                     throw err;
             }
             this.fs.writeFile(TOKEN_PATH, JSON.stringify(token));
-            console.log(`Token stored to ${TOKEN_PATH}`);
+            logger.debug(`Token stored to ${TOKEN_PATH}`);
             resolve(token);
         });
     }
@@ -55,7 +57,7 @@ module.exports = class GoogleTokenStorage {
             access_type: 'offline',
             scope: SCOPES
         });
-        console.log(`Authorize this app by visiting this url: ${authUrl}`);
+        logger.info(`Authorize this app by visiting this url: ${authUrl}`);
         var rl = this.readline.createInterface({
             input: process.stdin,
             output: process.stdout

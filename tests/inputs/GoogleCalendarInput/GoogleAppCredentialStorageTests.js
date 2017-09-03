@@ -3,6 +3,8 @@ var GoogleAppCredentialStorage = require('inputs/GoogleCalendarInput/GoogleAppCr
 var fs = require('fs');
 var sinon = require('sinon');
 
+require('tests/harness/log4js').setLevel('off');
+
 describe('GoogleAppCredentialStorage', () => {
     describe('#retrieveAppCredentials', () => {
         it('returns a Promise', () => {

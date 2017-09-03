@@ -1,0 +1,11 @@
+{
+    "appenders": {
+        "outAppender": { "type": "stdout" }
+    },
+    "categories": {
+        "default": {
+            "appenders": ["outAppender"],
+            "level": "debug"
+        }
+    }
+}

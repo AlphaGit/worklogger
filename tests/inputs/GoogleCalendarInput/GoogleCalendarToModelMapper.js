@@ -2,6 +2,8 @@ const assert = require('assert');
 const GoogleCalendarToModelMapper = require('inputs/GoogleCalendarInput/GoogleCalendarToModelMapper');
 const Worklog = require('model/Worklog');
 
+require('tests/harness/log4js').setLevel('off');
+
 describe('GoogleCalendarToModelMapper', () => {
     describe('#constructor', () => {
         it('takes in a configuration parameter', () => {

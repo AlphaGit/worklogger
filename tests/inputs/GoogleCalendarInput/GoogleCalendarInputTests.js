@@ -3,6 +3,8 @@ const sinon = require('sinon');
 const GoogleCalendarInput = require('inputs/GoogleCalendarInput/GoogleCalendarInput');
 const GoogleCalendarInputConfiguration = require('inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
 
+require('tests/harness/log4js').setLevel('off');
+
 describe('GoogleCalendarInput', () => {
     describe('#constructor', () => {
         it('requires a configuration parameter', () => {
