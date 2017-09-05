@@ -1,4 +1,4 @@
-class GoogleCalendarInputConfiguration {
+module.exports = class InputConfiguration {
     constructor(configurationInput) {
         if (!configurationInput)
             throw new Error('A configuration JSON is required.');
@@ -34,6 +34,4 @@ class GoogleCalendarInputConfiguration {
     get calendars() {
         return this._calendars;
     }
-}
-
-module.exports = GoogleCalendarInputConfiguration;
+};

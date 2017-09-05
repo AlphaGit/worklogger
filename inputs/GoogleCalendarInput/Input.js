@@ -1,23 +1,24 @@
 const logger = require('services/logger');
+
 const googleApisRequired = require('googleapis');
-const appCredentialStorageRequired = require('./GoogleAppCredentialStorage');
-const googleTokenStorageRequired = require('./GoogleTokenStorage');
 
-const GoogleCalendarToModelMapperRequired = require('./GoogleCalendarToModelMapper');
+const CredentialStorageRequired = require('./CredentialStorage');
+const TokenStorageRequired = require('./TokenStorage');
+const ModelMapperRequired = require('./ModelMapper');
 
-class GoogleCalendarInput {
+module.exports = class Input {
     constructor(appConfiguration,
         inputConfiguration,
-        appCredentialStorage = appCredentialStorageRequired,
-        googleTokenStorage = googleTokenStorageRequired,
-        google = googleApisRequired,
-        GoogleCalendarToModelMapper = GoogleCalendarToModelMapperRequired) {
+        credentialStorage = CredentialStorageRequired,
+        TokenStorage = TokenStorageRequired,
+        googleApi = googleApisRequired,
+        ModelMapper = ModelMapperRequired) {
         this.appConfiguration = appConfiguration;
         this.inputConfiguration = inputConfiguration;
-        this.appCredentialStorage = appCredentialStorage;
-        this.googleTokenStorage = new googleTokenStorage();
-        this.google = google;
-        this.GoogleCalendarToModelMapper = GoogleCalendarToModelMapper;
+        this.credentialStorage = credentialStorage;
+        this.tokenStorage = new TokenStorage();
+        this.googleApi = googleApi;
+        this.ModelMapper = ModelMapper;
     }
 
     set inputConfiguration(value) {
@@ -37,8 +38,8 @@ class GoogleCalendarInput {
     getWorkLogs() {
         logger.info('Retrieving worklogs from Google Calendar');
         // arrow functions needed to preserve 'this' context
-        return this.appCredentialStorage.retrieveAppCredentials()
-            .then(credentials => this.googleTokenStorage.authorize(credentials))
+        return this.credentialStorage.retrieveAppCredentials()
+            .then(credentials => this.tokenStorage.authorize(credentials))
             .then(auth => this._getEventsFromApi(auth))
             .then(apiResponses => this._mapToDomainModel(apiResponses));
     }
@@ -58,7 +59,7 @@ class GoogleCalendarInput {
 
         return new Promise((resolve, reject) => {
             logger.debug('Retrieving entries from calendar', calendar.id);
-            this.google.calendar('v3').events.list({
+            this.googleApi.calendar('v3').events.list({
                 auth: auth,
                 calendarId: calendar.id,
                 timeMin: minimumTimeFilter.toISOString(),
@@ -81,9 +82,7 @@ class GoogleCalendarInput {
     }
 
     _mapToDomainModel(apiResponses) {
-        let mapper = new this.GoogleCalendarToModelMapper(this._appConfiguration);
+        let mapper = new this.ModelMapper(this._appConfiguration);
         return mapper.map(apiResponses);
     }
-}
-
-module.exports = GoogleCalendarInput;
+};

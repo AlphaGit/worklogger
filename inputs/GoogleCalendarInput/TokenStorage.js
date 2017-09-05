@@ -8,8 +8,10 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_DIR = '.credentials/';
 const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
 
-module.exports = class GoogleTokenStorage {
-    constructor(fs = fsRequired, readline = readlineRequired, googleAuth = googleAuthRequired) {
+module.exports = class TokenStorage {
+    constructor(fs = fsRequired,
+        readline = readlineRequired,
+        googleAuth = googleAuthRequired) {
         this.fs = fs;
         this.readline = readline;
         this.googleAuth = googleAuth;

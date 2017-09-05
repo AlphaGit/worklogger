@@ -1,7 +1,7 @@
 const Worklog = require('model/Worklog');
 const logger = require('services/logger');
 
-class GoogleCalendarToModelMapper {
+module.exports = class ModelMapper {
     constructor(appConfiguration) {
         this.minimumLoggableTimeSlotInMinutes = appConfiguration.minimumLoggableTimeSlotInMinutes;
     }
@@ -29,6 +29,4 @@ class GoogleCalendarToModelMapper {
                 return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project);
             });
     }
-}
-
-module.exports = GoogleCalendarToModelMapper;
+};

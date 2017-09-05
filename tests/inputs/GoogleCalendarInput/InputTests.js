@@ -1,11 +1,11 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const GoogleCalendarInput = require('inputs/GoogleCalendarInput/GoogleCalendarInput');
-const GoogleCalendarInputConfiguration = require('inputs/GoogleCalendarInput/GoogleCalendarInputConfiguration');
+const Input = require('inputs/GoogleCalendarInput/Input');
+const InputConfiguration = require('inputs/GoogleCalendarInput/InputConfiguration');
 
 require('tests/harness/log4js').setLevel('off');
 
-describe('GoogleCalendarInput', () => {
+describe('[Google Calendar] Input', () => {
     describe('#constructor', () => {
         it('requires an input configuration parameter', () => {
             assert.throws(() => getTestSubject({ inputConfiguration: null }), /required/);
@@ -23,8 +23,8 @@ describe('GoogleCalendarInput', () => {
             const credentialStorage = { retrieveAppCredentials: sinon.stub() };
             credentialStorage.retrieveAppCredentials.returns(Promise.resolve());
 
-            const googleCalendarInput = getTestSubject({ credentialStorage: credentialStorage });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ credentialStorage: credentialStorage });
+            input.getWorkLogs().then(() => {
                 assert(credentialStorage.retrieveAppCredentials.called);
                 done();
             }).catch(done);
@@ -34,8 +34,8 @@ describe('GoogleCalendarInput', () => {
             const credentialStorage = { retrieveAppCredentials: sinon.stub() };
             credentialStorage.retrieveAppCredentials.returns(Promise.reject());
 
-            const googleCalendarInput = getTestSubject({ credentialStorage: credentialStorage });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ credentialStorage: credentialStorage });
+            input.getWorkLogs().then(() => {
                 assert.fail('Promise was not rejected on error.');
                 done();
             }).catch(() => done());
@@ -45,8 +45,8 @@ describe('GoogleCalendarInput', () => {
             const authorizeStub = sinon.stub();
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
-            const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ tokenStorage: tokenStorage });
+            input.getWorkLogs().then(() => {
                 assert(authorizeStub.called);
                 done();
             }).catch(done);
@@ -56,8 +56,8 @@ describe('GoogleCalendarInput', () => {
             const authorizeStub = sinon.stub().returns(Promise.reject());
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
-            const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ tokenStorage: tokenStorage });
+            input.getWorkLogs().then(() => {
                 assert.fail('Promise was not rejected on error');
                 done();
             }).catch(() => done());
@@ -78,8 +78,8 @@ describe('GoogleCalendarInput', () => {
                 }
             };
 
-            const googleCalendarInput = getTestSubject({ tokenStorage: tokenStorage, googleApis: googleApis });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ tokenStorage: tokenStorage, googleApis: googleApis });
+            input.getWorkLogs().then(() => {
                 assert.ok(eventListStub.calledOnce);
                 assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
                 done();
@@ -115,8 +115,8 @@ describe('GoogleCalendarInput', () => {
                 }
             };
 
-            const googleCalendarInput = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
+            input.getWorkLogs().then(() => {
                 assert.ok(eventListStub.calledThrice);
 
                 const eventListCallArguments = eventListStub.getCalls().map(call => call.args[0]);
@@ -153,8 +153,8 @@ describe('GoogleCalendarInput', () => {
                 }
             };
 
-            const googleCalendarInput = getTestSubject({ googleApis: googleApis });
-            googleCalendarInput.getWorkLogs().then(() => {
+            const input = getTestSubject({ googleApis: googleApis });
+            input.getWorkLogs().then(() => {
                 assert.fail('Promise was not rejected on error');
                 done();
             }).catch(() => done());
@@ -209,9 +209,10 @@ function getTestSubject({
     tokenStorage = defaultTokenStorage,
     googleApis = defaultGoogleApis,
     mapper = defaultMapper } = {}) {
-    const googleCalendarConfiguration = inputConfiguration
-        ? new GoogleCalendarInputConfiguration(inputConfiguration)
+
+    const inputConfigurationInstance = inputConfiguration
+        ? new InputConfiguration(inputConfiguration)
         : undefined;
 
-    return new GoogleCalendarInput(appConfiguration, googleCalendarConfiguration, credentialStorage, tokenStorage, googleApis, mapper);
+    return new Input(appConfiguration, inputConfigurationInstance, credentialStorage, tokenStorage, googleApis, mapper);
 }

@@ -1,13 +1,13 @@
 const assert = require('assert');
-const GoogleCalendarToModelMapper = require('inputs/GoogleCalendarInput/GoogleCalendarToModelMapper');
+const ModelMapper = require('inputs/GoogleCalendarInput/ModelMapper');
 const Worklog = require('model/Worklog');
 
 require('tests/harness/log4js').setLevel('off');
 
-describe('GoogleCalendarToModelMapper', () => {
+describe('[Google Calendar] ModelMapper', () => {
     describe('#constructor', () => {
         it('takes in a configuration parameter', () => {
-            const mapper = new GoogleCalendarToModelMapper({ minimumLoggableTimeSlotInMinutes: 17 });
+            const mapper = new ModelMapper({ minimumLoggableTimeSlotInMinutes: 17 });
             assert.equal(17, mapper.minimumLoggableTimeSlotInMinutes);
         });
     });
@@ -71,7 +71,7 @@ function getMapper({
     const configuration = {
         minimumLoggableTimeSlotInMinutes: minimumLoggableTimeSlotInMinutes
     };
-    return new GoogleCalendarToModelMapper(configuration);
+    return new ModelMapper(configuration);
 }
 
 function getTestApiResponse({

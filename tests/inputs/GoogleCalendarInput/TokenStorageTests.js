@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 require('tests/harness/log4js').setLevel('off');
 
-var GoogleTokenStorage = require('inputs/GoogleCalendarInput/GoogleTokenStorage');
+var TokenStorage = require('inputs/GoogleCalendarInput/TokenStorage');
 
 var validCredentials = {
     installed: {
@@ -15,29 +15,29 @@ var validCredentials = {
     }
 };
 
-describe('GoogleTokenStorage', () => {
+describe('[Google Calendar] TokenStorage', () => {
     describe('#authorize', () => {
         it('returns a Promise', () => {
-            const googleTokenStorage = getTestSubject();
-            const result =  googleTokenStorage.authorize(validCredentials).catch(() => {});
+            const TokenStorage = getTestSubject();
+            const result =  TokenStorage.authorize(validCredentials).catch(() => {});
             assert.ok(result instanceof Promise);
             result.catch(() => {}).then();
         });
 
         it('requires existing credentials', () => {
-            const googleTokenStorage = getTestSubject();
-            assert.throws(() => googleTokenStorage.authorize(undefined));
-            assert.throws(() => googleTokenStorage.authorize(null));
-            assert.throws(() => googleTokenStorage.authorize({}));
+            const TokenStorage = getTestSubject();
+            assert.throws(() => TokenStorage.authorize(undefined));
+            assert.throws(() => TokenStorage.authorize(null));
+            assert.throws(() => TokenStorage.authorize({}));
         });
 
         it('returns the parsed token if token file is found', (done) => {
             const fsMock = {
                 readFile: function(tokenPath, cb) { cb(null, '{ "username": "username", "password": "password" }' ); }
             };
-            const googleTokenStorage = getTestSubject({ fsMock });
+            const TokenStorage = getTestSubject({ fsMock });
 
-            googleTokenStorage.authorize(validCredentials).then(client => {
+            TokenStorage.authorize(validCredentials).then(client => {
                 assert.equal('username', client.credentials.username);
                 assert.equal('password', client.credentials.password);
                 done();
@@ -75,5 +75,5 @@ function getTestSubject({
     readlineMock = defaultReadlineMock,
     googleAuthMock = defaultGoogleAuthMock
 } = {}) {
-    return new GoogleTokenStorage(fsMock, readlineMock, googleAuthMock);
+    return new TokenStorage(fsMock, readlineMock, googleAuthMock);
 }
