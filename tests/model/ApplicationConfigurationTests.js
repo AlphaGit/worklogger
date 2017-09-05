@@ -86,9 +86,9 @@ describe('ApplicationConfiguration', () => {
 });
 
 function getFsMock({
-        shouldFailAccess = false,
-        fileContents = ''
-    } = {}) {
+    shouldFailAccess = false,
+    fileContents = ''
+} = {}) {
     return {
         constants: {
             R_OK: 1
