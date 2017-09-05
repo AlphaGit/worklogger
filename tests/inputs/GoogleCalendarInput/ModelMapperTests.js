@@ -16,8 +16,6 @@ describe('[Google Calendar] ModelMapper', () => {
         describe('maps to a Worklog with the correct information', () => {
             const mapper = getMapper();
             const apiResponse = getTestApiResponse({
-                client: 'My client',
-                project: 'My project',
                 eventName: 'My event name',
                 startDateTime: '2017-08-28T20:30:00-05:00',
                 endDateTime: '2017-08-28T21:00:00-05:00'
@@ -27,8 +25,6 @@ describe('[Google Calendar] ModelMapper', () => {
 
             assert.equal(1, result.length);
             assert(result[0] instanceof Worklog);
-            assert.equal('My client', result[0].client);
-            assert.equal('My project', result[0].project);
             assert.equal('My event name', result[0].name);
             assert.equal(Date.parse('2017-08-28T20:30:00-05:00'), result[0].startDateTime);
             assert.equal(Date.parse('2017-08-28T21:00:00-05:00'), result[0].endDateTime);
@@ -48,8 +44,6 @@ describe('[Google Calendar] ModelMapper', () => {
         describe('restricts events to a configurable minimum loggable time slot', () => {
             const mapper = getMapper({ minimumLoggableTimeSlotInMinutes: 60 });
             const apiResponse = getTestApiResponse({
-                client: 'My client',
-                project: 'My project',
                 eventName: 'My event name',
                 startDateTime: '2017-08-28T20:30:00-05:00',
                 endDateTime: '2017-08-28T21:00:00-05:00'
@@ -75,18 +69,13 @@ function getMapper({
 }
 
 function getTestApiResponse({
-    client = 'Test client',
-    project = 'Test project',
     eventName = 'Test event',
     startDateTime = new Date().toISOString(),
     endDateTime = new Date(Date.now() + (1000 * 60 * 30)).toISOString(), // 30 mins later
     eventCount = 1,
 } = {}) {
     let apiResponse = {
-        calendarConfig: {
-            client: client,
-            project: project,
-        },
+        calendarConfig: {},
         events: []
     };
 
