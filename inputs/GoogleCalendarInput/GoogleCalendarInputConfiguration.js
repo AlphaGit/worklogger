@@ -5,6 +5,7 @@ class GoogleCalendarInputConfiguration {
 
         this.name = configurationInput.name;
         this.calendars = configurationInput.calendars;
+        this.readFromXHoursAgo = configurationInput.readFromXHoursAgo;
     }
 
     set calendars(value) {

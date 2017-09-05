@@ -9,7 +9,8 @@ const validConfigJson = {
         id: 1,
         client: 1,
         project: 1
-    }]
+    }],
+    readFromXHoursAgo: 24
 };
 
 describe('GoogleCalendarInputConfiguration', () => {
@@ -23,6 +24,7 @@ describe('GoogleCalendarInputConfiguration', () => {
 
             assert.equal(validConfigJson.name, inputConfiguration.name);
             assert.equal(validConfigJson.calendars, inputConfiguration.calendars);
+            assert.equal(validConfigJson.readFromXHoursAgo, inputConfiguration.readFromXHoursAgo);
         });
     });
 

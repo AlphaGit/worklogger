@@ -101,7 +101,8 @@ describe('GoogleCalendarInput', () => {
                     id: 'c',
                     client: 'My client 3',
                     project: 'My project 3'
-                }]
+                }],
+                readFromXHoursAgo: 10
             };
             const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
             const googleApis = {
@@ -117,10 +118,26 @@ describe('GoogleCalendarInput', () => {
             const googleCalendarInput = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
             googleCalendarInput.getWorkLogs().then(() => {
                 assert.ok(eventListStub.calledThrice);
-                const calendarIdArguments = eventListStub.getCalls().map(call => call.args[0].calendarId);
+
+                const eventListCallArguments = eventListStub.getCalls().map(call => call.args[0]);
+
+                const calendarIdArguments = eventListCallArguments.map(a => a.calendarId);
                 for (const calendarId of calendarIdArguments) {
                     assert.ok(configuration.calendars.some(c => c.id === calendarId));
                 }
+
+                const timeMinimumArguments = eventListCallArguments.map(a => a.timeMin);
+                for (const timeMinArg of timeMinimumArguments) {
+                    assert.ok(new Date(timeMinArg) < Date.now() - (10 * 60 * 60 * 1000 - 500));
+                    assert.ok(new Date(timeMinArg) > Date.now() - (10 * 60 * 60 * 1000 + 500));
+                }
+
+                const timeMaximumArguments = eventListCallArguments.map(a => a.timeMax);
+                for (const timeMaxArg of timeMaximumArguments) {
+                    assert.ok(new Date(timeMaxArg) < Date.now() + 500);
+                    assert.ok(new Date(timeMaxArg) > Date.now() - 500);
+                }
+
                 done();
             }).catch(done);
         });
@@ -157,7 +174,8 @@ const defaultInputConfiguration = {
         id: 'a',
         client: 'My client',
         project: 'My project'
-    }]
+    }],
+    readFromXHoursAgo: 5
 };
 
 const defaultCredentialStorage = {

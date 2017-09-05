@@ -50,13 +50,20 @@ class GoogleCalendarInput {
     }
 
     _getEventsFromApiSingleCalendar(auth, calendar) {
+        const maximumTimeFilter = new Date();
+        const timeOffset = this._inputConfiguration.readFromXHoursAgo * 60 * 60 * 1000;
+        const minimumTimeFilter = new Date(maximumTimeFilter - timeOffset);
+
+        logger.debug('Filtering calendar events from', minimumTimeFilter, 'to', maximumTimeFilter);
+
         return new Promise((resolve, reject) => {
             logger.debug('Retrieving entries from calendar', calendar.id);
             this.google.calendar('v3').events.list({
                 auth: auth,
                 calendarId: calendar.id,
-                timeMin: (new Date()).toISOString(),
-                maxResults: 10,
+                timeMin: minimumTimeFilter.toISOString(),
+                timeMax: maximumTimeFilter.toISOString(),
+                maxResults: 100,
                 singleEvents: true,
                 orderBy: 'startTime'
             }, (err, response) => {
