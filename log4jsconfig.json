@@ -1,6 +1,12 @@
 {
     "appenders": {
-        "outAppender": { "type": "stdout" }
+        "outAppender": {
+            "type": "stdout",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%[[%d{ABSOLUTE}] [%-5p]%] %m"
+            }
+        }
     },
     "categories": {
         "default": {
