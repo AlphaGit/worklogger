@@ -1,5 +1,7 @@
 const defaultFs = require('fs');
 
+const logger = require('services/logger');
+
 module.exports = class ApplicationConfiguration {
     static getConfiguration(configurationFile, fs = defaultFs) {
         if (typeof(configurationFile) !== 'string')
@@ -28,6 +30,7 @@ module.exports = class ApplicationConfiguration {
                     minimumLoggableTimeSlotInMinutes: parsedFile.minimumLoggableTimeSlotInMinutes
                 }));
             } catch (e) {
+                logger.error(e);
                 reject('Configuration file is not valid.');
             }
         });

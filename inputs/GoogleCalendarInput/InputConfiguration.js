@@ -16,16 +16,10 @@ module.exports = class InputConfiguration {
             throw new Error('Need at least one calendar.');
 
         for (var i = 0; i < value.length; i++) {
-            var calendar = value[i];
+            var calendarId = value[i];
 
-            if (!calendar.id)
+            if (!calendarId)
                 throw new Error(`Calendar element ${i} (zero-based) does not have an id.`);
-
-            if (!calendar.client)
-                throw new Error('Calendar does not have a client assigned.');
-
-            if (!calendar.project)
-                throw new Error('Calendar does not have a project assigned.');
         }
 
         this._calendars = value;

@@ -26,7 +26,7 @@ module.exports = class ModelMapper {
                 if (duration % minimumTimeSlotMinutes != 0) {
                     duration = minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
                 }
-                return new Worklog(e.summary, startTime, endTime, duration, calendarConfig.client, calendarConfig.project);
+                return new Worklog(e.summary, startTime, endTime, duration);
             });
     }
 };
