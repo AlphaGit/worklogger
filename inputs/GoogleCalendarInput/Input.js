@@ -50,7 +50,7 @@ module.exports = class Input {
         return Promise.all(calendarReturnPromises);
     }
 
-    _getEventsFromApiSingleCalendar(auth, calendarId) {
+    _getEventsFromApiSingleCalendar(auth, calendar) {
         const maximumTimeFilter = new Date();
         const timeOffset = this._inputConfiguration.readFromXHoursAgo * 60 * 60 * 1000;
         const minimumTimeFilter = new Date(maximumTimeFilter - timeOffset);
@@ -58,10 +58,10 @@ module.exports = class Input {
         logger.debug('Filtering calendar events from', minimumTimeFilter, 'to', maximumTimeFilter);
 
         return new Promise((resolve, reject) => {
-            logger.debug('Retrieving entries from calendar', calendarId);
+            logger.debug('Retrieving entries from calendar', calendar.id);
             this.googleApi.calendar('v3').events.list({
                 auth: auth,
-                calendarId: calendarId,
+                calendarId: calendar.id,
                 timeMin: minimumTimeFilter.toISOString(),
                 timeMax: maximumTimeFilter.toISOString(),
                 maxResults: 100,
@@ -74,7 +74,7 @@ module.exports = class Input {
                 }
 
                 resolve({
-                    calendarId: calendarId,
+                    calendarId: calendar.id,
                     events: response.items
                 });
             });

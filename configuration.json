@@ -2,10 +2,11 @@
     "inputs": [{
         "type": "GoogleCalendarInput",
         "name": "My Google Calendar",
-        "calendars": [
-            "calendarId1@group.calendar.google.com",
-            "calendarId2@group.calendar.google.com"
-        ],
+        "calendars": [{
+            "id": "calendar1@group.calendar.google.com"
+        }, {
+            "id": "calendar2@group.calendar.google.com"
+        }],
         "readFromXHoursAgo": 24
     }],
     "minimumLoggableTimeSlotInMinutes": 30

@@ -89,7 +89,7 @@ describe('[Google Calendar] Input', () => {
         it('calls google API for every calendar in the configuration', (done) => {
             const configuration =  {
                 name: 'test',
-                calendars: ['a', 'b', 'c'],
+                calendars: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
                 readFromXHoursAgo: 10
             };
             const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
@@ -111,7 +111,7 @@ describe('[Google Calendar] Input', () => {
 
                 const calendarIdArguments = eventListCallArguments.map(a => a.calendarId);
                 for (const calendarId of calendarIdArguments) {
-                    assert.ok(configuration.calendars.some(c => c === calendarId));
+                    assert.ok(configuration.calendars.some(c => c.id === calendarId));
                 }
 
                 const timeMinimumArguments = eventListCallArguments.map(a => a.timeMin);
@@ -159,9 +159,7 @@ const defaultAppConfiguration = {
 const defaultInputConfiguration = {
     name: 'test',
     calendars: [{
-        id: 'a',
-        client: 'My client',
-        project: 'My project'
+        id: 'a'
     }],
     readFromXHoursAgo: 5
 };
