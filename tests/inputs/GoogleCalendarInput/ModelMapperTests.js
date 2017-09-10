@@ -13,7 +13,7 @@ describe('[Google Calendar] ModelMapper', () => {
     });
 
     describe('#map', () => {
-        describe('maps to a Worklog with the correct information', () => {
+        it('maps to a Worklog with the correct information', () => {
             const mapper = getMapper();
             const apiResponse = getTestApiResponse({
                 eventName: 'My event name',
@@ -31,7 +31,7 @@ describe('[Google Calendar] ModelMapper', () => {
             assert.equal(30, result[0].duration);
         });
 
-        describe('flattens arrays of arrays of events to a single array', () => {
+        it('flattens arrays of arrays of events to a single array', () => {
             const mapper = getMapper();
             const apiResponse = getTestApiResponse({ eventCount: 2 });
             const secondApiResponse = getTestApiResponse({ eventCount: 3 });
@@ -41,7 +41,7 @@ describe('[Google Calendar] ModelMapper', () => {
             assert.equal(5, result.length);
         });
 
-        describe('restricts events to a configurable minimum loggable time slot', () => {
+        it('restricts events to a configurable minimum loggable time slot', () => {
             const mapper = getMapper({ minimumLoggableTimeSlotInMinutes: 60 });
             const apiResponse = getTestApiResponse({
                 eventName: 'My event name',
@@ -53,6 +53,42 @@ describe('[Google Calendar] ModelMapper', () => {
 
             assert.equal(1, result.length);
             assert.equal(60, result[0].duration);
+        });
+
+        it('includes tags as indicated by the configuration for each calendar', () => {
+            const mapper = getMapper();
+            const apiResponse = getTestApiResponse({ eventCount: 2, includeTags: ['client:Test Client', 'project:Test Project'] });
+
+            const result = mapper.map([apiResponse]);
+
+            assert.equal(2, result.length);
+
+            const worklog1 = result[0];
+            assert.equal('Test Client', worklog1.getTagValue('client'));
+            assert.equal('Test Project', worklog1.getTagValue('project'));
+
+            const worklog2 = result[1];
+            assert.equal('Test Client', worklog2.getTagValue('client'));
+            assert.equal('Test Project', worklog2.getTagValue('project'));
+        });
+
+        it('considers tags only after the first colon', () => {
+            const mapper = getMapper();
+            const apiResponse = getTestApiResponse({ eventCount: 1, includeTags: ['test:Test', 'test1:Test:With:Colons'] });
+
+            const result = mapper.map([apiResponse]);
+            const worklog = result[0];
+            assert.equal('Test', worklog.getTagValue('test'));
+            assert.equal('Test:With:Colons', worklog.getTagValue('test1'));
+        });
+
+        it('doesn\'t include any tags if includeTags is empty', () => {
+            const mapper = getMapper();
+            const apiResponse = getTestApiResponse({ eventCount: 1, includeTags: null });
+
+            const result = mapper.map([apiResponse]);
+            const worklog = result[0];
+            assert.equal(undefined, worklog.getTagValue('test'));
         });
     });
 });
@@ -73,9 +109,13 @@ function getTestApiResponse({
     startDateTime = new Date().toISOString(),
     endDateTime = new Date(Date.now() + (1000 * 60 * 30)).toISOString(), // 30 mins later
     eventCount = 1,
+    includeTags = [],
 } = {}) {
     let apiResponse = {
-        calendarConfig: {},
+        calendarConfig: {
+            id: "calendar1",
+            includeTags: includeTags
+        },
         events: []
     };
 

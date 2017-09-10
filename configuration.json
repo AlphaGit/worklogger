@@ -3,9 +3,17 @@
         "type": "GoogleCalendarInput",
         "name": "My Google Calendar",
         "calendars": [{
-            "id": "calendar1@group.calendar.google.com"
+            "id": "calendar1@group.calendar.google.com",
+            "includeTags": [
+                "client:My Client 1",
+                "project:My Project 1"
+            ]
         }, {
-            "id": "calendar2@group.calendar.google.com"
+            "id": "calendar2@group.calendar.google.com",
+            "includeTags": [
+                "client:My Client 2",
+                "project:My Project 2"
+            ]
         }],
         "readFromXHoursAgo": 24
     }],

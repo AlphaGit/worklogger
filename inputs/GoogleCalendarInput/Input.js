@@ -74,7 +74,7 @@ module.exports = class Input {
                 }
 
                 resolve({
-                    calendarId: calendar.id,
+                    calendarConfig: calendar,
                     events: response.items
                 });
             });
