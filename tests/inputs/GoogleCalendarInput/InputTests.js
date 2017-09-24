@@ -24,7 +24,7 @@ describe('[Google Calendar] Input', () => {
             credentialStorage.retrieveAppCredentials.returns(Promise.resolve());
 
             const input = getTestSubject({ credentialStorage: credentialStorage });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert(credentialStorage.retrieveAppCredentials.called);
                 done();
             }).catch(done);
@@ -35,7 +35,7 @@ describe('[Google Calendar] Input', () => {
             credentialStorage.retrieveAppCredentials.returns(Promise.reject());
 
             const input = getTestSubject({ credentialStorage: credentialStorage });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert.fail('Promise was not rejected on error.');
                 done();
             }).catch(() => done());
@@ -46,7 +46,7 @@ describe('[Google Calendar] Input', () => {
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const input = getTestSubject({ tokenStorage: tokenStorage });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert(authorizeStub.called);
                 done();
             }).catch(done);
@@ -57,7 +57,7 @@ describe('[Google Calendar] Input', () => {
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const input = getTestSubject({ tokenStorage: tokenStorage });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert.fail('Promise was not rejected on error');
                 done();
             }).catch(() => done());
@@ -79,7 +79,7 @@ describe('[Google Calendar] Input', () => {
             };
 
             const input = getTestSubject({ tokenStorage: tokenStorage, googleApis: googleApis });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert.ok(eventListStub.calledOnce);
                 assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
                 done();
@@ -104,7 +104,10 @@ describe('[Google Calendar] Input', () => {
             };
 
             const input = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
-            input.getWorkLogs().then(() => {
+            const startDateTime = new Date(Date.now() - 1 * 60 * 60 * 1000);
+            const endDateTime = new Date();
+
+            input.getWorkLogs(startDateTime, endDateTime).then(() => {
                 assert.ok(eventListStub.calledThrice);
 
                 const eventListCallArguments = eventListStub.getCalls().map(call => call.args[0]);
@@ -116,14 +119,12 @@ describe('[Google Calendar] Input', () => {
 
                 const timeMinimumArguments = eventListCallArguments.map(a => a.timeMin);
                 for (const timeMinArg of timeMinimumArguments) {
-                    assert.ok(new Date(timeMinArg) < Date.now() - (10 * 60 * 60 * 1000 - 500));
-                    assert.ok(new Date(timeMinArg) > Date.now() - (10 * 60 * 60 * 1000 + 500));
+                    assert.equal(timeMinArg, startDateTime.toISOString());
                 }
 
                 const timeMaximumArguments = eventListCallArguments.map(a => a.timeMax);
                 for (const timeMaxArg of timeMaximumArguments) {
-                    assert.ok(new Date(timeMaxArg) < Date.now() + 500);
-                    assert.ok(new Date(timeMaxArg) > Date.now() - 500);
+                    assert.equal(timeMaxArg, endDateTime.toISOString());
                 }
 
                 done();
@@ -142,7 +143,7 @@ describe('[Google Calendar] Input', () => {
             };
 
             const input = getTestSubject({ googleApis: googleApis });
-            input.getWorkLogs().then(() => {
+            input.getWorkLogs(new Date(), new Date()).then(() => {
                 assert.fail('Promise was not rejected on error');
                 done();
             }).catch(() => done());
@@ -153,7 +154,9 @@ describe('[Google Calendar] Input', () => {
 // Stubs for the instantiation of the test subject
 
 const defaultAppConfiguration = {
-    minimumLoggableTimeSlotInMinutes: 15
+    options: {
+        minimumLoggableTimeSlotInMinutes: 15
+    }
 };
 
 const defaultInputConfiguration = {

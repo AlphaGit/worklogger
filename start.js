@@ -1,29 +1,66 @@
 require('app-module-path').addPath(__dirname);
 
-const ApplicationConfiguration = require('model/ApplicationConfiguration');
+const WorklogSet = require('model/WorklogSet');
+
 const logger = require('services/logger');
 
 logger.debug('Application starting');
 
-var inputLoader = require('./inputLoader');
+let environment = {};
 
-ApplicationConfiguration.getConfiguration('./configuration.json').then(appConfiguration => {
-    var loadedInputs = inputLoader.loadInputs(appConfiguration);
+Promise.resolve(environment)
+    .then(loadConfiguration)
+    .then(detectDates)
+    .then(loadFromInputs)
+    .then(displayWorklogs)
+    .then(createWorklogSet)
+    //.then transformations
+    //.then outputs
+    .catch((e) => logger.error(e));
 
-    var worklogPromises = [];
+function displayWorklogs(environment) {
+    const worklogsPerInput = environment.worklogsPerInput;
 
-    for (let input of loadedInputs) {
-        worklogPromises = worklogPromises.concat(input.getWorkLogs());
+    logger.info(`${worklogsPerInput.length} inputs retrieved`);
+    for (let worklogs of worklogsPerInput) {
+        logger.info(`${worklogs.length} worklogs retrieved`);
+        for (let worklog of worklogs) {
+            logger.debug(`Worklog: ${worklog}`);
+        }
     }
 
-    return Promise.all(worklogPromises).then(worklogInputResult => {
-        logger.info(`${worklogInputResult.length} inputs retrieved`);
-        for (let worklogs of worklogInputResult) {
-            logger.info(`${worklogs.length} worklogs retrieved`);
-            for (let worklog of worklogs) {
-                logger.debug(`Worklog: ${worklog}`);
-            }
-        }
-    });
-}).catch((e) => logger.error(e));
+    return environment;
+}
 
+function loadFromInputs(environment) {
+    const inputLoader = require('./inputLoader');
+    const loadedInputs = inputLoader.loadInputs(environment.appConfiguration);
+    return Promise.all(loadedInputs.map(i => i.getWorkLogs(environment.startDateTime, environment.endDateTime)))
+        .then(worklogsPerInput => {
+            environment.worklogsPerInput = worklogsPerInput;
+            return environment;
+        });
+}
+
+function createWorklogSet(environment) {
+    const flattenedWorklogs = Array.prototype.concat(...environment.worklogsPerInput);
+    environment.worklogSet = new WorklogSet(environment.startDateTime, environment.endDateTime, flattenedWorklogs);
+    return environment;
+}
+
+function detectDates(environment) {
+    const hoursAgo = environment.appConfiguration.options.fromHowManyHoursAgo;
+    const endDateTime = new Date();
+    const startDateTime = new Date(+endDateTime - (hoursAgo * 60 * 60 * 1000));
+    logger.info(`Range of dates to consider from inputs: ${startDateTime} - ${endDateTime}`);
+
+    environment.startDateTime = startDateTime;
+    environment.endDateTime = endDateTime;
+
+    return environment;
+}
+
+function loadConfiguration(environment) {
+    environment.appConfiguration = require('./configuration.json');
+    return environment;
+}

@@ -2,8 +2,8 @@ const Worklog = require('model/Worklog');
 const logger = require('services/logger');
 
 module.exports = class ModelMapper {
-    constructor(appConfiguration) {
-        this.minimumLoggableTimeSlotInMinutes = appConfiguration.minimumLoggableTimeSlotInMinutes;
+    constructor(minimumLoggableTimeSlotInMinutes) {
+        this.minimumLoggableTimeSlotInMinutes = minimumLoggableTimeSlotInMinutes;
     }
 
     map(apiResponses) {

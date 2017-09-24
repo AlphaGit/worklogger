@@ -7,7 +7,7 @@ require('tests/harness/log4js').setLevel('off');
 describe('[Google Calendar] ModelMapper', () => {
     describe('#constructor', () => {
         it('takes in a configuration parameter', () => {
-            const mapper = new ModelMapper({ minimumLoggableTimeSlotInMinutes: 17 });
+            const mapper = new ModelMapper(17);
             assert.equal(17, mapper.minimumLoggableTimeSlotInMinutes);
         });
     });
@@ -98,10 +98,7 @@ describe('[Google Calendar] ModelMapper', () => {
 function getMapper({
     minimumLoggableTimeSlotInMinutes = 30
 } = {}) {
-    const configuration = {
-        minimumLoggableTimeSlotInMinutes: minimumLoggableTimeSlotInMinutes
-    };
-    return new ModelMapper(configuration);
+    return new ModelMapper(minimumLoggableTimeSlotInMinutes);
 }
 
 function getTestApiResponse({

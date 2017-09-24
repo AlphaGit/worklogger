@@ -1,4 +1,8 @@
 {
+    "options": {
+        "minimumLoggableTimeSlotInMinutes": 30,
+        "fromHowManyHoursAgo": 72
+    },
     "inputs": [{
         "type": "GoogleCalendarInput",
         "name": "My Google Calendar",
@@ -14,8 +18,9 @@
                 "client:My Client 2",
                 "project:My Project 2"
             ]
-        }],
-        "readFromXHoursAgo": 24
+        }]
     }],
-    "minimumLoggableTimeSlotInMinutes": 30
+    "outputs": [{
+        "type": "TextFile"
+    }]
 }

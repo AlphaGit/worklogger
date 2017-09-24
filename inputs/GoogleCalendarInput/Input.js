@@ -35,35 +35,31 @@ module.exports = class Input {
         this._appConfiguration = value;
     }
 
-    getWorkLogs() {
+    getWorkLogs(startDateTime, endDateTime) {
         logger.info('Retrieving worklogs from Google Calendar');
         // arrow functions needed to preserve 'this' context
         return this.credentialStorage.retrieveAppCredentials()
             .then(credentials => this.tokenStorage.authorize(credentials))
-            .then(auth => this._getEventsFromApi(auth))
+            .then(auth => this._getEventsFromApi(auth, startDateTime, endDateTime))
             .then(apiResponses => this._mapToDomainModel(apiResponses));
     }
 
-    _getEventsFromApi(auth) {
+    _getEventsFromApi(auth, startDateTime, endDateTime) {
         var calendarReturnPromises = this._inputConfiguration.calendars
-            .map(calendarId => this._getEventsFromApiSingleCalendar(auth, calendarId));
+            .map(calendarId => this._getEventsFromApiSingleCalendar(auth, calendarId, startDateTime, endDateTime));
         return Promise.all(calendarReturnPromises);
     }
 
-    _getEventsFromApiSingleCalendar(auth, calendar) {
-        const maximumTimeFilter = new Date();
-        const timeOffset = this._inputConfiguration.readFromXHoursAgo * 60 * 60 * 1000;
-        const minimumTimeFilter = new Date(maximumTimeFilter - timeOffset);
-
-        logger.debug('Filtering calendar events from', minimumTimeFilter, 'to', maximumTimeFilter);
+    _getEventsFromApiSingleCalendar(auth, calendar, startDateTime, endDateTime) {
+        logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
 
         return new Promise((resolve, reject) => {
             logger.debug('Retrieving entries from calendar', calendar.id);
             this.googleApi.calendar('v3').events.list({
                 auth: auth,
                 calendarId: calendar.id,
-                timeMin: minimumTimeFilter.toISOString(),
-                timeMax: maximumTimeFilter.toISOString(),
+                timeMin: startDateTime.toISOString(),
+                timeMax: endDateTime.toISOString(),
                 maxResults: 100,
                 singleEvents: true,
                 orderBy: 'startTime'
@@ -82,7 +78,8 @@ module.exports = class Input {
     }
 
     _mapToDomainModel(apiResponses) {
-        let mapper = new this.ModelMapper(this._appConfiguration);
+        const minimumLoggableTimeSlotInMinutes = this._appConfiguration.options.minimumLoggableTimeSlotInMinutes;
+        const mapper = new this.ModelMapper(minimumLoggableTimeSlotInMinutes);
         return mapper.map(apiResponses);
     }
 };
