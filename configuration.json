@@ -21,6 +21,12 @@
         }]
     }],
     "outputs": [{
-        "type": "TextFile"
+        "type": "TextFile",
+        "formatter": {
+            "type": "SummaryTextFileFormatter",
+            "aggregateByTags": [
+                ["client"]
+            ]
+        }
     }]
 }

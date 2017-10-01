@@ -8,6 +8,19 @@ The particular objective of this system is to allow me to automate my timesheet 
 
 ![Rough architectural design](docs/architecture.jpg)
 
+## File naming conventions
+
+- `/docs`: miscellaneous documentation about the project
+- `/inputs`: input classes
+    - `/input/{inputType}/Input.js`: main entry class for the input
+- `/models`: model classes (TODO current folder is singular, rename to plural)
+- `/services`: service classes
+- `/tests`: mirror of the design with test classes
+- `/outputs`: output classes
+    - `/outputs/{outputType}/Output.js`: main entry class for the output
+- `/formatters`: formatter classes
+    - `/formatters/{outputType}/{formatterType}.js`: main entry class for the formatter. Notice that different formatters will be grouped for a single output.
+
 ## Allowing Google Calendar APIs
 
 (Steps from here: https://developers.google.com/google-apps/calendar/quickstart/nodejs)

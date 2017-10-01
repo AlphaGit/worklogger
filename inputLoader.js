@@ -1,6 +1,7 @@
 const logger = require('services/logger');
 
 const loadInputs = function(appConfiguration) {
+    //TODO can we remove this require and instead use appConfiguration?
     var configuration = require('./configuration.json');
 
     var loadedInputs = [];

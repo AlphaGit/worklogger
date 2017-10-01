@@ -15,8 +15,15 @@ Promise.resolve(environment)
     .then(displayWorklogs)
     .then(createWorklogSet)
     //.then transformations
-    //.then outputs
+    .then(loadOutputsAndFormatters)
+    .then(outputWorklogSet)
     .catch((e) => logger.error(e));
+
+function outputWorklogSet(environment) {
+    for (let output of environment.outputs) {
+        output.outputWorklogSet(environment.worklogSet);
+    }
+}
 
 function displayWorklogs(environment) {
     const worklogsPerInput = environment.worklogsPerInput;
@@ -29,6 +36,16 @@ function displayWorklogs(environment) {
         }
     }
 
+    return environment;
+}
+
+function loadOutputsAndFormatters(environment) {
+    const outputLoader = require('./outputLoader');
+    environment.outputs = [];
+    for (let outputConfig of environment.appConfiguration.outputs) {
+        const configuredOutput = outputLoader.load(outputConfig);
+        environment.outputs.push(configuredOutput);
+    }
     return environment;
 }
 
