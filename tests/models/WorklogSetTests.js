@@ -1,5 +1,5 @@
 const assert = require('assert');
-const WorklogSet = require('model/WorklogSet');
+const WorklogSet = require('models/WorklogSet');
 
 describe('WorklogSet', () => {
     it('can be instantiated', () => {

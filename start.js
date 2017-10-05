@@ -1,6 +1,6 @@
 require('app-module-path').addPath(__dirname);
 
-const WorklogSet = require('model/WorklogSet');
+const WorklogSet = require('models/WorklogSet');
 
 const logger = require('services/logger');
 

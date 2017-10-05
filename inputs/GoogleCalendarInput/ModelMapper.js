@@ -1,4 +1,4 @@
-const Worklog = require('model/Worklog');
+const Worklog = require('models/Worklog');
 const logger = require('services/logger');
 
 module.exports = class ModelMapper {

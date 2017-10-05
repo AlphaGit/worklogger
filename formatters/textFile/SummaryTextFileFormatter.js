@@ -1,4 +1,4 @@
-const WorklogSet = require('model/WorklogSet');
+const WorklogSet = require('models/WorklogSet');
 const logger = require('services/logger');
 
 module.exports = class SummaryTextFileFormatter {

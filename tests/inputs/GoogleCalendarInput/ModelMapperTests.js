@@ -1,6 +1,6 @@
 const assert = require('assert');
 const ModelMapper = require('inputs/GoogleCalendarInput/ModelMapper');
-const Worklog = require('model/Worklog');
+const Worklog = require('models/Worklog');
 
 require('tests/harness/log4js').setLevel('off');
 

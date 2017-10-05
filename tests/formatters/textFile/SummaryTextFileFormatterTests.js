@@ -1,7 +1,7 @@
 const assert = require('assert');
 const SummaryTextFileFormatter = require('formatters/textFile/SummaryTextFileFormatter');
-const Worklog = require('model/Worklog');
-const WorklogSet = require('model/WorklogSet');
+const Worklog = require('models/Worklog');
+const WorklogSet = require('models/WorklogSet');
 
 require('tests/harness/log4js').setLevel('off');
 
@@ -29,7 +29,7 @@ describe('SummaryTextFileFormatter', () => {
             assert.throws(() => formatter.format([]), /Missing WorklogSet/);
             assert.throws(() => formatter.format({}), /Missing WorklogSet/);
         });
-    
+
         it('includes the start date', () => {
             const worklogSet = getExampleWorklogSet({ startDateTime: new Date('2017-01-02') });
             const formatter = getTestSubject();
@@ -101,7 +101,7 @@ describe('SummaryTextFileFormatter', () => {
             const formatter = getTestSubject({ aggregateByTags: [ ['client'] ] });
 
             const result = formatter.format(worklogSet);
-            
+
             assert(result.indexOf('Total time for Client1: 2hs 0m') > -1);
             assert(result.indexOf('Total time for Client2: 2hs 0m') > -1);
         });

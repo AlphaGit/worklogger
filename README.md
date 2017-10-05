@@ -13,7 +13,7 @@ The particular objective of this system is to allow me to automate my timesheet 
 - `/docs`: miscellaneous documentation about the project
 - `/inputs`: input classes
     - `/input/{inputType}/Input.js`: main entry class for the input
-- `/models`: model classes (TODO current folder is singular, rename to plural)
+- `/models`: model classes
 - `/services`: service classes
 - `/tests`: mirror of the design with test classes
 - `/outputs`: output classes
