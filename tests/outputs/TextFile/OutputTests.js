@@ -51,6 +51,44 @@ describe('TextFileOutput', () => {
                     done();
                 });
         });
+
+        it('returns a resolved promise when everything is fine', (done) => {
+            const formatter = new FormatterBase({});
+            const formatStub = sinon.stub(formatter, 'format', () => '');
+
+            const fakeFs = {
+                writeFile: (filePath, contents, cb) => cb()
+            };
+            const output = getTestSubject({ formatter, fs: fakeFs });
+            
+            output.outputWorklogSet()
+                .then(() => done())
+                .catch(done);
+        });
+
+        it('writes to the output file indicated in the configuration', (done) => {
+            const formatter = new FormatterBase({});
+            const formatStub = sinon.stub(formatter, 'format', () => '');
+
+            const outputConfiguration = {
+                filePath: 'myOutputFile.txt'
+            };
+            let usedFilePath = null;
+            const fakeFs = {
+                writeFile: (filePath, contents, cb) => {
+                    usedFilePath = filePath;
+                    cb();
+                }
+            };
+            const output = getTestSubject({ formatter, outputConfiguration, fs: fakeFs });
+            
+            output.outputWorklogSet()
+                .then(() => {
+                    assert.equal(usedFilePath, outputConfiguration.filePath);
+                    done();
+                })
+                .catch(done);
+        });
     });
 });
 
@@ -63,8 +101,9 @@ function getFakeFs() {
 function getTestSubject({
     formatterConfiguration = {},
     formatter = new FormatterBase(formatterConfiguration),
+    outputConfiguration = {},
     fs = getFakeFs()
 } = {}) {
-    return new TextFileOutput(formatter, {}, { fs });
+    return new TextFileOutput(formatter, outputConfiguration, { fs });
 }
 

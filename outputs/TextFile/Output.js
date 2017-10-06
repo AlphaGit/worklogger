@@ -16,9 +16,9 @@ module.exports = class TextFileOutput {
         const formattedOutput = this._formatter.format(worklogSet);
         
         return new Promise((resolve, reject) => {
-            const filename = 'output.txt';
+            const filename = this._configuration.filePath;
             logger.info('Writing output to', filename);
-            this._fs.writeFile('output.txt', formattedOutput, (err) => {
+            this._fs.writeFile(filename, formattedOutput, (err) => {
                 if(err) {
                     logger.error('Error while writing output', err);
                     return reject(err); 

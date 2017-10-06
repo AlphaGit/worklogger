@@ -36,8 +36,9 @@
                 ["tag1"],
                 ["tag1", "tag2"],
             ]
-        }
+        },
         // other properties specific to the output type
+        "filePath": "string" // for TextFile output
     }]
 }
 ```

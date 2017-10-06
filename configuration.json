@@ -22,6 +22,7 @@
     }],
     "outputs": [{
         "type": "TextFile",
+        "filePath": "_private/output.txt",
         "formatter": {
             "type": "SummaryTextFileFormatter",
             "aggregateByTags": [
