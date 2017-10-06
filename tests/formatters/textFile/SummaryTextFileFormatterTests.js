@@ -6,14 +6,6 @@ const WorklogSet = require('models/WorklogSet');
 require('tests/harness/log4js').setLevel('off');
 
 describe('SummaryTextFileFormatter', () => {
-    it('can be instantiated', () => {
-        assert.doesNotThrow(() => getTestSubject());
-    });
-
-    it('requires a configuration object', () => {
-        assert.throws(() => new SummaryTextFileFormatter(), /Formatter configuration object is required/);
-    });
-
     describe('#format method', () => {
         it('exists', () => {
             const formatter = getTestSubject();

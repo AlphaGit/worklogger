@@ -1,10 +1,10 @@
 const WorklogSet = require('models/WorklogSet');
+const FormatterBase = require('formatters/FormatterBase');
 const logger = require('services/logger');
 
-module.exports = class SummaryTextFileFormatter {
+module.exports = class SummaryTextFileFormatter extends FormatterBase {
     constructor(formatterConfiguration) {
-        if (!formatterConfiguration) throw new Error('Formatter configuration object is required.');
-        this._configuration = formatterConfiguration;
+        super(formatterConfiguration);
     }
 
     format(worklogSet) {
@@ -20,11 +20,12 @@ module.exports = class SummaryTextFileFormatter {
         const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
 
         const output =
-`Worklogs from ${startDateTime} to ${endDateTime}:
+`Worklogs from ${startDateTime} to ${endDateTime}.
+
 ${aggregations}
 Total time: ${totalDurationString}`;
 
-        logger.debug('SummaryTextFileFormatter output: ', output);
+        logger.debug('SummaryTextFileFormatter output:', output);
         return output;
     }
 
