@@ -15,11 +15,36 @@ Promise.resolve(environment)
     .then(detectDates)
     .then(loadFromInputs)
     .then(createWorklogSet)
-    //.then transformations
+    .then(loadActions)
+    .then(transformWorklogs)
     .then(displayWorklogSet)
     .then(loadOutputsAndFormatters)
     .then(outputWorklogSet)
     .catch((e) => logger.error(e));
+
+function transformWorklogs(environment) {
+    for (action of environment.actions) {
+        for (worklog of environment.worklogSet.worklogs) {
+            action.apply(worklog);
+        }
+    }
+
+    return environment;
+}
+
+function loadActions(environment) {
+    environment.actions = [];
+
+    for (transformation of environment.appConfiguration.transformations) {
+        const actionType = transformation.action.type;
+        logger.info('Loading action:', actionType);
+        const actionClass = require(`actions/${actionType}`);
+        const action = new actionClass(transformation.action);
+        environment.actions.push(action);
+    }
+
+    return environment;
+}
 
 function outputWorklogSet(environment) {
     for (let output of environment.outputs) {

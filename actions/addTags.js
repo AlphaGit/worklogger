@@ -1,17 +1,17 @@
 const Worklog = require('models/Worklog');
 
 module.exports = class AddTagsAction {
-    constructor(tagsToAdd) {
-        if (!Array.isArray(tagsToAdd))
-            throw new Error('Required parameter: tagsToAdd.');
+    constructor(configuration) {
+        if (!configuration || !Array.isArray(configuration.tagsToAdd))
+            throw new Error('Required configuration: tagsToAdd.');
 
-        if (Array.isArray(tagsToAdd) && !tagsToAdd.length)
-            throw new Error('Parameter cannot be empty: tagsToAdd.');
+        if (Array.isArray(configuration.tagsToAdd) && !configuration.tagsToAdd.length)
+            throw new Error('Configuration cannot be empty: tagsToAdd.');
 
-        if (tagsToAdd.some(tag => !this._validateTag(tag)))
+        if (configuration.tagsToAdd.some(tag => !this._validateTag(tag)))
             throw new Error('Tags need to have a name:value format.');
 
-        this._tagsToAdd = tagsToAdd.map(tag => {
+        this._tagsToAdd = configuration.tagsToAdd.map(tag => {
             const [tagName, tagValue] = tag.split(':', 2);
             return { tagName, tagValue };
         });
