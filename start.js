@@ -7,7 +7,9 @@ const logger = require('services/logger');
 
 logger.debug('Application starting');
 
-let environment = {};
+let environment = {
+    transformations: []
+};
 
 Promise.resolve(environment)
     .then(processArguments)
@@ -15,7 +17,7 @@ Promise.resolve(environment)
     .then(detectDates)
     .then(loadFromInputs)
     .then(createWorklogSet)
-    .then(loadActions)
+    .then(loadActionsAndConditions)
     .then(transformWorklogs)
     .then(displayWorklogSet)
     .then(loadOutputsAndFormatters)
@@ -23,7 +25,7 @@ Promise.resolve(environment)
     .catch((e) => logger.error(e));
 
 function transformWorklogs(environment) {
-    for (action of environment.actions) {
+    for (let {action, condition} of environment.transformations) {
         for (worklog of environment.worklogSet.worklogs) {
             action.apply(worklog);
         }
@@ -32,15 +34,20 @@ function transformWorklogs(environment) {
     return environment;
 }
 
-function loadActions(environment) {
-    environment.actions = [];
-
-    for (transformation of environment.appConfiguration.transformations) {
+function loadActionsAndConditions(environment) {
+    for (let transformation of environment.appConfiguration.transformations) {
         const actionType = transformation.action.type;
         logger.info('Loading action:', actionType);
         const actionClass = require(`actions/${actionType}`);
         const action = new actionClass(transformation.action);
-        environment.actions.push(action);
+
+        let conditionType = (transformation.condition || {}).type;
+        if (!conditionType) conditionType = 'true';
+        logger.info('Loading condition:', conditionType);
+        const conditionClass = require(`conditions/${conditionType}`);
+        const condition = new conditionClass(transformation.condition);
+
+        environment.transformations.push({ action, condition });
     }
 
     return environment;
