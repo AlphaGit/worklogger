@@ -10,6 +10,7 @@ logger.debug('Application starting');
 let environment = {};
 
 Promise.resolve(environment)
+    .then(processArguments)
     .then(loadConfiguration)
     .then(detectDates)
     .then(loadFromInputs)
@@ -80,6 +81,16 @@ function parseRelativeTime(timePeriod) {
 }
 
 function loadConfiguration(environment) {
-    environment.appConfiguration = require('./configuration.json');
+    const path = require('path');
+    const configurationFilePath = path.resolve(environment.arguments.c || './configuration.json');
+    logger.info('Using configuration file:', configurationFilePath);
+    environment.appConfiguration = require(configurationFilePath);
+    return environment;
+}
+
+function processArguments(environment) {
+    const parseArgs = require('minimist');
+    environment.arguments = parseArgs(process.argv.slice(2));
+
     return environment;
 }
