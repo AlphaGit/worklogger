@@ -56,4 +56,74 @@ describe('RelativeTime', () => {
             assert(RelativeTime.UNIT_MONTH);
         });
     });
+
+    describe('#toDate', () => {
+        it('returns the right value for last hour', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
+            let expectedDate = new Date();
+            expectedDate.setMinutes(-60, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for this hour', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
+            let expectedDate = new Date();
+            expectedDate.setMinutes(0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for last day', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY);
+            let expectedDate = new Date();
+            expectedDate.setHours(-24, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for this day', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY);
+            let expectedDate = new Date();
+            expectedDate.setHours(0, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for last week', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
+            let expectedDate = new Date();
+            const dayOfWeek = expectedDate.getDay();
+            expectedDate.setHours(-24 * (dayOfWeek + 7), 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for this week', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
+            let expectedDate = new Date();
+            const dayOfWeek = expectedDate.getDay();
+            expectedDate.setHours(-24 * dayOfWeek, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for last month', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
+            let expectedDate = new Date();
+            expectedDate.setMonth(-1, 1);
+            expectedDate.setHours(0, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for this month', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
+            let expectedDate = new Date();
+            expectedDate.setDate(1);
+            expectedDate.setHours(0, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+    });
 });
