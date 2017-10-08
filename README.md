@@ -4,22 +4,35 @@ Detecting logs from different sources and applying them to different outputs.
 
 The particular objective of this system is to allow me to automate my timesheet work, while my clients keep changing the way that they want it logged.
 
-## Rough design
+## Application data flow
 
-![Rough architectural design](docs/architecture.jpg)
+1. **Inputs** read worklogs from different data sources. Each worklog represents a particular instance of work to be outputed somewhere. After reading the input from all the sources, they all get added into a WorklogSet instance.
+1. **WorklogSetOperations** allow to transform that end-result of worklog set. For example, operations like adding new worklogs or merging different worklogs together would work here. The worklog set gets modified to leave a new set of worklogs.
+1. Transformation **actions** operate on each particular worklog, by reading and modifying data on it. Most of the modifications will be done over a tagging system: every worklog has tags that will determine if it goes through any particular flow. These transformations will create more tags to them.
+    1. **Conditions** will filter worklogs from reaching a particular action.
+1. **Outputs** will write on an output channel the resulting worklog set.
+    1. **Conditions** will filter worklogs from reaching a particular output.
+    1. **Formatters** will transform the WorklogSet into a data format that this particular output can use. Note that a formatter is tied to a particular Output.
 
 ## File naming conventions
 
-- `/docs`: miscellaneous documentation about the project
-- `/inputs`: input classes
-    - `/input/{inputType}/Input.js`: main entry class for the input
-- `/models`: model classes
-- `/services`: service classes
-- `/tests`: mirror of the design with test classes
-- `/outputs`: output classes
-    - `/outputs/{outputType}/Output.js`: main entry class for the output
-- `/formatters`: formatter classes
-    - `/formatters/{outputType}/{formatterType}.js`: main entry class for the formatter. Notice that different formatters will be grouped for a single output.
+- `/docs`: Miscellaneous documentation about the project.
+- `/tests`: Mirror of the design with test classes.
+- `/models`: Model classes.
+- `/services`: Service classes.
+
+### Specific to the application flow:
+
+- `/inputs`: Input classes.
+    - `/input/{inputType}/Input.js`: Main entry class for the input.
+- `/conditions`: Evaluators for conditions on operations.
+    - `/conditions/{conditionType}.js`: Main entry class for the condition.
+- `/actions`: Transformation operations on each worklog.
+    - `/actions/{actionType}.js`: Main entry class for the action.
+- `/formatters`: Formatter classes.
+    - `/formatters/{outputType}/{formatterType}.js`: Main entry class for the formatter. Notice that different formatters will be grouped for a single output.
+- `/outputs`: Output classes.
+    - `/outputs/{outputType}/Output.js`: Main entry class for the output.
 
 ## Allowing Google Calendar APIs
 

@@ -19,6 +19,13 @@
         "name": "string",
         // other properties specific to the input type
     }],
+    "worklogSetOperations": [{
+        "condition": {
+            "type": "string"
+        },
+        "type": "string",
+        // other properties specific to this worklog set operation
+    }],
     "transformations": [{
         "condition": {
             "type": "string",
