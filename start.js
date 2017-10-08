@@ -14,9 +14,9 @@ Promise.resolve(environment)
     .then(loadConfiguration)
     .then(detectDates)
     .then(loadFromInputs)
-    .then(displayWorklogs)
     .then(createWorklogSet)
     //.then transformations
+    .then(displayWorklogSet)
     .then(loadOutputsAndFormatters)
     .then(outputWorklogSet)
     .catch((e) => logger.error(e));
@@ -27,15 +27,12 @@ function outputWorklogSet(environment) {
     }
 }
 
-function displayWorklogs(environment) {
-    const worklogsPerInput = environment.worklogsPerInput;
+function displayWorklogSet(environment) {
+    const worklogSet = environment.worklogSet;
 
-    logger.info(`${worklogsPerInput.length} inputs retrieved`);
-    for (let worklogs of worklogsPerInput) {
-        logger.info(`${worklogs.length} worklogs retrieved`);
-        for (let worklog of worklogs) {
-            logger.debug(`Worklog: ${worklog}`);
-        }
+    logger.info(`${worklogSet.worklogs.length} worklogs retrieved`);
+    for (let worklog of worklogSet.worklogs) {
+        logger.debug(`Worklog: ${worklog}`);
     }
 
     return environment;

@@ -1,12 +1,9 @@
 const logger = require('services/logger');
 
 const loadInputs = function(appConfiguration) {
-    //TODO can we remove this require and instead use appConfiguration?
-    var configuration = require('./configuration.json');
-
     var loadedInputs = [];
 
-    for (let input of configuration.inputs) {
+    for (let input of appConfiguration.inputs) {
         logger.debug('Loading configuration for', input.type);
 
         var inputConfigurationClass = require(`./inputs/${input.type}/InputConfiguration`);
