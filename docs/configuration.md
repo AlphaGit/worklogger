@@ -3,7 +3,16 @@
     "options": {
         // general application configuration
         "minimumLoggableTimeSlotInMinutes": 30,
-        "fromHowManyHoursAgo": 72
+        "timePeriod": {
+            "begin": {
+                "fromNow": "string", // "this", "last"
+                "unit": "string" // "hour", "day", "week", "month"
+            },
+            "end": {
+                "fromNow": "string", // "this", "last"
+                "unit": "string" // "hour", "day", "week", "month"
+            }
+        }
     },
     "inputs": [{
         "type": "string",

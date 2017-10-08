@@ -1,6 +1,7 @@
 require('app-module-path').addPath(__dirname);
 
 const WorklogSet = require('models/WorklogSet');
+const RelativeTime = require('models/RelativeTime');
 
 const logger = require('services/logger');
 
@@ -66,15 +67,16 @@ function createWorklogSet(environment) {
 }
 
 function detectDates(environment) {
-    const hoursAgo = environment.appConfiguration.options.fromHowManyHoursAgo;
-    const endDateTime = new Date();
-    const startDateTime = new Date(+endDateTime - (hoursAgo * 60 * 60 * 1000));
-    logger.info(`Range of dates to consider from inputs: ${startDateTime} - ${endDateTime}`);
-
-    environment.startDateTime = startDateTime;
-    environment.endDateTime = endDateTime;
+    environment.startDateTime = parseRelativeTime(environment.appConfiguration.options.timePeriod.begin);
+    environment.endDateTime = parseRelativeTime(environment.appConfiguration.options.timePeriod.end);
+    logger.info(`Range of dates to consider from inputs: ${environment.startDateTime} - ${environment.endDateTime}`);
 
     return environment;
+}
+
+function parseRelativeTime(timePeriod) {
+    const relativeTime = new RelativeTime(timePeriod.fromNow, timePeriod.unit);
+    return relativeTime.toDate();
 }
 
 function loadConfiguration(environment) {

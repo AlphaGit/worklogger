@@ -1,7 +1,16 @@
 {
     "options": {
         "minimumLoggableTimeSlotInMinutes": 30,
-        "fromHowManyHoursAgo": 72
+        "timePeriod": {
+            "begin": {
+                "fromNow": "last",
+                "unit": "week"
+            },
+            "end": {
+                "fromNow": "this",
+                "unit": "week"
+            }
+        }
     },
     "inputs": [{
         "type": "GoogleCalendarInput",
