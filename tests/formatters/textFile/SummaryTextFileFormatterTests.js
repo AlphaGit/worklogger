@@ -7,11 +7,6 @@ require('tests/harness/log4js').setLevel('off');
 
 describe('SummaryTextFileFormatter', () => {
     describe('#format method', () => {
-        it('exists', () => {
-            const formatter = getTestSubject();
-            assert.equal(typeof formatter.format, 'function');
-        });
-
         it('verifies that it receives a WorklogSet', () => {
             const formatter = getTestSubject();
 
