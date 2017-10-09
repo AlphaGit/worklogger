@@ -17,7 +17,16 @@
     "inputs": [{
         "type": "string",
         "name": "string",
+
         // other properties specific to the input type
+        // Type: GoogleCalendarInput
+        "calendars": [{
+            "id": "string",
+            "includeTags": [
+                "tag1:value1",
+                "tag2:value2"
+            ]
+        }]
     }],
     "worklogSetOperations": [{
         "condition": {
@@ -30,13 +39,19 @@
         "condition": {
             "type": "string",
             // other properties specific to the condition type
+
             "regex": "string", // for descriptionMatches condition
             "tag": "string" // for hasTag condition
         },
         "action": {
             "type": "string",
             // other properties specific to the action type
-            "tag": "string" // for addTag action
+
+            // Type: addTags
+            "tagsToAdd": [
+                "tag1:value1",
+                "tag2:value2"
+            ]
         }
     }],
     "outputs": [{
@@ -48,13 +63,23 @@
         "formatter": {
             "type": "string",
             // other properties specific to the output type
+
+            // Type: SummaryTextFileFormatter
             "aggregateByTags": [
                 ["tag1"],
                 ["tag1", "tag2"],
             ]
         },
         // other properties specific to the output type
-        "filePath": "string" // for TextFile output
+
+        // Type: TextFile
+        "filePath": "string",
+
+        // Type: HarvestApp
+        "token": "string",
+        "accountId": "string",
+        "selectProjectFromTag": "HarvestProject",
+        "selectTaskFromTag": "HarvestTask"
     }]
 }
 ```
