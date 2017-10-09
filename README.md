@@ -58,3 +58,16 @@ The particular objective of this system is to allow me to automate my timesheet 
 - Download json
 - client_secret.json
 - save it in the `/_private` folder
+
+## Getting a Harvest personal token
+
+(More information here: http://help.getharvest.com/api-v2/authentication-api/authentication/authentication/)
+
+- Go to https://www.getharvest.com/
+- Click on sign-in enter your login information
+- Before selecting your harvest account, click the "Developers" link at the top right
+- Click on "Create New Personal Access Token"
+- Enter a name for the token (e.g. Worklogger-bot)
+- Click on "Create Personal Access Token"
+- Select the account to use in the output
+- Copy the Token and the Account ID to the configuration.json file, in the output configuration for the Harvest type
