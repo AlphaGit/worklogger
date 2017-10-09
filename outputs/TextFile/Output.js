@@ -1,14 +1,12 @@
 const requiredFs = require('fs');
 const logger = require('services/logger');
 const FormatterBase = require('formatters/FormatterBase');
+const OutputBase = require('outputs/OutputBase');
 
-module.exports = class TextFileOutput {
+module.exports = class TextFileOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { fs } = {}) {
-        if (!(formatter instanceof FormatterBase))
-            throw new Error('Formatter is required.');
+        super(formatter, outputConfiguration);
 
-        this._formatter = formatter;
-        this._configuration = outputConfiguration;
         this._fs = fs || requiredFs;
     }
 

@@ -4,25 +4,7 @@ const FormatterBase = require('formatters/FormatterBase');
 const sinon = require('sinon');
 
 describe('TextFileOutput', () => {
-    describe('#constructor', () => {
-        it('requires a formatter', () => {
-            const assertFormatterRequired = (fn) => {
-                assert.throws(fn, /Formatter is required\./);
-            }
-
-            assertFormatterRequired(() => new TextFileOutput());
-            assertFormatterRequired(() => new TextFileOutput(1));
-            assertFormatterRequired(() => new TextFileOutput({}));
-        });
-    });
-
     describe('#outputWorklogSet', () => {
-        it('is defined', () => {
-            const output = getTestSubject();
-
-            assert(typeof output.outputWorklogSet === 'function');
-        });
-
         it('it obtains the formatted representation of the worklogs', () => {
             const formatter = new FormatterBase({});
             const formatStub = sinon.stub(formatter, 'format', () => '');
