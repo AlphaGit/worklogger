@@ -25,8 +25,8 @@ Promise.resolve(environment)
     .catch((e) => logger.error(e));
 
 function transformWorklogs(environment) {
-    for (let {action, condition} of environment.transformations) {
-        for (worklog of environment.worklogSet.worklogs) {
+    for (let {action /*, condition*/} of environment.transformations) {
+        for (let worklog of environment.worklogSet.worklogs) {
             action.apply(worklog);
         }
     }

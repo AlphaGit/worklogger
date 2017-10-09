@@ -1,6 +1,5 @@
 const requiredFs = require('fs');
 const logger = require('services/logger');
-const FormatterBase = require('formatters/FormatterBase');
 const OutputBase = require('outputs/OutputBase');
 
 module.exports = class TextFileOutput extends OutputBase {

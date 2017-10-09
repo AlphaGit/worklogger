@@ -5,6 +5,6 @@ module.exports = class FormatterBase {
     }
 
     format() {
-        throw new Error("format() needs to be implemented in derived class.");
+        throw new Error('format() needs to be implemented in derived class.');
     }
 };
