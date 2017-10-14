@@ -78,6 +78,7 @@
         // Type: HarvestApp
         "token": "string",
         "accountId": "string",
+        "contactInformation": "string",
         "selectProjectFromTag": "HarvestProject",
         "selectTaskFromTag": "HarvestTask"
     }]
