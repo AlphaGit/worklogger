@@ -1,4 +1,5 @@
 const FormatterBase = require('formatters/FormatterBase');
+const WorklogSet = require('models/WorklogSet');
 
 module.exports = class OutputBase {
     constructor(formatter, outputConfiguration) {
@@ -9,7 +10,13 @@ module.exports = class OutputBase {
         this._configuration = outputConfiguration;
     }
 
-    outputWorklogSet() {
+    outputWorklogSet(worklogSet) {
+        if (!worklogSet)
+            throw new Error('Required parameter: worklogSet.');
+
+        if (!(worklogSet instanceof WorklogSet))
+            throw new Error('worklogSet needs to be of type WorklogSet.');
+
         throw new Error('outputWorklogSet() needs to be defined in derived classes.');
     }
 };
