@@ -11,12 +11,15 @@ module.exports = class OutputBase {
     }
 
     outputWorklogSet(worklogSet) {
+        this._outputWorklogSetValidation(worklogSet);
+        throw new Error('outputWorklogSet() needs to be defined in derived classes.');
+    }
+
+    _outputWorklogSetValidation(worklogSet) {
         if (!worklogSet)
             throw new Error('Required parameter: worklogSet.');
 
         if (!(worklogSet instanceof WorklogSet))
             throw new Error('worklogSet needs to be of type WorklogSet.');
-
-        throw new Error('outputWorklogSet() needs to be defined in derived classes.');
     }
 };

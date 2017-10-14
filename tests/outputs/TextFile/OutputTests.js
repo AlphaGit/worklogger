@@ -1,7 +1,9 @@
 const assert = require('assert');
+const sinon = require('sinon');
+
 const TextFileOutput = require('outputs/TextFile/Output');
 const FormatterBase = require('formatters/FormatterBase');
-const sinon = require('sinon');
+const WorklogSet = require('models/WorklogSet');
 
 describe('TextFileOutput', () => {
     describe('#outputWorklogSet', () => {
@@ -10,7 +12,7 @@ describe('TextFileOutput', () => {
             const formatStub = sinon.stub(formatter, 'format', () => '');
             const output = getTestSubject({ formatter });
 
-            output.outputWorklogSet();
+            output.outputWorklogSet(getExampleWorklogSet());
 
             assert(formatStub.calledOnce);
 
@@ -26,7 +28,7 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
             
-            output.outputWorklogSet()
+            output.outputWorklogSet(getExampleWorklogSet())
                 .then(() => done('Promise was not rejected.'))
                 .catch((err) => {
                     assert.equal(err, 'Some error occurred.');
@@ -43,7 +45,7 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
             
-            output.outputWorklogSet()
+            output.outputWorklogSet(getExampleWorklogSet())
                 .then(() => done())
                 .catch(done);
         });
@@ -64,7 +66,7 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, outputConfiguration, fs: fakeFs });
             
-            output.outputWorklogSet()
+            output.outputWorklogSet(getExampleWorklogSet())
                 .then(() => {
                     assert.equal(usedFilePath, outputConfiguration.filePath);
                     done();
@@ -89,3 +91,6 @@ function getTestSubject({
     return new TextFileOutput(formatter, outputConfiguration, { fs });
 }
 
+function getExampleWorklogSet() {
+    return new WorklogSet(new Date(), new Date(), []);
+}

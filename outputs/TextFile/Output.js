@@ -10,6 +10,8 @@ module.exports = class TextFileOutput extends OutputBase {
     }
 
     outputWorklogSet(worklogSet) {
+        super._outputWorklogSetValidation(worklogSet);
+
         const formattedOutput = this._formatter.format(worklogSet);
         
         return new Promise((resolve, reject) => {
