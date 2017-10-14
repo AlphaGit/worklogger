@@ -121,6 +121,99 @@ describe('HarvestClient', () => {
                 .catch(done);
         });
     });
+
+    describe('#saveNewTimeEntry', () => {
+        it('requires a timeEntry object', () => {
+            const assertRequiredTimeEntry = (action) => assert.throws(action, /Required parameter: timeEntry\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry());
+            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry(null));
+            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry(undefined));
+        });
+
+        it('requires that the time entry has a project_id', () => {
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have project_id\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({}));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: undefined }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: null }));
+        });
+
+        it('requires that the time entry has a task_id', () => {
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have task_id\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1 }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: undefined }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: null }));
+        });
+
+        it('requires that the time entry has a spent_date', () => {
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have spent_date\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1 }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: undefined }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: null }));
+        });
+
+        it('requires that the time entry has a timer_started_at', () => {
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have timer_started_at\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01' }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: undefined }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: null }));
+        });
+
+        it('requires that the time entry has hours', () => {
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have hours\./)
+            const harvestClient = getTestSubject();
+
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400' }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours: null }));
+            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours: undefined }));
+        });
+
+        it('calls the HarvestApi with the right parameters', (done) => {
+            const fakeFetch = getFakeFetch();
+            const fetchSpy = sinon.spy(fakeFetch);
+            const harvestClient = getTestSubject({
+                accountId: 12345,
+                token: 'Auth123',
+                contactInformation: 'contactInformation@example.com',
+                fetch: fetchSpy
+            });
+
+            const timeEntry = {
+                project_id: 1,
+                task_id: 12,
+                spent_date: '2017-01-01',
+                timer_started_at: '2017-01-01T07:00-0400',
+                hours: 1.5,
+                notes: 'Task description'
+            };
+            harvestClient.saveNewTimeEntry(timeEntry)
+                .then(() => {
+                    assert(fetchSpy.calledOnce);
+                    const firstArgument = fetchSpy.getCall(0).args[0];
+                    const secondArgument = fetchSpy.getCall(0).args[1];
+
+                    assert.equal(firstArgument, 'https://api.harvestapp.com/api/v2/time_entries');
+                    assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
+                    assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
+                    assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
+
+                    assert.equal(secondArgument.method, 'POST');
+                    assert.deepEqual(JSON.parse(secondArgument.body), timeEntry);
+                })
+                .then(done)
+                .catch(done);
+
+        });
+    });
 });
 
 function getFakeFetch() {

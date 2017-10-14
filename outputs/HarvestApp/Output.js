@@ -3,17 +3,6 @@ const OutputBase = require('outputs/OutputBase');
 module.exports = class HarvestAppOutput extends OutputBase {
     outputWorklogSet() {
         /* TODO
-        - Create a builder class, wrapper around HTTP Requests, use it from here
-        - Set default headers:
-            - Authorization: Bearer {this._configuration.token}
-            - Harvest-Account-ID: {this._configuration.accountId}
-            - Content-Type: application/json
-            - User-Agent: Worklogger (user email... from configuration maybe?)
-        - GET https://api.harvestapp.com/api/v2/users/me/project_assignments
-            - Cache project_assignments.project.id and project_assignments.project.name
-                - This is the list of projects names and their IDs
-            - Cache project_assignments.task_assignments.task.id and project_assignments.task_assignments.task.name
-                - This is the list of tasks for a particular project and their IDs
         - For each worklog
             - Obtain the project name from the tag HarvestProject
             - Find it in the cache by the name
