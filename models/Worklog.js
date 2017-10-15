@@ -6,6 +6,9 @@ class Worklog {
         if (!startDateTime) throw new Error('Missing startDateTime parameter');
         if (!endDateTime) throw new Error('Missing endDateTime parameter');
 
+        if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
+        if (!(endDateTime instanceof Date)) throw new Error('endDateTime needs to be a Date.');
+        
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

@@ -1,8 +1,9 @@
 const OutputBase = require('outputs/OutputBase');
 const RequiredHarvestClient = require('./HarvestClient');
+const logger = require('services/logger');
 
 module.exports = class HarvestAppOutput extends OutputBase {
-    constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient }) {
+    constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
         super(formatter, outputConfiguration);
 
         this._harvestClient = new HarvestClient(outputConfiguration);
@@ -33,11 +34,14 @@ module.exports = class HarvestAppOutput extends OutputBase {
                 task_id: task.taskId,
                 spent_date: w.startDateTime.toISOString().substring(0, 10),
                 timer_started_at: w.startDateTime.toISOString(),
-                hours: w.duration / 60
+                hours: w.duration / 60,
+                notes: w.name
             };
         }).filter(w => !!w);
 
-        const savingPromises = timeEntries.map(this._harvestClient.saveNewTimeEntry);
+        logger.info(`Sending ${timeEntries.length} time entries to Harvest.`);
+        const saveNewTimeEntryFn = this._harvestClient.saveNewTimeEntry.bind(this._harvestClient);
+        const savingPromises = timeEntries.map(saveNewTimeEntryFn);
 
         return Promise.all(savingPromises);
     }

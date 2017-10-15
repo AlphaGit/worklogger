@@ -72,6 +72,7 @@ describe('HarvestApp output', () => {
                     const minutes = i % 2 == 0 ? '00' : '30';
                     assert.equal(timeEntryArgument.timer_started_at, `2017-01-01T${hour}:${minutes}:00.000Z`);
                     assert.equal(timeEntryArgument.hours, 0.5);
+                    assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
                 }
             }).then(done)
             .catch(done);

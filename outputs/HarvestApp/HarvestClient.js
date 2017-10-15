@@ -1,4 +1,5 @@
 const requiredFetch = require('node-fetch');
+const logger = require('services/logger');
 
 module.exports = class HarvestClient {
     constructor(configuration, { fetch = requiredFetch } = {}) {
@@ -19,10 +20,15 @@ module.exports = class HarvestClient {
     }
 
     getProjectsAndTasks() {
+        logger.info('Retrieving known projects and tasks from Harvest');
         return this._fetch('https://api.harvestapp.com/api/v2/users/me/project_assignments.json', {
             headers: this._getDefaultHeaders()
         }).then(response => response.json())
-        .then(this._getProjectsAndTasksFromApiResponse);
+        .then(this._getProjectsAndTasksFromApiResponse)
+        .then(projects => {
+            logger.trace('Projects and tasks retrieved from Harvest', projects);
+            return projects;
+        });
     }
 
     saveNewTimeEntry(timeEntry) {
@@ -44,11 +50,13 @@ module.exports = class HarvestClient {
         if (!timeEntry.hours)
             throw new Error('Time entry needs to have hours.');
 
+        logger.trace('Sending to Harvest:', timeEntry);
         return this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
             method: 'POST',
             body: JSON.stringify(timeEntry),
             headers: this._getDefaultHeaders()
-        });
+        }).then(res => res.json())
+        .then(logger.trace.bind(logger));
     }
 
     _getProjectsAndTasksFromApiResponse(apiResponse) {
@@ -66,7 +74,8 @@ module.exports = class HarvestClient {
         return {
             'Authorization': `Bearer ${this._configuration.token}`,
             'Harvest-Account-Id': `${this._configuration.accountId}`,
-            'User-Agent': `Worklogger (${this._configuration.contactInformation})`
+            'User-Agent': `Worklogger (${this._configuration.contactInformation})`,
+            'Content-Type': 'application/json'
         };
     }
 };

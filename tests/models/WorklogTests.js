@@ -11,8 +11,22 @@ describe('Worklog', () => {
             assert.throws(() => buildWorklog({ startDateTime: null }));
         });
 
+        it('requires the startDateTime parameter to be a Date', () => {
+            const assertStartDateTimeIsDate = (action) => assert.throws(action, /startDateTime needs to be a Date\./);
+            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: 1 }));
+            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: [] }));
+            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: {} }));
+        });
+
         it('requires a endDateTime parameter', () => {
             assert.throws(() => buildWorklog({ endDateTime: null }));
+        });
+
+        it('requires the endDateTime parameter to be a Date', () => {
+            const assertEndDateTimeIsDate = (action) => assert.throws(action, /endDateTime needs to be a Date\./);
+            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: 1 }));
+            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: [] }));
+            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: {} }));
         });
 
         it('calculates the duration from startDateTime and endDateTime parameters', () => {

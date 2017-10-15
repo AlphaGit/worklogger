@@ -20,9 +20,9 @@ module.exports = class ModelMapper {
         return events
             .filter(e => !!e.start.dateTime && !!e.end.dateTime)
             .map(e => {
-                var startTime = Date.parse(e.start.dateTime);
-                var endTime = Date.parse(e.end.dateTime);
-                var duration = (endTime - startTime) / 1000 / 60;
+                const startTime = new Date(e.start.dateTime);
+                const endTime = new Date(e.end.dateTime);
+                let duration = (endTime - startTime) / 1000 / 60;
                 if (duration % minimumTimeSlotMinutes != 0) {
                     duration = minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
                 }

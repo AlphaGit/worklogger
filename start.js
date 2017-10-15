@@ -22,6 +22,7 @@ Promise.resolve(environment)
     .then(displayWorklogSet)
     .then(loadOutputsAndFormatters)
     .then(outputWorklogSet)
+    .then(() => logger.info('Done.'))
     .catch((e) => logger.error(e));
 
 function transformWorklogs(environment) {
@@ -54,9 +55,10 @@ function loadActionsAndConditions(environment) {
 }
 
 function outputWorklogSet(environment) {
-    for (let output of environment.outputs) {
-        output.outputWorklogSet(environment.worklogSet);
-    }
+    logger.info('Processing loaded outputs.');
+    const outputPromises = environment.outputs.map(o => o.outputWorklogSet(environment.worklogSet));
+    return Promise.all(outputPromises)
+        .then(() => environment);
 }
 
 function displayWorklogSet(environment) {
@@ -64,7 +66,7 @@ function displayWorklogSet(environment) {
 
     logger.info(`${worklogSet.worklogs.length} worklogs retrieved`);
     for (let worklog of worklogSet.worklogs) {
-        logger.debug(`Worklog: ${worklog}`);
+        logger.trace(`Worklog: ${worklog}`);
     }
 
     return environment;

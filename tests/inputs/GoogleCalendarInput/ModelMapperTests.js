@@ -26,8 +26,10 @@ describe('[Google Calendar] ModelMapper', () => {
             assert.equal(1, result.length);
             assert(result[0] instanceof Worklog);
             assert.equal('My event name', result[0].name);
-            assert.equal(Date.parse('2017-08-28T20:30:00-05:00'), result[0].startDateTime);
-            assert.equal(Date.parse('2017-08-28T21:00:00-05:00'), result[0].endDateTime);
+            assert.equal(+new Date('2017-08-28T20:30:00-05:00'), +result[0].startDateTime);
+            assert.equal(+new Date('2017-08-28T21:00:00-05:00'), +result[0].endDateTime);
+            assert(result[0].startDateTime instanceof Date);
+            assert(result[0].endDateTime instanceof Date);
             assert.equal(30, result[0].duration);
         });
 
