@@ -5,20 +5,40 @@ module.exports = class HarvestAppOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient }) {
         super(formatter, outputConfiguration);
 
-        this._harvesctClient = new HarvestClient(outputConfiguration);
+        this._harvestClient = new HarvestClient(outputConfiguration);
     }
 
     outputWorklogSet(worklogSet) {
         super._outputWorklogSetValidation(worklogSet);
 
-        return this._harvesctClient.getProjectsAndTasks();
-        /* TODO
-        - For each worklog
-            - Obtain the project name from the tag HarvestProject
-            - Find it in the cache by the name
-            - Obtain the task for that project from the tag HarvestTask
-            - Find it in the cache by the name
-            - If something doesn't match, error out, skip worklog
-        */
+        return this._harvestClient.getProjectsAndTasks()
+            .then(projects => this._saveWorklogs(worklogSet.worklogs, projects));
+    }
+
+    _saveWorklogs(worklogs, projects) {
+        const projectTag = this._configuration.selectProjectFromTag || 'HarvestProject';
+        const taskTag = this._configuration.selectTaskFromTag || 'HarvestTask';
+
+        const timeEntries = worklogs.map(w => {
+            const projectTagValue = w.getTagValue(projectTag);
+            const project = projects.find(p => p.projectName == projectTagValue);
+            if (!project) return null;
+
+            const taskTagValue = w.getTagValue(taskTag);
+            const task = project.tasks.find(t => t.taskName == taskTagValue);
+            if (!task) return null;
+
+            return {
+                project_id: project.projectId,
+                task_id: task.taskId,
+                spent_date: w.startDateTime.toISOString().substring(0, 10),
+                timer_started_at: w.startDateTime.toISOString(),
+                hours: w.duration / 60
+            };
+        }).filter(w => !!w);
+
+        const savingPromises = timeEntries.map(this._harvestClient.saveNewTimeEntry);
+
+        return Promise.all(savingPromises);
     }
 };
