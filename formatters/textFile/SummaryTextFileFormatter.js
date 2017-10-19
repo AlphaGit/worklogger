@@ -1,6 +1,6 @@
 const WorklogSet = require('models/WorklogSet');
 const FormatterBase = require('formatters/FormatterBase');
-const logger = require('services/logger');
+const logger = require('services/loggerFactory').getLogger('SummaryTextFileFormatter');
 
 module.exports = class SummaryTextFileFormatter extends FormatterBase {
     constructor(formatterConfiguration) {

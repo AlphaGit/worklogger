@@ -2,7 +2,7 @@
 const fsRequired = require('fs');
 const readlineRequired = require('readline');
 const googleAuthRequired = require('google-auth-library');
-const logger = require('services/logger');
+const logger = require('services/loggerFactory').getLogger('GoogleCalendarInput/TokenStorage');
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_DIR = '.credentials/';

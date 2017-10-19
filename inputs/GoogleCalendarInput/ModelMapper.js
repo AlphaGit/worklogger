@@ -1,5 +1,5 @@
 const Worklog = require('models/Worklog');
-const logger = require('services/logger');
+const logger = require('services/loggerFactory').getLogger('GoogleCalendarInput/ModelMapper');
 
 module.exports = class ModelMapper {
     constructor(minimumLoggableTimeSlotInMinutes) {

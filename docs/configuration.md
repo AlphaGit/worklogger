@@ -1,5 +1,23 @@
 ```json
 {
+    // logger configuration fed directly into log4js: https://github.com/nomiddlename/log4js-node
+    "log4js": {
+        "appenders": {
+            "outAppender": {
+                "type": "stdout",
+                "layout": {
+                    "type": "pattern",
+                    "pattern": "%[[%d{ABSOLUTE}] [%-5p]%] %m"
+                }
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": ["outAppender"],
+                "level": "trace"
+            }
+        }
+    },
     "options": {
         // general application configuration
         "minimumLoggableTimeSlotInMinutes": 30,

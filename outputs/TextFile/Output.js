@@ -1,5 +1,5 @@
 const requiredFs = require('fs');
-const logger = require('services/logger');
+const logger = require('services/loggerFactory').getLogger('TextFile/Output');
 const OutputBase = require('outputs/OutputBase');
 
 module.exports = class TextFileOutput extends OutputBase {
@@ -13,14 +13,14 @@ module.exports = class TextFileOutput extends OutputBase {
         super._outputWorklogSetValidation(worklogSet);
 
         const formattedOutput = this._formatter.format(worklogSet);
-        
+
         return new Promise((resolve, reject) => {
             const filename = this._configuration.filePath;
             logger.info('Writing output to', filename);
             this._fs.writeFile(filename, formattedOutput, (err) => {
                 if(err) {
                     logger.error('Error while writing output', err);
-                    return reject(err); 
+                    return reject(err);
                 }
 
                 resolve();

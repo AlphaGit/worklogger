@@ -1,4 +1,5 @@
-const logger = require('services/logger');
+const loggerFactory = require('services/loggerFactory');
+const logger = loggerFactory.getLogger('inputLoader');
 
 const loadInputs = function(appConfiguration) {
     var loadedInputs = [];

@@ -3,9 +3,9 @@ require('app-module-path').addPath(__dirname);
 const WorklogSet = require('models/WorklogSet');
 const RelativeTime = require('models/RelativeTime');
 
-const logger = require('services/logger');
-
-logger.debug('Application starting');
+const loggerFactory = require('services/loggerFactory');
+const logger = loggerFactory.getLogger('worklogger');
+logger.level = 'info';
 
 let environment = {
     transformations: []
@@ -14,6 +14,7 @@ let environment = {
 Promise.resolve(environment)
     .then(processArguments)
     .then(loadConfiguration)
+    .then(configureLoggerFactory)
     .then(detectDates)
     .then(loadFromInputs)
     .then(createWorklogSet)
@@ -24,6 +25,13 @@ Promise.resolve(environment)
     .then(outputWorklogSet)
     .then(() => logger.info('Done.'))
     .catch((e) => logger.error(e));
+
+function configureLoggerFactory(environment) {
+    loggerFactory.configure(environment.appConfiguration.log4js);
+    logger.info('Logger configuration initialized.');
+
+    return environment;
+}
 
 function transformWorklogs(environment) {
     for (let {action /*, condition*/} of environment.transformations) {

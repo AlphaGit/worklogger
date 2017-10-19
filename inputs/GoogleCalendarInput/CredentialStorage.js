@@ -1,5 +1,5 @@
 const fs = require('fs');
-const logger = require('services/logger');
+const logger = require('services/loggerFactory').getLogger('CredentialStorage');
 
 function retrieveAppCredentials() {
     return new Promise((resolve, reject) => {

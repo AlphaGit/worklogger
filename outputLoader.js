@@ -1,10 +1,11 @@
-const logger = require('services/logger');
+const loggerFactory = require('services/loggerFactory');
+const logger = loggerFactory.getLogger('outputLoader');
 
 function loadOuput(outputConfiguration) {
     const outputType = outputConfiguration.type;
     const formatterConfiguration = (outputConfiguration.formatter || {});
     let formatterType = formatterConfiguration.type;
-    
+
     let Formatter;
     if (formatterType) {
         logger.info(`Loading ${outputType} output with ${formatterType} formatter`);
