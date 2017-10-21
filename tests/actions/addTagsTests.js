@@ -27,6 +27,7 @@ describe('addTags', () => {
 
         it('can be instantiated', () => {
             assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: [{ name: 'tag1', value: 'value1' }] }));
+            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: [{ name: 'tag1', extractCaptureFromSummary: '(\\w+)' }] }));
         });
     });
 
@@ -40,15 +41,49 @@ describe('addTags', () => {
             assert.doesNotThrow(() => addTagsAction.apply(new Worklog('name', new Date(), new Date())));
         });
 
-        it('adds the specified tags to the worklog', () => {
-            const tagsToAdd = [{ name: 'tag1', value: 'value1' }, { name: 'tag2', value: 'value2' }];
-            const addTagsAction = new AddTagsAction({ tagsToAdd });
-            const worklog = new Worklog('name', new Date(), new Date());
+        describe('fixed values', () => {
+            it('adds the specified tags to the worklog (fixed values)', () => {
+                const tagsToAdd = [{ name: 'tag1', value: 'value1' }, { name: 'tag2', value: 'value2' }];
+                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const worklog = new Worklog('name', new Date(), new Date());
 
-            addTagsAction.apply(worklog);
+                addTagsAction.apply(worklog);
 
-            assert.equal(worklog.getTagValue('tag1'), 'value1');
-            assert.equal(worklog.getTagValue('tag2'), 'value2');
+                assert.equal(worklog.getTagValue('tag1'), 'value1');
+                assert.equal(worklog.getTagValue('tag2'), 'value2');
+            });
+        });
+
+        describe('extractCaptureFromSummary', () => {
+            it('adds the specified tags to the worklog', () => {
+                const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(\\w+)' }];
+                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
+
+                addTagsAction.apply(worklog);
+
+                assert.equal(worklog.getTagValue('tag1'), 'worklog');
+            });
+
+            it('does not set the tag if it could not match the regex', () => {
+                const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(abc)' }];
+                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
+
+                addTagsAction.apply(worklog);
+
+                assert.equal(worklog.getTagValue('tag1'), undefined);
+            });
+
+            it('does not set the tag if the regex cannot be compiled', () => {
+                const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(invalid regex' }];
+                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
+
+                addTagsAction.apply(worklog);
+
+                assert.equal(worklog.getTagValue('tag1'), undefined);
+            });
         });
     });
 });

@@ -69,6 +69,7 @@
             "tagsToAdd": [
                 { "name": "tag1", "value": "value1" },
                 { "name": "tag2", "value": "value2" }
+                { "name": "tag3", "extractCaptureFromSummary": "\\[([^\\[\\]]+)\\]" } // example regex: extract expression between square brackets
             ]
         }
     }],
