@@ -12,20 +12,28 @@ describe('addTags', () => {
             assert.throws(() => new AddTagsAction({ tagsToAdd: [] }), /Configuration cannot be empty: tagsToAdd\./);
         });
 
-        it('validates that tags have name and value', () => {
-            assert.throws(() => new AddTagsAction({ tagsToAdd: ['tag1'] }), /Tags need to have a name:value format\./);
-            assert.throws(() => new AddTagsAction({ tagsToAdd: [':value1'] }), /Tags need to have a name:value format\./);
+        it('validates that tags are objects', () => {
+            const assertInvalidTagObjectThrows = tagObject => {
+                const instantiationAction = () => new AddTagsAction({ tagsToAdd: [ tagObject ] });
+                assert.throws(instantiationAction, /Tags need to be valid tag-configuration objects./);
+            };
+            assertInvalidTagObjectThrows('tag1');
+            assertInvalidTagObjectThrows('tag1:value1');
+            assertInvalidTagObjectThrows([]);
+            assertInvalidTagObjectThrows({});
+            assertInvalidTagObjectThrows({ something: 1, somethingElse: 2 });
+            assertInvalidTagObjectThrows({ name: 1 });
         });
-    
+
         it('can be instantiated', () => {
-            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: ['tag1:value1'] }));
-            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: ['tag1:value1:withColons'] }));
+            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: [{ name: 'tag1', value: 'value1' }] }));
         });
     });
 
     describe('#apply', () => {
         it('requires a Worklog as a parameter', () => {
-            const addTagsAction = new AddTagsAction({ tagsToAdd: ['tag1:value1'] });
+            const tagsToAdd = [{ name: 'tag1', value: 'value1' }];
+            const addTagsAction = new AddTagsAction({ tagsToAdd });
             assert.throws(() => addTagsAction.apply(), /Apply: a Worklog is required\./);
             assert.throws(() => addTagsAction.apply(1), /Apply: a Worklog is required\./);
             assert.throws(() => addTagsAction.apply({}), /Apply: a Worklog is required\./);
@@ -33,7 +41,8 @@ describe('addTags', () => {
         });
 
         it('adds the specified tags to the worklog', () => {
-            const addTagsAction = new AddTagsAction({ tagsToAdd: ['tag1:value1', 'tag2:value2'] });
+            const tagsToAdd = [{ name: 'tag1', value: 'value1' }, { name: 'tag2', value: 'value2' }];
+            const addTagsAction = new AddTagsAction({ tagsToAdd });
             const worklog = new Worklog('name', new Date(), new Date());
 
             addTagsAction.apply(worklog);

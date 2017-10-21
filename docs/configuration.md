@@ -67,8 +67,8 @@
 
             // Type: addTags
             "tagsToAdd": [
-                "tag1:value1",
-                "tag2:value2"
+                { "name": "tag1", "value": "value1" },
+                { "name": "tag2", "value": "value2" }
             ]
         }
     }],

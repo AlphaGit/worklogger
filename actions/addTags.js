@@ -8,19 +8,19 @@ module.exports = class AddTagsAction {
         if (Array.isArray(configuration.tagsToAdd) && !configuration.tagsToAdd.length)
             throw new Error('Configuration cannot be empty: tagsToAdd.');
 
-        if (configuration.tagsToAdd.some(tag => !this._validateTag(tag)))
-            throw new Error('Tags need to have a name:value format.');
+        if (configuration.tagsToAdd.some(tag => !this._validateTagObject(tag)))
+            throw new Error('Tags need to be valid tag-configuration objects.');
 
-        this._tagsToAdd = configuration.tagsToAdd.map(tag => {
-            const [tagName, tagValue] = tag.split(':', 2);
-            return { tagName, tagValue };
-        });
+        this._tagsToAdd = configuration.tagsToAdd;
     }
 
-    _validateTag(tagText) {
-        const tagParts = tagText.split(':', 2);
-        if (tagParts.length < 2) return false;
-        if (tagParts.some(tp => !tp)) return false;
+    _validateTagObject(tagObject) {
+        if (!tagObject) return false;
+        if (!(typeof(tagObject) === 'object')) return false;
+
+        if (!tagObject.name) return false;
+        if (!tagObject.value) return false;
+
         return true;
     }
 
@@ -29,7 +29,7 @@ module.exports = class AddTagsAction {
             throw new Error('Apply: a Worklog is required.');
 
         this._tagsToAdd.forEach(tag => {
-            worklog.addTag(tag.tagName, tag.tagValue);
+            worklog.addTag(tag.name, tag.value);
         });
     }
 };
