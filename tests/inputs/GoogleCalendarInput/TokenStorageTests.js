@@ -1,9 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-require('tests/harness/log4js').setLevel('off');
-
-var TokenStorage = require('inputs/GoogleCalendarInput/TokenStorage');
+var TokenStorage = require('inputs/GoogleCalendar/TokenStorage');
 
 var validCredentials = {
     installed: {

@@ -1,9 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const Input = require('inputs/GoogleCalendarInput/Input');
-const InputConfiguration = require('inputs/GoogleCalendarInput/InputConfiguration');
-
-require('tests/harness/log4js').setLevel('off');
+const Input = require('inputs/GoogleCalendar/Input');
+const InputConfiguration = require('inputs/GoogleCalendar/InputConfiguration');
 
 describe('[Google Calendar] Input', () => {
     describe('#constructor', () => {

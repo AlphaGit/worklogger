@@ -1,5 +1,5 @@
 const assert = require('assert');
-const SummaryTextFileFormatter = require('formatters/textFile/SummaryTextFileFormatter');
+const SummaryTextFileFormatter = require('formatters/TextFile/SummaryTextFileFormatter');
 const Worklog = require('models/Worklog');
 const WorklogSet = require('models/WorklogSet');
 

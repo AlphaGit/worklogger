@@ -1,8 +1,6 @@
 const assert = require('assert');
-const ModelMapper = require('inputs/GoogleCalendarInput/ModelMapper');
+const ModelMapper = require('inputs/GoogleCalendar/ModelMapper');
 const Worklog = require('models/Worklog');
-
-require('tests/harness/log4js').setLevel('off');
 
 describe('[Google Calendar] ModelMapper', () => {
     describe('#constructor', () => {

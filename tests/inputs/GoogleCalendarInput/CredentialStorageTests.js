@@ -1,9 +1,7 @@
 var assert = require('assert');
-var CredentialStorage = require('inputs/GoogleCalendarInput/CredentialStorage');
+var CredentialStorage = require('inputs/GoogleCalendar/CredentialStorage');
 var fs = require('fs');
 var sinon = require('sinon');
-
-require('tests/harness/log4js').setLevel('off');
 
 describe('[Google Calendar] CredentialStorage', () => {
     describe('#retrieveAppCredentials', () => {

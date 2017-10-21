@@ -24,17 +24,28 @@ The particular objective of this system is to allow me to automate my timesheet 
 ### Specific to the application flow:
 
 - `/inputs`: Input classes.
-    - `/input/{inputType}/Input.js`: Main entry class for the input.
+    - `/input/{InputType}/Input.js`: Main entry class for the input. `inputType` uses PascalCase naming.
 - `/conditions`: Evaluators for conditions on operations.
-    - `/conditions/{conditionType}.js`: Main entry class for the condition.
+    - `/conditions/{conditionType}.js`: Main entry class for the condition. `conditionType` uses camelCase naming.
 - `/actions`: Transformation operations on each worklog.
-    - `/actions/{actionType}.js`: Main entry class for the action.
+    - `/actions/{actionType}.js`: Main entry class for the action. `actionType` uses camelCase naming.
 - `/formatters`: Formatter classes.
-    - `/formatters/{outputType}/{formatterType}.js`: Main entry class for the formatter. Notice that different formatters will be grouped for a single output.
+    - `/formatters/{OutputType}/{formatterType}.js`: Main entry class for the formatter. Notice that different formatters will be grouped for a single output. `OutputType` uses PascalCase naming. `formatterType` uses camelCase naming.
 - `/outputs`: Output classes.
-    - `/outputs/{outputType}/Output.js`: Main entry class for the output.
+    - `/outputs/{OutputType}/Output.js`: Main entry class for the output. `OutputType` uses PascalCase naming.
 
-## Allowing Google Calendar APIs
+#### Naming
+
+This is the logic behind the naming conventions:
+
+- Inputs and Outputs will usually refer to third-party products. Examples are Google Calendar, Harvest. As such, the convention is to have them PascalCased, even for cases where this does not happen (like TextFile or Email).
+- All the other namings are not proper nouns (conditions, formatters and actions), so they use camelCase naming schemes.
+
+## How to set this up
+
+(More documentation coming later on on how to install worklogger and configure integrations.)
+
+### Allowing Google Calendar APIs
 
 (Steps from here: https://developers.google.com/google-apps/calendar/quickstart/nodejs)
 
@@ -47,7 +58,7 @@ The particular objective of this system is to allow me to automate my timesheet 
 - Save.
 - Credentials, create credentials, service account key.
 - Create a new service account.
-- worklogger-bot
+- `worklogger-bot`
 - New private key.
 - Key type: Json.
 - Download.
@@ -56,10 +67,10 @@ The particular objective of this system is to allow me to automate my timesheet 
 - Other (name: Worklogger)
 - Ok (no need to copy)
 - Download json
-- client_secret.json
-- save it in the `/_private` folder
+- `client_secret.json`
+- Save it in the `/_private` folder
 
-## Getting a Harvest personal token
+### Getting a Harvest personal token
 
 (More information here: http://help.getharvest.com/api-v2/authentication-api/authentication/authentication/)
 
@@ -67,7 +78,7 @@ The particular objective of this system is to allow me to automate my timesheet 
 - Click on sign-in enter your login information
 - Before selecting your harvest account, click the "Developers" link at the top right
 - Click on "Create New Personal Access Token"
-- Enter a name for the token (e.g. Worklogger-bot)
+- Enter a name for the token (e.g. `Worklogger-bot`)
 - Click on "Create Personal Access Token"
 - Select the account to use in the output
 - Copy the Token and the Account ID to the configuration.json file, in the output configuration for the Harvest type

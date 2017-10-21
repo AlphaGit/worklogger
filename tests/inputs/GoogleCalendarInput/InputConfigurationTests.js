@@ -1,7 +1,5 @@
 var assert = require('assert');
-var InputConfiguration = require('inputs/GoogleCalendarInput/InputConfiguration');
-
-require('tests/harness/log4js').setLevel('off');
+var InputConfiguration = require('inputs/GoogleCalendar/InputConfiguration');
 
 const validConfigJson = {
     name: 'input name',
