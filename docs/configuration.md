@@ -99,7 +99,12 @@
         "accountId": "string",
         "contactInformation": "string",
         "selectProjectFromTag": "HarvestProject",
-        "selectTaskFromTag": "HarvestTask"
+        "selectTaskFromTag": "HarvestTask",
+
+        // Type: JiraWorklog
+        "JiraUrl": "https://myserver.atlassian.net",
+        "JiraUsername": "myUsername",
+        "JiraPassword": "myJiraPassword"
     }]
 }
 ```
