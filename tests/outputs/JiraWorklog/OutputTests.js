@@ -42,7 +42,7 @@ describe('JiraWorklog output', () => {
             });
 
             const worklogCount = 5;
-            const startingAt = new Date('2017-01-01T07:00-0400');
+            const startingAt = new Date('2017-01-01T07:00-0500');
             const worklogSet = getTestWorklogSet({ worklogCount, startingAt, durationInMinutes: 30 });
             worklogSet.worklogs.forEach(w => {
                 w.addTag('JiraTicket', 'PID-123');
@@ -65,9 +65,10 @@ describe('JiraWorklog output', () => {
 
                     assert.equal(ticketIdArgument, 'PID-123');
                     assert.equal(jiraWorklogArgument.comment, worklog.name);
-                    const hour = Math.floor(11 + i / 2);
+                    let hour = Math.floor(7 + i / 2);
+                    if (hour < 10) hour = `0${hour}`;
                     const minutes = i % 2 == 0 ? '00' : '30';
-                    assert.equal(jiraWorklogArgument.started, `2017-01-01T${hour}:${minutes}:00.000Z`);
+                    assert.equal(jiraWorklogArgument.started, `2017-01-01T${hour}:${minutes}:00.000-0500`);
                     assert.equal(jiraWorklogArgument.timeSpent, '30m');
                 }
             }).then(done)
