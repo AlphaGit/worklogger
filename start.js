@@ -21,7 +21,7 @@ Promise.resolve(environment)
     .then(loadActionsAndConditions)
     .then(transformWorklogs)
     .then(displayWorklogSet)
-    .then(loadOutputsAndFormatters)
+    .then(loadOutputsAndFormattersAndConditions)
     .then(outputWorklogSet)
     .then(() => logger.info('Done.'))
     .catch((e) => logger.error(e));
@@ -34,9 +34,10 @@ function configureLoggerFactory(environment) {
 }
 
 function transformWorklogs(environment) {
-    for (let {action /*, condition*/} of environment.transformations) {
+    for (let { action, condition } of environment.transformations) {
         for (let worklog of environment.worklogSet.worklogs) {
-            action.apply(worklog);
+            if (condition.isSatisfiedBy(worklog))
+                action.apply(worklog);
         }
     }
 
@@ -64,7 +65,13 @@ function loadActionsAndConditions(environment) {
 
 function outputWorklogSet(environment) {
     logger.info('Processing loaded outputs.');
-    const outputPromises = environment.outputs.map(o => o.outputWorklogSet(environment.worklogSet));
+
+    const outputPromises = [];
+    for (let { output, condition } of environment.outputs) {
+        const filteredWorklogSet = environment.worklogSet.getFilteredCopy(condition.isSatisfiedBy);
+        outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
+    }
+
     return Promise.all(outputPromises)
         .then(() => environment);
 }
@@ -80,12 +87,19 @@ function displayWorklogSet(environment) {
     return environment;
 }
 
-function loadOutputsAndFormatters(environment) {
+function loadOutputsAndFormattersAndConditions(environment) {
     const outputLoader = require('./outputLoader');
     environment.outputs = [];
     for (let outputConfig of environment.appConfiguration.outputs) {
-        const configuredOutput = outputLoader.load(outputConfig);
-        environment.outputs.push(configuredOutput);
+        const output = outputLoader.load(outputConfig);
+
+        let conditionType = (outputConfig.condition || {}).type;
+        if (!conditionType) conditionType = 'true';
+        logger.info('Loading condition:', conditionType);
+        const conditionClass = require(`conditions/${conditionType}`);
+        const condition = new conditionClass(outputConfig.condition);
+
+        environment.outputs.push({ output, condition });
     }
     return environment;
 }

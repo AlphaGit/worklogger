@@ -8,4 +8,9 @@ module.exports = class WorklogSet {
         this.endDateTime = endDateTime;
         this.worklogs = worklogs;
     }
+
+    getFilteredCopy(filterFn) {
+        const filteredWorklogs = this.worklogs.filter(filterFn);
+        return new WorklogSet(this.startDateTime, this.endDateTime, filteredWorklogs);
+    }
 };

@@ -9,12 +9,12 @@ describe('True condition', () => {
         });
     });
 
-    describe('satisfies', () => {
+    describe('isSatisfiedBy', () => {
         it('returns true', () => {
             const worklog = new Worklog('name', new Date(), new Date());
             const trueCondition = new TrueCondition();
 
-            assert(trueCondition.satisfies(worklog));
+            assert(trueCondition.isSatisfiedBy(worklog));
         });
     });
 });

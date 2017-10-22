@@ -1,5 +1,5 @@
 module.exports = class TrueCondition {
-    satisfies() {
+    isSatisfiedBy() {
         return true;
     }
 };

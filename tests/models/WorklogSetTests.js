@@ -1,5 +1,6 @@
 const assert = require('assert');
 const WorklogSet = require('models/WorklogSet');
+const Worklog = require('models/Worklog');
 
 describe('WorklogSet', () => {
     it('can be instantiated', () => {
@@ -30,6 +31,44 @@ describe('WorklogSet', () => {
         assert.throws(() => getTestSubject({ worklogs: 'some string' }), /Missing array parameter: worklogs/);
         assert.throws(() => getTestSubject({ worklogs: 5 }), /Missing array parameter: worklogs/);
         assert.throws(() => getTestSubject({ worklogs: {} }), /Missing array parameter: worklogs/);
+    });
+
+    describe('#getFilteredCopy', () => {
+        it('returns a new WorklogSet', () => {
+            const workLogSet = getTestSubject();
+
+            const result = workLogSet.getFilteredCopy(() => true);
+
+            assert(result instanceof WorklogSet);
+            assert.notStrictEqual(result, workLogSet);
+        });
+
+        it('returns a WorklogSet with the same and end datetimes', () => {
+            const workLogSet = getTestSubject();
+
+            const result = workLogSet.getFilteredCopy(() => true);
+
+            assert.equal(result.startDateTime, workLogSet.startDateTime);
+            assert.equal(result.endDateTime, workLogSet.endDateTime);
+        });
+
+        it('returns a WorklogSet with worklogs filtered', () => {
+            const worklogs = [
+                new Worklog('short', new Date(), new Date()),
+                new Worklog('long name over here', new Date(), new Date()),
+                new Worklog('short n', new Date(), new Date()),
+                new Worklog('long name over here', new Date(), new Date()),
+                new Worklog('short name', new Date(), new Date()),
+                new Worklog('long name over here', new Date(), new Date()),
+            ]
+            const worklogSet = getTestSubject({ worklogs });
+
+            const result = worklogSet.getFilteredCopy((w) => w.name.length > 10);
+            assert.equal(result.worklogs.length, 3);
+            assert.equal(result.worklogs[0].name, 'long name over here');
+            assert.equal(result.worklogs[1].name, 'long name over here');
+            assert.equal(result.worklogs[2].name, 'long name over here');
+        });
     });
 });
 
