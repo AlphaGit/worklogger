@@ -39,10 +39,11 @@ module.exports = class HarvestAppOutput extends OutputBase {
             };
         }).filter(w => !!w);
 
-        logger.info(`Sending ${timeEntries.length} time entries to Harvest.`);
         const saveNewTimeEntryFn = this._harvestClient.saveNewTimeEntry.bind(this._harvestClient);
         const savingPromises = timeEntries.map(saveNewTimeEntryFn);
 
-        return Promise.all(savingPromises);
+        return Promise.all(savingPromises).then(p => {
+            logger.info(`Sent ${p.length} time entries to Harvest.`);
+        });
     }
 };

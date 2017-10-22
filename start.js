@@ -68,7 +68,7 @@ function outputWorklogSet(environment) {
 
     const outputPromises = [];
     for (let { output, condition } of environment.outputs) {
-        const filteredWorklogSet = environment.worklogSet.getFilteredCopy(condition.isSatisfiedBy);
+        const filteredWorklogSet = environment.worklogSet.getFilteredCopy(condition.isSatisfiedBy.bind(condition));
         outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
     }
 

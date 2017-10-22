@@ -1,5 +1,6 @@
 const OutputBase = require('../OutputBase');
 const JiraClientRequired = require('./JiraClient');
+const logger = require('services/loggerFactory').getLogger('outputs/JiraWorklog');
 
 module.exports = class JiraWorklogOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { JiraClient = JiraClientRequired } = {}) {
@@ -24,7 +25,9 @@ module.exports = class JiraWorklogOutput extends OutputBase {
             this._jiraClient.saveWorklog(ticketId, jiraWorklog);
         });
 
-        return Promise.all(sendingToJiraPromises);
+        return Promise.all(sendingToJiraPromises).then(p => {
+            logger.info(`Sent ${p.length} worklogs to JIRA.`);
+        });
     }
 
     // JIRA does not like Zulu time, so we cannot just use date.ToISOString()
