@@ -111,7 +111,7 @@ describe('RelativeTime', () => {
         it('returns the right value for last month', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
             let expectedDate = new Date();
-            expectedDate.setMonth(-1, 1);
+            expectedDate.setMonth(expectedDate.getMonth() - 1, 1);
             expectedDate.setHours(0, 0, 0, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
