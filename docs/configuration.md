@@ -105,6 +105,9 @@
         "JiraUrl": "https://myserver.atlassian.net",
         "JiraUsername": "myUsername",
         "JiraPassword": "myJiraPassword"
+
+        // Type: Logger
+        // (no configurations)
     }]
 }
 ```

@@ -70,6 +70,18 @@ describe('WorklogSet', () => {
             assert.equal(result.worklogs[2].name, 'long name over here');
         });
     });
+
+    describe('#toString', () => {
+        it('returns a string representation of the WorklogSet', () => {
+            const startDateTime = new Date('2017-01-01T17:30:00.000Z');
+            const endDateTime = new Date('2017-01-02T08:00:00.000Z');
+            const worklogSet = getTestSubject({ startDateTime, endDateTime });
+
+            const string = worklogSet.toString();
+
+            assert.equal(string, '2017-01-01T17:30:00.000Z - 2017-01-02T08:00:00.000Z');
+        });
+    });
 });
 
 function getTestSubject({

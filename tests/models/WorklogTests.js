@@ -77,6 +77,33 @@ describe('Worklog', () => {
         });
     });
 
+    describe('#toOneLinerString', () => {
+        it('provides a short description of the worklog', () => {
+            let worklog = buildWorklog({ name: 'Worklog', duration: 90 });
+            worklog.addTag('tag1', 'tagContent1');
+
+            const stringRepresentation = worklog.toOneLinerString();
+
+            assert.equal(stringRepresentation, '(1 hs 30 mins) Worklog [tag1:tagContent1]');
+        });
+
+        it('does not include hours if its less than one', () => {
+            let worklog = buildWorklog({ name: 'Worklog', duration: 30 });
+
+            const stringRepresentation = worklog.toOneLinerString();
+
+            assert.equal(stringRepresentation, '(30 mins) Worklog');
+        });
+
+        it('does not include minutes if they are exactly zero', () => {
+            let worklog = buildWorklog({ name: 'Worklog', duration: 120 });
+
+            const stringRepresentation = worklog.toOneLinerString();
+
+            assert.equal(stringRepresentation, '(2 hs) Worklog');
+        });
+    });
+
     describe('#addTag', () => {
         it('requires a tag name', () => {
             var worklog = buildWorklog();

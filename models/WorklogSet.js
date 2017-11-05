@@ -13,4 +13,8 @@ module.exports = class WorklogSet {
         const filteredWorklogs = this.worklogs.filter(filterFn);
         return new WorklogSet(this.startDateTime, this.endDateTime, filteredWorklogs);
     }
+
+    toString() {
+        return `${this.startDateTime.toISOString()} - ${this.endDateTime.toISOString()}`;
+    }
 };

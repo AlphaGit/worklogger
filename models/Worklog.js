@@ -26,6 +26,25 @@ class Worklog {
         return string;
     }
 
+    toOneLinerString() {
+        let string = `(${this.getShortDuration()}) ${this.name}`;
+        for (let tagName in this._tags) {
+            const tagValue = this._tags[tagName];
+            string += ` [${tagName}:${tagValue}]`;
+        }
+        return string;
+    }
+
+    getShortDuration() {
+        const hours = Math.floor(this.duration / 60);
+        const minutes = this.duration % 60;
+
+        const parts = [];
+        if (hours > 0) parts.push(`${hours} hs`);
+        if (minutes > 0) parts.push(`${minutes} mins`);
+        return parts.join(' ');
+    }
+
     addTag(name, value) {
         this._validateTagName(name);
 
