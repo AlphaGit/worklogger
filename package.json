@@ -11,7 +11,7 @@
     "start": "node index.js",
     "testAndCover": "nyc mocha tests/allTestBase.js tests/**/*.js",
     "test": "npm run lint && npm run testAndCover",
-    "lint": "eslint **/*.js",
+    "lint": "eslint .",
     "watch": "gulp watch"
   },
   "keywords": [

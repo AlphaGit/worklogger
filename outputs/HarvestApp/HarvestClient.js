@@ -24,11 +24,11 @@ module.exports = class HarvestClient {
         return this._fetch('https://api.harvestapp.com/api/v2/users/me/project_assignments.json', {
             headers: this._getDefaultHeaders()
         }).then(response => response.json())
-        .then(this._getProjectsAndTasksFromApiResponse)
-        .then(projects => {
-            logger.trace('Projects and tasks retrieved from Harvest', projects);
-            return projects;
-        });
+            .then(this._getProjectsAndTasksFromApiResponse)
+            .then(projects => {
+                logger.trace('Projects and tasks retrieved from Harvest', projects);
+                return projects;
+            });
     }
 
     saveNewTimeEntry(timeEntry) {
@@ -56,7 +56,7 @@ module.exports = class HarvestClient {
             body: JSON.stringify(timeEntry),
             headers: this._getDefaultHeaders()
         }).then(res => res.json())
-        .then(logger.trace.bind(logger));
+            .then(logger.trace.bind(logger));
     }
 
     _getProjectsAndTasksFromApiResponse(apiResponse) {

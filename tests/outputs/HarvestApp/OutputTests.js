@@ -20,7 +20,7 @@ describe('HarvestApp output', () => {
             output.outputWorklogSet(getTestWorklogSet()).then(() => {
                 assert(getProjectsAndTasksStub.calledOnce);
             }).then(done)
-            .catch(done);
+                .catch(done);
         });
 
         it('saves each of the worklogs as time entries', (done) => {
@@ -63,7 +63,6 @@ describe('HarvestApp output', () => {
 
                 for (let i = 0; i < worklogCount; i++) {
                     const timeEntryArgument = saveNewTimeEntryStub.getCall(i).args[0];
-                    const worklog = worklogSet.worklogs[i];
 
                     assert.equal(timeEntryArgument.project_id, 1);
                     assert.equal(timeEntryArgument.task_id, 2);
@@ -75,7 +74,7 @@ describe('HarvestApp output', () => {
                     assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
                 }
             }).then(done)
-            .catch(done);
+                .catch(done);
         });
     });
 });

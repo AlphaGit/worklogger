@@ -34,9 +34,9 @@ module.exports = class JiraWorklogOutput extends OutputBase {
     // This will return a ISO8601 string in the local time zone
     // Adapted from https://gist.github.com/peterbraden/752376#gistcomment-962193
     _getDateTimeString(date) {
-        const pad = function (n) { return n < 10 ? '0' + n : n; }
+        const pad = function (n) { return n < 10 ? '0' + n : n; };
         const tz = date.getTimezoneOffset(); // mins
-        let zzzz = (tz > 0 ? "-" : "+") + pad(parseInt(Math.abs(tz / 60)));
+        let zzzz = (tz > 0 ? '-' : '+') + pad(parseInt(Math.abs(tz / 60)));
 
         if (zzzz % 60 != 0)
             zzzz += pad(Math.abs(tz % 60));

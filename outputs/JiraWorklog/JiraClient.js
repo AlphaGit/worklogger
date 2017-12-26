@@ -35,7 +35,7 @@ module.exports = class JiraClient {
             throw new Error('Worklog requires timeSpent field.');
 
         const url = `${this._baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
-        logger.trace('Sending to', url, ':', worklog)
+        logger.trace('Sending to', url, ':', worklog);
         return this._fetch(url, {
             method: 'POST',
             body: JSON.stringify(worklog),
@@ -44,7 +44,7 @@ module.exports = class JiraClient {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .then(logger.trace.bind(logger));
+            .then(logger.trace.bind(logger));
     }
 
     _getAuthorizationValue() {

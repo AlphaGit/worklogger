@@ -103,5 +103,5 @@ function getFakeFetch() {
                 return Promise.resolve();
             }
         });
-    }
+    };
 }

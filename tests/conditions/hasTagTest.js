@@ -14,11 +14,11 @@ describe('HasTagCondition', () => {
 
         const worklog = new Worklog('test', new Date(), new Date());
 
-        assert(!hasTag.isSatisfiedBy(worklog))
+        assert(!hasTag.isSatisfiedBy(worklog));
 
         worklog.addTag('tag1', 'tag1 value');
 
-        assert(hasTag.isSatisfiedBy(worklog))
+        assert(hasTag.isSatisfiedBy(worklog));
     });
 
     it('filters tags that have tagName and tagValue as indicated in the configuration', () => {
@@ -26,15 +26,15 @@ describe('HasTagCondition', () => {
 
         const worklog = new Worklog('test', new Date(), new Date());
 
-        assert(!hasTag.isSatisfiedBy(worklog))
+        assert(!hasTag.isSatisfiedBy(worklog));
 
         worklog.addTag('tag1', 'tagValue1');
 
-        assert(hasTag.isSatisfiedBy(worklog))
+        assert(hasTag.isSatisfiedBy(worklog));
 
         worklog.addTag('tag1', 'tagValue2');
 
-        assert(!hasTag.isSatisfiedBy(worklog))
+        assert(!hasTag.isSatisfiedBy(worklog));
     });
 });
 

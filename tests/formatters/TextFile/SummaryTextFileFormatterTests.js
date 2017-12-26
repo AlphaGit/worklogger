@@ -156,7 +156,7 @@ function getExampleWorklogSet({
 }
 
 function getExampleWorklogByDuration({
-    startDateTime = new Date(2017, 01, 01, 15, 0, 0),
+    startDateTime = new Date(2017, 1, 1, 15, 0, 0),
     h = 0,
     m = 0
 } = {}) {

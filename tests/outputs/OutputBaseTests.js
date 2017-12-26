@@ -8,7 +8,7 @@ describe('OutputBase', () => {
         it('requires a formatter', () => {
             const assertFormatterRequired = (fn) => {
                 assert.throws(fn, /Formatter is required\./);
-            }
+            };
 
             assertFormatterRequired(() => new OutputBase());
             assertFormatterRequired(() => new OutputBase(1));

@@ -21,7 +21,7 @@ describe('TextFileOutput', () => {
 
         it('returns a rejected promise when writing to a file fails', (done) => {
             const formatter = new FormatterBase({});
-            const formatStub = sinon.stub(formatter, 'format', () => '');
+            sinon.stub(formatter, 'format', () => '');
 
             const fakeFs = {
                 writeFile: (filePath, contents, cb) => cb('Some error occurred.')
@@ -38,7 +38,7 @@ describe('TextFileOutput', () => {
 
         it('returns a resolved promise when everything is fine', (done) => {
             const formatter = new FormatterBase({});
-            const formatStub = sinon.stub(formatter, 'format', () => '');
+            sinon.stub(formatter, 'format', () => '');
 
             const fakeFs = {
                 writeFile: (filePath, contents, cb) => cb()
@@ -52,7 +52,7 @@ describe('TextFileOutput', () => {
 
         it('writes to the output file indicated in the configuration', (done) => {
             const formatter = new FormatterBase({});
-            const formatStub = sinon.stub(formatter, 'format', () => '');
+            sinon.stub(formatter, 'format', () => '');
 
             const outputConfiguration = {
                 filePath: 'myOutputFile.txt'

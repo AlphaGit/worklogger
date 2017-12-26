@@ -110,7 +110,7 @@ function getTestApiResponse({
 } = {}) {
     let apiResponse = {
         calendarConfig: {
-            id: "calendar1",
+            id: 'calendar1',
             includeTags: includeTags
         },
         events: []

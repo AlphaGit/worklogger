@@ -18,18 +18,18 @@ describe('JiraWorklog output', () => {
                 constructorStub
             });
 
-            const output = getTestSubject({
+            getTestSubject({
                 fakeJiraClientClass,
-                JiraUrl: "https://myjira.example.com",
-                JiraUsername: "jiraUserName@example.com",
-                JiraPassword: "qwerty12356"
+                JiraUrl: 'https://myjira.example.com',
+                JiraUsername: 'jiraUserName@example.com',
+                JiraPassword: 'qwerty12356'
             });
 
             assert(constructorStub.called);
             const callArguments = constructorStub.getCall(0).args[0];
-            assert.equal(callArguments.baseUrl, "https://myjira.example.com");
-            assert.equal(callArguments.userName, "jiraUserName@example.com");
-            assert.equal(callArguments.password, "qwerty12356");
+            assert.equal(callArguments.baseUrl, 'https://myjira.example.com');
+            assert.equal(callArguments.userName, 'jiraUserName@example.com');
+            assert.equal(callArguments.password, 'qwerty12356');
         });
 
         it('saves each of the worklogs as JIRA worklogs', (done) => {
@@ -72,7 +72,7 @@ describe('JiraWorklog output', () => {
                     assert.equal(jiraWorklogArgument.timeSpent, '30m');
                 }
             }).then(done)
-            .catch(done);
+                .catch(done);
         });
     });
 });
@@ -95,9 +95,9 @@ function getTestWorklogSet({
 
 function getTestSubject({
     fakeJiraClientClass = getFakeJiraClientClass(),
-    JiraUrl = "https://example.com",
-    JiraUsername = "username",
-    JiraPassword = "password"
+    JiraUrl = 'https://example.com',
+    JiraUsername = 'username',
+    JiraPassword = 'password'
 } = {}) {
     const formatterConfiguration = {};
     const formatter = new FormatterBase(formatterConfiguration);

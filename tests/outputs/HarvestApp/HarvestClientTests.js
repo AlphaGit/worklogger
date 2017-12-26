@@ -124,7 +124,7 @@ describe('HarvestClient', () => {
 
     describe('#saveNewTimeEntry', () => {
         it('requires a timeEntry object', () => {
-            const assertRequiredTimeEntry = (action) => assert.throws(action, /Required parameter: timeEntry\./)
+            const assertRequiredTimeEntry = (action) => assert.throws(action, /Required parameter: timeEntry\./);
             const harvestClient = getTestSubject();
 
             assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry());
@@ -133,7 +133,7 @@ describe('HarvestClient', () => {
         });
 
         it('requires that the time entry has a project_id', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have project_id\./)
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have project_id\./);
             const harvestClient = getTestSubject();
 
             assertRequiredParameter(() => harvestClient.saveNewTimeEntry({}));
@@ -142,7 +142,7 @@ describe('HarvestClient', () => {
         });
 
         it('requires that the time entry has a task_id', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have task_id\./)
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have task_id\./);
             const harvestClient = getTestSubject();
 
             assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1 }));
@@ -151,7 +151,7 @@ describe('HarvestClient', () => {
         });
 
         it('requires that the time entry has a spent_date', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have spent_date\./)
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have spent_date\./);
             const harvestClient = getTestSubject();
 
             assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1 }));
@@ -160,7 +160,7 @@ describe('HarvestClient', () => {
         });
 
         it('requires that the time entry has a timer_started_at', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have timer_started_at\./)
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have timer_started_at\./);
             const harvestClient = getTestSubject();
 
             assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01' }));
@@ -169,7 +169,7 @@ describe('HarvestClient', () => {
         });
 
         it('requires that the time entry has hours', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have hours\./)
+            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have hours\./);
             const harvestClient = getTestSubject();
 
             assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400' }));
@@ -223,7 +223,7 @@ function getFakeFetch() {
                 return Promise.resolve(getRealApiResponse());
             }
         });
-    }
+    };
 }
 
 function getTestSubject({
@@ -246,41 +246,41 @@ function getRealApiResponse() {
             is_project_manager: false,
             is_active: true,
             budget: null,
-            created_at: "2017-07-07T12:09:45Z",
-            updated_at: "2017-07-07T12:09:45Z",
+            created_at: '2017-07-07T12:09:45Z',
+            updated_at: '2017-07-07T12:09:45Z',
             hourly_rate: null,
             project: {
                 id: 11,
-                name: "Project A",
-                code: ""
+                name: 'Project A',
+                code: ''
             },
             client: {
                 id: 1,
-                name: "Client A"
+                name: 'Client A'
             },
             task_assignments: [{
                 id: 123456,
                 billable: true,
                 is_active: true,
-                created_at: "2017-10-05T19:57:47Z",
-                updated_at: "2017-10-05T19:57:47Z",
+                created_at: '2017-10-05T19:57:47Z',
+                updated_at: '2017-10-05T19:57:47Z',
                 hourly_rate: null,
                 budget: null,
                 task: {
                     id: 111,
-                    name: "Task A"
+                    name: 'Task A'
                 }
             }, {
                 id: 123456,
                 billable: false,
                 is_active: true,
-                created_at: "2017-09-11T16:12:33Z",
-                updated_at: "2017-09-11T16:12:33Z",
+                created_at: '2017-09-11T16:12:33Z',
+                updated_at: '2017-09-11T16:12:33Z',
                 hourly_rate: null,
                 budget: null,
                 task: {
                     id: 112,
-                    name: "Task B"
+                    name: 'Task B'
                 }
             }]
         },
@@ -289,41 +289,41 @@ function getRealApiResponse() {
             is_project_manager: false,
             is_active: true,
             budget: null,
-            created_at: "2017-06-05T20:02:50Z",
-            updated_at: "2017-06-05T20:02:50Z",
+            created_at: '2017-06-05T20:02:50Z',
+            updated_at: '2017-06-05T20:02:50Z',
             hourly_rate: null,
             project: {
                 id: 22,
-                name: "Project B",
-                code: "COD"
+                name: 'Project B',
+                code: 'COD'
             },
             client: {
                 id: 2,
-                name: "Client B"
+                name: 'Client B'
             },
             task_assignments: [{
                 id: 123456,
                 billable: false,
                 is_active: true,
-                created_at: "2017-08-28T16:45:18Z",
-                updated_at: "2017-08-28T16:45:18Z",
+                created_at: '2017-08-28T16:45:18Z',
+                updated_at: '2017-08-28T16:45:18Z',
                 hourly_rate: null,
                 budget: null,
                 task: {
                     id: 221,
-                    name: "Task A"
+                    name: 'Task A'
                 }
             }, {
                 id: 123456,
                 billable: false,
                 is_active: true,
-                created_at: "2017-09-11T16:12:33Z",
-                updated_at: "2017-09-11T16:12:33Z",
+                created_at: '2017-09-11T16:12:33Z',
+                updated_at: '2017-09-11T16:12:33Z',
                 hourly_rate: null,
                 budget: null,
                 task: {
                     id: 222,
-                    name: "Task B"
+                    name: 'Task B'
                 }
             }]
         }],
@@ -334,10 +334,10 @@ function getRealApiResponse() {
         previous_page: null,
         page: 1,
         links: {
-            first: "https://api.harvestapp.com/v2/users/123456/project_assignments?page=1&per_page=100",
+            first: 'https://api.harvestapp.com/v2/users/123456/project_assignments?page=1&per_page=100',
             next: null,
             previous: null,
-            last: "https://api.harvestapp.com/v2/users/123456/project_assignments?page=1&per_page=100"
+            last: 'https://api.harvestapp.com/v2/users/123456/project_assignments?page=1&per_page=100'
         }
     };
 }

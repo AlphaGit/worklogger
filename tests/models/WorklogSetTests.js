@@ -60,7 +60,7 @@ describe('WorklogSet', () => {
                 new Worklog('long name over here', new Date(), new Date()),
                 new Worklog('short name', new Date(), new Date()),
                 new Worklog('long name over here', new Date(), new Date()),
-            ]
+            ];
             const worklogSet = getTestSubject({ worklogs });
 
             const result = worklogSet.getFilteredCopy((w) => w.name.length > 10);
