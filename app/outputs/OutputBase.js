@@ -3,8 +3,7 @@ const WorklogSet = require('models/WorklogSet');
 
 module.exports = class OutputBase {
     constructor(formatter, outputConfiguration) {
-        if (!(formatter instanceof FormatterBase))
-            throw new Error('Formatter is required.');
+        if (!(formatter instanceof FormatterBase)) throw new Error('Formatter is required.');
 
         this._formatter = formatter;
         this._configuration = outputConfiguration;
@@ -16,10 +15,7 @@ module.exports = class OutputBase {
     }
 
     _outputWorklogSetValidation(worklogSet) {
-        if (!worklogSet)
-            throw new Error('Required parameter: worklogSet.');
-
-        if (!(worklogSet instanceof WorklogSet))
-            throw new Error('worklogSet needs to be of type WorklogSet.');
+        if (!worklogSet) throw new Error('Required parameter: worklogSet.');
+        if (!(worklogSet instanceof WorklogSet)) throw new Error('worklogSet needs to be of type WorklogSet.');
     }
 };

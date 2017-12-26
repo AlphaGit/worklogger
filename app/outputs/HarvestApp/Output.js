@@ -17,27 +17,7 @@ module.exports = class HarvestAppOutput extends OutputBase {
     }
 
     _saveWorklogs(worklogs, projects) {
-        const projectTag = this._configuration.selectProjectFromTag || 'HarvestProject';
-        const taskTag = this._configuration.selectTaskFromTag || 'HarvestTask';
-
-        const timeEntries = worklogs.map(w => {
-            const projectTagValue = w.getTagValue(projectTag);
-            const project = projects.find(p => p.projectName == projectTagValue);
-            if (!project) return null;
-
-            const taskTagValue = w.getTagValue(taskTag);
-            const task = project.tasks.find(t => t.taskName == taskTagValue);
-            if (!task) return null;
-
-            return {
-                project_id: project.projectId,
-                task_id: task.taskId,
-                spent_date: w.startDateTime.toISOString().substring(0, 10),
-                timer_started_at: w.startDateTime.toISOString(),
-                hours: w.duration / 60,
-                notes: w.name
-            };
-        }).filter(w => !!w);
+        const timeEntries = this._mapWorklogsToTimeEntries(worklogs, projects);
 
         const saveNewTimeEntryFn = this._harvestClient.saveNewTimeEntry.bind(this._harvestClient);
         const savingPromises = timeEntries.map(saveNewTimeEntryFn);
@@ -45,5 +25,40 @@ module.exports = class HarvestAppOutput extends OutputBase {
         return Promise.all(savingPromises).then(p => {
             logger.info(`Sent ${p.length} time entries to Harvest.`);
         });
+    }
+
+    _mapWorklogsToTimeEntries(worklogs, projects) {
+        return worklogs.map(w => {
+            const project = this._getProjectForWorklog(w, projects);
+            if (!project) return null;
+
+            const task = this._getTaskForWorklog(w, project);
+            if (!task) return null;
+
+            return this._getTimeEntryFromWorklogTaskAndProject(w, project, task);
+        }).filter(w => !!w);
+    }
+
+    _getTimeEntryFromWorklogTaskAndProject(worklog, project, task) {
+        return {
+            project_id: project.projectId,
+            task_id: task.taskId,
+            spent_date: worklog.startDateTime.toISOString().substring(0, 10),
+            timer_started_at: worklog.startDateTime.toISOString(),
+            hours: worklog.duration / 60,
+            notes: worklog.name
+        };
+    }
+
+    _getProjectForWorklog(worklog, projects) {
+        const projectTag = this._configuration.selectProjectFromTag || 'HarvestProject';
+        const projectTagValue = worklog.getTagValue(projectTag);
+        return projects.find(p => p.projectName == projectTagValue);
+    }
+
+    _getTaskForWorklog(worklog, project) {
+        const taskTag = this._configuration.selectTaskFromTag || 'HarvestTask';
+        const taskTagValue = worklog.getTagValue(taskTag);
+        return project.tasks.find(t => t.taskName == taskTagValue);
     }
 };

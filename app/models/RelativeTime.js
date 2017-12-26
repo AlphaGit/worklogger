@@ -1,16 +1,23 @@
 class RelativeTime {
     constructor(fromNow, unit) {
-        if (fromNow !== RelativeTime.FROM_NOW_THIS && fromNow !== RelativeTime.FROM_NOW_LAST)
-            throw new Error('Parameter required: fromNow.');
+        this._validateFromNowValue(fromNow);
+        this._validateUnitValue(unit);
 
+        this._fromNow = fromNow;
+        this._unit = unit;
+    }
+
+    _validateUnitValue(unit) {
         if (unit !== RelativeTime.UNIT_HOUR
             && unit !== RelativeTime.UNIT_DAY
             && unit !== RelativeTime.UNIT_WEEK
             && unit !== RelativeTime.UNIT_MONTH)
             throw new Error('Parameter required: unit.');
+    }
 
-        this._fromNow = fromNow;
-        this._unit = unit;
+    _validateFromNowValue(fromNow) {
+        if (fromNow !== RelativeTime.FROM_NOW_THIS && fromNow !== RelativeTime.FROM_NOW_LAST)
+            throw new Error('Parameter required: fromNow.');
     }
 
     toDate() {

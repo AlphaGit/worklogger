@@ -18,8 +18,8 @@ The particular objective of this system is to allow me to automate my timesheet 
 
 - `/docs`: Miscellaneous documentation about the project.
 - `/tests`: Mirror of the design with test classes.
-- `/models`: Model classes.
-- `/services`: Service classes.
+- `/app/models`: Model classes.
+- `/app/services`: Service classes.
 
 ### Specific to the application flow:
 

@@ -3,20 +3,17 @@ const logger = require('services/loggerFactory').getLogger('HarvestApp/HarvestCl
 
 module.exports = class HarvestClient {
     constructor(configuration, { fetch = requiredFetch } = {}) {
-        if (!configuration)
-            throw new Error('Missing parameter: configuration.');
-
-        if (!configuration.accountId)
-            throw new Error('Required configuration: accountId.');
-
-        if (!configuration.token)
-            throw new Error('Required configuration: token.');
-
-        if (!configuration.contactInformation)
-            throw new Error('Required configuration: contactInformation.');
+        this._validateConfiguration(configuration);
 
         this._configuration = configuration;
         this._fetch = fetch;
+    }
+
+    _validateConfiguration(configuration) {
+        if (!configuration) throw new Error('Missing parameter: configuration.');
+        if (!configuration.accountId) throw new Error('Required configuration: accountId.');
+        if (!configuration.token) throw new Error('Required configuration: token.');
+        if (!configuration.contactInformation) throw new Error('Required configuration: contactInformation.');
     }
 
     getProjectsAndTasks() {
@@ -32,23 +29,7 @@ module.exports = class HarvestClient {
     }
 
     saveNewTimeEntry(timeEntry) {
-        if (!timeEntry)
-            throw new Error('Required parameter: timeEntry.');
-
-        if (!timeEntry.project_id)
-            throw new Error('Time entry needs to have project_id.');
-
-        if (!timeEntry.task_id)
-            throw new Error('Time entry needs to have task_id.');
-
-        if (!timeEntry.spent_date)
-            throw new Error('Time entry needs to have spent_date.');
-
-        if (!timeEntry.timer_started_at)
-            throw new Error('Time entry needs to have timer_started_at.');
-
-        if (!timeEntry.hours)
-            throw new Error('Time entry needs to have hours.');
+        this._validateTimeEntry(timeEntry);
 
         logger.trace('Sending to Harvest:', timeEntry);
         return this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
@@ -57,6 +38,15 @@ module.exports = class HarvestClient {
             headers: this._getDefaultHeaders()
         }).then(res => res.json())
             .then(logger.trace.bind(logger));
+    }
+
+    _validateTimeEntry(timeEntry) {
+        if (!timeEntry) throw new Error('Required parameter: timeEntry.');
+        if (!timeEntry.project_id) throw new Error('Time entry needs to have project_id.');
+        if (!timeEntry.task_id) throw new Error('Time entry needs to have task_id.');
+        if (!timeEntry.spent_date) throw new Error('Time entry needs to have spent_date.');
+        if (!timeEntry.timer_started_at) throw new Error('Time entry needs to have timer_started_at.');
+        if (!timeEntry.hours) throw new Error('Time entry needs to have hours.');
     }
 
     _getProjectsAndTasksFromApiResponse(apiResponse) {

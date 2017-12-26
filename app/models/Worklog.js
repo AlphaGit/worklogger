@@ -2,12 +2,9 @@ class Worklog {
     constructor(name, startDateTime, endDateTime,
         duration = (endDateTime - startDateTime) / (60 * 1000) // duration in minutes
     ) {
-        if (!name) throw new Error('Missing name parameter');
-        if (!startDateTime) throw new Error('Missing startDateTime parameter');
-        if (!endDateTime) throw new Error('Missing endDateTime parameter');
-
-        if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
-        if (!(endDateTime instanceof Date)) throw new Error('endDateTime needs to be a Date.');
+        this._validateName(name);
+        this._validateStartDateTime(startDateTime);
+        this._validateEndDateTime(endDateTime);
         
         this.name = name;
         this.startDateTime = startDateTime;
@@ -15,6 +12,20 @@ class Worklog {
         this.duration = duration;
 
         this._tags = {};
+    }
+
+    _validateEndDateTime(endDateTime) {
+        if (!endDateTime) throw new Error('Missing endDateTime parameter');
+        if (!(endDateTime instanceof Date)) throw new Error('endDateTime needs to be a Date.');
+    }
+
+    _validateStartDateTime(startDateTime) {
+        if (!startDateTime) throw new Error('Missing startDateTime parameter');
+        if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
+    }
+
+    _validateName(name) {
+        if (!name) throw new Error('Missing name parameter');
     }
 
     toString() {
@@ -47,21 +58,17 @@ class Worklog {
 
     addTag(name, value) {
         this._validateTagName(name);
-
         this._tags[name] = value;
     }
 
     getTagValue(name) {
         this._validateTagName(name);
-
         return this._tags[name];
     }
 
     _validateTagName(tagName) {
-        if (tagName == null || tagName == undefined)
-            throw new Error('Tag names cannot be empty');
-        else if (typeof(tagName) !== 'string')
-            throw new Error('Tag names need to be strings');
+        if (tagName == null || tagName == undefined) throw new Error('Tag names cannot be empty');
+        if (typeof(tagName) !== 'string') throw new Error('Tag names need to be strings');
     }
 }
 

@@ -17,17 +17,21 @@ module.exports = class JiraWorklogOutput extends OutputBase {
 
         const sendingToJiraPromises = worklogSet.worklogs.map(w => {
             const ticketId = w.getTagValue('JiraTicket');
-            const jiraWorklog = {
-                comment: w.name,
-                started: this._getDateTimeString(w.startDateTime),
-                timeSpent: w.duration + 'm'
-            };
-            this._jiraClient.saveWorklog(ticketId, jiraWorklog);
+            const jiraWorklog = this._mapToJiraWorklog(w);
+            return this._jiraClient.saveWorklog(ticketId, jiraWorklog);
         });
 
         return Promise.all(sendingToJiraPromises).then(p => {
             logger.info(`Sent ${p.length} worklogs to JIRA.`);
         });
+    }
+
+    _mapToJiraWorklog(worklog) {
+        return {
+            comment: worklog.name,
+            started: this._getDateTimeString(worklog.startDateTime),
+            timeSpent: worklog.duration + 'm'
+        };
     }
 
     // JIRA does not like Zulu time, so we cannot just use date.ToISOString()
