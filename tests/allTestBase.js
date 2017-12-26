@@ -1,1 +1,5 @@
-require('app-module-path').addPath(__dirname + '/../');
+const appModulePath = require('app-module-path');
+const path = require('path');
+
+appModulePath.addPath(path.resolve('app'));
+appModulePath.addPath(path.resolve());
