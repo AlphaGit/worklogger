@@ -4,37 +4,49 @@ const HarvestClient = require('outputs/HarvestApp/HarvestClient');
 
 describe('HarvestClient', () => {
     describe('#constructor', () => {
-        it('requires a configuration object', () => {
-            const assertMissingConfiguration = (action) => assert.throws(action, /Missing parameter: configuration\./);
+        function assertConstructorThrows(constructorArgument, expectedError) {
+            assert.throws(() => new HarvestClient(constructorArgument), expectedError);
+        }
 
-            assertMissingConfiguration(() => new HarvestClient());
-            assertMissingConfiguration(() => new HarvestClient(undefined));
-            assertMissingConfiguration(() => new HarvestClient(null));
+        function assertMissingConfiguration(configurationArgument) {
+            assertConstructorThrows(configurationArgument, /Missing parameter: configuration\./);
+        }
+
+        it('requires a configuration object', () => {
+            assertMissingConfiguration();
+            assertMissingConfiguration(undefined);
+            assertMissingConfiguration(null);
         });
+
+        function assertRequiredAccountId(accountId) {
+            assertConstructorThrows({ accountId }, /Required configuration: accountId\./);
+        }
 
         it('requires accountId in the configuration object', () => {
-            const assertMissingAccountId = (action) => assert.throws(action, /Required configuration: accountId\./);
-
-            assertMissingAccountId(() => new HarvestClient({}));
-            assertMissingAccountId(() => new HarvestClient({ accountId: null }));
-            assertMissingAccountId(() => new HarvestClient({ accountId: '' }));
+            assertRequiredAccountId();
+            assertRequiredAccountId(null);
+            assertRequiredAccountId('');
         });
+
+        function assertRequiredToken(token) {
+            assertConstructorThrows({ accountId: 123, token }, /Required configuration: token\./);
+        }
 
         it('requires a token in the configuration object', () => {
-            const assertMissingToken = (action) => assert.throws(action, /Required configuration: token\./);
-
-            assertMissingToken(() => new HarvestClient({ accountId: 123 }));
-            assertMissingToken(() => new HarvestClient({ accountId: 123, token: null }));
-            assertMissingToken(() => new HarvestClient({ accountId: 123, token: '' }));
+            assertRequiredToken();
+            assertRequiredToken(null);
+            assertRequiredToken('');
         });
 
-        it('requires contactInformation in the configuration object', () => {
-            const assertMissingContactInformation = (action) => assert.throws(action, /Required configuration: contactInformation\./);
+        function assertRequiredContactInformation(contactInformation) {
+            assertConstructorThrows({ accountId: 123, token: '123', contactInformation }, /Required configuration: contactInformation\./);
+        }
 
-            assertMissingContactInformation(() => new HarvestClient({ accountId: 123, token: '123' }));
-            assertMissingContactInformation(() => new HarvestClient({ accountId: 123, token: '123', contactInformation: undefined }));
-            assertMissingContactInformation(() => new HarvestClient({ accountId: 123, token: '123', contactInformation: null }));
-            assertMissingContactInformation(() => new HarvestClient({ accountId: 123, token: '123', contactInformation: '' }));
+        it('requires contactInformation in the configuration object', () => {
+            assertRequiredContactInformation();
+            assertRequiredContactInformation(undefined);
+            assertRequiredContactInformation(null);
+            assertRequiredContactInformation('');
         });
 
         it('can be instantiated', () => {
@@ -48,7 +60,7 @@ describe('HarvestClient', () => {
             assert(harvestClient.getProjectsAndTasks() instanceof Promise);
         });
 
-        it('makes a call to HarvestApi with the right values', (done) => {
+        it('makes a call to HarvestApi with the right values', () => {
             const fakeFetch = getFakeFetch();
             const fetchSpy = sinon.spy(fakeFetch);
             const harvestClient = getTestSubject({
@@ -58,7 +70,7 @@ describe('HarvestClient', () => {
                 fetch: fetchSpy
             });
 
-            harvestClient.getProjectsAndTasks()
+            return harvestClient.getProjectsAndTasks()
                 .then(() => {
                     assert(fetchSpy.calledOnce);
                     const firstArgument = fetchSpy.getCall(0).args[0];
@@ -68,28 +80,24 @@ describe('HarvestClient', () => {
                     assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
                     assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
                     assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
-                })
-                .then(done)
-                .catch(done);
+                });
         });
 
-        it('parses the response as json', (done) => {
+        it('parses the response as json', () => {
             const jsonStub = sinon.stub().returns(Promise.resolve(getRealApiResponse()));
             const fetchStub = sinon.stub().returns(Promise.resolve({ json: jsonStub }));
             const harvestClient = getTestSubject({
                 fetch: fetchStub
             });
 
-            harvestClient.getProjectsAndTasks()
+            return harvestClient.getProjectsAndTasks()
                 .then(() => {
                     assert(fetchStub.calledOnce);
                     assert(jsonStub.calledOnce);
-                })
-                .then(done)
-                .catch(done);
+                });
         });
 
-        it('returns the project ids and names with task ids and names', (done) => {
+        it('returns the project ids and names with task ids and names', () => {
             const apiResponse = getRealApiResponse();
             const jsonStub = sinon.stub().returns(Promise.resolve(apiResponse));
             const fetchStub = sinon.stub().returns(Promise.resolve({ json: jsonStub }));
@@ -97,7 +105,7 @@ describe('HarvestClient', () => {
                 fetch: fetchStub
             });
 
-            harvestClient.getProjectsAndTasks()
+            return harvestClient.getProjectsAndTasks()
                 .then((result) => {
                     assert.equal(result.length, 2);
 
@@ -116,68 +124,77 @@ describe('HarvestClient', () => {
                     assert.equal(result[1].tasks[0].taskName, 'Task A');
                     assert.equal(result[1].tasks[1].taskId, 222);
                     assert.equal(result[1].tasks[1].taskName, 'Task B');
-                })
-                .then(done)
-                .catch(done);
+                });
         });
     });
 
     describe('#saveNewTimeEntry', () => {
-        it('requires a timeEntry object', () => {
-            const assertRequiredTimeEntry = (action) => assert.throws(action, /Required parameter: timeEntry\./);
+        function assertTimeEntryError(timeEntryValue, expectedError) {
             const harvestClient = getTestSubject();
+            assert.throws(() => harvestClient.saveNewTimeEntry(timeEntryValue), expectedError);
+        }
 
-            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry());
-            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry(null));
-            assertRequiredTimeEntry(() => harvestClient.saveNewTimeEntry(undefined));
+        function assertRequiredTimeEntry(timeEntryValue) {
+            assertTimeEntryError(timeEntryValue, /Required parameter: timeEntry\./);
+        }
+
+        it('requires a timeEntry object', () => {
+            assertRequiredTimeEntry();
+            assertRequiredTimeEntry(null);
+            assertRequiredTimeEntry(undefined);
         });
+
+        function assertTimeEntryRequiresProjectId(project_id) {
+            assertTimeEntryError({ project_id }, /Time entry needs to have project_id\./);
+        }
 
         it('requires that the time entry has a project_id', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have project_id\./);
-            const harvestClient = getTestSubject();
-
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({}));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: undefined }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: null }));
+            assertTimeEntryRequiresProjectId();
+            assertTimeEntryRequiresProjectId(undefined);
+            assertTimeEntryRequiresProjectId(null);
         });
+
+        function assertTimeEntryRequiresTaskId(task_id) {
+            assertTimeEntryError({ project_id: 1, task_id }, /Time entry needs to have task_id\./);
+        }
 
         it('requires that the time entry has a task_id', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have task_id\./);
-            const harvestClient = getTestSubject();
-
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1 }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: undefined }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: null }));
+            assertTimeEntryRequiresTaskId();
+            assertTimeEntryRequiresTaskId(undefined);
+            assertTimeEntryRequiresTaskId(null);
         });
+
+        function assertTimeEntryRequiresSpentDate(spent_date) {
+            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date }, /Time entry needs to have spent_date\./);
+        }
 
         it('requires that the time entry has a spent_date', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have spent_date\./);
-            const harvestClient = getTestSubject();
-
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1 }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: undefined }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: null }));
+            assertTimeEntryRequiresSpentDate();
+            assertTimeEntryRequiresSpentDate(undefined);
+            assertTimeEntryRequiresSpentDate(null);
         });
+
+        function assertTimeEntryRequiresTimerStartedAt(timer_started_at) {
+            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at }, /Time entry needs to have timer_started_at\./);
+        }
 
         it('requires that the time entry has a timer_started_at', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have timer_started_at\./);
-            const harvestClient = getTestSubject();
-
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01' }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: undefined }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: null }));
+            assertTimeEntryRequiresTimerStartedAt();
+            assertTimeEntryRequiresTimerStartedAt(null);
+            assertTimeEntryRequiresTimerStartedAt(undefined);
         });
+
+        function assertTimeEntryRequiresHours(hours) {
+            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours }, /Time entry needs to have hours\./);
+        }
 
         it('requires that the time entry has hours', () => {
-            const assertRequiredParameter = (action) => assert.throws(action, /Time entry needs to have hours\./);
-            const harvestClient = getTestSubject();
-
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400' }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours: null }));
-            assertRequiredParameter(() => harvestClient.saveNewTimeEntry({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours: undefined }));
+            assertTimeEntryError();
+            assertTimeEntryError(undefined);
+            assertTimeEntryError(null);
         });
 
-        it('calls the HarvestApi with the right parameters', (done) => {
+        it('calls the HarvestApi with the right parameters', () => {
             const fakeFetch = getFakeFetch();
             const fetchSpy = sinon.spy(fakeFetch);
             const harvestClient = getTestSubject({
@@ -195,7 +212,8 @@ describe('HarvestClient', () => {
                 hours: 1.5,
                 notes: 'Task description'
             };
-            harvestClient.saveNewTimeEntry(timeEntry)
+            
+            return harvestClient.saveNewTimeEntry(timeEntry)
                 .then(() => {
                     assert(fetchSpy.calledOnce);
                     const firstArgument = fetchSpy.getCall(0).args[0];
@@ -208,10 +226,7 @@ describe('HarvestClient', () => {
 
                     assert.equal(secondArgument.method, 'POST');
                     assert.deepEqual(JSON.parse(secondArgument.body), timeEntry);
-                })
-                .then(done)
-                .catch(done);
-
+                });
         });
     });
 });

@@ -27,11 +27,14 @@ describe('JiraClient', () => {
             assert.throws(() => jiraClient.saveWorklog(), /Required parameter: ticketId\./);
         });
 
-        it('validates that it receives a worklog', () => {
+        function assertRequiresWorklogParameter(worklog) {
             const jiraClient = getTestSubject();
-            const assertWorklogParameter = (worklog) => assert.throws(() => jiraClient.saveWorklog('PID-123', worklog), /Required parameter: worklog\./);
-            assertWorklogParameter(undefined);
-            assertWorklogParameter(null);
+            assert.throws(() => jiraClient.saveWorklog('PID-123', worklog), /Required parameter: worklog\./);
+        }
+
+        it('validates that it receives a worklog', () => {
+            assertRequiresWorklogParameter(undefined);
+            assertRequiresWorklogParameter(null);
         });
 
         it('requires that the worklog parameter has a comment field', () => {
@@ -58,7 +61,7 @@ describe('JiraClient', () => {
             assert(result instanceof Promise);
         });
 
-        it('calls the JIRA API with the right parameters', (done) => {
+        it('calls the JIRA API with the right parameters', () => {
             const fakeFetch = getFakeFetch();
             const fetchSpy = sinon.spy(fakeFetch);
             const jiraClient = getTestSubject({
@@ -80,9 +83,7 @@ describe('JiraClient', () => {
                     assert.equal(secondArgument.headers['Content-Type'], 'application/json');
                     assert.equal(secondArgument.method, 'POST');
                     assert.deepEqual(JSON.parse(secondArgument.body), jiraWorklog);
-                })
-                .then(done)
-                .catch(done);
+                });
         });
     });
 });

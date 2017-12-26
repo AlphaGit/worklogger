@@ -5,14 +5,14 @@ const WorklogSet = require('models/WorklogSet');
 
 describe('OutputBase', () => {
     describe('#constructor', () => {
-        it('requires a formatter', () => {
-            const assertFormatterRequired = (fn) => {
-                assert.throws(fn, /Formatter is required\./);
-            };
+        function assertFormatterRequired(formatterArgument) {
+            assert.throws(() => new OutputBase(formatterArgument), /Formatter is required\./);
+        }
 
-            assertFormatterRequired(() => new OutputBase());
-            assertFormatterRequired(() => new OutputBase(1));
-            assertFormatterRequired(() => new OutputBase({}));
+        it('requires a formatter', () => {
+            assertFormatterRequired();
+            assertFormatterRequired(1);
+            assertFormatterRequired({});
         });
     });
 
@@ -22,16 +22,26 @@ describe('OutputBase', () => {
             assert(typeof output.outputWorklogSet === 'function');
         });
 
-        it('requires a worklogSet as a parameter', () => {
+        function assertOutputWorklogSetError(worklogSet, expectedError) {
             const output = getTestSubject();
-            const assetRequiredWorklogSet = (action) => assert.throws(action, /Required parameter: worklogSet\./);
-            assetRequiredWorklogSet(() => output.outputWorklogSet());
-            assetRequiredWorklogSet(() => output.outputWorklogSet(null));
+            assert.throws(() => output.outputWorklogSet(worklogSet), expectedError);
+        }
 
-            const assetRequiredWorklogSetType = (action) => assert.throws(action, /worklogSet needs to be of type WorklogSet\./);
-            assetRequiredWorklogSetType(() => output.outputWorklogSet({}));
-            assetRequiredWorklogSetType(() => output.outputWorklogSet(1));
-            assetRequiredWorklogSetType(() => output.outputWorklogSet([]));
+        function assertWorklogSetRequired(worklogSet) {
+            assertOutputWorklogSetError(worklogSet, /Required parameter: worklogSet\./);
+        }
+
+        function assertWorklogSetIsRightType(worklogSet) {
+            assertOutputWorklogSetError(worklogSet, /worklogSet needs to be of type WorklogSet\./);
+        }
+
+        it('requires a worklogSet as a parameter', () => {
+            assertWorklogSetRequired();
+            assertWorklogSetRequired(null);
+
+            assertWorklogSetIsRightType({});
+            assertWorklogSetIsRightType(1);
+            assertWorklogSetIsRightType([]);
         });
 
         it('throws in the base class (abstract class)', () => {

@@ -32,7 +32,7 @@ describe('JiraWorklog output', () => {
             assert.equal(callArguments.password, 'qwerty12356');
         });
 
-        it('saves each of the worklogs as JIRA worklogs', (done) => {
+        it('saves each of the worklogs as JIRA worklogs', () => {
             const saveWorklogStub = sinon.stub().returns(Promise.resolve());
             const fakeJiraClientClass = getFakeJiraClientClass({
                 saveWorklogStub: saveWorklogStub
@@ -55,7 +55,7 @@ describe('JiraWorklog output', () => {
             // 4. 2017-01-01T08:30-0400 to 2017-01-01T09:00-0400
             // 5. 2017-01-01T09:00-0400 to 2017-01-01T09:30-0400
 
-            output.outputWorklogSet(worklogSet).then(() => {
+            return output.outputWorklogSet(worklogSet).then(() => {
                 assert.equal(saveWorklogStub.callCount, worklogSet.worklogs.length);
 
                 for (let i = 0; i < worklogCount; i++) {
@@ -71,8 +71,7 @@ describe('JiraWorklog output', () => {
                     assert.equal(jiraWorklogArgument.started, `2017-01-01T${hour}:${minutes}:00.000-0500`);
                     assert.equal(jiraWorklogArgument.timeSpent, '30m');
                 }
-            }).then(done)
-                .catch(done);
+            });
         });
     });
 });

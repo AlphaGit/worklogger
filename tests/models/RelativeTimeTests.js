@@ -3,31 +3,39 @@ const RelativeTime = require('models/RelativeTime');
 
 describe('RelativeTime', () => {
     describe('#constructor', () => {
-        it('requires a fromNow parameter', () => {
-            const assertFromNowRequired = fn => assert.throws(fn, /Parameter required: fromNow\./);
+        function assertFromNowRequired(fromNow) {
+            assert.throws(() => new RelativeTime(fromNow), /Parameter required: fromNow\./);
+        }
 
-            assertFromNowRequired(() => new RelativeTime());
-            assertFromNowRequired(() => new RelativeTime(1));
-            assertFromNowRequired(() => new RelativeTime('something'));
+        it('requires a fromNow parameter', () => {
+            assertFromNowRequired();
+            assertFromNowRequired(1);
+            assertFromNowRequired('something');
         });
+
+        function assertUnitRequired(unit) {
+            assert.throws(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, unit), /Parameter required: unit\./);
+        }
 
         it('requires a unit parameter', () => {
-            const assertUnitRequired = fn => assert.throws(fn, /Parameter required: unit\./);
-
-            assertUnitRequired(() => new RelativeTime(RelativeTime.FROM_NOW_LAST));
-            assertUnitRequired(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, 1));
-            assertUnitRequired(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, 'something'));
+            assertUnitRequired();
+            assertUnitRequired(1);
+            assertUnitRequired('something');
         });
 
+        function assertCanBeInstantiatedWith(fromNow, unit) {
+            assert.doesNotThrow(() => new RelativeTime(fromNow, unit));
+        }
+
         it('can be instantiated with the right parameters', () => {
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH));
-            assert.doesNotThrow(() => new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH));
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
         });
     });
 

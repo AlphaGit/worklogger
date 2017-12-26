@@ -11,22 +11,28 @@ describe('Worklog', () => {
             assert.throws(() => buildWorklog({ startDateTime: null }));
         });
 
+        function assertStartDateTimeIsDate(startDateTime) {
+            assert.throws(() => buildWorklog({ startDateTime }), /startDateTime needs to be a Date\./);
+        };
+
         it('requires the startDateTime parameter to be a Date', () => {
-            const assertStartDateTimeIsDate = (action) => assert.throws(action, /startDateTime needs to be a Date\./);
-            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: 1 }));
-            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: [] }));
-            assertStartDateTimeIsDate(() => buildWorklog({ startDateTime: {} }));
+            assertStartDateTimeIsDate(1);
+            assertStartDateTimeIsDate([]);
+            assertStartDateTimeIsDate({});
         });
 
         it('requires a endDateTime parameter', () => {
             assert.throws(() => buildWorklog({ endDateTime: null }));
         });
 
+        function assertEndDateTimeIsDate(endDateTime) {
+            assert.throws(() => buildWorklog({ endDateTime }), /endDateTime needs to be a Date\./);
+        };
+
         it('requires the endDateTime parameter to be a Date', () => {
-            const assertEndDateTimeIsDate = (action) => assert.throws(action, /endDateTime needs to be a Date\./);
-            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: 1 }));
-            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: [] }));
-            assertEndDateTimeIsDate(() => buildWorklog({ endDateTime: {} }));
+            assertEndDateTimeIsDate(1);
+            assertEndDateTimeIsDate([]);
+            assertEndDateTimeIsDate({});
         });
 
         it('calculates the duration from startDateTime and endDateTime parameters', () => {
@@ -104,22 +110,36 @@ describe('Worklog', () => {
         });
     });
 
-    describe('#addTag', () => {
-        it('requires a tag name', () => {
-            var worklog = buildWorklog();
+    function assertTagNameCannotBeEmpty(fn, tag) {
+        var worklog = buildWorklog();
+        assert.throws(() => fn.call(worklog, tag), /Tag names cannot be empty/);
+    }
 
-            assert.throws(() => worklog.addTag(), /Tag names cannot be empty/);
-            assert.throws(() => worklog.addTag(null), /Tag names cannot be empty/);
-            assert.throws(() => worklog.addTag(undefined), /Tag names cannot be empty/);
+    function assertTagIsAString(fn, tag) {
+        var worklog = buildWorklog();
+        assert.throws(() => fn.call(worklog, tag), /Tag names need to be strings/);
+    }
+
+    describe('#addTag', () => {
+        function assertTagNameCannotBeEmptyOnAdd(tag) {
+            assertTagNameCannotBeEmpty(Worklog.prototype.addTag, tag);
+        }
+
+        it('requires a tag name', () => {
+            assertTagNameCannotBeEmptyOnAdd();
+            assertTagNameCannotBeEmptyOnAdd(null);
+            assertTagNameCannotBeEmptyOnAdd(undefined);
         });
 
-        it('validates that the tag name is a string', () => {
-            var worklog = buildWorklog();
+        function assertTagIsAStringOnAdd(tag) {
+            assertTagIsAString(Worklog.prototype.addTag, tag);
+        }
 
-            assert.throws(() => worklog.addTag({}), /Tag names need to be strings/);
-            assert.throws(() => worklog.addTag([]), /Tag names need to be strings/);
-            assert.throws(() => worklog.addTag(15), /Tag names need to be strings/);
-            assert.throws(() => worklog.addTag(0), /Tag names need to be strings/);
+        it('validates that the tag name is a string', () => {
+            assertTagIsAStringOnAdd({});
+            assertTagIsAStringOnAdd([]);
+            assertTagIsAStringOnAdd(15);
+            assertTagIsAStringOnAdd(0);
         });
 
         it('stores the value passed to the tag', () => {
@@ -138,21 +158,25 @@ describe('Worklog', () => {
     });
 
     describe('#getTagValue', () => {
-        it('requires a tag name', () => {
-            var worklog = buildWorklog();
+        function assertTagNameCannotBeEmptyOnGet(tag) {
+            assertTagNameCannotBeEmpty(Worklog.prototype.getTagValue, tag);
+        }
 
-            assert.throws(() => worklog.getTagValue(), /Tag names cannot be empty/);
-            assert.throws(() => worklog.getTagValue(null), /Tag names cannot be empty/);
-            assert.throws(() => worklog.getTagValue(undefined), /Tag names cannot be empty/);
+        it('requires a tag name', () => {
+            assertTagNameCannotBeEmptyOnGet();
+            assertTagNameCannotBeEmptyOnGet(null);
+            assertTagNameCannotBeEmptyOnGet(undefined);
         });
 
-        it('validates that the tag name is a string', () => {
-            var worklog = buildWorklog();
+        function assertTagIsAStringOnGet(tag) {
+            assertTagIsAString(Worklog.prototype.getTagValue, tag);
+        }
 
-            assert.throws(() => worklog.getTagValue({}), /Tag names need to be strings/);
-            assert.throws(() => worklog.getTagValue([]), /Tag names need to be strings/);
-            assert.throws(() => worklog.getTagValue(15), /Tag names need to be strings/);
-            assert.throws(() => worklog.getTagValue(0), /Tag names need to be strings/);
+        it('validates that the tag name is a string', () => {
+            assertTagIsAStringOnGet({});
+            assertTagIsAStringOnGet([]);
+            assertTagIsAStringOnGet(15);
+            assertTagIsAStringOnGet(0);
         });
 
     });

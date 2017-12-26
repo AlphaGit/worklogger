@@ -7,30 +7,54 @@ describe('WorklogSet', () => {
         assert.doesNotThrow(() => getTestSubject());
     });
 
+    function assertRequiredStartDateTime(startDateTime) {
+        if (startDateTime == undefined) {
+            assert.throws(() => new WorklogSet(), /Missing date parameter: startDateTime/);
+        } else {
+            assert.throws(() => getTestSubject({ startDateTime }), /Missing date parameter: startDateTime/);
+        }
+    }
+
     it('verifies that it receives a startDateTime parameter', () => {
-        assert.throws(() => new WorklogSet(), /Missing date parameter: startDateTime/);
-        assert.throws(() => getTestSubject({ startDateTime: null }), /Missing date parameter: startDateTime/);
-        assert.throws(() => getTestSubject({ startDateTime: 'some string' }), /Missing date parameter: startDateTime/);
-        assert.throws(() => getTestSubject({ startDateTime: 5 }), /Missing date parameter: startDateTime/);
-        assert.throws(() => getTestSubject({ startDateTime: [] }), /Missing date parameter: startDateTime/);
-        assert.throws(() => getTestSubject({ startDateTime: {} }), /Missing date parameter: startDateTime/);
+        assertRequiredStartDateTime();
+        assertRequiredStartDateTime(null);
+        assertRequiredStartDateTime('some string');
+        assertRequiredStartDateTime(5);
+        assertRequiredStartDateTime([]);
+        assertRequiredStartDateTime({});
     });
+
+    function assertRequiredEndDateTime(endDateTime) {
+        if (endDateTime == undefined) {
+            assert.throws(() => new WorklogSet(new Date()), /Missing date parameter: endDateTime/);
+        } else {
+            assert.throws(() => getTestSubject({ endDateTime }), /Missing date parameter: endDateTime/);
+        }
+    }
 
     it('verifies that it receives a endDateTime parameter', () => {
-        assert.throws(() => new WorklogSet(new Date()), /Missing date parameter: endDateTime/);
-        assert.throws(() => getTestSubject({ endDateTime: null }), /Missing date parameter: endDateTime/);
-        assert.throws(() => getTestSubject({ endDateTime: 'some string' }), /Missing date parameter: endDateTime/);
-        assert.throws(() => getTestSubject({ endDateTime: 5 }), /Missing date parameter: endDateTime/);
-        assert.throws(() => getTestSubject({ endDateTime: [] }), /Missing date parameter: endDateTime/);
-        assert.throws(() => getTestSubject({ endDateTime: {} }), /Missing date parameter: endDateTime/);
+        assertRequiredEndDateTime();
+        assertRequiredEndDateTime(null);
+        assertRequiredEndDateTime('some string');
+        assertRequiredEndDateTime(5);
+        assertRequiredEndDateTime([]);
+        assertRequiredEndDateTime({});
     });
 
+    function assertRequiredWorklogArray(worklogs) {
+        if (worklogs == undefined) {
+            assert.throws(() => new WorklogSet(new Date(), new Date()), /Missing array parameter: worklogs/);
+        } else {
+            assert.throws(() => getTestSubject({ worklogs }), /Missing array parameter: worklogs/);
+        }
+    }
+
     it('verifies that it receives a set of worklogs', () => {
-        assert.throws(() => new WorklogSet(new Date(), new Date()), /Missing array parameter: worklogs/);
-        assert.throws(() => getTestSubject({ worklogs: null }), /Missing array parameter: worklogs/);
-        assert.throws(() => getTestSubject({ worklogs: 'some string' }), /Missing array parameter: worklogs/);
-        assert.throws(() => getTestSubject({ worklogs: 5 }), /Missing array parameter: worklogs/);
-        assert.throws(() => getTestSubject({ worklogs: {} }), /Missing array parameter: worklogs/);
+        assertRequiredWorklogArray();
+        assertRequiredWorklogArray(null);
+        assertRequiredWorklogArray('some string');
+        assertRequiredWorklogArray(5);
+        assertRequiredWorklogArray({});
     });
 
     describe('#getFilteredCopy', () => {

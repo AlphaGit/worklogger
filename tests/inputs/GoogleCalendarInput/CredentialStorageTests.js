@@ -24,7 +24,8 @@ describe('[Google Calendar] CredentialStorage', () => {
                 .then(credentials => {
                     assert.equal(1, credentials.a);
                     assert.equal(2, credentials.b);
-                }).catch(() => {})
+                })
+                .catch(() => {})
                 .then(() => {
                     stub.restore();
                     done();
@@ -37,7 +38,8 @@ describe('[Google Calendar] CredentialStorage', () => {
                 .then(contents => assert.fail(`Did not reject promise, returned content: ${contents}`))
                 .catch(e => {
                     assert.ok(e.indexOf('FileError') >= 0);
-                }).then(() => {
+                })
+                .then(() => {
                     stub.restore();
                     done();
                 });

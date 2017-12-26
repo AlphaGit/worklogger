@@ -25,14 +25,18 @@ describe('[Google Calendar] InputConfiguration', () => {
     });
 
     describe('#calendars', () => {
+        function assertRequiresArray(inputConfiguration, value) {
+            assert.throws(() => inputConfiguration.calendars = value, /array is required/);
+        }
+
         it('requires an array', () => {
             var inputConfiguration = new InputConfiguration(validConfigJson);
 
-            assert.throws(() => inputConfiguration.calendars = 'a', /array is required/);
-            assert.throws(() => inputConfiguration.calendars = 1, /array is required/);
-            assert.throws(() => inputConfiguration.calendars = {}, /array is required/);
-            assert.throws(() => inputConfiguration.calendars = null, /array is required/);
-            assert.throws(() => inputConfiguration.calendars = undefined, /array is required/);
+            assertRequiresArray(inputConfiguration, 'a');
+            assertRequiresArray(inputConfiguration, 1);
+            assertRequiresArray(inputConfiguration, {});
+            assertRequiresArray(inputConfiguration, null);
+            assertRequiresArray(inputConfiguration, undefined);
         });
 
         it('requires a non-empty array', () => {

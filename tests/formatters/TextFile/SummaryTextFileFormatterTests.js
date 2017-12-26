@@ -7,14 +7,18 @@ require('tests/harness/log4js').setLevel('off');
 
 describe('SummaryTextFileFormatter', () => {
     describe('#format method', () => {
+        function assertMissingWorklogSet(formatter, worklogSet) {
+            assert.throws(() => formatter.format(worklogSet), /Missing WorklogSet/);
+        }
+
         it('verifies that it receives a WorklogSet', () => {
             const formatter = getTestSubject();
 
-            assert.throws(() => formatter.format(), /Missing WorklogSet/);
-            assert.throws(() => formatter.format(null), /Missing WorklogSet/);
-            assert.throws(() => formatter.format(1), /Missing WorklogSet/);
-            assert.throws(() => formatter.format([]), /Missing WorklogSet/);
-            assert.throws(() => formatter.format({}), /Missing WorklogSet/);
+            assertMissingWorklogSet(formatter);
+            assertMissingWorklogSet(formatter, null);
+            assertMissingWorklogSet(formatter, 1);
+            assertMissingWorklogSet(formatter, []);
+            assertMissingWorklogSet(formatter, {});
         });
 
         it('includes the start date', () => {
@@ -121,9 +125,6 @@ describe('SummaryTextFileFormatter', () => {
             assert(result.indexOf('    - Total time for Project2: 2hs 0m') > -1);
             assert(result.indexOf('    - Total time for Project3: 0hs 30m') > -1);
         });
-
-        //TODO test for duration by client tag (hh:mm)
-        //TODO test for duration by project tag (hh:mm)
     });
 });
 

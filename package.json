@@ -10,9 +10,11 @@
   "scripts": {
     "start": "node index.js",
     "testAndCover": "nyc mocha tests/allTestBase.js tests/**/*.js",
-    "test": "npm run lint && npm run testAndCover",
+    "test:all": "npm run lint && npm run testAndCover",
+    "test": "mocha tests/allTestBase.js tests/**/*.js",
     "lint": "eslint .",
-    "watch": "watch \"npm test\" app tests"
+    "watch:test": "watch \"npm test\" app tests",
+    "watch:all": "watch \"npm test:all\" app tests"
   },
   "keywords": [
     "work",

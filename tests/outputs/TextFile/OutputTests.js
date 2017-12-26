@@ -27,7 +27,7 @@ describe('TextFileOutput', () => {
                 writeFile: (filePath, contents, cb) => cb('Some error occurred.')
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
-            
+
             output.outputWorklogSet(getExampleWorklogSet())
                 .then(() => done('Promise was not rejected.'))
                 .catch((err) => {
@@ -36,7 +36,7 @@ describe('TextFileOutput', () => {
                 });
         });
 
-        it('returns a resolved promise when everything is fine', (done) => {
+        it('returns a resolved promise when everything is fine', () => {
             const formatter = new FormatterBase({});
             sinon.stub(formatter, 'format', () => '');
 
@@ -44,13 +44,11 @@ describe('TextFileOutput', () => {
                 writeFile: (filePath, contents, cb) => cb()
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
-            
-            output.outputWorklogSet(getExampleWorklogSet())
-                .then(() => done())
-                .catch(done);
+
+            return output.outputWorklogSet(getExampleWorklogSet());
         });
 
-        it('writes to the output file indicated in the configuration', (done) => {
+        it('writes to the output file indicated in the configuration', () => {
             const formatter = new FormatterBase({});
             sinon.stub(formatter, 'format', () => '');
 
@@ -65,13 +63,11 @@ describe('TextFileOutput', () => {
                 }
             };
             const output = getTestSubject({ formatter, outputConfiguration, fs: fakeFs });
-            
-            output.outputWorklogSet(getExampleWorklogSet())
+
+            return output.outputWorklogSet(getExampleWorklogSet())
                 .then(() => {
                     assert.equal(usedFilePath, outputConfiguration.filePath);
-                    done();
-                })
-                .catch(done);
+                });
         });
     });
 });
