@@ -58,8 +58,9 @@
             "type": "string",
             // other properties specific to the condition type
 
-            "regex": "string", // for descriptionMatches condition
-            "tag": "string" // for hasTag condition
+            // type: hasTag
+            "tagName": "string",
+            "tagValue": "string"
         },
         "action": {
             "type": "string",

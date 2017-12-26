@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "gulp test",
+    "testAndCover": "nyc mocha tests/allTestBase.js tests/**/*.js",
+    "test": "npm run lint && npm run testAndCover",
+    "lint": "eslint **/*.js",
     "watch": "gulp watch"
   },
   "keywords": [
@@ -34,12 +36,9 @@
     "node-fetch": "^1.7.3"
   },
   "devDependencies": {
-    "eslint": "^3.9.1",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^3.0.1",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-mocha": "^3.0.1",
-    "gulp-util": "^3.0.7",
+    "eslint": "^4.14.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.4.1",
     "sinon": "^1.17.6"
   }
 }

@@ -4,3 +4,4 @@ node_modules/
 .credentials/
 npm-debug.log.*
 coverage/
+/.nyc_output
