@@ -1,4 +1,7 @@
-require('app-module-path').addPath(__dirname);
+const path = require('path');
+const appModulePath = require('app-module-path');
+appModulePath.addPath(path.resolve());
+appModulePath.addPath(path.resolve('./app'));
 
 const WorklogSet = require('models/WorklogSet');
 const RelativeTime = require('models/RelativeTime');

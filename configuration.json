@@ -30,7 +30,7 @@
         }
     },
     "inputs": [{
-        "type": "GoogleCalendarInput",
+        "type": "GoogleCalendar",
         "name": "My Google Calendar",
         "calendars": [{
             "id": "calendar1@group.calendar.google.com",
