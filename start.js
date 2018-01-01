@@ -39,20 +39,8 @@ function transformWorklogs(environment) {
 }
 
 function loadActionsAndConditions(environment) {
-    for (let transformation of environment.appConfiguration.transformations) {
-        const actionType = transformation.action.type;
-        logger.info('Loading action:', actionType);
-        const actionClass = require(`app/actions/${actionType}`);
-        const action = new actionClass(transformation.action);
-
-        let conditionType = (transformation.condition || {}).type;
-        if (!conditionType) conditionType = 'true';
-        logger.info('Loading condition:', conditionType);
-        const conditionClass = require(`app/conditions/${conditionType}`);
-        const condition = new conditionClass(transformation.condition);
-
-        environment.transformations.push({ action, condition });
-    }
+    const actionLoader = require('app/services/actionLoader');
+    environment.transformations = actionLoader.loadActionsAndConditions(environment.appConfiguration.transformations);
 }
 
 function outputWorklogSet(environment) {
@@ -82,7 +70,7 @@ function loadOutputsAndFormattersAndConditions(environment) {
 }
 
 function loadFromInputs(environment) {
-    const inputLoader = require('./inputLoader');
+    const inputLoader = require('app/services/inputLoader');
     const loadedInputs = inputLoader.loadInputs(environment.appConfiguration);
     const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
     const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;

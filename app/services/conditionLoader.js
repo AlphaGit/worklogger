@@ -9,6 +9,4 @@ function loadCondition(conditionConfig) {
     return new conditionClass(conditionConfig);
 }
 
-module.exports = {
-    loadCondition
-};
+module.exports.loadCondition = loadCondition;
