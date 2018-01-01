@@ -1,5 +1,5 @@
 const requiredFetch = require('node-fetch');
-const logger = require('services/loggerFactory').getLogger('HarvestApp/HarvestClient');
+const logger = require('app/services/loggerFactory').getLogger('HarvestApp/HarvestClient');
 
 module.exports = class HarvestClient {
     constructor(configuration, { fetch = requiredFetch } = {}) {

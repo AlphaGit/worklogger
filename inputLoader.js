@@ -1,4 +1,4 @@
-const loggerFactory = require('services/loggerFactory');
+const loggerFactory = require('app/services/loggerFactory');
 const logger = loggerFactory.getLogger('inputLoader');
 
 const loadInputs = function(appConfiguration) {
@@ -7,10 +7,10 @@ const loadInputs = function(appConfiguration) {
     for (let input of appConfiguration.inputs) {
         logger.debug('Loading configuration for', input.type);
 
-        var inputConfigurationClass = require(`inputs/${input.type}/InputConfiguration`);
+        var inputConfigurationClass = require(`app/inputs/${input.type}/InputConfiguration`);
         var inputConfiguration = new inputConfigurationClass(input);
 
-        var inputSystemClass = require(`inputs/${input.type}/Input`);
+        var inputSystemClass = require(`app/inputs/${input.type}/Input`);
         var inputSystem = new inputSystemClass(appConfiguration, inputConfiguration);
 
         loadedInputs.push(inputSystem);

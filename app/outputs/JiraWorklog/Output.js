@@ -1,6 +1,6 @@
 const OutputBase = require('../OutputBase');
 const JiraClientRequired = require('./JiraClient');
-const logger = require('services/loggerFactory').getLogger('outputs/JiraWorklog');
+const logger = require('app/services/loggerFactory').getLogger('outputs/JiraWorklog');
 
 module.exports = class JiraWorklogOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { JiraClient = JiraClientRequired } = {}) {

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Worklog = require('models/Worklog');
+var Worklog = require('app/models/Worklog');
 
 describe('Worklog', () => {
     describe('#constructor', () => {

@@ -1,10 +1,10 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-const HarvestAppOutput = require('outputs/HarvestApp/Output');
-const FormatterBase = require('formatters/FormatterBase');
-const WorklogSet = require('models/WorklogSet');
-const Worklog = require('models/Worklog');
+const HarvestAppOutput = require('app/outputs/HarvestApp/Output');
+const FormatterBase = require('app/formatters/FormatterBase');
+const WorklogSet = require('app/models/WorklogSet');
+const Worklog = require('app/models/Worklog');
 
 describe('HarvestApp output', () => {
     it('can be instantiated', () => {

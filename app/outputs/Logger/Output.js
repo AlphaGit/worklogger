@@ -1,5 +1,5 @@
-const OutputBase = require('outputs/OutputBase');
-const LoggerFactoryRequired = require('services/loggerFactory');
+const OutputBase = require('app/outputs/OutputBase');
+const LoggerFactoryRequired = require('app/services/loggerFactory');
 
 module.exports = class LoggerOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { LoggerFactory = LoggerFactoryRequired } = {}) {

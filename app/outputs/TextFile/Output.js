@@ -1,6 +1,6 @@
 const requiredFs = require('fs');
-const logger = require('services/loggerFactory').getLogger('TextFile/Output');
-const OutputBase = require('outputs/OutputBase');
+const logger = require('app/services/loggerFactory').getLogger('TextFile/Output');
+const OutputBase = require('app/outputs/OutputBase');
 
 module.exports = class TextFileOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { fs } = {}) {

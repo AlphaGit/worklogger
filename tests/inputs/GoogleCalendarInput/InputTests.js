@@ -1,7 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const Input = require('inputs/GoogleCalendar/Input');
-const InputConfiguration = require('inputs/GoogleCalendar/InputConfiguration');
+const Input = require('app/inputs/GoogleCalendar/Input');
+const InputConfiguration = require('app/inputs/GoogleCalendar/InputConfiguration');
 
 describe('[Google Calendar] Input', () => {
     describe('#constructor', () => {

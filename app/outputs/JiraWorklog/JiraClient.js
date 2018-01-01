@@ -1,5 +1,5 @@
 const fetchRequired = require('node-fetch');
-const logger = require('services/loggerFactory').getLogger('outputs/JiraWorklog/JiraClient');
+const logger = require('app/services/loggerFactory').getLogger('outputs/JiraWorklog/JiraClient');
 
 module.exports = class JiraClient {
     constructor(jiraBaseUrl, jiraUsername, jiraPassword, { fetch = fetchRequired } = {}) {

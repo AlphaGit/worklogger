@@ -1,5 +1,5 @@
 const assert = require('assert');
-const FormatterBase = require('formatters/FormatterBase');
+const FormatterBase = require('app/formatters/FormatterBase');
 
 describe('FormatterBase', () => {
     it('can be instantiated', () => {

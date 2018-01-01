@@ -1,5 +1,5 @@
-const FormatterBase = require('formatters/FormatterBase');
-const WorklogSet = require('models/WorklogSet');
+const FormatterBase = require('app/formatters/FormatterBase');
+const WorklogSet = require('app/models/WorklogSet');
 
 module.exports = class OutputBase {
     constructor(formatter, outputConfiguration) {

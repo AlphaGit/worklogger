@@ -1,6 +1,6 @@
 const assert = require('assert');
-const TrueCondition = require('conditions/true');
-const Worklog = require('models/Worklog');
+const TrueCondition = require('app/conditions/true');
+const Worklog = require('app/models/Worklog');
 
 describe('True condition', () => {
     describe('constructor', () => {

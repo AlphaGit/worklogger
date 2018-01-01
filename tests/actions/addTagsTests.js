@@ -1,6 +1,6 @@
 const assert = require('assert');
-const AddTagsAction = require('actions/addTags');
-const Worklog = require('models/Worklog');
+const AddTagsAction = require('app/actions/addTags');
+const Worklog = require('app/models/Worklog');
 
 describe('addTags', () => {
     describe('#constructor', () => {

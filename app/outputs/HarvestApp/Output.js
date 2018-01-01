@@ -1,6 +1,6 @@
-const OutputBase = require('outputs/OutputBase');
+const OutputBase = require('app/outputs/OutputBase');
 const RequiredHarvestClient = require('./HarvestClient');
-const logger = require('services/loggerFactory').getLogger('HarvestApp/Output');
+const logger = require('app/services/loggerFactory').getLogger('HarvestApp/Output');
 
 module.exports = class HarvestAppOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {

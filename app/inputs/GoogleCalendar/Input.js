@@ -1,4 +1,4 @@
-const logger = require('services/loggerFactory').getLogger('GoogleCalendarInput');
+const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput');
 
 const googleApisRequired = require('googleapis');
 

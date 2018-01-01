@@ -1,7 +1,7 @@
 const assert = require('assert');
-const NoFormatFormatter = require('formatters/NoFormatFormatter');
-const Worklog = require('models/Worklog');
-const WorklogSet = require('models/WorklogSet');
+const NoFormatFormatter = require('app/formatters/NoFormatFormatter');
+const Worklog = require('app/models/Worklog');
+const WorklogSet = require('app/models/WorklogSet');
 
 describe('NoFormatFormatter', () => {
     describe('#format', () => {

@@ -1,12 +1,8 @@
-const path = require('path');
-const appModulePath = require('app-module-path');
-appModulePath.addPath(path.resolve());
-appModulePath.addPath(path.resolve('./app'));
+require('app-module-path/register');
 
-const WorklogSet = require('models/WorklogSet');
-const RelativeTime = require('models/RelativeTime');
+const WorklogSet = require('app/models/WorklogSet');
 
-const loggerFactory = require('services/loggerFactory');
+const loggerFactory = require('app/services/loggerFactory');
 const logger = loggerFactory.getLogger('worklogger');
 logger.level = 'info';
 
@@ -15,25 +11,22 @@ let environment = {
 };
 
 Promise.resolve(environment)
-    .then(processArguments)
-    .then(loadConfiguration)
-    .then(configureLoggerFactory)
-    .then(detectDates)
-    .then(loadFromInputs)
-    .then(createWorklogSet)
-    .then(loadActionsAndConditions)
-    .then(transformWorklogs)
-    .then(displayWorklogSet)
-    .then(loadOutputsAndFormattersAndConditions)
-    .then(outputWorklogSet)
+    .then(environmentChain(processArguments))
+    .then(environmentChain(loadConfiguration))
+    .then(environmentChain(configureLoggerFactory))
+    .then(environmentChain(loadFromInputs))
+    .then(environmentChain(createWorklogSet))
+    .then(environmentChain(loadActionsAndConditions))
+    .then(environmentChain(transformWorklogs))
+    .then(environmentChain(displayWorklogSet))
+    .then(environmentChain(loadOutputsAndFormattersAndConditions))
+    .then(environmentChain(outputWorklogSet))
     .then(() => logger.info('Done.'))
     .catch((e) => logger.error(e));
 
 function configureLoggerFactory(environment) {
     loggerFactory.configure(environment.appConfiguration.log4js);
     logger.info('Logger configuration initialized.');
-
-    return environment;
 }
 
 function transformWorklogs(environment) {
@@ -43,27 +36,23 @@ function transformWorklogs(environment) {
                 action.apply(worklog);
         }
     }
-
-    return environment;
 }
 
 function loadActionsAndConditions(environment) {
     for (let transformation of environment.appConfiguration.transformations) {
         const actionType = transformation.action.type;
         logger.info('Loading action:', actionType);
-        const actionClass = require(`actions/${actionType}`);
+        const actionClass = require(`app/actions/${actionType}`);
         const action = new actionClass(transformation.action);
 
         let conditionType = (transformation.condition || {}).type;
         if (!conditionType) conditionType = 'true';
         logger.info('Loading condition:', conditionType);
-        const conditionClass = require(`conditions/${conditionType}`);
+        const conditionClass = require(`app/conditions/${conditionType}`);
         const condition = new conditionClass(transformation.condition);
 
         environment.transformations.push({ action, condition });
     }
-
-    return environment;
 }
 
 function outputWorklogSet(environment) {
@@ -75,8 +64,7 @@ function outputWorklogSet(environment) {
         outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
     }
 
-    return Promise.all(outputPromises)
-        .then(() => environment);
+    return Promise.all(outputPromises);
 }
 
 function displayWorklogSet(environment) {
@@ -86,67 +74,46 @@ function displayWorklogSet(environment) {
     for (let worklog of worklogSet.worklogs) {
         logger.trace(`Worklog: ${worklog}`);
     }
-
-    return environment;
 }
 
 function loadOutputsAndFormattersAndConditions(environment) {
-    const outputLoader = require('./outputLoader');
-    environment.outputs = [];
-    for (let outputConfig of environment.appConfiguration.outputs) {
-        const output = outputLoader.load(outputConfig);
-
-        let conditionType = (outputConfig.condition || {}).type;
-        if (!conditionType) conditionType = 'true';
-        logger.info('Loading condition:', conditionType);
-        const conditionClass = require(`conditions/${conditionType}`);
-        const condition = new conditionClass(outputConfig.condition);
-
-        environment.outputs.push({ output, condition });
-    }
-    return environment;
+    const outputLoader = require('app/services/outputLoader');
+    environment.outputs = outputLoader.loadOutputs(environment.appConfiguration.outputs);
 }
 
 function loadFromInputs(environment) {
     const inputLoader = require('./inputLoader');
     const loadedInputs = inputLoader.loadInputs(environment.appConfiguration);
-    return Promise.all(loadedInputs.map(i => i.getWorkLogs(environment.startDateTime, environment.endDateTime)))
+    const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
+    const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
+
+    return Promise.all(loadedInputs.map(i => i.getWorkLogs(startDateTime, endDateTime)))
         .then(worklogsPerInput => {
             environment.worklogsPerInput = worklogsPerInput;
-            return environment;
         });
 }
 
 function createWorklogSet(environment) {
     const flattenedWorklogs = Array.prototype.concat(...environment.worklogsPerInput);
-    environment.worklogSet = new WorklogSet(environment.startDateTime, environment.endDateTime, flattenedWorklogs);
-    return environment;
-}
+    const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
+    const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
 
-function detectDates(environment) {
-    environment.startDateTime = parseRelativeTime(environment.appConfiguration.options.timePeriod.begin);
-    environment.endDateTime = parseRelativeTime(environment.appConfiguration.options.timePeriod.end);
-    logger.info(`Range of dates to consider from inputs: ${environment.startDateTime} - ${environment.endDateTime}`);
-
-    return environment;
-}
-
-function parseRelativeTime(timePeriod) {
-    const relativeTime = new RelativeTime(timePeriod.fromNow, timePeriod.unit);
-    return relativeTime.toDate();
+    environment.worklogSet = new WorklogSet(startDateTime, endDateTime, flattenedWorklogs);
 }
 
 function loadConfiguration(environment) {
-    const path = require('path');
-    const configurationFilePath = path.resolve(environment.arguments.c || './configuration.json');
-    logger.info('Using configuration file:', configurationFilePath);
-    environment.appConfiguration = require(configurationFilePath);
-    return environment;
+    const configurationLoader = require('app/services/configurationLoader');
+    environment.appConfiguration = configurationLoader.getProcessedConfiguration(environment.arguments.c || './configuration.json');
 }
 
 function processArguments(environment) {
     const parseArgs = require('minimist');
     environment.arguments = parseArgs(process.argv.slice(2));
+}
 
-    return environment;
+function environmentChain(func) {
+    return function environmentChainWrapper() {
+        return Promise.resolve(func(environment))
+            .then(() => environment);
+    }
 }

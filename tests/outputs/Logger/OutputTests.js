@@ -1,10 +1,10 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-const LoggerOutput = require('outputs/Logger/Output');
-const FormatterBase = require('formatters/FormatterBase');
-const WorklogSet = require('models/WorklogSet');
-const Worklog = require('models/Worklog');
+const LoggerOutput = require('app/outputs/Logger/Output');
+const FormatterBase = require('app/formatters/FormatterBase');
+const WorklogSet = require('app/models/WorklogSet');
+const Worklog = require('app/models/Worklog');
 
 describe('Logger output', function() {
     it('can be instantiated', () => {

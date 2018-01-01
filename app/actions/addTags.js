@@ -1,5 +1,5 @@
-const Worklog = require('models/Worklog');
-const logger = require('services/loggerFactory').getLogger('actions/addTags');
+const Worklog = require('app/models/Worklog');
+const logger = require('app/services/loggerFactory').getLogger('actions/addTags');
 
 module.exports = class AddTagsAction {
     constructor(configuration) {

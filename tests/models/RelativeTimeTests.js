@@ -1,5 +1,5 @@
 const assert = require('assert');
-const RelativeTime = require('models/RelativeTime');
+const RelativeTime = require('app/models/RelativeTime');
 
 describe('RelativeTime', () => {
     describe('#constructor', () => {

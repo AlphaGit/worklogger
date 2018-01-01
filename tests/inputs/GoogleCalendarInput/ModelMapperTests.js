@@ -1,6 +1,6 @@
 const assert = require('assert');
-const ModelMapper = require('inputs/GoogleCalendar/ModelMapper');
-const Worklog = require('models/Worklog');
+const ModelMapper = require('app/inputs/GoogleCalendar/ModelMapper');
+const Worklog = require('app/models/Worklog');
 
 describe('[Google Calendar] ModelMapper', () => {
     describe('#constructor', () => {

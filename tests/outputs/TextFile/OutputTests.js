@@ -1,9 +1,9 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-const TextFileOutput = require('outputs/TextFile/Output');
-const FormatterBase = require('formatters/FormatterBase');
-const WorklogSet = require('models/WorklogSet');
+const TextFileOutput = require('app/outputs/TextFile/Output');
+const FormatterBase = require('app/formatters/FormatterBase');
+const WorklogSet = require('app/models/WorklogSet');
 
 describe('TextFileOutput', () => {
     describe('#outputWorklogSet', () => {

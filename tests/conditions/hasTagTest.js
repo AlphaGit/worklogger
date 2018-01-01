@@ -1,6 +1,6 @@
 const assert = require('assert');
-const HasTagCondition = require('conditions/hasTag');
-const Worklog = require('models/Worklog');
+const HasTagCondition = require('app/conditions/hasTag');
+const Worklog = require('app/models/Worklog');
 
 describe('HasTagCondition', () => {
     describe('constructor', () => {

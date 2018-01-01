@@ -1,7 +1,7 @@
 const assert = require('assert');
-const SummaryTextFileFormatter = require('formatters/TextFile/SummaryTextFileFormatter');
-const Worklog = require('models/Worklog');
-const WorklogSet = require('models/WorklogSet');
+const SummaryTextFileFormatter = require('app/formatters/TextFile/SummaryTextFileFormatter');
+const Worklog = require('app/models/Worklog');
+const WorklogSet = require('app/models/WorklogSet');
 
 require('tests/harness/log4js').setLevel('off');
 

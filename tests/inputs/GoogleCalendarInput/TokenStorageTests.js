@@ -1,7 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-var TokenStorage = require('inputs/GoogleCalendar/TokenStorage');
+var TokenStorage = require('app/inputs/GoogleCalendar/TokenStorage');
 
 var validCredentials = {
     installed: {

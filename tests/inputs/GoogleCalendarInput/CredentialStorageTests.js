@@ -1,5 +1,5 @@
 var assert = require('assert');
-var CredentialStorage = require('inputs/GoogleCalendar/CredentialStorage');
+var CredentialStorage = require('app/inputs/GoogleCalendar/CredentialStorage');
 var fs = require('fs');
 var sinon = require('sinon');
 

@@ -1,7 +1,7 @@
 const assert = require('assert');
-const OutputBase = require('outputs/OutputBase');
-const FormatterBase = require('formatters/FormatterBase');
-const WorklogSet = require('models/WorklogSet');
+const OutputBase = require('app/outputs/OutputBase');
+const FormatterBase = require('app/formatters/FormatterBase');
+const WorklogSet = require('app/models/WorklogSet');
 
 describe('OutputBase', () => {
     describe('#constructor', () => {

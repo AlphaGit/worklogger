@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const JiraClient = require('outputs/JiraWorklog/JiraClient');
+const JiraClient = require('app/outputs/JiraWorklog/JiraClient');
 
 describe('JiraClient', () => {
     describe('constructor', () => {
