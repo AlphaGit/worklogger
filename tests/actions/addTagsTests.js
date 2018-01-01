@@ -26,6 +26,8 @@ describe('addTags', () => {
         it('validates that tags are objects', () => {
             assertInvalidTagObjectThrows('tag1');
             assertInvalidTagObjectThrows('tag1:value1');
+            assertInvalidTagObjectThrows('');
+            assertInvalidTagObjectThrows(0);
             assertInvalidTagObjectThrows([]);
             assertInvalidTagObjectThrows({});
             assertInvalidTagObjectThrows({ something: 1, somethingElse: 2 });

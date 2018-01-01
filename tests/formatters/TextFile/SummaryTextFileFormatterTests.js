@@ -125,6 +125,18 @@ describe('SummaryTextFileFormatter', () => {
             assert(result.indexOf('    - Total time for Project2: 2hs 0m') > -1);
             assert(result.indexOf('    - Total time for Project3: 0hs 30m') > -1);
         });
+
+        it('does not perform any aggregation if aggregateByTags configuration is falsy', () => {
+            const worklog = getExampleWorklogByDuration({ h: 1 });
+
+            const worklogSet = getExampleWorklogSet({ worklogs: [worklog] });
+
+            const formatter = getTestSubject({ aggregateByTags: null });
+
+            const result = formatter.format(worklogSet);
+
+            assert(result.indexOf('Total time for') === -1);
+        });
     });
 });
 

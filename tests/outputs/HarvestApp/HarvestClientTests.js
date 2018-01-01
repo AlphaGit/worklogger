@@ -189,9 +189,9 @@ describe('HarvestClient', () => {
         }
 
         it('requires that the time entry has hours', () => {
-            assertTimeEntryError();
-            assertTimeEntryError(undefined);
-            assertTimeEntryError(null);
+            assertTimeEntryRequiresHours();
+            assertTimeEntryRequiresHours(undefined);
+            assertTimeEntryRequiresHours(null);
         });
 
         it('calls the HarvestApi with the right parameters', () => {

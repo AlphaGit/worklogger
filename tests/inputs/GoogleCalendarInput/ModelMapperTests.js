@@ -41,6 +41,17 @@ describe('[Google Calendar] ModelMapper', () => {
             assert.equal(5, result.length);
         });
 
+        it('does nothing in the case of a falsy events response', () => {
+            const mapper = getMapper();
+            const apiResponse = getTestApiResponse({ eventCount: 0 });
+            apiResponse.events = null;
+
+            const result = mapper.map([apiResponse]);
+
+            assert(!!result);
+            assert.equal(0, result.length);
+        });
+
         it('restricts events to a configurable minimum loggable time slot', () => {
             const mapper = getMapper({ minimumLoggableTimeSlotInMinutes: 60 });
             const apiResponse = getTestApiResponse({

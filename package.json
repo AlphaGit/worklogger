@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "testAndCover": "nyc mocha tests/allTestBase.js tests/**/*.js",
-    "test:all": "npm run lint && npm run testAndCover",
+    "cover": "nyc --include=app/**/*.js mocha tests/allTestBase.js tests/**/*.js",
+    "test:all": "npm run lint && npm run cover",
     "test": "mocha tests/allTestBase.js tests/**/*.js",
     "lint": "eslint .",
     "watch:test": "watch \"npm test\" app tests",

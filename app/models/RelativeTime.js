@@ -41,13 +41,12 @@ class RelativeTime {
             return resultDate;
         }
 
-        if (this._unit === RelativeTime.UNIT_MONTH) {
-            resultDate.setDate(1);
-            resultDate.setHours(0, 0, 0, 0);
-            if (this._fromNow === RelativeTime.FROM_NOW_LAST)
-                resultDate.setMonth(resultDate.getMonth() - 1);
-            return resultDate;
-        }
+        // this._unit === RelativeTime.UNIT_MONTH)
+        resultDate.setDate(1);
+        resultDate.setHours(0, 0, 0, 0);
+        if (this._fromNow === RelativeTime.FROM_NOW_LAST)
+            resultDate.setMonth(resultDate.getMonth() - 1);
+        return resultDate;
     }
 }
 
