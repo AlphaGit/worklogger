@@ -103,5 +103,5 @@ function environmentChain(func) {
     return function environmentChainWrapper() {
         return Promise.resolve(func(environment))
             .then(() => environment);
-    }
+    };
 }

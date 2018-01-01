@@ -13,7 +13,7 @@ describe('Worklog', () => {
 
         function assertStartDateTimeIsDate(startDateTime) {
             assert.throws(() => buildWorklog({ startDateTime }), /startDateTime needs to be a Date\./);
-        };
+        }
 
         it('requires the startDateTime parameter to be a Date', () => {
             assertStartDateTimeIsDate(1);
@@ -27,7 +27,7 @@ describe('Worklog', () => {
 
         function assertEndDateTimeIsDate(endDateTime) {
             assert.throws(() => buildWorklog({ endDateTime }), /endDateTime needs to be a Date\./);
-        };
+        }
 
         it('requires the endDateTime parameter to be a Date', () => {
             assertEndDateTimeIsDate(1);

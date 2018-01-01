@@ -1,15 +1,12 @@
 const logger = require('app/services/loggerFactory').getLogger('services/outputLoader');
+const conditionLoader = require('app/services/conditionLoader');
 
 function loadOutputs(outputConfigurations) {
-    const conditionLoader = require('app/services/conditionLoader');
-
-    outputs = [];
-    for (let outputConfig of outputConfigurations) {
+    return outputConfigurations.map(outputConfig => {
         const output = loadOuput(outputConfig);
         const condition = conditionLoader.loadCondition(outputConfig.condition);
-        outputs.push({ output, condition });
-    }
-    return outputs;
+        return { output, condition };
+    });
 }
 
 function loadOuput(outputConfiguration) {
