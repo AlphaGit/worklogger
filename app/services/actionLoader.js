@@ -11,7 +11,7 @@ function loadActionsAndConditions(actionConfigs) {
 }
 
 function loadAction(actionConfig) {
-    logger.info('Loading action:', actionConfig.type);
+    logger.debug('Loading action:', actionConfig.type);
     const actionClass = require(`app/actions/${actionConfig.type}`);
     return new actionClass(actionConfig);
 }

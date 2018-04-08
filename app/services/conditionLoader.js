@@ -4,7 +4,7 @@ function loadCondition(conditionConfig) {
     let conditionType = (conditionConfig || {}).type;
     if (!conditionType) conditionType = 'true';
 
-    logger.info('Loading condition:', conditionType);
+    logger.debug('Loading condition:', conditionType);
     const conditionClass = require(`app/conditions/${conditionType}`);
     return new conditionClass(conditionConfig);
 }

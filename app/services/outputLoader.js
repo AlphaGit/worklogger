@@ -23,10 +23,10 @@ function loadFormatter(outputType, formatterConfiguration) {
 
     let Formatter;
     if (formatterType) {
-        logger.info(`Loading ${outputType} output with ${formatterType} formatter`);
+        logger.debug(`Loading ${outputType} output with ${formatterType} formatter`);
         Formatter = require(`app/formatters/${outputType}/${formatterType}`);
     } else {
-        logger.info(`Loading ${outputType} output without formatter`);
+        logger.debug(`Loading ${outputType} output without formatter`);
         Formatter = require('app/formatters/NoFormatFormatter');
     }
     return new Formatter(formatterConfiguration);

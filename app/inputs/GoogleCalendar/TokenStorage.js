@@ -25,7 +25,7 @@ module.exports = class TokenStorage {
 
         const oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
-        logger.info(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
+        logger.debug(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
         return new Promise((resolve) => {
             this.fs.readFile(TOKEN_PATH, (err, token) => {
                 if (err) {
