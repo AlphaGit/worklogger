@@ -73,6 +73,26 @@ describe('JiraWorklog output', () => {
                 }
             });
         });
+
+        it('only saves worklogs that have a JiraTicket tag value', () => {
+            const saveWorklogStub = sinon.stub().returns(Promise.resolve());
+            const fakeJiraClientClass = getFakeJiraClientClass({
+                saveWorklogStub: saveWorklogStub
+            });
+            const output = getTestSubject({
+                fakeJiraClientClass
+            });
+
+            const worklogCount = 2;
+            const startingAt = new Date('2017-01-01T07:00-0500');
+            const worklogSet = getTestWorklogSet({ worklogCount, startingAt, durationInMinutes: 30 });
+            // worklogSet.worklogs[0]: no JiraTicket tag
+            worklogSet.worklogs[1].addTag('JiraTicket', '');
+
+            return output.outputWorklogSet(worklogSet).then(() => {
+                assert.equal(saveWorklogStub.callCount, 0);
+            });
+        });
     });
 });
 

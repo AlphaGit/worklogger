@@ -15,15 +15,28 @@ module.exports = class JiraWorklogOutput extends OutputBase {
     outputWorklogSet(worklogSet) {
         super._outputWorklogSetValidation(worklogSet);
 
-        const sendingToJiraPromises = worklogSet.worklogs.map(w => {
-            const ticketId = w.getTagValue('JiraTicket');
-            const jiraWorklog = this._mapToJiraWorklog(w);
-            return this._jiraClient.saveWorklog(ticketId, jiraWorklog);
+        var filteredWorklogs = this._getWorklogsWithJiraTicket(worklogSet.worklogs);
+
+        const sendingToJiraPromises = filteredWorklogs.map(w => {
+            return this._jiraClient.saveWorklog(w.jiraTicket, w.jiraWorklog);
         });
 
         return Promise.all(sendingToJiraPromises).then(p => {
             logger.info(`Sent ${p.length} worklogs to JIRA.`);
         });
+    }
+
+    _getWorklogsWithJiraTicket(worklogs) {
+        let filteredWorklogs = [];
+        (worklogs || []).forEach(w => {
+            let jiraTicketTagValue = w.getTagValue('JiraTicket');
+            if (!jiraTicketTagValue) {
+                logger.warn(`Not sent to JIRA, missing JiraTicket: ${w.toOneLinerString()}`);
+            } else {
+                filteredWorklogs.push({ jiraTicket: jiraTicketTagValue, jiraWorklog: this._mapToJiraWorklog(w) });
+            }
+        });
+        return filteredWorklogs;
     }
 
     _mapToJiraWorklog(worklog) {
