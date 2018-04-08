@@ -70,6 +70,12 @@ This is the logic behind the naming conventions:
 - `client_secret.json`
 - Save it in the `/_private` folder
 
+### Getting your calendar IDs
+
+https://developers.google.com/google-apps/calendar/v3/reference/calendarList/list?#try-it
+
+Alternatively, from the calendar settings in Google Calendar.
+
 ### Getting a Harvest personal token
 
 (More information here: http://help.getharvest.com/api-v2/authentication-api/authentication/authentication/)
@@ -82,3 +88,11 @@ This is the logic behind the naming conventions:
 - Click on "Create Personal Access Token"
 - Select the account to use in the output
 - Copy the Token and the Account ID to the configuration.json file, in the output configuration for the Harvest type
+
+### Getting a JIRA password/token
+
+You can also use JIRA API tokens instead of passwords. In order to do this, follow these steps: https://confluence.atlassian.com/cloud/api-tokens-938839638.html
+
+- Go to https://id.atlassian.net/ logged in with your Atlassian account
+- Click on API Tokens, then Create Token
+- Copy it and use it as the value of `JiraPassword` in the JIRA Output
