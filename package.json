@@ -14,7 +14,7 @@
     "test": "mocha tests/allTestBase.js tests/**/*.js",
     "lint": "eslint .",
     "watch:test": "watch \"npm test\" app tests",
-    "watch:all": "watch \"npm test:all\" app tests"
+    "watch:all": "watch \"npm run test:all\" app tests"
   },
   "keywords": [
     "work",
