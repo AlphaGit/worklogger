@@ -96,3 +96,19 @@ You can also use JIRA API tokens instead of passwords. In order to do this, foll
 - Go to https://id.atlassian.net/ logged in with your Atlassian account
 - Click on API Tokens, then Create Token
 - Copy it and use it as the value of `JiraPassword` in the JIRA Output
+
+## Using the docker images
+
+- Ensure you you have docker installed and running.
+- Select the image that you want to use from https://hub.docker.com/r/alphadock/worklogger/. We will just assume `latest` in the next steps.
+
+    docker create \
+        -v /path/to/your/configuration.json:/app/config/config.json \
+        -v /path/to/your/worklogger.json:/app/.credentials/worklogger.json \
+        -v /path/to/your/client_secret.json:/app/_private/client_secret.json \
+        --name worklogger \
+        alphadock/worklogger
+
+- Then setup your cron job to this command:
+
+    docker start -a worklogger
