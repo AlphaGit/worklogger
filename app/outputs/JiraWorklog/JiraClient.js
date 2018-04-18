@@ -1,5 +1,10 @@
-const fetchRequired = require('node-fetch');
+const nodeFetch = require('node-fetch');
+const fetchRequired = require('fetch-event/node')(nodeFetch).fetch;
 const logger = require('app/services/loggerFactory').getLogger('outputs/JiraWorklog/JiraClient');
+
+fetchRequired.on('fetch', event => {
+    logger.trace(event.request);
+});
 
 module.exports = class JiraClient {
     constructor(jiraBaseUrl, jiraUsername, jiraPassword, { fetch = fetchRequired } = {}) {
@@ -18,13 +23,16 @@ module.exports = class JiraClient {
         this._validateWorklog(worklog);
 
         const url = `${this._baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
-        logger.trace('Sending to', url, ':', worklog);
+        logger.debug('Sending to', url, ':', worklog);
         return this._fetch(url, {
             method: 'POST',
             body: JSON.stringify(worklog),
             headers: this._getHeaders()
-        }).then(res => res.json())
-            .then(logger.trace.bind(logger));
+        }).then(res => {
+            logger.trace(res);
+            return res;
+        })
+        .then(res => res.json());
     }
 
     _getHeaders() {

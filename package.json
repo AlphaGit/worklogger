@@ -1,6 +1,6 @@
 {
   "name": "worklogger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reads worklogs from a variety of sources and consolidates them to several outputs.",
   "main": "index.js",
   "repository": {
@@ -31,10 +31,12 @@
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
     "app-module-path": "^2.1.0",
+    "fetch-event": "^1.0.0-alpha",
     "google-auth-library": "^0.9.9",
     "googleapis": "^14.1.0",
     "log4js": "^2.3.3",
     "minimist": "^1.2.0",
+    "moment": "^2.22.1",
     "node-fetch": "^1.7.3"
   },
   "devDependencies": {
