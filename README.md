@@ -100,15 +100,24 @@ You can also use JIRA API tokens instead of passwords. In order to do this, foll
 ## Using the docker images
 
 - Ensure you you have docker installed and running.
+
 - Select the image that you want to use from https://hub.docker.com/r/alphadock/worklogger/. We will just assume `latest` in the next steps.
 
-        docker create \
-            -v /path/to/your/configuration.json:/app/config/config.json \
-            -v /path/to/your/worklogger.json:/app/.credentials/worklogger.json \
-            -v /path/to/your/client_secret.json:/app/_private/client_secret.json \
-            --name worklogger \
-            alphadock/worklogger
+      docker create \
+          -v /path/to/your/configuration.json:/app/config/config.json \
+          -v /path/to/your/worklogger.json:/app/.credentials/worklogger.json \
+          -v /path/to/your/client_secret.json:/app/_private/client_secret.json \
+          -e TZ=America/Toronto \
+          --name worklogger \
+          alphadock/worklogger
 
-- Then setup your cron job to this command:
+- Feel free to replace:
+
+    - `/path/to/your/configuration.json` with the [application configuration](docs/configuration.md)
+    - `/path/to/your/worklogger.json` with the path to stored Google credentials, or make it a read-write volume
+    - `/path/to/your/client_secret.json` with the path to the application client configuration for Google (see [Allowing Google Calendar APIs](#allowing-google-calendar-apis))
+    - `America/Toronto` with your timezone of preference, with any of the [valid timezones from the tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+- Setup your cron job to this command:
 
         docker start -a worklogger
