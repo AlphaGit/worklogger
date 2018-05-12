@@ -68,7 +68,7 @@ This is the logic behind the naming conventions:
 - Ok (no need to copy)
 - Download json
 - `client_secret.json`
-- Save it in the `/_private` folder
+- Save it in the `worklogger_home` folder
 
 ### Getting your calendar IDs
 
@@ -104,18 +104,20 @@ You can also use JIRA API tokens instead of passwords. In order to do this, foll
 - Select the image that you want to use from https://hub.docker.com/r/alphadock/worklogger/. We will just assume `latest` in the next steps.
 
       docker create \
-          -v /path/to/your/configuration.json:/app/config/config.json \
-          -v /path/to/your/worklogger.json:/app/.credentials/worklogger.json \
-          -v /path/to/your/client_secret.json:/app/_private/client_secret.json \
+          -v /path/to/your/application/folder:/app/worklogger_home \
           -e TZ=America/Toronto \
           --name worklogger \
           alphadock/worklogger
 
 - Feel free to replace:
 
-    - `/path/to/your/configuration.json` with the [application configuration](docs/configuration.md)
-    - `/path/to/your/worklogger.json` with the path to stored Google credentials, or make it a read-write volume
-    - `/path/to/your/client_secret.json` with the path to the application client configuration for Google (see [Allowing Google Calendar APIs](#allowing-google-calendar-apis))
+    - `/path/to/your/application/folder` to a folder that contains:
+        - `configuration.json` with the [application configuration](docs/configuration.md)
+        - `worklogger.json` with the path to stored Google credentials, or make it a read-write volume
+        - `client_secret.json` with the path to the application client configuration for Google (see [Allowing Google Calendar APIs](#allowing-google-calendar-apis))
+
+        Note that any output files will also be written to this folder.
+
     - `America/Toronto` with your timezone of preference, with any of the [valid timezones from the tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 - Setup your cron job to this command:

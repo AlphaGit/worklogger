@@ -31,8 +31,7 @@ module.exports = class JiraClient {
         }).then(res => {
             logger.trace(res);
             return res;
-        })
-        .then(res => res.json());
+        }).then(res => res.json());
     }
 
     _getHeaders() {

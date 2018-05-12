@@ -48,7 +48,7 @@
     }],
     "outputs": [{
         "type": "TextFile",
-        "filePath": "_private/output.txt",
+        "filePath": "worklogger_home/output.txt",
         "formatter": {
             "type": "SummaryTextFileFormatter",
             "aggregateByTags": [

@@ -13,8 +13,5 @@ RUN apk add ca-certificates && update-ca-certificates
 RUN apk add --update tzdata
 RUN rm -rf /var/cache/apk/*
 
-# TODO simplify this into a single /app/config folder
-VOLUME /app/config/config.json
-VOLUME /app/_private/client_secret.json
-VOLUME /app/.credentials/worklogger.json
-ENTRYPOINT [ "node", "/app/start.js", "-c", "/app/config/config.json" ]
+VOLUME /app/worklogger_home
+ENTRYPOINT [ "node", "/app/start.js", "-c", "/app/worklogger_home/configuration.json" ]

@@ -5,8 +5,7 @@ const googleAuthRequired = require('google-auth-library');
 const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput/TokenStorage');
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const TOKEN_DIR = '.credentials/';
-const TOKEN_PATH = TOKEN_DIR + 'worklogger.json';
+const TOKEN_PATH = 'worklogger_home/worklogger.json';
 
 module.exports = class TokenStorage {
     constructor(fs = fsRequired,
@@ -42,12 +41,6 @@ module.exports = class TokenStorage {
 
     _storeToken(token) {
         return new Promise((resolve) => {
-            try {
-                this.fs.mkdirSync(TOKEN_DIR);
-            } catch (err) {
-                if (err.code != 'EEXIST')
-                    throw err;
-            }
             this.fs.writeFile(TOKEN_PATH, JSON.stringify(token));
             logger.debug(`Token stored to ${TOKEN_PATH}`);
             resolve(token);

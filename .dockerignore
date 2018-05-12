@@ -2,7 +2,6 @@ _private/
 node_modules/
 *.sublime-workspace
 *.sublime-project
-.credentials/
 npm-debug.log.*
 coverage/
 /.nyc_output
