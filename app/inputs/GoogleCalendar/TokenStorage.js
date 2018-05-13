@@ -1,7 +1,7 @@
 // from https://developers.google.com/google-apps/calendar/quickstart/nodejs
 const fsRequired = require('fs');
 const readlineRequired = require('readline');
-const googleAuthRequired = require('google-auth-library');
+const googleApisRequired = require('googleapis').google;
 const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput/TokenStorage');
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
@@ -10,19 +10,18 @@ const TOKEN_PATH = 'worklogger_home/worklogger.json';
 module.exports = class TokenStorage {
     constructor(fs = fsRequired,
         readline = readlineRequired,
-        googleAuth = googleAuthRequired) {
+        googleApis = googleApisRequired) {
         this.fs = fs;
         this.readline = readline;
-        this.googleAuth = googleAuth;
+        this.googleApis = googleApis;
     }
 
     authorize(credentials) {
         const clientSecret = credentials.installed.client_secret;
         const clientId = credentials.installed.client_id;
         const redirectUrl = credentials.installed.redirect_uris[0];
-        const auth = new this.googleAuth();
 
-        const oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+        const oauth2Client = new this.googleApis.auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         logger.debug(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
         return new Promise((resolve) => {

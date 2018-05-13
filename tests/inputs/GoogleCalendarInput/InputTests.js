@@ -65,7 +65,7 @@ describe('[Google Calendar] Input', () => {
             const authenticationCredentials = { my: 'test credentials' };
             const authorizeStub = sinon.stub().returns(Promise.resolve(authenticationCredentials));
             const tokenStorage = function() { return { authorize: authorizeStub }; };
-            const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
+            const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
                 calendar: function() {
                     return {
@@ -90,7 +90,7 @@ describe('[Google Calendar] Input', () => {
                 calendars: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
                 readFromXHoursAgo: 10
             };
-            const eventListStub = sinon.stub().callsArgWith(1, null, { items: [] });
+            const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
                 calendar: function() {
                     return {
@@ -177,7 +177,7 @@ const defaultGoogleApis = {
     calendar: function() {
         return {
             events: {
-                list: sinon.stub().callsArgWith(1, null, { items: [] })
+                list: sinon.stub().callsArgWith(1, null, { data: { items: [] } })
             }
         };
     }

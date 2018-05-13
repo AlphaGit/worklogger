@@ -1,6 +1,6 @@
 const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput');
 
-const googleApisRequired = require('googleapis');
+const googleApisRequired = require('googleapis').google;
 
 const CredentialStorageRequired = require('./CredentialStorage');
 const TokenStorageRequired = require('./TokenStorage');
@@ -71,7 +71,7 @@ module.exports = class Input {
 
                 resolve({
                     calendarConfig: calendar,
-                    events: response.items
+                    events: response.data.items
                 });
             });
         });

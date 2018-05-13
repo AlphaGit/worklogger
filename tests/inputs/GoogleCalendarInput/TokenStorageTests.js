@@ -57,21 +57,21 @@ const defaultFsMock = {
     writeFile: function() { }
 };
 
-const defaultGoogleAuthMock = function() {
-    return {
+const defaultGoogleApisMock = {
+    auth: {
         OAuth2: function() {
             return {
                 generateAuthUrl: function() { },
                 getToken: function() { }
             };
         }
-    };
+    }
 };
 
 function getTestSubject({
     fsMock = defaultFsMock,
     readlineMock = defaultReadlineMock,
-    googleAuthMock = defaultGoogleAuthMock
+    googleApisMock = defaultGoogleApisMock
 } = {}) {
-    return new TokenStorage(fsMock, readlineMock, googleAuthMock);
+    return new TokenStorage(fsMock, readlineMock, googleApisMock);
 }
