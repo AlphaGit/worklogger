@@ -23,10 +23,18 @@
         "minimumLoggableTimeSlotInMinutes": 30,
         "timePeriod": {
             "begin": {
+                // for absolute dates
+                "dateTime": "2017-01-02T05:00:00",
+
+                // for relative dates
                 "fromNow": "string", // "this", "last"
                 "unit": "string" // "hour", "day", "week", "month"
             },
             "end": {
+                // for absolute dates
+                "dateTime": "2017-01-02T05:00:00",
+
+                // for relative dates
                 "fromNow": "string", // "this", "last"
                 "unit": "string" // "hour", "day", "week", "month"
             }
