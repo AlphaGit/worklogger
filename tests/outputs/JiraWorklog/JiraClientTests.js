@@ -47,7 +47,7 @@ describe('JiraClient', () => {
             assert.throws(() => jiraClient.saveWorklog('PID-123', { comment: '123' }), /Worklog requires started field\./);
         });
 
-        it('requires taht the worklog parameter has a timeSpent field', () => {
+        it('requires that the worklog parameter has a timeSpent field', () => {
             const jiraClient = getTestSubject();
             assert.throws(() => jiraClient.saveWorklog('PID-123', { comment: '123', started: '2017-01-01T01:01:01.0000Z'}), /Worklog requires timeSpent field\./);
         });
@@ -59,6 +59,24 @@ describe('JiraClient', () => {
             const result = jiraClient.saveWorklog('PID-123', jiraWorklog);
 
             assert(result instanceof Promise);
+        });
+
+        it('returns a resolved promise if the server responded with a non-successful code', done => {
+            const jiraClient = getTestSubject({ status: 404, statusText: 'Not found.' });
+            const jiraWorklog = { comment: 'Some work.', started: '2017-01-01T01:01:01.0000Z', timeSpent: '1h' };
+
+            const result = jiraClient.saveWorklog('PID-123', jiraWorklog);
+
+            result.then(() => done()).catch(done);
+        });
+
+        it('returns a resolved promise if the fetch parameter throws an exception (e.g. network)', done => {
+            const jiraClient = getTestSubject({ shouldResolve: false });
+            const jiraWorklog = { comment: 'Some work.', started: '2017-01-01T01:01:01.0000Z', timeSpent: '1h' };
+
+            const result = jiraClient.saveWorklog('PID-123', jiraWorklog);
+
+            result.then(() => done()).catch(done);
         });
 
         it('calls the JIRA API with the right parameters', () => {
@@ -97,11 +115,17 @@ function getTestSubject({
     return new JiraClient(baseUrl, username, password, { fetch });
 }
 
-function getFakeFetch() {
+function getFakeFetch({
+    status = 201,
+    statusText = 'Created.',
+    shouldResolve = true,
+} = {}) {
     return function fakeFetch() {
         return Promise.resolve({
             json: function fakeJson() {
-                return Promise.resolve();
+                return shouldResolve
+                    ? Promise.resolve({ status, statusText })
+                    : Promise.reject({ status, statusText });
             }
         });
     };

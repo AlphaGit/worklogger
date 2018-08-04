@@ -30,8 +30,15 @@ module.exports = class JiraClient {
             headers: this._getHeaders()
         }).then(res => {
             logger.trace(res);
+
+            if (res.status != 201)
+                throw new Error(`${ticketId} could not be sent to JIRA, JIRA responded with ${res.status}: ${res.statusText}`);
+
             return res;
-        }).then(res => res.json());
+        }).then(res => res.json())
+        .catch(e => {
+            logger.error(e.name, e.message);
+        });
     }
 
     _getHeaders() {

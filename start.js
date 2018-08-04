@@ -44,7 +44,7 @@ function loadActionsAndConditions(environment) {
 }
 
 function outputWorklogSet(environment) {
-    logger.info('Processing loaded outputs.');
+    logger.debug('Processing loaded outputs.');
 
     const outputPromises = [];
     for (let { output, condition } of environment.outputs) {
