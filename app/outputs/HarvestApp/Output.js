@@ -1,6 +1,7 @@
 const OutputBase = require('app/outputs/OutputBase');
 const RequiredHarvestClient = require('./HarvestClient');
 const logger = require('app/services/loggerFactory').getLogger('HarvestApp/Output');
+const moment = require('moment');
 
 module.exports = class HarvestAppOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
@@ -43,8 +44,8 @@ module.exports = class HarvestAppOutput extends OutputBase {
         return {
             project_id: project.projectId,
             task_id: task.taskId,
-            spent_date: worklog.startDateTime.toISOString().substring(0, 10),
-            timer_started_at: worklog.startDateTime.toISOString(),
+            spent_date: moment(worklog.startDateTime).format('YYYY-MM-DD'),
+            timer_started_at: moment(worklog.startDateTime).format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
             hours: worklog.duration / 60,
             notes: worklog.name
         };

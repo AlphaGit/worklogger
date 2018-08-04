@@ -14,14 +14,19 @@ describe('Logger output', function() {
     describe('#outputWorklogSet', () => {
         it('calls the logger at least once for the worklogSet and the worklogs', () => {
             const infoFn = sinon.spy();
-            const loggerFactory = getFakeLoggerFactory({ fakeInfo: infoFn });
+            const debugFn = sinon.spy();
+            const loggerFactory = getFakeLoggerFactory({ fakeInfo: infoFn, fakeDebug: debugFn });
             const output = getTestSubject({ fakeLoggerFactory: loggerFactory });
 
             const worklogSet = getTestWorklogSet({ worklogCount: 2 });
 
             output.outputWorklogSet(worklogSet);
 
-            assert(infoFn.callCount >= 3);
+            // Expecting one general info about the worklogset
+            assert.equal(1, infoFn.callCount);
+
+            // Expecting one debug call about each worklog
+            assert.equal(worklogSet.worklogs.length, debugFn.callCount);
         });
     });
 });
@@ -33,11 +38,15 @@ function getTestSubject({ fakeLoggerFactory = getFakeLoggerFactory() } = {}) {
     return new LoggerOutput(formatter, outputConfiguration, { LoggerFactory: fakeLoggerFactory });
 }
 
-function getFakeLoggerFactory({ fakeInfo = noop } = {}) {
+function getFakeLoggerFactory({
+    fakeInfo = noop,
+    fakeDebug = noop
+} = {}) {
     return {
         getLogger: function getLogger() {
             return {
-                info: fakeInfo
+                info: fakeInfo,
+                debug: fakeDebug
             };
         }
     };

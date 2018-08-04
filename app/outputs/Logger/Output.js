@@ -14,7 +14,7 @@ module.exports = class LoggerOutput extends OutputBase {
         this._logger.info(`WorklogSet: ${worklogSet}`);
 
         worklogSet.worklogs.forEach(w => {
-            this._logger.debug(w.toOneLinerString());
+            this._logger.debug(w);
         });
     }
 };

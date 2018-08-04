@@ -23,7 +23,7 @@ module.exports = class JiraClient {
         this._validateWorklog(worklog);
 
         const url = `${this._baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
-        logger.debug('Sending to', url, ':', worklog);
+        logger.debug('Sending to JIRA ', url, ':', worklog);
         return this._fetch(url, {
             method: 'POST',
             body: JSON.stringify(worklog),

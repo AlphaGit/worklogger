@@ -6,6 +6,8 @@ const FormatterBase = require('app/formatters/FormatterBase');
 const WorklogSet = require('app/models/WorklogSet');
 const Worklog = require('app/models/Worklog');
 
+const moment = require('moment');
+
 describe('HarvestApp output', () => {
     it('can be instantiated', () => {
         assert.doesNotThrow(() => getTestSubject());
@@ -44,19 +46,19 @@ describe('HarvestApp output', () => {
             });
 
             const worklogCount = 5;
-            const startingAt = new Date('2017-01-01T07:00-0400');
-            const worklogSet = getTestWorklogSet({ worklogCount, startingAt, durationInMinutes: 30 });
+            const startingAt = moment('2017-01-01T07:00-0500');
+            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt.toDate(), durationInMinutes: 30 });
             worklogSet.worklogs.forEach(w => {
                 w.addTag('Project', 'Project 1');
                 w.addTag('Task', 'Task 2');
             });
 
             // worklog times are:
-            // 1. 2017-01-01T07:00-0400 to 2017-01-01T07:30-0400
-            // 2. 2017-01-01T07:30-0400 to 2017-01-01T08:00-0400
-            // 3. 2017-01-01T08:00-0400 to 2017-01-01T08:30-0400
-            // 4. 2017-01-01T08:30-0400 to 2017-01-01T09:00-0400
-            // 5. 2017-01-01T09:00-0400 to 2017-01-01T09:30-0400
+            // 1. 2017-01-01T07:00-0500 to 2017-01-01T07:30-0500
+            // 2. 2017-01-01T07:30-0500 to 2017-01-01T08:00-0500
+            // 3. 2017-01-01T08:00-0500 to 2017-01-01T08:30-0500
+            // 4. 2017-01-01T08:30-0500 to 2017-01-01T09:00-0500
+            // 5. 2017-01-01T09:00-0500 to 2017-01-01T09:30-0500
 
             output.outputWorklogSet(worklogSet).then(() => {
                 assert.equal(saveNewTimeEntryStub.callCount, worklogSet.worklogs.length);
@@ -66,10 +68,10 @@ describe('HarvestApp output', () => {
 
                     assert.equal(timeEntryArgument.project_id, 1);
                     assert.equal(timeEntryArgument.task_id, 2);
-                    assert.equal(timeEntryArgument.spent_date, '2017-01-01');
-                    const hour = Math.floor(11 + i / 2);
-                    const minutes = i % 2 == 0 ? '00' : '30';
-                    assert.equal(timeEntryArgument.timer_started_at, `2017-01-01T${hour}:${minutes}:00.000Z`);
+                    
+                    if (i > 0) startingAt.add(30, 'minutes');
+                    assert.equal(timeEntryArgument.spent_date, startingAt.format('YYYY-MM-DD'));
+                    assert.equal(timeEntryArgument.timer_started_at, startingAt.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
                     assert.equal(timeEntryArgument.hours, 0.5);
                     assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
                 }
