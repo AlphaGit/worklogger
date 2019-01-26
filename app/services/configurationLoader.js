@@ -33,7 +33,7 @@ function parseRelativeTime(timePeriod) {
 
 function parseAbsoluteTime(timePeriod) {
     const dateTimeString = timePeriod.dateTime;
-    if (!(dateTimeString || "").length) return null;
+    if (!(dateTimeString || '').length) return null;
     return moment(dateTimeString).toDate();
 }
 

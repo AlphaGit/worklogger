@@ -36,9 +36,9 @@ module.exports = class JiraClient {
 
             return res;
         }).then(res => res.json())
-        .catch(e => {
-            logger.error(e.name, e.message);
-        });
+            .catch(e => {
+                logger.error(e.name, e.message);
+            });
     }
 
     _getHeaders() {
