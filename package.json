@@ -33,7 +33,7 @@
     "app-module-path": "^2.1.0",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^30.0.0",
-    "log4js": "^2.6.0",
+    "log4js": "^4.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.22.1",
     "node-fetch": "^1.7.3"
