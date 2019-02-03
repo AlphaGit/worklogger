@@ -22,8 +22,7 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
         const output =
 `Worklogs from ${startDateTime} to ${endDateTime}.
 
-${aggregations}
-Total time: ${totalDurationString}`;
+${aggregations}Total time: ${totalDurationString}`;
 
         logger.debug('SummaryTextFileFormatter output:', output);
         return output;
@@ -50,7 +49,7 @@ Total time: ${totalDurationString}`;
                 const aggregation = this._generateAggregation(worklogSet.worklogs, tags);
                 return `Total time by ${tags.join(' / ')}:\n\n${aggregation}`;
             })
-            .join('\n');
+            .join('\n') + '\n';
     }
 
     _generateAggregation(worklogs, tags, indentationLevel = 1) {

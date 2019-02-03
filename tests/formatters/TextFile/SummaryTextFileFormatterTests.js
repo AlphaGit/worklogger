@@ -164,8 +164,7 @@ describe('SummaryTextFileFormatter', () => {
 
             assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
             assert.strictEqual(lines[ 1], '');
-            assert.strictEqual(lines[ 2], '');
-            assert.strictEqual(lines[ 3], 'Total time: 1hs 0m');
+            assert.strictEqual(lines[ 2], 'Total time: 1hs 0m');
         });
     });
 });
