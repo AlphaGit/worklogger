@@ -57,19 +57,19 @@ Total time: ${totalDurationString}`;
         if (!worklogs || !worklogs.length || !tags || !tags.length) return '';
 
         const [firstTag, ...restTags] = tags;
-        let worklogsByTag = this._groupBy(worklogs, firstTag);
+        let worklogsByTagValue = this._groupBy(worklogs, firstTag);
 
         let aggregatedSummaries = '';
-        for (let worklogGrouping of worklogsByTag) {
+        for (let worklogGrouping of worklogsByTagValue) {
             const groupingTagValue = worklogGrouping.key;
-            const groupedWorklogs = worklogGrouping.value;
+            const workslogsInGroup = worklogGrouping.value;
 
-            const groupedDurationInMinutes = this._getWorklogDurationSumInMinutes(groupedWorklogs);
+            const groupedDurationInMinutes = this._getWorklogDurationSumInMinutes(workslogsInGroup);
             const groupedDurationString = this._getTotalHsMsString(groupedDurationInMinutes);
 
             const indentation = ' '.repeat((indentationLevel - 1) * 4);
-            aggregatedSummaries += `${indentation}- Total time for ${groupingTagValue}: ${groupedDurationString}\n`;
-            aggregatedSummaries += this._generateAggregation(groupedWorklogs, restTags, indentationLevel + 1);
+            aggregatedSummaries += `${indentation}- [${firstTag}] ${groupingTagValue}: ${groupedDurationString}\n`;
+            aggregatedSummaries += this._generateAggregation(workslogsInGroup, restTags, indentationLevel + 1);
         }
 
         return aggregatedSummaries;

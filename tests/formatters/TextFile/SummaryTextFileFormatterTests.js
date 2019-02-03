@@ -93,11 +93,22 @@ describe('SummaryTextFileFormatter', () => {
 
             const result = formatter.format(worklogSet);
 
-            assert(result.indexOf('Total time for Client1: 2hs 0m') > -1);
-            assert(result.indexOf('Total time for Client2: 2hs 0m') > -1);
+            const lines = result.split('\n');
+
+            const startDateTimeString = worklogSet.startDateTime.toISOString();
+            const endDateTimeString = worklogSet.endDateTime.toISOString();
+
+            assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
+            assert.strictEqual(lines[ 1], '');
+            assert.strictEqual(lines[ 2], 'Total time by client:');
+            assert.strictEqual(lines[ 3], '');
+            assert.strictEqual(lines[ 4], '- [client] Client1: 2hs 0m');
+            assert.strictEqual(lines[ 5], '- [client] Client2: 2hs 0m');
+            assert.strictEqual(lines[ 6], '');
+            assert.strictEqual(lines[ 7], 'Total time: 4hs 0m');
         });
 
-        it('includes the total for multiple aaggregated tags', () => {
+        it('includes the total for multiple aggregated tags', () => {
             const worklog1_1 = getExampleWorklogByDuration({ h: 2 });
             const worklog2_2 = getExampleWorklogByDuration({ h: 2 });
             const worklog2_3 = getExampleWorklogByDuration({ m: 30 });
@@ -110,20 +121,32 @@ describe('SummaryTextFileFormatter', () => {
             worklog2_2.addTag('project', 'Project2');
             worklog2_3.addTag('project', 'Project3');
 
-            const worklogSet = getExampleWorklogSet({ worklogs: [worklog1_1, worklog2_2, worklog2_3] });
+            const worklogSet = getExampleWorklogSet({
+                startDateTime: new Date(2017, 1, 1, 8, 1, 2),
+                endDateTime: new Date(2017, 1, 2, 23, 59, 59),
+                worklogs: [worklog1_1, worklog2_2, worklog2_3]
+            });
 
             const formatter = getTestSubject({ aggregateByTags: [ ['client', 'project'] ] });
 
             const result = formatter.format(worklogSet);
 
-            assert(result.indexOf('Total time by client / project:') > -1);
+            const lines = result.split('\n');
 
-            assert(result.indexOf('- Total time for Client1: 2hs 0m') > -1);
-            assert(result.indexOf('- Total time for Client2: 2hs 30m') > -1);
+            const startDateTimeString = worklogSet.startDateTime.toISOString();
+            const endDateTimeString = worklogSet.endDateTime.toISOString();
 
-            assert(result.indexOf('    - Total time for Project1: 2hs 0m') > -1);
-            assert(result.indexOf('    - Total time for Project2: 2hs 0m') > -1);
-            assert(result.indexOf('    - Total time for Project3: 0hs 30m') > -1);
+            assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
+            assert.strictEqual(lines[ 1], '');
+            assert.strictEqual(lines[ 2], 'Total time by client / project:');
+            assert.strictEqual(lines[ 3], '');
+            assert.strictEqual(lines[ 4], '- [client] Client1: 2hs 0m');
+            assert.strictEqual(lines[ 5], '    - [project] Project1: 2hs 0m');
+            assert.strictEqual(lines[ 6], '- [client] Client2: 2hs 30m');
+            assert.strictEqual(lines[ 7], '    - [project] Project2: 2hs 0m');
+            assert.strictEqual(lines[ 8], '    - [project] Project3: 0hs 30m');
+            assert.strictEqual(lines[ 9], '');
+            assert.strictEqual(lines[10], 'Total time: 4hs 30m');
         });
 
         it('does not perform any aggregation if aggregateByTags configuration is falsy', () => {
@@ -134,8 +157,15 @@ describe('SummaryTextFileFormatter', () => {
             const formatter = getTestSubject({ aggregateByTags: null });
 
             const result = formatter.format(worklogSet);
+            const lines = result.split('\n');
 
-            assert(result.indexOf('Total time for') === -1);
+            const startDateTimeString = worklogSet.startDateTime.toISOString();
+            const endDateTimeString = worklogSet.endDateTime.toISOString();
+
+            assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
+            assert.strictEqual(lines[ 1], '');
+            assert.strictEqual(lines[ 2], '');
+            assert.strictEqual(lines[ 3], 'Total time: 1hs 0m');
         });
     });
 });
