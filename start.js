@@ -21,6 +21,7 @@ Promise.resolve(environment)
     .then(environmentChain(displayWorklogSet))
     .then(environmentChain(loadOutputsAndFormattersAndConditions))
     .then(environmentChain(outputWorklogSet))
+    .then(environmentChain(warnNonOuputProcessed))
     .then(() => logger.info('Done.'))
     .catch((e) => logger.error(e));
 
@@ -43,12 +44,31 @@ function loadActionsAndConditions(environment) {
     environment.transformations = actionLoader.loadActionsAndConditions(environment.appConfiguration.transformations);
 }
 
+function warnNonOuputProcessed(environment) {
+    logger.debug('Checking for worklogs that do not match any output.');
+
+    let worklogs = environment.worklogSet.worklogs;
+    for (let { condition } of environment.outputs) {
+        worklogs = worklogs.filter(w => !condition.isSatisfiedBy(w));
+    }
+
+    if (worklogs.length === 0) {
+        logger.info('All worklogs were processed by at least one output.');
+    } else {
+        logger.warn('The following worklogs were not processed by any output:');
+        for (const worklog of worklogs) {
+            logger.warn(worklog.toOneLinerString());
+        }
+    }
+}
+
 function outputWorklogSet(environment) {
     logger.debug('Processing loaded outputs.');
 
     const outputPromises = [];
     for (let { output, condition } of environment.outputs) {
-        const filteredWorklogSet = environment.worklogSet.getFilteredCopy(condition.isSatisfiedBy.bind(condition));
+        const conditionFn = condition.isSatisfiedBy.bind(condition);
+        const filteredWorklogSet = environment.worklogSet.getFilteredCopy(conditionFn);
         outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
     }
 
