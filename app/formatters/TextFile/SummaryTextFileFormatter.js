@@ -19,11 +19,18 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
 
         const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
 
-        const output =
-`Worklogs from ${startDateTime} to ${endDateTime}.
+        let outputLines = [];
+        outputLines.push(`Worklogs from ${startDateTime} to ${endDateTime}.`);
+        outputLines.push('');
 
-${aggregations}Total time: ${totalDurationString}`;
+        if (aggregations.length) { 
+            outputLines = outputLines.concat(...aggregations);
+            outputLines.push('');
+        }
 
+        outputLines.push(`Total time: ${totalDurationString}`);
+
+        const output = outputLines.join('\n');
         logger.debug('SummaryTextFileFormatter output:', output);
         return output;
     }
@@ -46,19 +53,22 @@ ${aggregations}Total time: ${totalDurationString}`;
 
         return this._configuration.aggregateByTags
             .map(tags => {
-                const aggregation = this._generateAggregation(worklogSet.worklogs, tags);
-                return `Total time by ${tags.join(' / ')}:\n\n${aggregation}`;
-            })
-            .join('\n') + '\n';
+                const aggregationLines = this._generateAggregationLines(worklogSet.worklogs, tags);
+                return [
+                    `Total time by ${tags.join(' / ')}:`,
+                    '',
+                    ...aggregationLines
+                ];
+            });
     }
 
-    _generateAggregation(worklogs, tags, indentationLevel = 1) {
-        if (!worklogs || !worklogs.length || !tags || !tags.length) return '';
+    _generateAggregationLines(worklogs, tags, indentationLevel = 1) {
+        if (!worklogs || !worklogs.length || !tags || !tags.length) return [];
 
         const [firstTag, ...restTags] = tags;
         let worklogsByTagValue = this._groupBy(worklogs, firstTag);
 
-        let aggregatedSummaries = '';
+        let aggregatedSummaries = [];
         for (let worklogGrouping of worklogsByTagValue) {
             const groupingTagValue = worklogGrouping.key;
             const workslogsInGroup = worklogGrouping.value;
@@ -67,8 +77,8 @@ ${aggregations}Total time: ${totalDurationString}`;
             const groupedDurationString = this._getTotalHsMsString(groupedDurationInMinutes);
 
             const indentation = ' '.repeat((indentationLevel - 1) * 4);
-            aggregatedSummaries += `${indentation}- [${firstTag}] ${groupingTagValue}: ${groupedDurationString}\n`;
-            aggregatedSummaries += this._generateAggregation(workslogsInGroup, restTags, indentationLevel + 1);
+            aggregatedSummaries.push(`${indentation}- [${firstTag}] ${groupingTagValue}: ${groupedDurationString}`);
+            aggregatedSummaries = aggregatedSummaries.concat(...this._generateAggregationLines(workslogsInGroup, restTags, indentationLevel + 1));
         }
 
         return aggregatedSummaries;

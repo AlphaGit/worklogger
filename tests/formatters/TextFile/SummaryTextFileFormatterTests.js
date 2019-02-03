@@ -63,18 +63,6 @@ describe('SummaryTextFileFormatter', () => {
             assert(result.indexOf('Total time: 2hs 2m') > -1);
         });
 
-        it('includes the total duration of the worklogs (hours only)', () => {
-            const worklog1 = getExampleWorklogByDuration({ h: 1 });
-            const worklog2 = getExampleWorklogByDuration({ startDateTime: worklog1.endDateTime, h: 1 });
-            const worklogSet = getExampleWorklogSet({ worklogs: [worklog1, worklog2] });
-
-            const formatter = getTestSubject(worklogSet);
-
-            const result = formatter.format(worklogSet);
-
-            assert(result.indexOf('Total time: 2hs 0m') > -1);
-        });
-
         it('includes the total for aggregated tag', () => {
             const worklog1_1 = getExampleWorklogByDuration({ h: 1 });
             const worklog1_2 = getExampleWorklogByDuration({ h: 1 });
