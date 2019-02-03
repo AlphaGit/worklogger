@@ -70,7 +70,7 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
 
         let aggregatedSummaries = [];
         for (let worklogGrouping of worklogsByTagValue) {
-            const groupingTagValue = worklogGrouping.key;
+            const groupingTagValue = worklogGrouping.key || '(no value)';
             const workslogsInGroup = worklogGrouping.value;
 
             const groupedDurationInMinutes = this._getWorklogDurationSumInMinutes(workslogsInGroup);

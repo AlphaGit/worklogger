@@ -154,6 +154,43 @@ describe('SummaryTextFileFormatter', () => {
             assert.strictEqual(lines[ 1], '');
             assert.strictEqual(lines[ 2], 'Total time: 1hs 0m');
         });
+
+        it('shows a readable value if there are worklogs not tagged', () => {
+            const worklog1_1 = getExampleWorklogByDuration({ h: 2 });
+            const worklog2_2 = getExampleWorklogByDuration({ h: 2 });
+            const worklog2_3 = getExampleWorklogByDuration({ m: 30 });
+
+            worklog2_2.addTag('client', 'Client2');
+            worklog2_3.addTag('client', 'Client2');
+
+            worklog1_1.addTag('project', 'Project1');
+
+            const worklogSet = getExampleWorklogSet({
+                startDateTime: new Date(2017, 1, 1, 8, 1, 2),
+                endDateTime: new Date(2017, 1, 2, 23, 59, 59),
+                worklogs: [worklog1_1, worklog2_2, worklog2_3]
+            });
+
+            const formatter = getTestSubject({ aggregateByTags: [ ['client', 'project'] ] });
+
+            const result = formatter.format(worklogSet);
+
+            const lines = result.split('\n');
+
+            const startDateTimeString = worklogSet.startDateTime.toISOString();
+            const endDateTimeString = worklogSet.endDateTime.toISOString();
+
+            assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
+            assert.strictEqual(lines[ 1], '');
+            assert.strictEqual(lines[ 2], 'Total time by client / project:');
+            assert.strictEqual(lines[ 3], '');
+            assert.strictEqual(lines[ 4], '- [client] (no value): 2hs 0m');
+            assert.strictEqual(lines[ 5], '    - [project] Project1: 2hs 0m');
+            assert.strictEqual(lines[ 6], '- [client] Client2: 2hs 30m');
+            assert.strictEqual(lines[ 7], '    - [project] (no value): 2hs 30m');
+            assert.strictEqual(lines[ 8], '');
+            assert.strictEqual(lines[ 9], 'Total time: 4hs 30m');
+        });
     });
 });
 
