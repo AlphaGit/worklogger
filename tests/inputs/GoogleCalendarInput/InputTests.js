@@ -125,6 +125,11 @@ describe('[Google Calendar] Input', () => {
                     assert.equal(timeMaxArg, endDateTime.toISOString());
                 }
 
+                const maxResultArguments = eventListCallArguments.map(a => a.maxResults);
+                for (const maxResultArg of maxResultArguments) {
+                    assert.strictEqual(maxResultArg, 2500);
+                }
+
                 done();
             }).catch(done);
         });

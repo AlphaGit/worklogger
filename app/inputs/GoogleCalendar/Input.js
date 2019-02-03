@@ -60,7 +60,7 @@ module.exports = class Input {
                 calendarId: calendar.id,
                 timeMin: startDateTime.toISOString(),
                 timeMax: endDateTime.toISOString(),
-                maxResults: 100,
+                maxResults: 2500,
                 singleEvents: true,
                 orderBy: 'startTime'
             }, (err, response) => {
