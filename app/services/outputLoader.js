@@ -5,7 +5,8 @@ function loadOutputs(outputConfigurations) {
     return outputConfigurations.map(outputConfig => {
         const output = loadOuput(outputConfig);
         const condition = conditionLoader.loadCondition(outputConfig.condition);
-        return { output, condition };
+        const excludeFromNonProcessedWarning = !!outputConfig.excludeFromNonProcessedWarning;
+        return { output, condition, excludeFromNonProcessedWarning };
     });
 }
 

@@ -48,7 +48,9 @@ function warnNonOuputProcessed(environment) {
     logger.debug('Checking for worklogs that do not match any output.');
 
     let worklogs = environment.worklogSet.worklogs;
-    for (let { condition } of environment.outputs) {
+    for (let { condition, excludeFromNonProcessedWarning } of environment.outputs) {
+        if (excludeFromNonProcessedWarning) continue;
+
         worklogs = worklogs.filter(w => !condition.isSatisfiedBy(w));
     }
 

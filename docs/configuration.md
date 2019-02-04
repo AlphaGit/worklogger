@@ -85,6 +85,10 @@
     "outputs": [{
         "type": "string",
         "name": "string",
+
+        // if true, will not consider this output for the warning of worklogs non processed by any output
+        "excludeFromNonProcessedWarning": true,
+
         "condition": {
             // (see above)
         },
