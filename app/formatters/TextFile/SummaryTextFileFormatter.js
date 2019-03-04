@@ -25,7 +25,6 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
 
         if (aggregations.length) { 
             outputLines = outputLines.concat(...aggregations);
-            outputLines.push('');
         }
 
         outputLines.push(`Total time: ${totalDurationString}`);
@@ -49,7 +48,7 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
     }
 
     _generateAggregations(worklogSet) {
-        if (!this._configuration.aggregateByTags) return '';
+        if (!this._configuration.aggregateByTags) return [];
 
         return this._configuration.aggregateByTags
             .map(tags => {
@@ -57,7 +56,8 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
                 return [
                     `Total time by ${tags.join(' / ')}:`,
                     '',
-                    ...aggregationLines
+                    ...aggregationLines,
+                    ''
                 ];
             });
     }

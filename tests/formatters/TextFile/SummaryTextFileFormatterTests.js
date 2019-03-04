@@ -191,6 +191,50 @@ describe('SummaryTextFileFormatter', () => {
             assert.strictEqual(lines[ 8], '');
             assert.strictEqual(lines[ 9], 'Total time: 4hs 30m');
         });
+
+        it('supports multiple paths of aggregation', () => {
+            const worklog1_1 = getExampleWorklogByDuration({ h: 2 });
+            const worklog2_2 = getExampleWorklogByDuration({ h: 2 });
+            const worklog2_3 = getExampleWorklogByDuration({ m: 30 });
+
+            worklog1_1.addTag('client', 'Client1');
+            worklog2_2.addTag('client', 'Client2');
+            worklog2_3.addTag('client', 'Client2');
+
+            worklog1_1.addTag('project', 'Project1');
+            worklog2_2.addTag('project', 'Project2');
+            worklog2_3.addTag('project', 'Project3');
+
+            const worklogSet = getExampleWorklogSet({
+                startDateTime: new Date(2017, 1, 1, 8, 1, 2),
+                endDateTime: new Date(2017, 1, 2, 23, 59, 59),
+                worklogs: [worklog1_1, worklog2_2, worklog2_3]
+            });
+
+            const formatter = getTestSubject({ aggregateByTags: [ [ 'client' ], [ 'project'] ] });
+
+            const result = formatter.format(worklogSet);
+
+            const lines = result.split('\n');
+
+            const startDateTimeString = worklogSet.startDateTime.toISOString();
+            const endDateTimeString = worklogSet.endDateTime.toISOString();
+
+            assert.strictEqual(lines[ 0], `Worklogs from ${startDateTimeString} to ${endDateTimeString}.`);
+            assert.strictEqual(lines[ 1], '');
+            assert.strictEqual(lines[ 2], 'Total time by client:');
+            assert.strictEqual(lines[ 3], '');
+            assert.strictEqual(lines[ 4], '- [client] Client1: 2hs 0m');
+            assert.strictEqual(lines[ 5], '- [client] Client2: 2hs 30m');
+            assert.strictEqual(lines[ 6], '');
+            assert.strictEqual(lines[ 7], 'Total time by project:')
+            assert.strictEqual(lines[ 8], '')
+            assert.strictEqual(lines[ 9], '- [project] Project1: 2hs 0m');
+            assert.strictEqual(lines[10], '- [project] Project2: 2hs 0m');
+            assert.strictEqual(lines[11], '- [project] Project3: 0hs 30m');
+            assert.strictEqual(lines[12], '');
+            assert.strictEqual(lines[13], 'Total time: 4hs 30m');
+        });
     });
 });
 

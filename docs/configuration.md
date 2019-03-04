@@ -98,7 +98,9 @@
 
             // Type: SummaryTextFileFormatter
             "aggregateByTags": [
+                // one sub-array for each aggregation/total to calculate
                 ["tag1"],
+                // if multiple tags are in a sub-array, it will nest tag2 under tag1
                 ["tag1", "tag2"],
             ]
         },
