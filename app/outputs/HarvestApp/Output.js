@@ -24,7 +24,8 @@ module.exports = class HarvestAppOutput extends OutputBase {
         const savingPromises = timeEntries.map(saveNewTimeEntryFn);
 
         return Promise.all(savingPromises).then(p => {
-            logger.info(`Sent ${p.length} time entries to Harvest.`);
+            const lengthText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
+            logger.info(`Sent ${lengthText} time entries to Harvest.`);
         });
     }
 
@@ -54,12 +55,22 @@ module.exports = class HarvestAppOutput extends OutputBase {
     _getProjectForWorklog(worklog, projects) {
         const projectTag = this._configuration.selectProjectFromTag || 'HarvestProject';
         const projectTagValue = worklog.getTagValue(projectTag);
-        return projects.find(p => p.projectName == projectTagValue);
+        const project = projects.find(p => p.projectName == projectTagValue);
+
+        if (!project)
+            logger.warn(`Harvest project "${projectTagValue}" not found.`);
+
+        return project;
     }
 
     _getTaskForWorklog(worklog, project) {
         const taskTag = this._configuration.selectTaskFromTag || 'HarvestTask';
         const taskTagValue = worklog.getTagValue(taskTag);
-        return project.tasks.find(t => t.taskName == taskTagValue);
+        const task = project.tasks.find(t => t.taskName == taskTagValue);
+
+        if (!project)
+            logger.warn(`Harvest task "${taskTagValue}" not found.`);
+
+        return task;
     }
 };
