@@ -42,7 +42,7 @@
   "devDependencies": {
     "eslint": "^6.1.0",
     "mocha": "^6.0.0",
-    "nyc": "^11.7.3",
+    "nyc": "^14.0.0",
     "sinon": "^1.17.6",
     "watch": "^1.0.2"
   }
