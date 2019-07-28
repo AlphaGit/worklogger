@@ -1,26 +1,19 @@
 {
+    "parserOptions": {
+        "ecmaVersion": 2019,
+        "ecmaFeatures": {
+            "impliedStrict": true
+        }
+    },
     "env": {
         "es6": true,
         "node": true
     },
     "extends": "eslint:recommended",
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
+        "indent": [ "error", 4 ],
+        "linebreak-style": [ "error", "windows" ],
+        "quotes": [ "error", "single" ],
         "no-console": "warn"
     }
 }
