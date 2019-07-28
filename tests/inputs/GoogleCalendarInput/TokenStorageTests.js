@@ -17,29 +17,26 @@ describe('[Google Calendar] TokenStorage', () => {
     describe('#authorize', () => {
         it('returns a Promise', () => {
             const TokenStorage = getTestSubject();
-            const result =  TokenStorage.authorize(validCredentials).catch(() => {});
+            const result = TokenStorage.authorize(validCredentials);
             assert.ok(result instanceof Promise);
-            result.catch(() => {}).then();
         });
 
-        it('requires existing credentials', () => {
+        it('requires existing credentials', async () => {
             const TokenStorage = getTestSubject();
-            assert.throws(() => TokenStorage.authorize(undefined));
-            assert.throws(() => TokenStorage.authorize(null));
-            assert.throws(() => TokenStorage.authorize({}));
+            assert.rejects(async () => await TokenStorage.authorize(undefined));
+            assert.rejects(async () => await TokenStorage.authorize(null));
+            assert.rejects(async () => await TokenStorage.authorize({}));
         });
 
-        it('returns the parsed token if token file is found', (done) => {
+        it('returns the parsed token if token file is found', async () => {
             const fsMock = {
-                readFile: function(tokenPath, cb) { cb(null, '{ "username": "username", "password": "password" }' ); }
+                readFile: function(tokenPath, encoding, cb) { cb(null, '{ "username": "username", "password": "password" }' ); }
             };
             const TokenStorage = getTestSubject({ fsMock });
 
-            TokenStorage.authorize(validCredentials).then(client => {
-                assert.equal('username', client.credentials.username);
-                assert.equal('password', client.credentials.password);
-                done();
-            }).catch(done);
+            const client = await TokenStorage.authorize(validCredentials);
+            assert.equal('username', client.credentials.username);
+            assert.equal('password', client.credentials.password);
         });
     });
 });
