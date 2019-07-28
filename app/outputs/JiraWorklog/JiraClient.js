@@ -60,7 +60,7 @@ module.exports = class JiraClient {
     }
 
     _getAuthorizationValue() {
-        const encodedCredentials = new Buffer(`${this._username}:${this._password}`).toString('base64');
+        const encodedCredentials = Buffer.from(`${this._username}:${this._password}`).toString('base64');
         return `Basic ${encodedCredentials}`;
     }
 };
