@@ -6,6 +6,8 @@ const CredentialStorageRequired = require('./CredentialStorage');
 const TokenStorageRequired = require('./TokenStorage');
 const ModelMapperRequired = require('./ModelMapper');
 
+const util = require('util');
+
 module.exports = class Input {
     constructor(appConfiguration,
         inputConfiguration,
@@ -17,8 +19,11 @@ module.exports = class Input {
         this.inputConfiguration = inputConfiguration;
         this.credentialStorage = credentialStorage;
         this.tokenStorage = new TokenStorage();
-        this.googleApi = googleApi;
         this.ModelMapper = ModelMapper;
+
+        const events = googleApi.calendar('v3').events;
+        const listEvents = events.list.bind(events);
+        this.getCalendarEvents = (query) => util.promisify(listEvents)(query);
     }
 
     set inputConfiguration(value) {
@@ -35,27 +40,29 @@ module.exports = class Input {
         this._appConfiguration = value;
     }
 
-    getWorkLogs(startDateTime, endDateTime) {
+    async getWorkLogs(startDateTime, endDateTime) {
         logger.info('Retrieving worklogs from Google Calendar');
-        // arrow functions needed to preserve 'this' context
-        return this.credentialStorage.retrieveAppCredentials()
-            .then(credentials => this.tokenStorage.authorize(credentials))
-            .then(auth => this._getEventsFromApi(auth, startDateTime, endDateTime))
-            .then(apiResponses => this._mapToDomainModel(apiResponses));
+
+        const credentials = await this.credentialStorage.retrieveAppCredentials();
+        const auth = await this.tokenStorage.authorize(credentials);
+        const apiResponses = await this._getEventsFromApi(auth, startDateTime, endDateTime);
+
+        return this._mapToDomainModel(apiResponses);
     }
 
-    _getEventsFromApi(auth, startDateTime, endDateTime) {
+    async _getEventsFromApi(auth, startDateTime, endDateTime) {
         var calendarReturnPromises = this._inputConfiguration.calendars
             .map(calendarId => this._getEventsFromApiSingleCalendar(auth, calendarId, startDateTime, endDateTime));
-        return Promise.all(calendarReturnPromises);
+        return await Promise.all(calendarReturnPromises);
     }
 
-    _getEventsFromApiSingleCalendar(auth, calendar, startDateTime, endDateTime) {
+    async _getEventsFromApiSingleCalendar(auth, calendar, startDateTime, endDateTime) {
         logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
 
-        return new Promise((resolve, reject) => {
-            logger.debug('Retrieving entries from calendar', calendar.id);
-            this.googleApi.calendar('v3').events.list({
+        logger.debug('Retrieving entries from calendar', calendar.id);
+
+        try {
+            const calendarResponse = await this.getCalendarEvents({
                 auth: auth,
                 calendarId: calendar.id,
                 timeMin: startDateTime.toISOString(),
@@ -63,18 +70,15 @@ module.exports = class Input {
                 maxResults: 2500,
                 singleEvents: true,
                 orderBy: 'startTime'
-            }, (err, response) => {
-                if (err) {
-                    reject(`The API returned an error: ${err}`);
-                    return;
-                }
-
-                resolve({
-                    calendarConfig: calendar,
-                    events: response.data.items
-                });
             });
-        });
+
+            return {
+                calendarConfig: calendar,
+                events: calendarResponse.data.items
+            }
+        } catch (err) {
+            throw new Error(`The API returned an error: ${err}`);
+        }
     }
 
     _mapToDomainModel(apiResponses) {

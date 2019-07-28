@@ -61,7 +61,7 @@ describe('[Google Calendar] Input', () => {
             }).catch(() => done());
         });
 
-        it('calls google events API with the authorization values retrieved', (done) => {
+        it('calls google events API with the authorization values retrieved', async () => {
             const authenticationCredentials = { my: 'test credentials' };
             const authorizeStub = sinon.stub().returns(Promise.resolve(authenticationCredentials));
             const tokenStorage = function() { return { authorize: authorizeStub }; };
@@ -77,11 +77,9 @@ describe('[Google Calendar] Input', () => {
             };
 
             const input = getTestSubject({ tokenStorage: tokenStorage, googleApis: googleApis });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert.ok(eventListStub.calledOnce);
-                assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
-                done();
-            }).catch(done);
+            await input.getWorkLogs(new Date(), new Date());
+            assert.ok(eventListStub.calledOnce);
+            assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
         });
 
         it('calls google API for every calendar in the configuration', (done) => {
