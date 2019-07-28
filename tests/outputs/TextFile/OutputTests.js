@@ -9,7 +9,8 @@ describe('TextFileOutput', () => {
     describe('#outputWorklogSet', () => {
         it('it obtains the formatted representation of the worklogs', () => {
             const formatter = new FormatterBase({});
-            const formatStub = sinon.stub(formatter, 'format', () => '');
+            const formatFakeFn = () => '';
+            const formatStub = sinon.stub(formatter, 'format').callsFake(formatFakeFn);
             const output = getTestSubject({ formatter });
 
             output.outputWorklogSet(getExampleWorklogSet());
@@ -21,7 +22,8 @@ describe('TextFileOutput', () => {
 
         it('returns a rejected promise when writing to a file fails', (done) => {
             const formatter = new FormatterBase({});
-            sinon.stub(formatter, 'format', () => '');
+            const formatFakeFn = () => '';
+            sinon.stub(formatter, 'format').callsFake(formatFakeFn);
 
             const fakeFs = {
                 writeFile: (filePath, contents, cb) => cb('Some error occurred.')
@@ -38,7 +40,8 @@ describe('TextFileOutput', () => {
 
         it('returns a resolved promise when everything is fine', () => {
             const formatter = new FormatterBase({});
-            sinon.stub(formatter, 'format', () => '');
+            const formatFakeFn = () => '';
+            sinon.stub(formatter, 'format').callsFake(formatFakeFn);
 
             const fakeFs = {
                 writeFile: (filePath, contents, cb) => cb()
@@ -50,7 +53,8 @@ describe('TextFileOutput', () => {
 
         it('writes to the output file indicated in the configuration', () => {
             const formatter = new FormatterBase({});
-            sinon.stub(formatter, 'format', () => '');
+            const formatFakeFn = () => '';
+            sinon.stub(formatter, 'format').callsFake(formatFakeFn);
 
             const outputConfiguration = {
                 filePath: 'myOutputFile.txt'

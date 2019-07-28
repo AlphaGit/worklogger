@@ -19,7 +19,8 @@ describe('[Google Calendar] CredentialStorage', () => {
 
         it('returns a JSON representation of the file contents', done => {
             var contents = { a: 1, b: 2 };
-            var stub = sinon.stub(fs, 'readFile', (filePath, callback) => callback(null, contents));
+            const fakeReadFileFn = (filePath, callback) => callback(null, contents);
+            var stub = sinon.stub(fs, 'readFile').callsFake(fakeReadFileFn);
             CredentialStorage.retrieveAppCredentials()
                 .then(credentials => {
                     assert.equal(1, credentials.a);
@@ -33,7 +34,8 @@ describe('[Google Calendar] CredentialStorage', () => {
         });
 
         it('rejects the promise if the file cannot be read', done => {
-            var stub = sinon.stub(fs, 'readFile', (filePath, callback) => callback('FileError', null));
+            const fakeReadFileFn = (filePath, callback) => callback('FileError', null);
+            var stub = sinon.stub(fs, 'readFile').callsFake(fakeReadFileFn);
             CredentialStorage.retrieveAppCredentials()
                 .then(contents => assert.fail(`Did not reject promise, returned content: ${contents}`))
                 .catch(e => {
