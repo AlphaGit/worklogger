@@ -37,7 +37,7 @@
     "log4js": "^4.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.22.1",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
