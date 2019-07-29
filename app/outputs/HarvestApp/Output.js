@@ -10,20 +10,20 @@ module.exports = class HarvestAppOutput extends OutputBase {
         this._harvestClient = new HarvestClient(outputConfiguration);
     }
 
-    outputWorklogSet(worklogSet) {
+    async outputWorklogSet(worklogSet) {
         super._outputWorklogSetValidation(worklogSet);
 
-        return this._harvestClient.getProjectsAndTasks()
-            .then(projects => this._saveWorklogs(worklogSet.worklogs, projects));
+        const projects = await this._harvestClient.getProjectsAndTasks();
+        return await this._saveWorklogs(worklogSet.worklogs, projects);
     }
 
-    _saveWorklogs(worklogs, projects) {
+    async _saveWorklogs(worklogs, projects) {
         const timeEntries = this._mapWorklogsToTimeEntries(worklogs, projects);
 
         const saveNewTimeEntryFn = this._harvestClient.saveNewTimeEntry.bind(this._harvestClient);
         const savingPromises = timeEntries.map(saveNewTimeEntryFn);
 
-        return Promise.all(savingPromises).then(p => {
+        return await Promise.all(savingPromises).then(p => {
             const lengthText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
             logger.info(`Sent ${lengthText} time entries to Harvest.`);
         });

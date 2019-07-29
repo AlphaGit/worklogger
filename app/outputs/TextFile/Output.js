@@ -2,29 +2,28 @@ const requiredFs = require('fs');
 const logger = require('app/services/loggerFactory').getLogger('TextFile/Output');
 const OutputBase = require('app/outputs/OutputBase');
 
+const util = require('util');
+
 module.exports = class TextFileOutput extends OutputBase {
     constructor(formatter, outputConfiguration, { fs } = {}) {
         super(formatter, outputConfiguration);
 
-        this._fs = fs || requiredFs;
+        const _fs = fs || requiredFs;
+        this.writeFile = (fileName, content) => util.promisify(_fs.writeFile)(fileName, content);
     }
 
-    outputWorklogSet(worklogSet) {
+    async outputWorklogSet(worklogSet) {
         super._outputWorklogSetValidation(worklogSet);
 
         const formattedOutput = this._formatter.format(worklogSet);
 
-        return new Promise((resolve, reject) => {
+        try {
             const filename = this._configuration.filePath;
             logger.info('Writing output to', filename);
-            this._fs.writeFile(filename, formattedOutput, (err) => {
-                if(err) {
-                    logger.error('Error while writing output', err);
-                    return reject(err);
-                }
-
-                resolve();
-            });
-        });
+            await this.writeFile(filename, formattedOutput);
+        } catch (err) {
+            logger.error('Error while writing output', err);
+            throw err;
+        }
     }
 };

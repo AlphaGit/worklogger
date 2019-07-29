@@ -14,27 +14,25 @@ describe('HarvestApp output', () => {
     });
 
     describe('#outputWorklogSet', () => {
-        it('gets the list of available projects and tasks', (done) => {
+        it('gets the list of available projects and tasks', async () => {
             const getProjectsAndTasksStub = sinon.stub().returns(Promise.resolve());
             const fakeHarvestClientClass = getFakeHarvestClientClass({ getProjectsAndTasksStub });
             const output = getTestSubject({ fakeHarvestClientClass });
 
-            output.outputWorklogSet(getTestWorklogSet()).then(() => {
-                assert(getProjectsAndTasksStub.calledOnce);
-            }).then(done)
-                .catch(done);
+            await output.outputWorklogSet(getTestWorklogSet());
+            assert(getProjectsAndTasksStub.calledOnce);
         });
 
-        it('saves each of the worklogs as time entries', (done) => {
+        it('saves each of the worklogs as time entries', async () => {
             const saveNewTimeEntryStub = sinon.stub().returns(Promise.resolve());
-            const getProjectsAndTasksStub = sinon.stub().returns(Promise.resolve([{
+            const getProjectsAndTasksStub = sinon.stub().returns(await [{
                 projectId: 1,
                 projectName: 'Project 1',
                 tasks: [{
                     taskId: 2,
                     taskName: 'Task 2'
                 }]
-            }]));
+            }]);
             const fakeHarvestClientClass = getFakeHarvestClientClass({
                 getProjectsAndTasksStub: getProjectsAndTasksStub,
                 saveNewTimeEntryStub: saveNewTimeEntryStub
@@ -60,23 +58,21 @@ describe('HarvestApp output', () => {
             // 4. 2017-01-01T08:30-0500 to 2017-01-01T09:00-0500
             // 5. 2017-01-01T09:00-0500 to 2017-01-01T09:30-0500
 
-            output.outputWorklogSet(worklogSet).then(() => {
-                assert.equal(saveNewTimeEntryStub.callCount, worklogSet.worklogs.length);
+            await output.outputWorklogSet(worklogSet);
+            assert.equal(saveNewTimeEntryStub.callCount, worklogSet.worklogs.length);
 
-                for (let i = 0; i < worklogCount; i++) {
-                    const timeEntryArgument = saveNewTimeEntryStub.getCall(i).args[0];
+            for (let i = 0; i < worklogCount; i++) {
+                const timeEntryArgument = saveNewTimeEntryStub.getCall(i).args[0];
 
-                    assert.equal(timeEntryArgument.project_id, 1);
-                    assert.equal(timeEntryArgument.task_id, 2);
-                    
-                    if (i > 0) startingAt.add(30, 'minutes');
-                    assert.equal(timeEntryArgument.spent_date, startingAt.format('YYYY-MM-DD'));
-                    assert.equal(timeEntryArgument.timer_started_at, startingAt.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
-                    assert.equal(timeEntryArgument.hours, 0.5);
-                    assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
-                }
-            }).then(done)
-                .catch(done);
+                assert.equal(timeEntryArgument.project_id, 1);
+                assert.equal(timeEntryArgument.task_id, 2);
+                
+                if (i > 0) startingAt.add(30, 'minutes');
+                assert.equal(timeEntryArgument.spent_date, startingAt.format('YYYY-MM-DD'));
+                assert.equal(timeEntryArgument.timer_started_at, startingAt.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
+                assert.equal(timeEntryArgument.hours, 0.5);
+                assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
+            }
         });
     });
 });

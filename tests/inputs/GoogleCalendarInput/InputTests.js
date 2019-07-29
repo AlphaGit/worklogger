@@ -17,53 +17,42 @@ describe('[Google Calendar] Input', () => {
     });
 
     describe('#getWorkLogs', () => {
-        it('requests app credentials from the credential storage', (done) => {
+        it('requests app credentials from the credential storage', async () => {
             const credentialStorage = { retrieveAppCredentials: sinon.stub() };
             credentialStorage.retrieveAppCredentials.returns(Promise.resolve());
 
             const input = getTestSubject({ credentialStorage: credentialStorage });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert(credentialStorage.retrieveAppCredentials.called);
-                done();
-            }).catch(done);
+            await input.getWorkLogs(new Date(), new Date());
+            assert(credentialStorage.retrieveAppCredentials.called);
         });
 
-        it('returns a failed promise if the credential storage fails', (done) => {
+        it('returns a failed promise if the credential storage fails', async () => {
             const credentialStorage = { retrieveAppCredentials: sinon.stub() };
             credentialStorage.retrieveAppCredentials.returns(Promise.reject());
 
             const input = getTestSubject({ credentialStorage: credentialStorage });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert.fail('Promise was not rejected on error.');
-                done();
-            }).catch(() => done());
+            await assert.rejects(async() => await input.getWorkLogs(new Date(), new Date()));
         });
 
-        it('authorizes through the google token storage', (done) => {
+        it('authorizes through the google token storage', async () => {
             const authorizeStub = sinon.stub();
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const input = getTestSubject({ tokenStorage: tokenStorage });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert(authorizeStub.called);
-                done();
-            }).catch(done);
+            await input.getWorkLogs(new Date(), new Date());
         });
 
-        it('returns a failed promise if the token storage fails', (done) => {
+        it('returns a failed promise if the token storage fails', async () => {
             const authorizeStub = sinon.stub().returns(Promise.reject());
             const tokenStorage = function() { return { authorize: authorizeStub }; };
 
             const input = getTestSubject({ tokenStorage: tokenStorage });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert.fail('Promise was not rejected on error');
-                done();
-            }).catch(() => done());
+            assert.rejects(async () => input.getWorkLogs(new Date(), new Date()));
         });
 
         it('calls google events API with the authorization values retrieved', async () => {
             const authenticationCredentials = { my: 'test credentials' };
-            const authorizeStub = sinon.stub().returns(Promise.resolve(authenticationCredentials));
+            const authorizeStub = sinon.stub().returns(await authenticationCredentials);
             const tokenStorage = function() { return { authorize: authorizeStub }; };
             const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
@@ -82,7 +71,7 @@ describe('[Google Calendar] Input', () => {
             assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
         });
 
-        it('calls google API for every calendar in the configuration', (done) => {
+        it('calls google API for every calendar in the configuration', async () => {
             const configuration =  {
                 name: 'test',
                 calendars: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
@@ -103,36 +92,33 @@ describe('[Google Calendar] Input', () => {
             const startDateTime = new Date(Date.now() - 1 * 60 * 60 * 1000);
             const endDateTime = new Date();
 
-            input.getWorkLogs(startDateTime, endDateTime).then(() => {
-                assert.ok(eventListStub.calledThrice);
+            await input.getWorkLogs(startDateTime, endDateTime);
+            assert.ok(eventListStub.calledThrice);
 
-                const eventListCallArguments = eventListStub.getCalls().map(call => call.args[0]);
+            const eventListCallArguments = eventListStub.getCalls().map(call => call.args[0]);
 
-                const calendarIdArguments = eventListCallArguments.map(a => a.calendarId);
-                for (const calendarId of calendarIdArguments) {
-                    assert.ok(configuration.calendars.some(c => c.id === calendarId));
-                }
+            const calendarIdArguments = eventListCallArguments.map(a => a.calendarId);
+            for (const calendarId of calendarIdArguments) {
+                assert.ok(configuration.calendars.some(c => c.id === calendarId));
+            }
 
-                const timeMinimumArguments = eventListCallArguments.map(a => a.timeMin);
-                for (const timeMinArg of timeMinimumArguments) {
-                    assert.equal(timeMinArg, startDateTime.toISOString());
-                }
+            const timeMinimumArguments = eventListCallArguments.map(a => a.timeMin);
+            for (const timeMinArg of timeMinimumArguments) {
+                assert.equal(timeMinArg, startDateTime.toISOString());
+            }
 
-                const timeMaximumArguments = eventListCallArguments.map(a => a.timeMax);
-                for (const timeMaxArg of timeMaximumArguments) {
-                    assert.equal(timeMaxArg, endDateTime.toISOString());
-                }
+            const timeMaximumArguments = eventListCallArguments.map(a => a.timeMax);
+            for (const timeMaxArg of timeMaximumArguments) {
+                assert.equal(timeMaxArg, endDateTime.toISOString());
+            }
 
-                const maxResultArguments = eventListCallArguments.map(a => a.maxResults);
-                for (const maxResultArg of maxResultArguments) {
-                    assert.strictEqual(maxResultArg, 2500);
-                }
-
-                done();
-            }).catch(done);
+            const maxResultArguments = eventListCallArguments.map(a => a.maxResults);
+            for (const maxResultArg of maxResultArguments) {
+                assert.strictEqual(maxResultArg, 2500);
+            }
         });
 
-        it('returns a failed response if the google API fails', (done) => {
+        it('returns a failed response if the google API fails', async () => {
             let googleApis = {
                 calendar: function() {
                     return {
@@ -144,10 +130,7 @@ describe('[Google Calendar] Input', () => {
             };
 
             const input = getTestSubject({ googleApis: googleApis });
-            input.getWorkLogs(new Date(), new Date()).then(() => {
-                assert.fail('Promise was not rejected on error');
-                done();
-            }).catch(() => done());
+            await assert.rejects(async() => input.getWorkLogs(new Date(), new Date()));
         });
     }); // #getWorkLogs
 });

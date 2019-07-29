@@ -16,28 +16,30 @@ module.exports = class HarvestClient {
         if (!configuration.contactInformation) throw new Error('Required configuration: contactInformation.');
     }
 
-    getProjectsAndTasks() {
+    async getProjectsAndTasks() {
         logger.info('Retrieving known projects and tasks from Harvest');
-        return this._fetch('https://api.harvestapp.com/api/v2/users/me/project_assignments.json', {
+        const response = await this._fetch('https://api.harvestapp.com/api/v2/users/me/project_assignments.json', {
             headers: this._getDefaultHeaders()
-        }).then(response => response.json())
-            .then(this._getProjectsAndTasksFromApiResponse)
-            .then(projects => {
-                logger.trace('Projects and tasks retrieved from Harvest', projects);
-                return projects;
-            });
+        });
+
+        const jsonResponse = await response.json();
+        const projects = this._getProjectsAndTasksFromApiResponse(jsonResponse);
+        logger.trace('Projects and tasks retrieved from Harvest', projects);
+
+        return projects;
     }
 
-    saveNewTimeEntry(timeEntry) {
+    async saveNewTimeEntry(timeEntry) {
         this._validateTimeEntry(timeEntry);
 
         logger.trace('Sending to Harvest:', timeEntry);
-        return this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
+        const res = await this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
             method: 'POST',
             body: JSON.stringify(timeEntry),
             headers: this._getDefaultHeaders()
-        }).then(res => res.json())
-            .then(logger.trace.bind(logger));
+        })
+
+        logger.trace(res.json());
     }
 
     _validateTimeEntry(timeEntry) {

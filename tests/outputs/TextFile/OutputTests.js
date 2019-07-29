@@ -20,7 +20,7 @@ describe('TextFileOutput', () => {
             formatStub.restore();
         });
 
-        it('returns a rejected promise when writing to a file fails', (done) => {
+        it('returns a rejected promise when writing to a file fails', async () => {
             const formatter = new FormatterBase({});
             const formatFakeFn = () => '';
             sinon.stub(formatter, 'format').callsFake(formatFakeFn);
@@ -30,15 +30,10 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
 
-            output.outputWorklogSet(getExampleWorklogSet())
-                .then(() => done('Promise was not rejected.'))
-                .catch((err) => {
-                    assert.equal(err, 'Some error occurred.');
-                    done();
-                });
+            await assert.rejects(async () => output.outputWorklogSet(getExampleWorklogSet()), /Some error occurred\./);
         });
 
-        it('returns a resolved promise when everything is fine', () => {
+        it('returns a resolved promise when everything is fine', async () => {
             const formatter = new FormatterBase({});
             const formatFakeFn = () => '';
             sinon.stub(formatter, 'format').callsFake(formatFakeFn);
@@ -48,10 +43,10 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, fs: fakeFs });
 
-            return output.outputWorklogSet(getExampleWorklogSet());
+            await output.outputWorklogSet(getExampleWorklogSet());
         });
 
-        it('writes to the output file indicated in the configuration', () => {
+        it('writes to the output file indicated in the configuration', async () => {
             const formatter = new FormatterBase({});
             const formatFakeFn = () => '';
             sinon.stub(formatter, 'format').callsFake(formatFakeFn);
@@ -68,10 +63,8 @@ describe('TextFileOutput', () => {
             };
             const output = getTestSubject({ formatter, outputConfiguration, fs: fakeFs });
 
-            return output.outputWorklogSet(getExampleWorklogSet())
-                .then(() => {
-                    assert.equal(usedFilePath, outputConfiguration.filePath);
-                });
+            await output.outputWorklogSet(getExampleWorklogSet());
+            assert.equal(usedFilePath, outputConfiguration.filePath);
         });
     });
 });

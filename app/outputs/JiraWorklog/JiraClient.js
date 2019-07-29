@@ -18,27 +18,29 @@ module.exports = class JiraClient {
         this._password = jiraPassword;
     }
 
-    saveWorklog(ticketId, worklog) {
+    async saveWorklog(ticketId, worklog) {
         this._validateTicketId(ticketId);
         this._validateWorklog(worklog);
 
         const url = `${this._baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
         logger.debug('Sending to JIRA ', url, ':', worklog);
-        return this._fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(worklog),
-            headers: this._getHeaders()
-        }).then(res => {
+
+        try {
+            const res = this._fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(worklog),
+                headers: this._getHeaders()
+            });
+
             logger.trace(res);
 
             if (res.status != 201)
                 throw new Error(`${ticketId} could not be sent to JIRA, JIRA responded with ${res.status}: ${res.statusText}`);
 
-            return res;
-        }).then(res => res.json())
-            .catch(e => {
-                logger.error(e.name, e.message);
-            });
+            return await res.json();
+        } catch (e) {
+            logger.error(e.name, e.message);
+        }
     }
 
     _getHeaders() {

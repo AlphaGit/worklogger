@@ -60,7 +60,7 @@ describe('HarvestClient', () => {
             assert(harvestClient.getProjectsAndTasks() instanceof Promise);
         });
 
-        it('makes a call to HarvestApi with the right values', () => {
+        it('makes a call to HarvestApi with the right values', async () => {
             const fakeFetch = getFakeFetch();
             const fetchSpy = sinon.spy(fakeFetch);
             const harvestClient = getTestSubject({
@@ -70,131 +70,126 @@ describe('HarvestClient', () => {
                 fetch: fetchSpy
             });
 
-            return harvestClient.getProjectsAndTasks()
-                .then(() => {
-                    assert(fetchSpy.calledOnce);
-                    const firstArgument = fetchSpy.getCall(0).args[0];
-                    const secondArgument = fetchSpy.getCall(0).args[1];
+            await harvestClient.getProjectsAndTasks();
 
-                    assert.equal(firstArgument, 'https://api.harvestapp.com/api/v2/users/me/project_assignments.json');
-                    assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
-                    assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
-                    assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
-                });
+            assert(fetchSpy.calledOnce);
+            const firstArgument = fetchSpy.getCall(0).args[0];
+            const secondArgument = fetchSpy.getCall(0).args[1];
+
+            assert.equal(firstArgument, 'https://api.harvestapp.com/api/v2/users/me/project_assignments.json');
+            assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
+            assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
+            assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
         });
 
-        it('parses the response as json', () => {
-            const jsonStub = sinon.stub().returns(Promise.resolve(getRealApiResponse()));
-            const fetchStub = sinon.stub().returns(Promise.resolve({ json: jsonStub }));
+        it('parses the response as json', async () => {
+            const jsonStub = sinon.stub().returns(await getRealApiResponse());
+            const fetchStub = sinon.stub().returns(await { json: jsonStub });
             const harvestClient = getTestSubject({
                 fetch: fetchStub
             });
 
-            return harvestClient.getProjectsAndTasks()
-                .then(() => {
-                    assert(fetchStub.calledOnce);
-                    assert(jsonStub.calledOnce);
-                });
+            await harvestClient.getProjectsAndTasks();
+            assert(fetchStub.calledOnce);
+            assert(jsonStub.calledOnce);
         });
 
-        it('returns the project ids and names with task ids and names', () => {
+        it('returns the project ids and names with task ids and names', async () => {
             const apiResponse = getRealApiResponse();
-            const jsonStub = sinon.stub().returns(Promise.resolve(apiResponse));
-            const fetchStub = sinon.stub().returns(Promise.resolve({ json: jsonStub }));
+            const jsonStub = sinon.stub().returns(await apiResponse);
+            const fetchStub = sinon.stub().returns(await { json: jsonStub });
             const harvestClient = getTestSubject({
                 fetch: fetchStub
             });
 
-            return harvestClient.getProjectsAndTasks()
-                .then((result) => {
-                    assert.equal(result.length, 2);
+            const result = await harvestClient.getProjectsAndTasks();
+            assert.equal(result.length, 2);
 
-                    assert.equal(result[0].projectId, 11);
-                    assert.equal(result[0].projectName, 'Project A');
-                    assert.equal(result[0].tasks.length, 2);
-                    assert.equal(result[0].tasks[0].taskId, 111);
-                    assert.equal(result[0].tasks[0].taskName, 'Task A');
-                    assert.equal(result[0].tasks[1].taskId, 112);
-                    assert.equal(result[0].tasks[1].taskName, 'Task B');
+            assert.equal(result[0].projectId, 11);
+            assert.equal(result[0].projectName, 'Project A');
+            assert.equal(result[0].tasks.length, 2);
+            assert.equal(result[0].tasks[0].taskId, 111);
+            assert.equal(result[0].tasks[0].taskName, 'Task A');
+            assert.equal(result[0].tasks[1].taskId, 112);
+            assert.equal(result[0].tasks[1].taskName, 'Task B');
 
-                    assert.equal(result[1].projectId, 22);
-                    assert.equal(result[1].projectName, 'Project B');
-                    assert.equal(result[1].tasks.length, 2);
-                    assert.equal(result[1].tasks[0].taskId, 221);
-                    assert.equal(result[1].tasks[0].taskName, 'Task A');
-                    assert.equal(result[1].tasks[1].taskId, 222);
-                    assert.equal(result[1].tasks[1].taskName, 'Task B');
-                });
+            assert.equal(result[1].projectId, 22);
+            assert.equal(result[1].projectName, 'Project B');
+            assert.equal(result[1].tasks.length, 2);
+            assert.equal(result[1].tasks[0].taskId, 221);
+            assert.equal(result[1].tasks[0].taskName, 'Task A');
+            assert.equal(result[1].tasks[1].taskId, 222);
+            assert.equal(result[1].tasks[1].taskName, 'Task B');
         });
     });
 
     describe('#saveNewTimeEntry', () => {
-        function assertTimeEntryError(timeEntryValue, expectedError) {
+        async function assertTimeEntryError(timeEntryValue, expectedError) {
             const harvestClient = getTestSubject();
-            assert.throws(() => harvestClient.saveNewTimeEntry(timeEntryValue), expectedError);
+            await assert.rejects(async () => await harvestClient.saveNewTimeEntry(timeEntryValue), expectedError);
         }
 
-        function assertRequiredTimeEntry(timeEntryValue) {
-            assertTimeEntryError(timeEntryValue, /Required parameter: timeEntry\./);
+        async function assertRequiredTimeEntry(timeEntryValue) {
+            await assertTimeEntryError(timeEntryValue, /Required parameter: timeEntry\./);
         }
 
-        it('requires a timeEntry object', () => {
-            assertRequiredTimeEntry();
-            assertRequiredTimeEntry(null);
-            assertRequiredTimeEntry(undefined);
+        it('requires a timeEntry object', async () => {
+            await assertRequiredTimeEntry();
+            await assertRequiredTimeEntry(null);
+            await assertRequiredTimeEntry(undefined);
         });
 
-        function assertTimeEntryRequiresProjectId(project_id) {
-            assertTimeEntryError({ project_id }, /Time entry needs to have project_id\./);
+        async function assertTimeEntryRequiresProjectId(project_id) {
+            await assertTimeEntryError({ project_id }, /Time entry needs to have project_id\./);
         }
 
-        it('requires that the time entry has a project_id', () => {
-            assertTimeEntryRequiresProjectId();
-            assertTimeEntryRequiresProjectId(undefined);
-            assertTimeEntryRequiresProjectId(null);
+        it('requires that the time entry has a project_id', async () => {
+            await assertTimeEntryRequiresProjectId();
+            await assertTimeEntryRequiresProjectId(undefined);
+            await assertTimeEntryRequiresProjectId(null);
         });
 
-        function assertTimeEntryRequiresTaskId(task_id) {
-            assertTimeEntryError({ project_id: 1, task_id }, /Time entry needs to have task_id\./);
+        async function assertTimeEntryRequiresTaskId(task_id) {
+            await assertTimeEntryError({ project_id: 1, task_id }, /Time entry needs to have task_id\./);
         }
 
-        it('requires that the time entry has a task_id', () => {
-            assertTimeEntryRequiresTaskId();
-            assertTimeEntryRequiresTaskId(undefined);
-            assertTimeEntryRequiresTaskId(null);
+        it('requires that the time entry has a task_id', async () => {
+            await assertTimeEntryRequiresTaskId();
+            await assertTimeEntryRequiresTaskId(undefined);
+            await assertTimeEntryRequiresTaskId(null);
         });
 
-        function assertTimeEntryRequiresSpentDate(spent_date) {
-            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date }, /Time entry needs to have spent_date\./);
+        async function assertTimeEntryRequiresSpentDate(spent_date) {
+            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date }, /Time entry needs to have spent_date\./);
         }
 
-        it('requires that the time entry has a spent_date', () => {
-            assertTimeEntryRequiresSpentDate();
-            assertTimeEntryRequiresSpentDate(undefined);
-            assertTimeEntryRequiresSpentDate(null);
+        it('requires that the time entry has a spent_date', async () => {
+            await assertTimeEntryRequiresSpentDate();
+            await assertTimeEntryRequiresSpentDate(undefined);
+            await assertTimeEntryRequiresSpentDate(null);
         });
 
-        function assertTimeEntryRequiresTimerStartedAt(timer_started_at) {
-            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at }, /Time entry needs to have timer_started_at\./);
+        async function assertTimeEntryRequiresTimerStartedAt(timer_started_at) {
+            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at }, /Time entry needs to have timer_started_at\./);
         }
 
-        it('requires that the time entry has a timer_started_at', () => {
-            assertTimeEntryRequiresTimerStartedAt();
-            assertTimeEntryRequiresTimerStartedAt(null);
-            assertTimeEntryRequiresTimerStartedAt(undefined);
+        it('requires that the time entry has a timer_started_at', async () => {
+            await assertTimeEntryRequiresTimerStartedAt();
+            await assertTimeEntryRequiresTimerStartedAt(null);
+            await assertTimeEntryRequiresTimerStartedAt(undefined);
         });
 
-        function assertTimeEntryRequiresHours(hours) {
-            assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours }, /Time entry needs to have hours\./);
+        async function assertTimeEntryRequiresHours(hours) {
+            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at: '2017-01-01T07:00-0400', hours }, /Time entry needs to have hours\./);
         }
 
-        it('requires that the time entry has hours', () => {
-            assertTimeEntryRequiresHours();
-            assertTimeEntryRequiresHours(undefined);
-            assertTimeEntryRequiresHours(null);
+        it('requires that the time entry has hours', async () => {
+            await assertTimeEntryRequiresHours();
+            await assertTimeEntryRequiresHours(undefined);
+            await assertTimeEntryRequiresHours(null);
         });
 
-        it('calls the HarvestApi with the right parameters', () => {
+        it('calls the HarvestApi with the right parameters', async () => {
             const fakeFetch = getFakeFetch();
             const fetchSpy = sinon.spy(fakeFetch);
             const harvestClient = getTestSubject({
@@ -213,29 +208,27 @@ describe('HarvestClient', () => {
                 notes: 'Task description'
             };
             
-            return harvestClient.saveNewTimeEntry(timeEntry)
-                .then(() => {
-                    assert(fetchSpy.calledOnce);
-                    const firstArgument = fetchSpy.getCall(0).args[0];
-                    const secondArgument = fetchSpy.getCall(0).args[1];
+            await harvestClient.saveNewTimeEntry(timeEntry);
+            assert(fetchSpy.calledOnce);
+            const firstArgument = fetchSpy.getCall(0).args[0];
+            const secondArgument = fetchSpy.getCall(0).args[1];
 
-                    assert.equal(firstArgument, 'https://api.harvestapp.com/api/v2/time_entries');
-                    assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
-                    assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
-                    assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
+            assert.equal(firstArgument, 'https://api.harvestapp.com/api/v2/time_entries');
+            assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
+            assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
+            assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
 
-                    assert.equal(secondArgument.method, 'POST');
-                    assert.deepEqual(JSON.parse(secondArgument.body), timeEntry);
-                });
+            assert.equal(secondArgument.method, 'POST');
+            assert.deepEqual(JSON.parse(secondArgument.body), timeEntry);
         });
     });
 });
 
 function getFakeFetch() {
-    return function fakeFetch() {
-        return Promise.resolve({
-            json: function fakeJson() {
-                return Promise.resolve(getRealApiResponse());
+    return async function fakeFetch() {
+        return await ({
+            json: async function fakeJson() {
+                return await getRealApiResponse();
             }
         });
     };
