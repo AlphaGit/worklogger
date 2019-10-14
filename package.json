@@ -12,7 +12,7 @@
     "cover": "nyc --include=app/**/*.js mocha tests/allTestBase.js tests/**/*.js",
     "test:all": "npm run lint && npm run cover",
     "test": "mocha tests/allTestBase.js tests/**/*.js",
-    "lint": "eslint .",
+    "lint": "eslint --format table .",
     "watch:test": "watch \"npm test\" app tests",
     "watch:all": "watch \"npm run test:all\" app tests"
   },

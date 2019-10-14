@@ -6,7 +6,7 @@ const readFile = (fileName, encoding) => util.promisify(fs.readFile)(fileName, e
 async function retrieveAppCredentials() {
     logger.debug('Reading Google App credentials file');
     try {
-        content = await readFile('worklogger_home/client_secret.json', 'utf8');
+        const content = await readFile('worklogger_home/client_secret.json', 'utf8');
         logger.trace('Google App credentials file contents:', content);
         return JSON.parse(content);
     } catch (err) {

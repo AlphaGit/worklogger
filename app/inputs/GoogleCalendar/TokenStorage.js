@@ -63,7 +63,7 @@ module.exports = class TokenStorage {
             const token = await getToken(code);
 
             await this._storeToken(token);
-            oauth2Client.credentials = token;
+            oauth2Client.credentials = token; // eslint-disable-line require-atomic-updates
             return oauth2Client;
         } catch (err) {
             throw new Error(`Error while trying to retrieve access token: ${err}`);
@@ -83,7 +83,7 @@ module.exports = class TokenStorage {
                 rl.question(question, resolve);
             });
         }
-        askQuestion = util.promisify(rl.question);
+        const askQuestion = util.promisify(rl.question);
         return {
             askQuestion,
             closeInterface: rl.close

@@ -118,7 +118,7 @@ function getFakeFetch({
         return await ({
             json: function fakeJson() {
                 if (shouldResolve)
-                    return await ({ status, statusText });
+                    return ({ status, statusText });
 
                 throw new Error({ status, statusText });
             }

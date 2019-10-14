@@ -102,7 +102,7 @@
         const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
 
         const loaderFunctions = await loadedInputs.map(async i => await i.getWorkLogs(startDateTime, endDateTime));
-        environment.worklogsPerInput = await Promise.all(loaderFunctions);
+        environment.worklogsPerInput = await Promise.all(loaderFunctions); // eslint-disable-line require-atomic-updates
     }
 
     function createWorklogSet(environment) {
