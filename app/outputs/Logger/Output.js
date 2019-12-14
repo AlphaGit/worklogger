@@ -11,10 +11,8 @@ module.exports = class LoggerOutput extends OutputBase {
     outputWorklogSet(worklogSet) {
         super._outputWorklogSetValidation(worklogSet);
 
-        this._logger.info(`WorklogSet: ${worklogSet}`);
+        const formattedOutput = this._formatter.format(worklogSet);
 
-        worklogSet.worklogs.forEach(w => {
-            this._logger.debug(w);
-        });
+        this._logger.info(formattedOutput);
     }
 };

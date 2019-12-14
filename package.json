@@ -1,6 +1,6 @@
 {
   "name": "worklogger",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "Reads worklogs from a variety of sources and consolidates them to several outputs.",
   "main": "index.js",
   "repository": {
@@ -32,6 +32,7 @@
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
     "app-module-path": "^2.1.0",
+    "aws-sdk": "^2.548.0",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^41.0.0",
     "log4js": "^4.0.0",
@@ -43,6 +44,9 @@
     "eslint": "^6.1.0",
     "mocha": "^6.0.0",
     "nyc": "^14.0.0",
+    "serverless": "^1.55.1",
+    "serverless-event-constant-inputs": "0.0.1",
+    "serverless-offline": "^5.12.0",
     "sinon": "^7.0.0",
     "watch": "^1.0.2"
   }

@@ -2,28 +2,32 @@ const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarIn
 
 const googleApisRequired = require('googleapis').google;
 
-const CredentialStorageRequired = require('./CredentialStorage');
-const TokenStorageRequired = require('./TokenStorage');
 const ModelMapperRequired = require('./ModelMapper');
 
 const util = require('util');
 
 module.exports = class Input {
-    constructor(appConfiguration,
+    constructor(
+        serviceRegistrations,
+        appConfiguration,
         inputConfiguration,
-        credentialStorage = CredentialStorageRequired,
-        TokenStorage = TokenStorageRequired,
         googleApi = googleApisRequired,
-        ModelMapper = ModelMapperRequired) {
+        ModelMapper = ModelMapperRequired
+    ) {
+        if (!serviceRegistrations)
+            throw new Error('ServiceRegistrations for GoogleCalendarInput is required');
+
         this.appConfiguration = appConfiguration;
         this.inputConfiguration = inputConfiguration;
-        this.credentialStorage = credentialStorage;
-        this.tokenStorage = new TokenStorage();
+
         this.ModelMapper = ModelMapper;
+        this.fileLoader = serviceRegistrations.FileLoader;
 
         const events = googleApi.calendar('v3').events;
         const listEvents = events.list.bind(events);
         this.getCalendarEvents = (query) => util.promisify(listEvents)(query);
+        
+        this.OAuth2 = googleApi.auth.OAuth2;
     }
 
     set inputConfiguration(value) {
@@ -43,9 +47,22 @@ module.exports = class Input {
     async getWorkLogs(startDateTime, endDateTime) {
         logger.info('Retrieving worklogs from Google Calendar');
 
-        const credentials = await this.credentialStorage.retrieveAppCredentials();
-        const auth = await this.tokenStorage.authorize(credentials);
-        const apiResponses = await this._getEventsFromApi(auth, startDateTime, endDateTime);
+        const credentials = await this.fileLoader.loadJson('google_client_secret.json');
+        const clientSecret = credentials.installed.client_secret;
+        const clientId = credentials.installed.client_id;
+        const redirectUrl = credentials.installed.redirect_uris[0];
+        const oauth2Client = new this.OAuth2(clientId, clientSecret, redirectUrl);
+
+        try {
+            const tokenInfo = await this.fileLoader.loadJson('google_token.json');
+            logger.trace('Google App token read:', tokenInfo);
+            oauth2Client.credentials = tokenInfo;
+        } catch (err) {
+            logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
+            throw err;
+        }
+
+        const apiResponses = await this._getEventsFromApi(oauth2Client, startDateTime, endDateTime);
 
         return this._mapToDomainModel(apiResponses);
     }

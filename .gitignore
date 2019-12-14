@@ -1,7 +1,15 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
 _private/
-node_modules/
+
 *.sublime-workspace
 npm-debug.log.*
 coverage/
 /.nyc_output
 worklogger_home/
+
+

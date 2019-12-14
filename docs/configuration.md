@@ -96,7 +96,7 @@
             "type": "string",
             // other properties specific to the output type
 
-            // Type: SummaryTextFileFormatter
+            // Type: SummaryTextFormatter
             "aggregateByTags": [
                 // one sub-array for each aggregation/total to calculate
                 ["tag1"],

@@ -1,11 +1,11 @@
 const assert = require('assert');
-const SummaryTextFileFormatter = require('app/formatters/TextFile/SummaryTextFileFormatter');
+const SummaryTextFormatter = require('app/formatters/SummaryTextFormatter');
 const Worklog = require('app/models/Worklog');
 const WorklogSet = require('app/models/WorklogSet');
 
 require('tests/harness/log4js').setLevel('off');
 
-describe('SummaryTextFileFormatter', () => {
+describe('SummaryTextFormatter', () => {
     describe('#format method', () => {
         function assertMissingWorklogSet(formatter, worklogSet) {
             assert.throws(() => formatter.format(worklogSet), /Missing WorklogSet/);
@@ -244,7 +244,7 @@ function getTestSubject({
     const configuration = {
         aggregateByTags
     };
-    return new SummaryTextFileFormatter(configuration);
+    return new SummaryTextFormatter(configuration);
 }
 
 function getExampleWorklog({

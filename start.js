@@ -1,18 +1,20 @@
-(async () => {
+async function start(passedArguments) {
     require('app-module-path/register');
 
     const WorklogSet = require('app/models/WorklogSet');
 
     const loggerFactory = require('app/services/loggerFactory');
     const logger = loggerFactory.getLogger('worklogger');
-    logger.level = 'info';
+    logger.level = 'trace';
 
     let environment = {
-        transformations: []
+        transformations: [],
+        serviceRegistrations: {}
     };
 
     try {
         await processArguments(environment);
+        await registerServices(environment);
         await loadConfiguration(environment);
         await configureLoggerFactory(environment);
         await loadFromInputs(environment);
@@ -97,7 +99,7 @@
 
     async function loadFromInputs(environment) {
         const inputLoader = require('app/services/inputLoader');
-        const loadedInputs = inputLoader.loadInputs(environment.appConfiguration);
+        const loadedInputs = inputLoader.loadInputs(environment.serviceRegistrations, environment.appConfiguration);
         const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
         const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
 
@@ -113,13 +115,42 @@
         environment.worklogSet = new WorklogSet(startDateTime, endDateTime, flattenedWorklogs);
     }
 
-    function loadConfiguration(environment) {
-        const configurationLoader = require('app/services/configurationLoader');
-        environment.appConfiguration = configurationLoader.getProcessedConfiguration(environment.arguments.c || './configuration.json');
+    async function loadConfiguration(environment) {
+        const configurationFilePath = environment.arguments.c || 'configuration.json';
+        const fileLoader = environment.serviceRegistrations.FileLoader;
+        const configurationContents = await fileLoader.loadJson(configurationFilePath);
+
+        const configurationProcessor = require('app/services/configurationProcessor');
+
+        environment.appConfiguration = configurationProcessor.getProcessedConfiguration(configurationContents); // eslint-disable-line require-atomic-updates
     }
 
     function processArguments(environment) {
-        const parseArgs = require('minimist');
-        environment.arguments = parseArgs(process.argv.slice(2));
+        const receivedArguments = passedArguments;
+        logger.debug(`Received arguments: ${receivedArguments}`);
+
+        if (typeof receivedArguments === 'string') {
+            const minimist = require('minimist');
+            environment.arguments = minimist(receivedArguments);
+        } else if (typeof receivedArguments === 'object') {
+            environment.arguments = receivedArguments;
+        } else {
+            throw new Error('Received arguments type not recognized.');
+        }
     }
-})();
+
+    function registerServices(environment) {
+        const s3Bucket = environment.arguments.s3;
+        if (s3Bucket) {
+            const { S3FileLoader } = require('app/services/FileLoader/S3FileLoader');
+            environment.serviceRegistrations.FileLoader = new S3FileLoader(s3Bucket);
+        } else {
+            const { LocalFileLoader } = require('app/services/FileLoader/LocalFileLoader');
+            environment.serviceRegistrations.FileLoader = new LocalFileLoader();
+        }
+    }
+}
+
+module.exports = {
+    start
+};

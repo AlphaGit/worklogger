@@ -1,22 +1,8 @@
-const path = require('path');
-const logger = require('app/services/loggerFactory').getLogger('services/configurationLoader');
+const logger = require('app/services/loggerFactory').getLogger('services/configurationProcessor');
 const RelativeTime = require('app/models/RelativeTime');
 const moment = require('moment');
 
-function getProcessedConfiguration(relativePath) {
-    const configuration = loadConfiguration(relativePath);
-    detectDates(configuration);
-    return configuration;
-}
-
-function loadConfiguration(relativePath) {
-    const fullPath = path.resolve(relativePath);
-    logger.info('Using configuration file:', fullPath);
-    const configuration = require(fullPath);
-    return configuration;
-}
-
-function detectDates(configuration) {
+function getProcessedConfiguration(configuration) {
     const timePeriod = configuration.options.timePeriod;
 
     timePeriod.startDateTime = parseAbsoluteTime(timePeriod.begin) || parseRelativeTime(timePeriod.begin);

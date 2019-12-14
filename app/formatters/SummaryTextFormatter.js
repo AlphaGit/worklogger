@@ -1,8 +1,8 @@
 const WorklogSet = require('app/models/WorklogSet');
 const FormatterBase = require('app/formatters/FormatterBase');
-const logger = require('app/services/loggerFactory').getLogger('SummaryTextFileFormatter');
+const logger = require('app/services/loggerFactory').getLogger('SummaryTextFormatter');
 
-module.exports = class SummaryTextFileFormatter extends FormatterBase {
+module.exports = class SummaryTextFormatter extends FormatterBase {
     constructor(formatterConfiguration) {
         super(formatterConfiguration);
     }
@@ -30,7 +30,7 @@ module.exports = class SummaryTextFileFormatter extends FormatterBase {
         outputLines.push(`Total time: ${totalDurationString}`);
 
         const output = outputLines.join('\n');
-        logger.debug('SummaryTextFileFormatter output:', output);
+        logger.debug('SummaryTextFormatter output:', output);
         return output;
     }
 

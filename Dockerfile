@@ -14,4 +14,4 @@ RUN apk add --update tzdata
 RUN rm -rf /var/cache/apk/*
 
 VOLUME /app/worklogger_home
-ENTRYPOINT [ "node", "/app/start.js", "-c", "/app/worklogger_home/configuration.json" ]
+ENTRYPOINT [ "node", "/app/index.js", "-c", "/app/worklogger_home/configuration.json" ]

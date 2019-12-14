@@ -5,6 +5,11 @@ const InputConfiguration = require('app/inputs/GoogleCalendar/InputConfiguration
 
 describe('[Google Calendar] Input', () => {
     describe('#constructor', () => {
+        it('requires the serviceRegistrations parameter', () => {
+            assert.throws(() => getTestSubject({ serviceRegistrations: null }), /required/);
+            assert.doesNotThrow(() => getTestSubject());
+        });
+
         it('requires an input configuration parameter', () => {
             assert.throws(() => getTestSubject({ inputConfiguration: null }), /required/);
             assert.doesNotThrow(() => getTestSubject());
@@ -17,43 +22,28 @@ describe('[Google Calendar] Input', () => {
     });
 
     describe('#getWorkLogs', () => {
-        it('requests app credentials from the credential storage', async () => {
-            const credentialStorage = { retrieveAppCredentials: sinon.stub() };
-            credentialStorage.retrieveAppCredentials.returns(Promise.resolve());
-
-            const input = getTestSubject({ credentialStorage: credentialStorage });
+        it('loads app credentials', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub().returns(defaultCredentials)
+                }
+            };
+            const input = getTestSubject({ serviceRegistrations });
             await input.getWorkLogs(new Date(), new Date());
-            assert(credentialStorage.retrieveAppCredentials.called);
+            assert(serviceRegistrations.FileLoader.loadJson.called);
         });
 
-        it('returns a failed promise if the credential storage fails', async () => {
-            const credentialStorage = { retrieveAppCredentials: sinon.stub() };
-            credentialStorage.retrieveAppCredentials.returns(Promise.reject());
-
-            const input = getTestSubject({ credentialStorage: credentialStorage });
+        it('returns a failed promise if loading credentials fails', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub().throws()
+                }
+            };
+            const input = getTestSubject({ serviceRegistrations });
             await assert.rejects(async() => await input.getWorkLogs(new Date(), new Date()));
         });
 
-        it('authorizes through the google token storage', async () => {
-            const authorizeStub = sinon.stub();
-            const tokenStorage = function() { return { authorize: authorizeStub }; };
-
-            const input = getTestSubject({ tokenStorage: tokenStorage });
-            await input.getWorkLogs(new Date(), new Date());
-        });
-
-        it('returns a failed promise if the token storage fails', async () => {
-            const authorizeStub = sinon.stub().returns(Promise.reject());
-            const tokenStorage = function() { return { authorize: authorizeStub }; };
-
-            const input = getTestSubject({ tokenStorage: tokenStorage });
-            assert.rejects(async () => input.getWorkLogs(new Date(), new Date()));
-        });
-
         it('calls google events API with the authorization values retrieved', async () => {
-            const authenticationCredentials = { my: 'test credentials' };
-            const authorizeStub = sinon.stub().returns(await authenticationCredentials);
-            const tokenStorage = function() { return { authorize: authorizeStub }; };
             const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
                 calendar: function() {
@@ -62,13 +52,14 @@ describe('[Google Calendar] Input', () => {
                             list: eventListStub
                         }
                     };
-                }
+                },
+                auth: defaultGoogleApis.auth
             };
 
-            const input = getTestSubject({ tokenStorage: tokenStorage, googleApis: googleApis });
+            const input = getTestSubject({ googleApis });
             await input.getWorkLogs(new Date(), new Date());
             assert.ok(eventListStub.calledOnce);
-            assert.equal(authenticationCredentials, eventListStub.firstCall.args[0].auth);
+            assert.equal(defaultCredentials.client_id, eventListStub.firstCall.args[0].auth.client_id);
         });
 
         it('calls google API for every calendar in the configuration', async () => {
@@ -85,7 +76,8 @@ describe('[Google Calendar] Input', () => {
                             list: eventListStub
                         }
                     };
-                }
+                },
+                auth: defaultGoogleApis.auth
             };
 
             const input = getTestSubject({ inputConfiguration: configuration, googleApis: googleApis });
@@ -126,10 +118,11 @@ describe('[Google Calendar] Input', () => {
                             list: (args, callback) => callback('Some API error')
                         }
                     };
-                }
+                },
+                auth: defaultGoogleApis.auth
             };
 
-            const input = getTestSubject({ googleApis: googleApis });
+            const input = getTestSubject({ googleApis });
             await assert.rejects(async() => input.getWorkLogs(new Date(), new Date()));
         });
     }); // #getWorkLogs
@@ -151,21 +144,16 @@ const defaultInputConfiguration = {
     readFromXHoursAgo: 5
 };
 
-const defaultCredentialStorage = {
-    retrieveAppCredentials: sinon.stub().returns(Promise.resolve())
-};
-
-const defaultTokenStorage = class {
-    authorize() { }
-};
-
 const defaultGoogleApis = {
     calendar: function() {
         return {
             events: {
                 list: sinon.stub().callsArgWith(1, null, { data: { items: [] } })
-            }
+            },
         };
+    },
+    auth: {
+        OAuth2: function() {}
     }
 };
 
@@ -175,11 +163,30 @@ const defaultMapper = function() {
     };
 };
 
+const defaultCredentials = {
+    installed: {
+        client_secret: 'client_secreet_123',
+        client_id: 'client_id_123',
+        redirect_uris: [
+            'http://localhost/redirect_uri'
+        ]
+    }
+};
+
+const defaultFileLoader = {
+    loadJson: function() {
+        return defaultCredentials;
+    }
+};
+
+const defaultServiceRegistrations = {
+    FileLoader: defaultFileLoader
+};
+
 function getTestSubject({
+    serviceRegistrations = defaultServiceRegistrations,
     appConfiguration = defaultAppConfiguration,
     inputConfiguration = defaultInputConfiguration,
-    credentialStorage = defaultCredentialStorage,
-    tokenStorage = defaultTokenStorage,
     googleApis = defaultGoogleApis,
     mapper = defaultMapper } = {}) {
 
@@ -187,5 +194,5 @@ function getTestSubject({
         ? new InputConfiguration(inputConfiguration)
         : undefined;
 
-    return new Input(appConfiguration, inputConfigurationInstance, credentialStorage, tokenStorage, googleApis, mapper);
+    return new Input(serviceRegistrations, appConfiguration, inputConfigurationInstance, googleApis, mapper);
 }

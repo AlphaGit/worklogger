@@ -17,28 +17,7 @@ module.exports = class TokenStorage {
         this.googleApis = googleApis;
 
         this.fs = fs;
-        this.readFile = (fileName, encoding) => util.promisify(this.fs.readFile)(fileName, encoding);
         this.writeFile = (fileName, content) => util.promisify(this.fs.writeFile)(fileName, content);
-    }
-
-    async authorize(credentials) {
-        const clientSecret = credentials.installed.client_secret;
-        const clientId = credentials.installed.client_id;
-        const redirectUrl = credentials.installed.redirect_uris[0];
-
-        const oauth2Client = new this.googleApis.auth.OAuth2(clientId, clientSecret, redirectUrl);
-
-        logger.debug(`Reading token from ${require('path').resolve(TOKEN_PATH)}`);
-
-        try {
-            const token = await this.readFile(TOKEN_PATH, 'utf8');
-            logger.trace('Google App token read:', token);
-            oauth2Client.credentials = JSON.parse(token);
-            return oauth2Client;
-        } catch (err) {
-            logger.warn('Token could not be read:', err);
-            return await this._getNewtoken(oauth2Client);
-        }
     }
 
     async _storeToken(token) {
