@@ -26,8 +26,8 @@ functions:
         - "app/**/*.js"
     events:
       - schedule:
-          rate: rate(1 day)
-          enabled: false
+          rate: cron(0 12 * * ? *)
+          enabled: true
           input:
             s3: worklogger
             c: daily_configuration.json
