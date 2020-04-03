@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const HarvestClient = require('app/outputs/HarvestApp/HarvestClient');
+const HarvestClient = require('app/services/HarvestClient');
 
 describe('HarvestClient', () => {
     describe('#constructor', () => {

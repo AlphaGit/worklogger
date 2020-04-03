@@ -1,5 +1,5 @@
 const OutputBase = require('app/outputs/OutputBase');
-const RequiredHarvestClient = require('./HarvestClient');
+const RequiredHarvestClient = require('app/services/HarvestClient');
 const logger = require('app/services/loggerFactory').getLogger('HarvestApp/Output');
 const moment = require('moment');
 
