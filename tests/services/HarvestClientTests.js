@@ -83,7 +83,7 @@ describe('HarvestClient', () => {
         });
 
         it('parses the response as json', async () => {
-            const jsonStub = sinon.stub().returns(await getRealApiResponse());
+            const jsonStub = sinon.stub().returns(await getProjectAssignmentsRealApiResponse());
             const fetchStub = sinon.stub().returns(await { json: jsonStub });
             const harvestClient = getTestSubject({
                 fetch: fetchStub
@@ -95,7 +95,7 @@ describe('HarvestClient', () => {
         });
 
         it('returns the project ids and names with task ids and names', async () => {
-            const apiResponse = getRealApiResponse();
+            const apiResponse = getProjectAssignmentsRealApiResponse();
             const jsonStub = sinon.stub().returns(await apiResponse);
             const fetchStub = sinon.stub().returns(await { json: jsonStub });
             const harvestClient = getTestSubject({
@@ -120,6 +120,84 @@ describe('HarvestClient', () => {
             assert.equal(result[1].tasks[0].taskName, 'Task A');
             assert.equal(result[1].tasks[1].taskId, 222);
             assert.equal(result[1].tasks[1].taskName, 'Task B');
+        });
+    });
+
+    describe('#getTimeEntries', () => {
+        it('returns a promise', () => {
+            const harvestClient = getTestSubject();
+            assert(harvestClient.getTimeEntries() instanceof Promise);
+        });
+
+        it('makes a call to Harvests API with the right parameters', async () => {
+            const fakeFetch = getFakeFetch();
+            const fetchSpy = sinon.spy(fakeFetch);
+            const harvestClient = getTestSubject({
+                accountId: 12345,
+                token: 'Auth123',
+                contactInformation: 'contactInformation@example.com',
+                fetch: fetchSpy
+            });
+
+            const from = new Date('2020-04-01T09:00:00-0400');
+            const to = new Date('2020-04-01T22:00:00-0400');
+            await harvestClient.getTimeEntries({ from, to });
+
+            assert(fetchSpy.calledOnce);
+            const firstArgument = fetchSpy.getCall(0).args[0];
+            const secondArgument = fetchSpy.getCall(0).args[1];
+
+            const expectedParameters = `from=${encodeURIComponent(from.toISOString())}&to=${encodeURIComponent(to.toISOString())}`;
+            assert.equal(firstArgument, `https://api.harvestapp.com/api/v2/time_entries?${expectedParameters}`);
+            assert.equal(secondArgument.headers['Authorization'], 'Bearer Auth123');
+            assert.equal(secondArgument.headers['Harvest-Account-Id'], '12345');
+            assert.equal(secondArgument.headers['User-Agent'], 'Worklogger (contactInformation@example.com)');
+        });
+
+        it('returns the time entries with description, time, project and task', async () => {
+            const apiResponse = getTimeEntriesRealApiResponse();
+            const jsonStub = sinon.stub().returns(await apiResponse);
+            const fetchStub = sinon.stub().returns(await { json: jsonStub });
+            const harvestClient = getTestSubject({
+                fetch: fetchStub
+            });
+
+            const from = new Date('2020-04-01T09:00:00-0400');
+            const to = new Date('2020-04-01T22:00:00-0400');
+            const result = await harvestClient.getTimeEntries({ from, to });
+            assert.equal(result.length, 4);
+
+            assert.equal(result[0].spent_date, '2017-03-02');
+            assert.equal(result[0].started_time, '3:00pm');
+            assert.equal(result[0].ended_time, '5:00pm');
+            assert.equal(result[0].notes, 'Adding CSS styling');
+            assert.equal(result[0].task.name, 'Graphic Design');
+            assert.equal(result[0].project.name, 'Marketing Website');
+            assert.equal(result[0].client.name, 'ABC Corp');
+
+            assert.equal(result[1].spent_date, '2017-03-01');
+            assert.equal(result[1].started_time, '1:00pm');
+            assert.equal(result[1].ended_time, '2:00pm');
+            assert.equal(result[1].notes, 'Importing products');
+            assert.equal(result[1].task.name, 'Programming');
+            assert.equal(result[1].project.name, 'Online Store - Phase 1');
+            assert.equal(result[1].client.name, '123 Industries');
+
+            assert.equal(result[2].spent_date, '2017-03-01');
+            assert.equal(result[2].started_time, '11:00am');
+            assert.equal(result[2].ended_time, '12:00pm');
+            assert.equal(result[2].notes, 'Evaluating 3rd party libraries');
+            assert.equal(result[2].task.name, 'Research');
+            assert.equal(result[2].project.name, 'Online Store - Phase 1');
+            assert.equal(result[2].client.name, '123 Industries');
+
+            assert.equal(result[3].spent_date, '2017-03-01');
+            assert.equal(result[3].started_time, '9:00am');
+            assert.equal(result[3].ended_time, '11:00am');
+            assert.equal(result[3].notes, 'Planning meetings');
+            assert.equal(result[3].task.name, 'Project Management');
+            assert.equal(result[3].project.name, 'Online Store - Phase 1');
+            assert.equal(result[3].client.name, '123 Industries');
         });
     });
 
@@ -228,7 +306,7 @@ function getFakeFetch() {
     return async function fakeFetch() {
         return await ({
             json: async function fakeJson() {
-                return await getRealApiResponse();
+                return await getProjectAssignmentsRealApiResponse();
             }
         });
     };
@@ -247,7 +325,260 @@ function getTestSubject({
     }, { fetch });
 }
 
-function getRealApiResponse() {
+function getTimeEntriesRealApiResponse() {
+    return {
+        time_entries: [
+            {
+                id: 636709355,
+                spent_date: '2017-03-02',
+                user: {
+                    id: 1782959,
+                    name: 'Kim Allen'
+                },
+                client: {
+                    id: 5735774,
+                    name: 'ABC Corp'
+                },
+                project: {
+                    id: 14307913,
+                    name: 'Marketing Website'
+                },
+                task: {
+                    id: 8083365,
+                    name: 'Graphic Design'
+                },
+                user_assignment: {
+                    id: 125068553,
+                    is_project_manager: true,
+                    is_active: true,
+                    budget: null,
+                    created_at: '2017-06-26T22:32:52Z',
+                    updated_at: '2017-06-26T22:32:52Z',
+                    hourly_rate: 100.0
+                },
+                task_assignment: {
+                    id: 155502709,
+                    billable: true,
+                    is_active: true,
+                    created_at: '2017-06-26T21:36:23Z',
+                    updated_at: '2017-06-26T21:36:23Z',
+                    hourly_rate: 100.0,
+                    budget: null
+                },
+                hours: 2.11,
+                rounded_hours: 2.25,
+                notes: 'Adding CSS styling',
+                created_at: '2017-06-27T15:50:15Z',
+                updated_at: '2017-06-27T16:47:14Z',
+                is_locked: true,
+                locked_reason: 'Item Approved and Locked for this Time Period',
+                is_closed: true,
+                is_billed: false,
+                timer_started_at: null,
+                started_time: '3:00pm',
+                ended_time: '5:00pm',
+                is_running: false,
+                invoice: null,
+                external_reference: null,
+                billable: true,
+                budgeted: true,
+                billable_rate: 100.0,
+                cost_rate: 50.0
+            },
+            {
+                id: 636708723,
+                spent_date: '2017-03-01',
+                user: {
+                    id: 1782959,
+                    name: 'Kim Allen'
+                },
+                client: {
+                    id: 5735776,
+                    name: '123 Industries'
+                },
+                project: {
+                    id: 14308069,
+                    name: 'Online Store - Phase 1'
+                },
+                task: {
+                    id: 8083366,
+                    name: 'Programming'
+                },
+                user_assignment: {
+                    id: 125068554,
+                    is_project_manager: true,
+                    is_active: true,
+                    budget: null,
+                    created_at: '2017-06-26T22:32:52Z',
+                    updated_at: '2017-06-26T22:32:52Z',
+                    hourly_rate: 100.0
+                },
+                task_assignment: {
+                    id: 155505014,
+                    billable: true,
+                    is_active: true,
+                    created_at: '2017-06-26T21:52:18Z',
+                    updated_at: '2017-06-26T21:52:18Z',
+                    hourly_rate: 100.0,
+                    budget: null
+                },
+                hours: 1.35,
+                rounded_hours: 1.5,
+                notes: 'Importing products',
+                created_at: '2017-06-27T15:49:28Z',
+                updated_at: '2017-06-27T16:47:14Z',
+                is_locked: true,
+                locked_reason: 'Item Invoiced and Approved and Locked for this Time Period',
+                is_closed: true,
+                is_billed: true,
+                timer_started_at: null,
+                started_time: '1:00pm',
+                ended_time: '2:00pm',
+                is_running: false,
+                invoice: {
+                    id: 13150403,
+                    number: '1001'
+                },
+                external_reference: null,
+                billable: true,
+                budgeted: true,
+                billable_rate: 100.0,
+                cost_rate: 50.0
+            },
+            {
+                id: 636708574,
+                spent_date: '2017-03-01',
+                user: {
+                    id: 1782959,
+                    name: 'Kim Allen'
+                },
+                client: {
+                    id: 5735776,
+                    name: '123 Industries'
+                },
+                project: {
+                    id: 14308069,
+                    name: 'Online Store - Phase 1'
+                },
+                task: {
+                    id: 8083369,
+                    name: 'Research'
+                },
+                user_assignment: {
+                    id: 125068554,
+                    is_project_manager: true,
+                    is_active: true,
+                    budget: null,
+                    created_at: '2017-06-26T22:32:52Z',
+                    updated_at: '2017-06-26T22:32:52Z',
+                    hourly_rate: 100.0
+                },
+                task_assignment: {
+                    id: 155505016,
+                    billable: false,
+                    is_active: true,
+                    created_at: '2017-06-26T21:52:18Z',
+                    updated_at: '2017-06-26T21:54:06Z',
+                    hourly_rate: 100.0,
+                    budget: null
+                },
+                hours: 1.0,
+                rounded_hours: 1.0,
+                notes: 'Evaluating 3rd party libraries',
+                created_at: '2017-06-27T15:49:17Z',
+                updated_at: '2017-06-27T16:47:14Z',
+                is_locked: true,
+                locked_reason: 'Item Approved and Locked for this Time Period',
+                is_closed: true,
+                is_billed: false,
+                timer_started_at: null,
+                started_time: '11:00am',
+                ended_time: '12:00pm',
+                is_running: false,
+                invoice: null,
+                external_reference: null,
+                billable: false,
+                budgeted: true,
+                billable_rate: null,
+                cost_rate: 50.0
+            },
+            {
+                id: 636707831,
+                spent_date: '2017-03-01',
+                user: {
+                    id: 1782959,
+                    name: 'Kim Allen'
+                },
+                client: {
+                    id: 5735776,
+                    name: '123 Industries'
+                },
+                project: {
+                    id: 14308069,
+                    name: 'Online Store - Phase 1'
+                },
+                task: {
+                    id: 8083368,
+                    name: 'Project Management'
+                },
+                user_assignment: {
+                    id: 125068554,
+                    is_project_manager: true,
+                    is_active: true,
+                    budget: null,
+                    created_at: '2017-06-26T22:32:52Z',
+                    updated_at: '2017-06-26T22:32:52Z',
+                    hourly_rate: 100.0
+                },
+                task_assignment: {
+                    id: 155505015,
+                    billable: true,
+                    is_active: true,
+                    created_at: '2017-06-26T21:52:18Z',
+                    updated_at: '2017-06-26T21:52:18Z',
+                    hourly_rate: 100.0,
+                    budget: null
+                },
+                hours: 2.0,
+                rounded_hours: 2.0,
+                notes: 'Planning meetings',
+                created_at: '2017-06-27T15:48:24Z',
+                updated_at: '2017-06-27T16:47:14Z',
+                is_locked: true,
+                locked_reason: 'Item Invoiced and Approved and Locked for this Time Period',
+                is_closed: true,
+                is_billed: true,
+                timer_started_at: null,
+                started_time: '9:00am',
+                ended_time: '11:00am',
+                is_running: false,
+                invoice: {
+                    id: 13150403,
+                    number: '1001'
+                },
+                external_reference: null,
+                billable: true,
+                budgeted: true,
+                billable_rate: 100.0,
+                cost_rate: 50.0
+            }
+        ],
+        per_page: 100,
+        total_pages: 1,
+        total_entries: 4,
+        next_page: null,
+        previous_page: null,
+        page: 1,
+        links: {
+            first: 'https://api.harvestapp.com/v2/time_entries?page=1&per_page=100',
+            next: null,
+            previous: null,
+            last: 'https://api.harvestapp.com/v2/time_entries?page=1&per_page=100'
+        }
+    }
+}
+
+function getProjectAssignmentsRealApiResponse() {
     return {
         project_assignments: [{
             id: 123456,

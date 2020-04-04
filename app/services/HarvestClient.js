@@ -3,6 +3,7 @@ const logger = require('app/services/loggerFactory').getLogger('services/Harvest
 
 module.exports = class HarvestClient {
     constructor(configuration, { fetch = requiredFetch } = {}) {
+        this._harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
         this._validateConfiguration(configuration);
 
         this._configuration = configuration;
@@ -16,9 +17,23 @@ module.exports = class HarvestClient {
         if (!configuration.contactInformation) throw new Error('Required configuration: contactInformation.');
     }
 
+    async getTimeEntries({from, to} = {}) {
+        logger.info('Retrieving time entries from Harvest');
+ 
+        const params = new URLSearchParams();
+        if (from) params.set('from', from.toISOString());
+        if (to) params.set('to', to.toISOString());
+
+        const response = await this._fetch(`${this._harvestBaseUrl}/time_entries?${params}`, {
+            headers: this._getDefaultHeaders()
+        });
+        const jsonResponse = await response.json();
+        return jsonResponse.time_entries;
+    }
+
     async getProjectsAndTasks() {
         logger.info('Retrieving known projects and tasks from Harvest');
-        const response = await this._fetch('https://api.harvestapp.com/api/v2/users/me/project_assignments.json', {
+        const response = await this._fetch(`${this._harvestBaseUrl}/users/me/project_assignments.json`, {
             headers: this._getDefaultHeaders()
         });
 
