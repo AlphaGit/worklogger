@@ -1,6 +1,8 @@
 const Worklog = require('app/models/Worklog');
 const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput/ModelMapper');
 
+const { calculateDurationInMinutes } = require('app/services/durationCalculator');
+
 module.exports = class ModelMapper {
     constructor(minimumLoggableTimeSlotInMinutes) {
         this.minimumLoggableTimeSlotInMinutes = minimumLoggableTimeSlotInMinutes;
@@ -27,7 +29,7 @@ module.exports = class ModelMapper {
     _mapIndividualEventToWorklog(calendarConfig, minimumTimeSlotMinutes, event) {
         const startTime = new Date(event.start.dateTime);
         const endTime = new Date(event.end.dateTime);
-        const duration = this._getDurationFromEvent(endTime, startTime, minimumTimeSlotMinutes);
+        const duration = calculateDurationInMinutes(endTime, startTime, minimumTimeSlotMinutes);
 
         const worklog = new Worklog(event.summary, startTime, endTime, duration);
 
@@ -37,15 +39,6 @@ module.exports = class ModelMapper {
         }
 
         return worklog;
-    }
-
-    _getDurationFromEvent(endTime, startTime, minimumTimeSlotMinutes) {
-        const duration = (endTime - startTime) / 1000 / 60;
-
-        if (duration % minimumTimeSlotMinutes == 0)
-            return duration;
-
-        return minimumTimeSlotMinutes * Math.ceil(duration / minimumTimeSlotMinutes);
     }
 
     _parseTag(tagString) {
