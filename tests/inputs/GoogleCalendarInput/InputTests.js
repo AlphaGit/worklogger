@@ -43,6 +43,19 @@ describe('[Google Calendar] Input', () => {
             await assert.rejects(async() => await input.getWorkLogs(new Date(), new Date()));
         });
 
+        it('returns a failed promise if loading the app token fails', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub()
+                        .onCall(0).returns(defaultCredentials)
+                        .onCall(1).throws()
+                }
+            }
+
+            const input = getTestSubject({ serviceRegistrations });
+            await assert.rejects(async() => await input.getWorkLogs(new Date(), new Date()));
+        });
+
         it('calls google events API with the authorization values retrieved', async () => {
             const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
