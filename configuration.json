@@ -5,7 +5,7 @@
                 "type": "stdout",
                 "layout": {
                     "type": "pattern",
-                    "pattern": "%[[%d{ABSOLUTE}] [%-5p]%] %m"
+                    "pattern": "%[%[[%d{ABSOLUTE}]%] [%c] [%-5p]%] %m"
                 }
             }
         },
@@ -45,6 +45,13 @@
                 "project:My Project 2"
             ]
         }]
+    }, {
+        "type": "HarvestApp",
+        "name": "My Harvest Timesheets",
+
+        "accountId": "12345",
+        "token": "abc123",
+        "contactInformation": "email@example.com"
     }],
     "outputs": [{
         "type": "TextFile",

@@ -28,6 +28,7 @@ module.exports = class HarvestClient {
             headers: this._getDefaultHeaders()
         });
         const jsonResponse = await response.json();
+        logger.trace('Retrieved time entries from Harvest', jsonResponse);
         return jsonResponse.time_entries;
     }
 

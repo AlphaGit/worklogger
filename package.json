@@ -13,6 +13,7 @@
     "test:all": "npm run lint && npm run cover",
     "test": "mocha tests/allTestBase.js 'tests/**/*.js'",
     "lint": "eslint --format table .",
+    "lint:fix": "eslint --fix .",
     "watch:test": "watch \"npm test\" app tests",
     "watch:all": "watch \"npm run test:all\" app tests"
   },

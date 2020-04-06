@@ -119,6 +119,7 @@ async function start(passedArguments) {
         const configurationFilePath = environment.arguments.c || 'configuration.json';
         const fileLoader = environment.serviceRegistrations.FileLoader;
         const configurationContents = await fileLoader.loadJson(configurationFilePath);
+        logger.trace('Loaded configuration:', configurationContents);
 
         const configurationProcessor = require('app/services/configurationProcessor');
 
@@ -129,11 +130,13 @@ async function start(passedArguments) {
         const receivedArguments = passedArguments;
         logger.debug(`Received arguments: ${receivedArguments}`);
 
-        if (typeof receivedArguments === 'string') {
+        if (typeof receivedArguments === 'string' || Array.isArray(receivedArguments)) {
             const minimist = require('minimist');
             environment.arguments = minimist(receivedArguments);
+            logger.trace('Parsed arguments', environment.arguments);
         } else if (typeof receivedArguments === 'object') {
             environment.arguments = receivedArguments;
+            logger.trace('Using arguments', environment.arguments);
         } else {
             throw new Error('Received arguments type not recognized.');
         }

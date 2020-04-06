@@ -45,6 +45,7 @@
         "name": "string",
 
         // other properties specific to the input type
+
         // Type: GoogleCalendarInput
         "calendars": [{
             "id": "string",
@@ -52,14 +53,22 @@
                 "tag1:value1",
                 "tag2:value2"
             ]
-        }]
+        }],
+
+        // Type: HarvestApp
+        "accountId": "string",
+        "token": "string",
+        "contactInformation": "email@example.com",
     }],
     "worklogSetOperations": [{
         "condition": {
             "type": "string"
         },
         "type": "string",
+
         // other properties specific to this worklog set operation
+
+        // (none yet)
     }],
     "transformations": [{
         "condition": {

@@ -12,16 +12,14 @@ module.exports = class Input {
         inputConfiguration,
         { HarvestClient = RequiredHarvestClient } = {}
     ) {
-        this.inputConfiguration = inputConfiguration;
+        if (!appConfiguration)
+            throw new Error('App configuration for Harvest App input is required.');
 
+            this._appConfiguration = appConfiguration;
+
+        if (!inputConfiguration)
+            throw new Error('Input configuration for Harvest App input is required.');
         this._harvestClient = new HarvestClient(inputConfiguration);
-    }
-
-    set inputConfiguration(value) {
-        if (!value)
-            throw new Error('Configuration for GoogleCalendarInput is required');
-
-        this._inputConfiguration = value;
     }
 
     async getWorkLogs(startDateTime, endDateTime) {
@@ -36,10 +34,26 @@ module.exports = class Input {
     _mapToDomainModel(timeEntries) {
         const minimumLoggableTimeSlotInMinutes = this._appConfiguration.options.minimumLoggableTimeSlotInMinutes;
 
-        return timeEntries.map(te => {
-            const startTime = new Date(`${te.spent_date} ${te.started_time}`);
-            const endTime = new Date(`${te.spent_date} ${te.ended_time}`);
-            const duration = calculateDurationInMinutes(endTime, startTime, minimumLoggableTimeSlotInMinutes);
+        const mappedWorklogs = timeEntries.map(te => {
+            const canGetTimeFromStartAndEnd = te.spent_date && te.started_time && te.ended_time;
+            const canGetTimeFromHours = !!te.hours;
+
+            if (!canGetTimeFromStartAndEnd && !canGetTimeFromHours) {
+                logger.warn('Cannot detect worklog duration from time_entry', te);
+                return null;
+            }
+
+            const startTime = canGetTimeFromStartAndEnd
+                ? new Date(`${te.spent_date} ${te.started_time}`)
+                : new Date(te.spent_date);
+
+            const endTime = canGetTimeFromStartAndEnd
+                ? new Date(`${te.spent_date} ${te.ended_time}`)
+                : new Date(te.spent_date);
+
+            const duration = canGetTimeFromStartAndEnd
+                ? calculateDurationInMinutes(endTime, startTime, minimumLoggableTimeSlotInMinutes)
+                : te.hours * 60;
 
             const worklog = new Worklog(te.notes, startTime, endTime, duration);
             worklog.addTag('HarvestClient', te.client.name);
@@ -47,6 +61,14 @@ module.exports = class Input {
             worklog.addTag('HarvestTask', te.task.name);
             
             return worklog;
-        });
+        })
+            .filter(worklog => !!worklog);
+
+        if (mappedWorklogs.length === timeEntries.length)
+            logger.info(`Retrieved ${mappedWorklogs.length} worklogs from Harvest time entries.`);
+        else 
+            logger.warn(`Retrieved ${mappedWorklogs.length} worklogs from ${timeEntries.length} Harvest time entries.`);
+
+        return mappedWorklogs;
     }
 };
