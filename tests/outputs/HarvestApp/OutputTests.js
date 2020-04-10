@@ -69,7 +69,8 @@ describe('HarvestApp output', () => {
                 
                 if (i > 0) startingAt.add(30, 'minutes');
                 assert.equal(timeEntryArgument.spent_date, startingAt.format('YYYY-MM-DD'));
-                assert.equal(timeEntryArgument.timer_started_at, startingAt.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
+                assert.equal(timeEntryArgument.started_time, startingAt.format('hh:mma'));
+                assert.equal(timeEntryArgument.ended_time, startingAt.clone().add(30, 'minutes').format('hh:mma'));
                 assert.equal(timeEntryArgument.hours, 0.5);
                 assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
             }

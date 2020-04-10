@@ -247,14 +247,24 @@ describe('HarvestClient', () => {
             await assertTimeEntryRequiresSpentDate(null);
         });
 
-        async function assertTimeEntryRequiresTimerStartedAt(timer_started_at) {
-            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', timer_started_at }, /Time entry needs to have timer_started_at\./);
+        async function assertTimeEntryRequiresStartedTime(started_time) {
+            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', hours: 3, started_time }, /Time entry needs to have started_time\./);
         }
 
-        it('requires that the time entry has a timer_started_at', async () => {
-            await assertTimeEntryRequiresTimerStartedAt();
-            await assertTimeEntryRequiresTimerStartedAt(null);
-            await assertTimeEntryRequiresTimerStartedAt(undefined);
+        it('requires that the time entry has a started_time', async () => {
+            await assertTimeEntryRequiresStartedTime();
+            await assertTimeEntryRequiresStartedTime(null);
+            await assertTimeEntryRequiresStartedTime(undefined);
+        });
+
+        async function assertTimeEntryRequiresStartedTime(ended_time) {
+            await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', hours: 3, started_time: '11:00am', ended_time }, /Time entry needs to have ended_time\./);
+        }
+
+        it('requires that the time entry has a started_time', async () => {
+            await assertTimeEntryRequiresStartedTime();
+            await assertTimeEntryRequiresStartedTime(null);
+            await assertTimeEntryRequiresStartedTime(undefined);
         });
 
         async function assertTimeEntryRequiresHours(hours) {
@@ -281,7 +291,8 @@ describe('HarvestClient', () => {
                 project_id: 1,
                 task_id: 12,
                 spent_date: '2017-01-01',
-                timer_started_at: '2017-01-01T07:00-0400',
+                started_time: '07:00am',
+                ended_time: '08:30am',
                 hours: 1.5,
                 notes: 'Task description'
             };
