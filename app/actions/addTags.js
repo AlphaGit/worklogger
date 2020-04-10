@@ -52,4 +52,9 @@ module.exports = class AddTagsAction {
             worklog.addTag(tag.name, tagValue);
         });
     }
+
+    toString() {
+        const tags = this._tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${tag.extractCaptureFromSummary})`}]`)
+        return `AddTags: ${tags.join(' ')}`;
+    }
 };

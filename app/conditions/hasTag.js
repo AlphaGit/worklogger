@@ -11,4 +11,11 @@ module.exports = class HasTagCondition {
             ? worklogTagValue == this._configuration.tagValue
             : worklogTagValue;
     }
+
+    toString() {
+        const tagValue = !this._configuration.tagValue
+            ? ''
+            : `: ${this._configuration.tagValue}`;
+        return `HasTag(${this._configuration.tagName}${tagValue})`;
+    }
 };
