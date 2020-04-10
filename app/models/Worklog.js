@@ -2,7 +2,6 @@ class Worklog {
     constructor(name, startDateTime, endDateTime,
         duration = (endDateTime - startDateTime) / (60 * 1000) // duration in minutes
     ) {
-        this._validateName(name);
         this._validateStartDateTime(startDateTime);
         this._validateEndDateTime(endDateTime);
         
@@ -24,12 +23,8 @@ class Worklog {
         if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
     }
 
-    _validateName(name) {
-        if (!name) throw new Error('Missing name parameter');
-    }
-
     toString() {
-        let string = `${this.name} (${this.duration} minutes)`;
+        let string = `${this.name || '(No name)'} (${this.duration} minutes)`;
         for (let tagName in this._tags) {
             const tagValue = this._tags[tagName];
             string += `\n    ${tagName}:${tagValue}`;

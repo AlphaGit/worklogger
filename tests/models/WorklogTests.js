@@ -3,10 +3,6 @@ var Worklog = require('app/models/Worklog');
 
 describe('Worklog', () => {
     describe('#constructor', () => {
-        it('requires a name parameter', () => {
-            assert.throws(() => buildWorklog({ name: null }));
-        });
-
         it('requires a startDateTime parameter', () => {
             assert.throws(() => buildWorklog({ startDateTime: null }));
         });
@@ -62,6 +58,11 @@ describe('Worklog', () => {
         it('contains the worklog name', () => {
             var worklog = buildWorklog({ name: 'worklogName' });
             assert.ok(worklog.toString().indexOf('worklogName') >= 0);
+        });
+
+        it('shows default indicator if there is no worklog name', () => {
+            const worklog = buildWorklog({ name: null });
+            assert.ok(worklog.toString().indexOf('(No name)') >= 0);
         });
 
         it('contains the duration with the unit name', () => {
