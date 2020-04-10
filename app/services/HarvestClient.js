@@ -63,8 +63,9 @@ module.exports = class HarvestClient {
         if (!timeEntry.project_id) throw new Error('Time entry needs to have project_id.');
         if (!timeEntry.task_id) throw new Error('Time entry needs to have task_id.');
         if (!timeEntry.spent_date) throw new Error('Time entry needs to have spent_date.');
-        if (!timeEntry.timer_started_at) throw new Error('Time entry needs to have timer_started_at.');
         if (!timeEntry.hours) throw new Error('Time entry needs to have hours.');
+        if (!timeEntry.started_time) throw new Error('Time entry needs to have started_time.');
+        if (!timeEntry.ended_time) throw new Error('Time entry needs to have ended_time.');
     }
 
     _getProjectsAndTasksFromApiResponse(apiResponse) {

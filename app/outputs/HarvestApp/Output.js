@@ -46,9 +46,11 @@ module.exports = class HarvestAppOutput extends OutputBase {
             project_id: project.projectId,
             task_id: task.taskId,
             spent_date: moment(worklog.startDateTime).format('YYYY-MM-DD'),
-            timer_started_at: moment(worklog.startDateTime).format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
+            started_time: moment(worklog.startDateTime).format('hh:mma'),
+            ended_time: moment(worklog.endDateTime).format('hh:mma'),
             hours: worklog.duration / 60,
-            notes: worklog.name
+            notes: worklog.name,
+            is_running: false
         };
     }
 
