@@ -29,7 +29,7 @@ module.exports = class Input {
     }
 
     async getWorkLogs(startDateTime, endDateTime) {
-        logger.info('Retrieving worklogs from Harvest');
+        logger.info('Retrieving worklogs from Harvest between', startDateTime, 'and', endDateTime);
 
         const parameters = { from: startDateTime, to: endDateTime };
         const timeEntries = await this._harvestClient.getTimeEntries(parameters);

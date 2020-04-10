@@ -49,7 +49,7 @@ module.exports = class Input {
     }
 
     async getWorkLogs(startDateTime, endDateTime) {
-        logger.info('Retrieving worklogs from Google Calendar');
+        logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
         const credentials = await this.fileLoader.loadJson('google_client_secret.json');
         const clientSecret = credentials.installed.client_secret;

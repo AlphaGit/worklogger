@@ -86,9 +86,9 @@ async function start(passedArguments) {
     function displayWorklogSet(environment) {
         const worklogSet = environment.worklogSet;
 
-        logger.info(`${worklogSet.worklogs.length} worklogs retrieved`);
+        logger.info(`Transformed worklogs: ${worklogSet.worklogs.length} worklogs`);
         for (let worklog of worklogSet.worklogs) {
-            logger.trace(`Worklog: ${worklog}`);
+            logger.debug(`Worklog: ${worklog}`);
         }
     }
 

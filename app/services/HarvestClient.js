@@ -40,7 +40,7 @@ module.exports = class HarvestClient {
 
         const jsonResponse = await response.json();
         const projects = this._getProjectsAndTasksFromApiResponse(jsonResponse);
-        logger.trace('Projects and tasks retrieved from Harvest', projects);
+        logger.trace('Projects and tasks retrieved from Harvest', JSON.stringify(projects));
 
         return projects;
     }
@@ -48,14 +48,14 @@ module.exports = class HarvestClient {
     async saveNewTimeEntry(timeEntry) {
         this._validateTimeEntry(timeEntry);
 
-        logger.trace('Sending to Harvest:', timeEntry);
+        logger.trace('Sending to Harvest:', JSON.stringify(timeEntry));
         const res = await this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
             method: 'POST',
             body: JSON.stringify(timeEntry),
             headers: this._getDefaultHeaders()
         })
 
-        logger.trace(res.json());
+        logger.trace(await res.json());
     }
 
     _validateTimeEntry(timeEntry) {
