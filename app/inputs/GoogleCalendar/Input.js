@@ -37,6 +37,10 @@ module.exports = class Input {
         this._inputConfiguration = value;
     }
 
+    get name() {
+        return this._inputConfiguration.name;
+    }
+
     set appConfiguration(value) {
         if (!value)
             throw new Error('Application configuration is required');

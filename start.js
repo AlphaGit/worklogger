@@ -65,7 +65,7 @@ async function start(passedArguments) {
         } else {
             logger.warn('The following worklogs were not processed by any output:');
             for (const worklog of worklogs) {
-                logger.warn(worklog.toOneLinerString());
+                logger.warn(`- ${worklog.toOneLinerString()}`);
             }
         }
     }
@@ -103,7 +103,14 @@ async function start(passedArguments) {
         const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
         const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
 
-        const loaderFunctions = await loadedInputs.map(async i => await i.getWorkLogs(startDateTime, endDateTime));
+        const loaderFunctions = await loadedInputs.map(async i => {
+            const retrievedWorklogs = await i.getWorkLogs(startDateTime, endDateTime);
+            logger.debug(`Worklogs retrieved from ${i.name}: `);
+            for (const worklog of retrievedWorklogs) {
+                logger.debug(`- ${worklog.toOneLinerString()}`);
+            }
+            return retrievedWorklogs;
+        });
         environment.worklogsPerInput = await Promise.all(loaderFunctions); // eslint-disable-line require-atomic-updates
     }
 

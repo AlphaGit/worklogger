@@ -6,5 +6,6 @@ module.exports = class InputConfiguration {
         this.accountId = configurationInput.accountId;
         this.token = configurationInput.token;
         this.contactInformation = configurationInput.contactInformation;
+        this.name = configurationInput.name;
     }
 };

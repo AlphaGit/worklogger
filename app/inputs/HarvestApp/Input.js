@@ -19,7 +19,13 @@ module.exports = class Input {
 
         if (!inputConfiguration)
             throw new Error('Input configuration for Harvest App input is required.');
+        this._inputConfiguration = inputConfiguration;
+        
         this._harvestClient = new HarvestClient(inputConfiguration);
+    }
+
+    get name() {
+        return this._inputConfiguration.name;
     }
 
     async getWorkLogs(startDateTime, endDateTime) {
