@@ -16,7 +16,7 @@ module.exports = class Input {
         if (!appConfiguration)
             throw new Error('App configuration for Harvest App input is required.');
 
-            this._appConfiguration = appConfiguration;
+        this._appConfiguration = appConfiguration;
 
         if (!inputConfiguration)
             throw new Error('Input configuration for Harvest App input is required.');
@@ -61,7 +61,7 @@ module.exports = class Input {
                 duration = calculateDurationInMinutes(endTime, startTime, minimumLoggableTimeSlotInMinutes);
             } else {
                 startTime = moment(te.spent_date).toDate();
-                endTime = moment(te.spent_date).add(te.hours, 'hours').toDate();;
+                endTime = moment(te.spent_date).add(te.hours, 'hours').toDate();
                 duration = te.hours * 60;
             }
 

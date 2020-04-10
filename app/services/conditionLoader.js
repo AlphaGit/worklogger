@@ -1,5 +1,3 @@
-const logger = require('app/services/loggerFactory').getLogger('services/conditionLoader');
-
 function loadCondition(conditionConfig) {
     let conditionType = (conditionConfig || {}).type;
     if (!conditionType) conditionType = 'true';

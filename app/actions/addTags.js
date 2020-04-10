@@ -54,7 +54,7 @@ module.exports = class AddTagsAction {
     }
 
     toString() {
-        const tags = this._tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${tag.extractCaptureFromSummary})`}]`)
+        const tags = this._tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${t.extractCaptureFromSummary})`}]`)
         return `AddTags: ${tags.join(' ')}`;
     }
 };

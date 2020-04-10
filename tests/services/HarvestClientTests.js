@@ -257,14 +257,14 @@ describe('HarvestClient', () => {
             await assertTimeEntryRequiresStartedTime(undefined);
         });
 
-        async function assertTimeEntryRequiresStartedTime(ended_time) {
+        async function assertTimeEntryRequiresEndedTime(ended_time) {
             await assertTimeEntryError({ project_id: 1, task_id: 1, spent_date: '2017-01-01', hours: 3, started_time: '11:00am', ended_time }, /Time entry needs to have ended_time\./);
         }
 
         it('requires that the time entry has a started_time', async () => {
-            await assertTimeEntryRequiresStartedTime();
-            await assertTimeEntryRequiresStartedTime(null);
-            await assertTimeEntryRequiresStartedTime(undefined);
+            await assertTimeEntryRequiresEndedTime();
+            await assertTimeEntryRequiresEndedTime(null);
+            await assertTimeEntryRequiresEndedTime(undefined);
         });
 
         async function assertTimeEntryRequiresHours(hours) {
