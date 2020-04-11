@@ -1,5 +1,7 @@
 class RelativeTime {
     constructor(fromNow, unit) {
+        this._buildDisplacementMappings();
+
         this._validateFromNowValue(fromNow);
         this._validateUnitValue(unit);
 
@@ -30,47 +32,50 @@ class RelativeTime {
             throw new Error('Parameter required: fromNow.');
     }
 
+    _buildDisplacementMappings() {
+        const getMap = function buildDisplacementMapping(unit, fromNow, displacementFn) {
+            return {
+                unit,
+                fromNow,
+                displacementFn
+            }
+        }
+
+        this._displacementMappings = [
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_LAST, (dt) => dt.setMinutes(-60, 0, 0)),
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_THIS, (dt) => dt.setMinutes(0, 0, 0)),
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setMinutes(60, 0, 0)),
+
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_LAST, (dt) => dt.setHours(-24, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_THIS, (dt) => dt.setHours(0, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setHours(24, 0, 0, 0)),
+
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_LAST, (dt) => dt.setHours((-dt.getDay() - 7) * 24, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_THIS, (dt) => dt.setHours((-dt.getDay()) * 24, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setHours((-dt.getDay() + 7) * 24, 0, 0, 0)),
+
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_LAST, (dt) => {
+                dt.setMonth(dt.getMonth() - 1, 1);
+                dt.setHours(0, 0, 0, 0);
+            }),
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_THIS, (dt) => {
+                dt.setMonth(dt.getMonth(), 1);
+                dt.setHours(0, 0, 0, 0);
+            }),
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_NEXT, (dt) => {
+                dt.setMonth(dt.getMonth() + 1, 1);
+                dt.setHours(0, 0, 0, 0);
+            }),
+        ];
+    }
+
     toDate() {
+        const displacementFn = this._displacementMappings
+            .find(m => m.unit === this._unit && m.fromNow === this._fromNow)
+            .displacementFn;
+
         let resultDate = new Date();
-        if (this._unit === RelativeTime.UNIT_HOUR) {
-            const minutesToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS
-                ? 0
-                : this._fromNow === RelativeTime.FROM_NOW_LAST
-                    ? -60
-                    : 60;
-            resultDate.setMinutes(minutesToDisplace, 0, 0);
-            return resultDate;
-        }
-
-        if (this._unit === RelativeTime.UNIT_DAY) {
-            const hoursToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS
-                ? 0
-                : this._fromNow === RelativeTime.FROM_NOW_LAST
-                    ? -24
-                    : 24;
-            resultDate.setHours(hoursToDisplace, 0, 0, 0);
-            return resultDate;
-        }
-
-        if (this._unit === RelativeTime.UNIT_WEEK) {
-            const currentDayOfWeek = resultDate.getDay();
-            const extraDisplacement = this._fromNow === RelativeTime.FROM_NOW_THIS
-                ? 0
-                : this._fromNow === RelativeTime.FROM_NOW_LAST
-                    ? -7
-                    : 7;
-            const daysToDisplace = -currentDayOfWeek + extraDisplacement;
-            resultDate.setHours(24 * daysToDisplace, 0, 0, 0);
-            return resultDate;
-        }
-
-        // this._unit === RelativeTime.UNIT_MONTH
-        resultDate.setDate(1);
-        resultDate.setHours(0, 0, 0, 0);
-        if (this._fromNow === RelativeTime.FROM_NOW_LAST)
-            resultDate.setMonth(resultDate.getMonth() - 1);
-        else if (this._fromNow === RelativeTime.FROM_NOW_NEXT)
-            resultDate.setMonth(resultDate.getMonth() + 1);
+        displacementFn(resultDate);
         return resultDate;
     }
 }
