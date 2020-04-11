@@ -8,44 +8,69 @@ class RelativeTime {
     }
 
     _validateUnitValue(unit) {
-        if (unit !== RelativeTime.UNIT_HOUR
-            && unit !== RelativeTime.UNIT_DAY
-            && unit !== RelativeTime.UNIT_WEEK
-            && unit !== RelativeTime.UNIT_MONTH)
+        const allowedValues = [
+            RelativeTime.UNIT_HOUR,
+            RelativeTime.UNIT_DAY,
+            RelativeTime.UNIT_WEEK,
+            RelativeTime.UNIT_MONTH,
+        ];
+
+        if (!allowedValues.includes(unit))
             throw new Error('Parameter required: unit.');
     }
 
     _validateFromNowValue(fromNow) {
-        if (fromNow !== RelativeTime.FROM_NOW_THIS && fromNow !== RelativeTime.FROM_NOW_LAST)
+        const allowedValues = [
+            RelativeTime.FROM_NOW_LAST,
+            RelativeTime.FROM_NOW_THIS,
+            RelativeTime.FROM_NOW_NEXT,
+        ]
+
+        if (!allowedValues.includes(fromNow))
             throw new Error('Parameter required: fromNow.');
     }
 
     toDate() {
         let resultDate = new Date();
         if (this._unit === RelativeTime.UNIT_HOUR) {
-            const minutesToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS ? 0 : -60;
+            const minutesToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS
+                ? 0
+                : this._fromNow === RelativeTime.FROM_NOW_LAST
+                    ? -60
+                    : 60;
             resultDate.setMinutes(minutesToDisplace, 0, 0);
             return resultDate;
         }
 
         if (this._unit === RelativeTime.UNIT_DAY) {
-            const hoursToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS ? 0 : -24;
+            const hoursToDisplace = this._fromNow === RelativeTime.FROM_NOW_THIS
+                ? 0
+                : this._fromNow === RelativeTime.FROM_NOW_LAST
+                    ? -24
+                    : 24;
             resultDate.setHours(hoursToDisplace, 0, 0, 0);
             return resultDate;
         }
 
         if (this._unit === RelativeTime.UNIT_WEEK) {
             const currentDayOfWeek = resultDate.getDay();
-            const daysToDisplace = currentDayOfWeek + (this._fromNow === RelativeTime.FROM_NOW_THIS ? 0 : 7);
-            resultDate.setHours(-24 * daysToDisplace, 0, 0, 0, 0);
+            const extraDisplacement = this._fromNow === RelativeTime.FROM_NOW_THIS
+                ? 0
+                : this._fromNow === RelativeTime.FROM_NOW_LAST
+                    ? -7
+                    : 7;
+            const daysToDisplace = -currentDayOfWeek + extraDisplacement;
+            resultDate.setHours(24 * daysToDisplace, 0, 0, 0);
             return resultDate;
         }
 
-        // this._unit === RelativeTime.UNIT_MONTH)
+        // this._unit === RelativeTime.UNIT_MONTH
         resultDate.setDate(1);
         resultDate.setHours(0, 0, 0, 0);
         if (this._fromNow === RelativeTime.FROM_NOW_LAST)
             resultDate.setMonth(resultDate.getMonth() - 1);
+        else if (this._fromNow === RelativeTime.FROM_NOW_NEXT)
+            resultDate.setMonth(resultDate.getMonth() + 1);
         return resultDate;
     }
 }
@@ -53,6 +78,7 @@ class RelativeTime {
 // constants
 RelativeTime.FROM_NOW_THIS = 'this';
 RelativeTime.FROM_NOW_LAST = 'last';
+RelativeTime.FROM_NOW_NEXT = 'next';
 
 RelativeTime.UNIT_HOUR = 'hour';
 RelativeTime.UNIT_DAY = 'day';

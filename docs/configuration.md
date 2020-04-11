@@ -27,7 +27,7 @@
                 "dateTime": "2017-01-02T05:00:00",
 
                 // for relative dates
-                "fromNow": "string", // "this", "last"
+                "fromNow": "string", // "this", "last", "next"
                 "unit": "string" // "hour", "day", "week", "month"
             },
             "end": {

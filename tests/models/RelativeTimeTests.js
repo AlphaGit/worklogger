@@ -30,12 +30,19 @@ describe('RelativeTime', () => {
         it('can be instantiated with the right parameters', () => {
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR);
+
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY);
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY);
+
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
+
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
             assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH);
         });
     });
 
@@ -46,6 +53,10 @@ describe('RelativeTime', () => {
 
         it('has a FROM_NOW_LAST constant defined', () => {
             assert(RelativeTime.FROM_NOW_LAST);
+        });
+
+        it('has a FROM_NOW_NEXT constant defined', () => {
+            assert(RelativeTime.FROM_NOW_NEXT);
         });
 
         it('has a UNIT_HOUR constant defined', () => {
@@ -69,7 +80,7 @@ describe('RelativeTime', () => {
         it('returns the right value for last hour', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
             let expectedDate = new Date();
-            expectedDate.setMinutes(-60, 0, 0, 0);
+            expectedDate.setMinutes(-60, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
         });
@@ -77,7 +88,15 @@ describe('RelativeTime', () => {
         it('returns the right value for this hour', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
             let expectedDate = new Date();
-            expectedDate.setMinutes(0, 0, 0, 0);
+            expectedDate.setMinutes(0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for next hour', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR);
+            let expectedDate = new Date();
+            expectedDate.setMinutes(+60, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
         });
@@ -98,11 +117,19 @@ describe('RelativeTime', () => {
             assert.equal(+relativeTime.toDate(), +expectedDate);
         });
 
+        it('returns the right value for next day', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY);
+            let expectedDate = new Date();
+            expectedDate.setHours(24, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
         it('returns the right value for last week', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
             let expectedDate = new Date();
             const dayOfWeek = expectedDate.getDay();
-            expectedDate.setHours(-24 * (dayOfWeek + 7), 0, 0, 0, 0);
+            expectedDate.setHours(24 * (-dayOfWeek - 7), 0, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
         });
@@ -111,7 +138,16 @@ describe('RelativeTime', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
             let expectedDate = new Date();
             const dayOfWeek = expectedDate.getDay();
-            expectedDate.setHours(-24 * dayOfWeek, 0, 0, 0, 0);
+            expectedDate.setHours(24 * -dayOfWeek, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for next week', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_WEEK);
+            let expectedDate = new Date();
+            const dayOfWeek = expectedDate.getDay();
+            expectedDate.setHours(24 * (7 - dayOfWeek), 0, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
         });
@@ -129,6 +165,15 @@ describe('RelativeTime', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
             let expectedDate = new Date();
             expectedDate.setDate(1);
+            expectedDate.setHours(0, 0, 0, 0, 0);
+
+            assert.equal(+relativeTime.toDate(), +expectedDate);
+        });
+
+        it('returns the right value for next month', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH);
+            let expectedDate = new Date();
+            expectedDate.setMonth(expectedDate.getMonth() + 1, 1);
             expectedDate.setHours(0, 0, 0, 0, 0);
 
             assert.equal(+relativeTime.toDate(), +expectedDate);
