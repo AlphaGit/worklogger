@@ -70,7 +70,7 @@ module.exports = class HarvestAppOutput extends OutputBase {
         const taskTagValue = worklog.getTagValue(taskTag);
         const task = project.tasks.find(t => t.taskName == taskTagValue);
 
-        if (!project)
+        if (!task)
             logger.warn(`Harvest task "${taskTagValue}" not found.`);
 
         return task;

@@ -75,6 +75,40 @@ describe('HarvestApp output', () => {
                 assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
             }
         });
+
+        it('ignores worklogs without matching Harvest project or task', async () => {
+            const saveNewTimeEntryStub = sinon.stub().returns(Promise.resolve());
+            const getProjectsAndTasksStub = sinon.stub().returns(await [{
+                projectId: 1,
+                projectName: 'Project 1',
+                tasks: [{
+                    taskId: 2,
+                    taskName: 'Task 2'
+                }]
+            }]);
+            const fakeHarvestClientClass = getFakeHarvestClientClass({
+                getProjectsAndTasksStub: getProjectsAndTasksStub,
+                saveNewTimeEntryStub: saveNewTimeEntryStub
+            });
+            const output = getTestSubject({
+                fakeHarvestClientClass,
+                projectTag: 'Project',
+                taskTag: 'Task'
+            });
+
+            const worklogCount = 5;
+            const startingAt = moment('2017-01-01T07:00-0500');
+            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt.toDate(), durationInMinutes: 30 });
+            worklogSet.worklogs.forEach(w => {
+                w.addTag('Project', 'Project 1');
+                w.addTag('Task', 'Task 2');
+            });
+            worklogSet.worklogs[0].addTag('Project', 'Unexistent project');
+            worklogSet.worklogs[1].addTag('Task', 'Unexistent task');
+
+            await output.outputWorklogSet(worklogSet);
+            assert.equal(saveNewTimeEntryStub.callCount, worklogCount - 2);
+        });
     });
 });
 
