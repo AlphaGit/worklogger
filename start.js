@@ -126,7 +126,8 @@ async function start(passedArguments) {
         const configurationFilePath = environment.arguments.c || 'configuration.json';
         const fileLoader = environment.serviceRegistrations.FileLoader;
         const configurationContents = await fileLoader.loadJson(configurationFilePath);
-        logger.trace('Loaded configuration:', configurationContents);
+        // TODO Pending: Logger config is not set yet, so this trace is always shown. 
+        // logger.trace('Loaded configuration:', configurationContents);
 
         const configurationProcessor = require('app/services/configurationProcessor');
 

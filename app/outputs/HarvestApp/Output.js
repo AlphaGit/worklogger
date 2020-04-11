@@ -60,7 +60,7 @@ module.exports = class HarvestAppOutput extends OutputBase {
         const project = projects.find(p => p.projectName == projectTagValue);
 
         if (!project)
-            logger.warn(`Harvest project "${projectTagValue}" not found.`);
+            logger.warn(`Harvest project "${projectTagValue}" not found (processing worklog ${worklog.toOneLinerString()}.`);
 
         return project;
     }
