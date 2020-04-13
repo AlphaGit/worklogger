@@ -40,6 +40,8 @@ Docker makes it easy to run the system without requiring dependencies or dealing
    ```console
    docker start -a worklogger
    ```
+   
+   Consider using a task manager / cron to set it up recurrently.
      
 ### Upgrading
 
@@ -60,3 +62,11 @@ Docker makes it easy to run the system without requiring dependencies or dealing
     docker rm worklogger
     docker create -v /my/path:/app/worklogger_home -e TZ=America/Buenos_Aires --name worklogger alphadock/worklogger:latest
     ```
+
+## Node
+
+(Instructions pending)
+
+## Serverless
+
+(Instructions pending)
