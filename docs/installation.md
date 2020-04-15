@@ -10,7 +10,7 @@
    
    It doesn't need to be called `worklogger`, and it can be anywhere you want.
    
-1. Create a configuration file. You can base it on the [configuration template](configuration.md) available. Save it inside the worklogger directory.
+1. Create a configuration file. You can base it on the [configuration template](configuration.md) available. Save it inside the worklogger directory as `configuration.json`.
 
 1. Connect your specific services.
 
