@@ -1,5 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
+const moment = require('moment');
 
 const JiraWorklogOutput = require('app/outputs/JiraWorklog/Output');
 const FormatterBase = require('app/formatters/FormatterBase');
@@ -70,7 +71,8 @@ describe('JiraWorklog output', () => {
                 let hour = Math.floor(7 + i / 2);
                 if (hour < 10) hour = `0${hour}`;
                 const minutes = i % 2 == 0 ? '00' : '30';
-                assert.equal(jiraWorklogArgument.started, `2017-01-01T${hour}:${minutes}:00.000-0500`);
+                const expectedStarted = moment(`2017-01-01T${hour}:${minutes}:00.000-0500`);
+                assert.equal(jiraWorklogArgument.started, expectedStarted.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
                 assert.equal(jiraWorklogArgument.timeSpent, '30m');
             }
         });
