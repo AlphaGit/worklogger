@@ -36,7 +36,7 @@
     "aws-sdk": "^2.751.0",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^41.0.0",
-    "log4js": "^4.0.0",
+    "log4js": "^6.3.0",
     "minimist": "^1.2.3",
     "moment": "^2.28.0",
     "node-fetch": "^2.6.1"
