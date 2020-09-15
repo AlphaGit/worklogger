@@ -44,6 +44,10 @@
         "type": "string",
         "name": "string",
 
+        // optional: manage the input storage in this particular path
+        // if not passed, will use the current location
+        "storageRelativePath": "string",
+
         // other properties specific to the input type
 
         // Type: GoogleCalendarInput

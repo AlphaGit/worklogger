@@ -51,14 +51,18 @@ module.exports = class Input {
     async getWorkLogs(startDateTime, endDateTime) {
         logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
-        const credentials = await this.fileLoader.loadJson('google_client_secret.json');
+        const storageRelativePath = this._inputConfiguration.storageRelativePath;
+
+        const clientSecretPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_client_secret.json';
+        const credentials = await this.fileLoader.loadJson(clientSecretPath);
         const clientSecret = credentials.installed.client_secret;
         const clientId = credentials.installed.client_id;
         const redirectUrl = credentials.installed.redirect_uris[0];
         const oauth2Client = new this.OAuth2(clientId, clientSecret, redirectUrl);
 
         try {
-            const tokenInfo = await this.fileLoader.loadJson('google_token.json');
+            const googleTokenPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_token.json';
+            const tokenInfo = await this.fileLoader.loadJson(googleTokenPath);
             logger.trace('Google App token read:', tokenInfo);
             oauth2Client.credentials = tokenInfo;
         } catch (err) {

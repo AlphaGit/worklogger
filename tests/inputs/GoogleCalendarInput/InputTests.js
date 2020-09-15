@@ -22,7 +22,7 @@ describe('[Google Calendar] Input', () => {
     });
 
     describe('#getWorkLogs', () => {
-        it('loads app credentials', async () => {
+        it('loads app credentials from the default path', async () => {
             const serviceRegistrations = {
                 FileLoader: {
                     loadJson: sinon.stub().returns(defaultCredentials)
@@ -31,6 +31,20 @@ describe('[Google Calendar] Input', () => {
             const input = getTestSubject({ serviceRegistrations });
             await input.getWorkLogs(new Date(), new Date());
             assert(serviceRegistrations.FileLoader.loadJson.called);
+            assert.strictEqual(serviceRegistrations.FileLoader.loadJson.firstCall.firstArg, 'google_client_secret.json');
+        });
+
+        it('loads app credentials from the configured path', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub().returns(defaultCredentials)
+                }
+            };
+            const inputConfiguration = getInputConfiguration({ storageRelativePath: 'some_path/dir2' });
+            const input = getTestSubject({ serviceRegistrations, inputConfiguration });
+            await input.getWorkLogs(new Date(), new Date());
+            assert(serviceRegistrations.FileLoader.loadJson.called);
+            assert.strictEqual(serviceRegistrations.FileLoader.loadJson.firstCall.firstArg, 'some_path/dir2/google_client_secret.json');
         });
 
         it('returns a failed promise if loading credentials fails', async () => {
@@ -54,6 +68,35 @@ describe('[Google Calendar] Input', () => {
 
             const input = getTestSubject({ serviceRegistrations });
             await assert.rejects(async() => await input.getWorkLogs(new Date(), new Date()));
+        });
+
+        it('loads token from the default location', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub()
+                        .onCall(0).returns(defaultCredentials)
+                        .onCall(1).returns(defaultToken)
+                }
+            };
+
+            const input = getTestSubject({ serviceRegistrations });
+            await input.getWorkLogs(new Date(), new Date());
+            assert.strictEqual(serviceRegistrations.FileLoader.loadJson.secondCall.firstArg, 'google_token.json');
+        });
+
+        it('loads token from the configured location', async () => {
+            const serviceRegistrations = {
+                FileLoader: {
+                    loadJson: sinon.stub()
+                        .onCall(0).returns(defaultCredentials)
+                        .onCall(1).returns(defaultToken)
+                }
+            };
+
+            const inputConfiguration = getInputConfiguration({ storageRelativePath: 'some_path/dir2' });
+            const input = getTestSubject({ serviceRegistrations, inputConfiguration });
+            await input.getWorkLogs(new Date(), new Date());
+            assert.strictEqual(serviceRegistrations.FileLoader.loadJson.secondCall.firstArg, 'some_path/dir2/google_token.json');
         });
 
         it('calls google events API with the authorization values retrieved', async () => {
@@ -149,6 +192,20 @@ const defaultAppConfiguration = {
     }
 };
 
+function getInputConfiguration({
+    name = 'test',
+    calendars = [{ id: 'a' }],
+    readFromXHoursAgo = 5,
+    storageRelativePath = undefined,
+}) {
+    return {
+        name,
+        calendars,
+        readFromXHoursAgo,
+        storageRelativePath
+    };
+}
+
 const defaultInputConfiguration = {
     name: 'test',
     calendars: [{
@@ -184,6 +241,13 @@ const defaultCredentials = {
             'http://localhost/redirect_uri'
         ]
     }
+};
+
+const defaultToken = {
+    access_token: 'abc123',
+    refresh_token: 'ab123',
+    token_type: 'Bearer',
+    expiry_date: 1478142841119
 };
 
 const defaultFileLoader = {

@@ -6,6 +6,7 @@ module.exports = class InputConfiguration {
         this.name = configurationInput.name;
         this.calendars = configurationInput.calendars;
         this.readFromXHoursAgo = configurationInput.readFromXHoursAgo;
+        this.storageRelativePath = configurationInput.storageRelativePath;
     }
 
     set calendars(value) {
