@@ -5,7 +5,8 @@ COPY ./ /app/
 WORKDIR /app
 
 ENV TZ=America/Toronto
-RUN npm install --only=production && \
+RUN yarn install --production --frozen-lockfile --non-interactive --link-duplicates && \
+    yarn cache clean --all && \
     # Setting up the timezone
     apk update && \
     apk upgrade && \
