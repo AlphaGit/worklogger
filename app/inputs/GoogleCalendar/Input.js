@@ -97,9 +97,12 @@ module.exports = class Input {
                 orderBy: 'startTime'
             });
 
+            const calendarEvents = calendarResponse.data.items
+                .filter(e => new Date(e.start.dateTime) >= startDateTime);
+
             return {
                 calendarConfig: calendar,
-                events: calendarResponse.data.items
+                events: calendarEvents
             }
         } catch (err) {
             throw new Error(`The API returned an error: ${err}`);
