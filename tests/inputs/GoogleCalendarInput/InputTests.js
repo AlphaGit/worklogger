@@ -121,8 +121,7 @@ describe('[Google Calendar] Input', () => {
         it('calls google API for every calendar in the configuration', async () => {
             const configuration =  {
                 name: 'test',
-                calendars: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
-                readFromXHoursAgo: 10
+                calendars: [{ id: 'a' }, { id: 'b' }, { id: 'c' }]
             };
             const eventListStub = sinon.stub().callsArgWith(1, null, { data: { items: [] } });
             const googleApis = {
@@ -195,13 +194,11 @@ const defaultAppConfiguration = {
 function getInputConfiguration({
     name = 'test',
     calendars = [{ id: 'a' }],
-    readFromXHoursAgo = 5,
     storageRelativePath = undefined,
 }) {
     return {
         name,
         calendars,
-        readFromXHoursAgo,
         storageRelativePath
     };
 }
@@ -210,8 +207,7 @@ const defaultInputConfiguration = {
     name: 'test',
     calendars: [{
         id: 'a'
-    }],
-    readFromXHoursAgo: 5
+    }]
 };
 
 const defaultGoogleApis = {

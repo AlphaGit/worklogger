@@ -5,8 +5,7 @@ const validConfigJson = {
     name: 'input name',
     calendars: [
         1
-    ],
-    readFromXHoursAgo: 24
+    ]
 };
 
 describe('[Google Calendar] InputConfiguration', () => {
@@ -20,7 +19,6 @@ describe('[Google Calendar] InputConfiguration', () => {
 
             assert.equal(validConfigJson.name, inputConfiguration.name);
             assert.equal(validConfigJson.calendars, inputConfiguration.calendars);
-            assert.equal(validConfigJson.readFromXHoursAgo, inputConfiguration.readFromXHoursAgo);
         });
     });
 
