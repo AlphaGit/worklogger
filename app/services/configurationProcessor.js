@@ -4,15 +4,18 @@ const moment = require('moment');
 
 function getProcessedConfiguration(configuration) {
     const timePeriod = configuration.options.timePeriod;
+    const { begin, end } = timePeriod;
 
-    timePeriod.startDateTime = parseAbsoluteTime(timePeriod.begin) || parseRelativeTime(timePeriod.begin);
-    timePeriod.endDateTime = parseAbsoluteTime(timePeriod.end) || parseRelativeTime(timePeriod.end);
+    timePeriod.startDateTime = parseAbsoluteTime(begin) || parseRelativeTime(begin) || parseOffset(begin);
+    timePeriod.endDateTime = parseAbsoluteTime(end) || parseRelativeTime(end) || parseOffset(end);
     logger.info(`Range of dates to consider from inputs: ${timePeriod.startDateTime} - ${timePeriod.endDateTime}`);
 
     return configuration;
 }
 
 function parseRelativeTime(timePeriod) {
+    if (!timePeriod.fromNow || !timePeriod.unit) return null;
+
     const relativeTime = new RelativeTime(timePeriod.fromNow, timePeriod.unit);
     return relativeTime.toDate();
 }
@@ -20,7 +23,17 @@ function parseRelativeTime(timePeriod) {
 function parseAbsoluteTime(timePeriod) {
     const dateTimeString = timePeriod.dateTime;
     if (!(dateTimeString || '').length) return null;
+
     return moment(dateTimeString).toDate();
+}
+
+function parseOffset(timePeriod) {
+    const offset = timePeriod.offset;
+    if (!offset) return null;
+
+    const { value, unit } = offset.match(/(?<value>(?:\+|-)?\d+)(?<unit>[mhwdM])?/).groups;
+
+    return moment().add(value, unit).toDate();
 }
 
 module.exports = {

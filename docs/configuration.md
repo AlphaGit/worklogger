@@ -28,7 +28,10 @@
 
                 // for relative dates
                 "fromNow": "string", // "this", "last", "next"
-                "unit": "string" // "hour", "day", "week", "month"
+                "unit": "string", // "hour", "day", "week", "month"
+
+                // for other relative option, calculated from this current moment
+                "offset": "-24h" // (+|-) <number> <h|d|w|m>
             },
             "end": {
                 // for absolute dates
@@ -36,7 +39,10 @@
 
                 // for relative dates
                 "fromNow": "string", // "this", "last"
-                "unit": "string" // "hour", "day", "week", "month"
+                "unit": "string", // "hour", "day", "week", "month"
+
+                // for other relative option, calculated from this current moment
+                "offset": "0" // 0 | (+|-) <number> <m|h|d|w|M>
             }
         }
     },
