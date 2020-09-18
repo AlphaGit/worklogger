@@ -138,10 +138,16 @@
         // Type: JiraWorklog
         "JiraUrl": "https://myserver.atlassian.net",
         "JiraUsername": "myUsername",
-        "JiraPassword": "myJiraPassword"
+        "JiraPassword": "myJiraPassword",
 
         // Type: Logger
         // (no configurations)
+
+        // Type: AWS-SES
+        "fromEmailAddress": "exampleSender@example.com",
+        "toAddresses": ["email1@example.com", "email2@example.com"],
+        "subjectTemplate": "Info for {{startDateTime}} to {{endDateTime}}", // info from models/WorklogSet.js
+        "bodyTemplate": " {{contents}} ", // info from models/WorklogSet.js and "contents" for formatted WorklogSet
     }]
 }
 ```

@@ -12,6 +12,10 @@ provider:
         - "s3:PutObject"
         - "s3:GetObject"
       Resource: "arn:aws:s3:::worklogger/*"
+    - Effect: "Allow"
+      Action:
+        - "ses:SendEmail"
+      Resource: "*"
 
 functions:
   logTimesheets:
