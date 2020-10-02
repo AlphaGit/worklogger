@@ -29,6 +29,7 @@ functions:
         - "*.js"
         - "app/**/*.js"
     events:
+      # TODO make these configurable per deployment
       - schedule:
           rate: cron(0 23 * * ? *)
           enabled: true
@@ -36,6 +37,13 @@ functions:
           input:
             s3: worklogger
             c: daily_configuration.json
+      - schedule:
+          rate: cron(0 23 1 * ? *)
+          enabled: true
+          description: Monthly run
+          input:
+            s3: worklogger
+            c: monthly_configuration.json
       - schedule:
           rate: rate(1 minute)
           enabled: false
