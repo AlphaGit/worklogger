@@ -6,7 +6,7 @@ const FormatterBase = require('app/formatters/FormatterBase');
 const WorklogSet = require('app/models/WorklogSet');
 const Worklog = require('app/models/Worklog');
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 describe('HarvestApp output', () => {
     it('can be instantiated', () => {
@@ -44,35 +44,28 @@ describe('HarvestApp output', () => {
             });
 
             const worklogCount = 5;
-            const startingAt = moment('2017-01-01T07:00-0500');
-            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt.toDate(), durationInMinutes: 30 });
+            const startingAt = moment.tz('2017-01-01T07:00-0500', 'America/Toronto');
+            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt, durationInMinutes: 30 });
             worklogSet.worklogs.forEach(w => {
                 w.addTag('Project', 'Project 1');
                 w.addTag('Task', 'Task 2');
             });
 
-            // worklog times are:
-            // 1. 2017-01-01T07:00-0500 to 2017-01-01T07:30-0500
-            // 2. 2017-01-01T07:30-0500 to 2017-01-01T08:00-0500
-            // 3. 2017-01-01T08:00-0500 to 2017-01-01T08:30-0500
-            // 4. 2017-01-01T08:30-0500 to 2017-01-01T09:00-0500
-            // 5. 2017-01-01T09:00-0500 to 2017-01-01T09:30-0500
-
             await output.outputWorklogSet(worklogSet);
-            assert.equal(saveNewTimeEntryStub.callCount, worklogSet.worklogs.length);
+            assert.strictEqual(saveNewTimeEntryStub.callCount, worklogSet.worklogs.length);
 
             for (let i = 0; i < worklogCount; i++) {
                 const timeEntryArgument = saveNewTimeEntryStub.getCall(i).args[0];
 
-                assert.equal(timeEntryArgument.project_id, 1);
-                assert.equal(timeEntryArgument.task_id, 2);
+                assert.strictEqual(timeEntryArgument.project_id, 1);
+                assert.strictEqual(timeEntryArgument.task_id, 2);
                 
-                if (i > 0) startingAt.add(30, 'minutes');
-                assert.equal(timeEntryArgument.spent_date, startingAt.format('YYYY-MM-DD'));
-                assert.equal(timeEntryArgument.started_time, startingAt.format('hh:mma'));
-                assert.equal(timeEntryArgument.ended_time, startingAt.clone().add(30, 'minutes').format('hh:mma'));
-                assert.equal(timeEntryArgument.hours, 0.5);
-                assert.equal(timeEntryArgument.notes, `Worklog ${i+1}`);
+                const expectedStartingAt = startingAt.clone().add(30 * i, 'minutes');
+                assert.strictEqual(timeEntryArgument.spent_date, expectedStartingAt.format('YYYY-MM-DD'));
+                assert.strictEqual(timeEntryArgument.started_time, expectedStartingAt.format('hh:mma'));
+                assert.strictEqual(timeEntryArgument.ended_time, expectedStartingAt.clone().add(30, 'minutes').format('hh:mma'));
+                assert.strictEqual(timeEntryArgument.hours, 0.5);
+                assert.strictEqual(timeEntryArgument.notes, `Worklog ${i+1}`);
             }
         });
 
@@ -97,8 +90,8 @@ describe('HarvestApp output', () => {
             });
 
             const worklogCount = 5;
-            const startingAt = moment('2017-01-01T07:00-0500');
-            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt.toDate(), durationInMinutes: 30 });
+            const startingAt = moment.tz('2017-01-01T07:00-0500', 'America/Toronto');
+            const worklogSet = getTestWorklogSet({ worklogCount, startingAt: startingAt, durationInMinutes: 30 });
             worklogSet.worklogs.forEach(w => {
                 w.addTag('Project', 'Project 1');
                 w.addTag('Task', 'Task 2');
@@ -114,16 +107,16 @@ describe('HarvestApp output', () => {
 
 function getTestWorklogSet({
     worklogCount = 0,
-    startingAt = new Date('2017-01-01T17:00-0400'),
+    startingAt = moment.tz('2017-01-01T17:00-0400', 'America/Toronto'),
     durationInMinutes = 30
 } = {}) {
     const worklogs = [];
     for (let i = 0; i < worklogCount; i++) 
     {
-        const endingAt = new Date(+startingAt + durationInMinutes * 60 * 1000);
-        const worklog = new Worklog(`Worklog ${i+1}`, startingAt, endingAt);
+        const startingAtIteration = startingAt.clone().add(durationInMinutes * i, 'minutes')
+        const endingAtIteration = startingAtIteration.clone().add(durationInMinutes, 'minutes');
+        const worklog = new Worklog(`Worklog ${i+1}`, startingAtIteration.toDate(), endingAtIteration.toDate());
         worklogs.push(worklog);
-        startingAt = endingAt;
     }
     return new WorklogSet(new Date(), new Date(), worklogs);
 }
@@ -134,12 +127,13 @@ function getTestSubject({
     taskTag = 'HarvestTaskTag'
 } = {}) {
     const formatterConfiguration = {};
-    const formatter = new FormatterBase(formatterConfiguration);
+    const appConfiguration = { options: { timeZone: 'America/Toronto' } };
+    const formatter = new FormatterBase(formatterConfiguration, appConfiguration);
     const outputConfiguration = {
         selectProjectFromTag: projectTag,
         selectTaskFromTag: taskTag
     };
-    return new HarvestAppOutput(formatter, outputConfiguration, { HarvestClient: fakeHarvestClientClass });
+    return new HarvestAppOutput(formatter, outputConfiguration, appConfiguration, { HarvestClient: fakeHarvestClientClass });
 }
 
 function getFakeHarvestClientClass({

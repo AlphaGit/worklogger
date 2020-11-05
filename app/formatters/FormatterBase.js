@@ -1,7 +1,8 @@
 module.exports = class FormatterBase {
-    constructor(formatterConfiguration) {
+    constructor(formatterConfiguration, appConfiguration) {
         if (!formatterConfiguration) throw new Error('Formatter configuration object is required.');
         this._configuration = formatterConfiguration;
+        this._appConfiguration = appConfiguration;
     }
 
     format() {

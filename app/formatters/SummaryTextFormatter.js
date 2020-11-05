@@ -3,8 +3,8 @@ const FormatterBase = require('app/formatters/FormatterBase');
 const logger = require('app/services/loggerFactory').getLogger('SummaryTextFormatter');
 
 module.exports = class SummaryTextFormatter extends FormatterBase {
-    constructor(formatterConfiguration) {
-        super(formatterConfiguration);
+    constructor(formatterConfiguration, appConfiguration) {
+        super(formatterConfiguration, appConfiguration);
     }
 
     format(worklogSet) {

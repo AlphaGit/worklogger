@@ -1,5 +1,7 @@
+const moment = require('moment-timezone');
+
 class RelativeTime {
-    constructor(fromNow, unit) {
+    constructor(fromNow, unit, timeZone) {
         this._buildDisplacementMappings();
 
         this._validateFromNowValue(fromNow);
@@ -7,6 +9,7 @@ class RelativeTime {
 
         this._fromNow = fromNow;
         this._unit = unit;
+        this._timeZone = timeZone;
     }
 
     _validateUnitValue(unit) {
@@ -42,30 +45,21 @@ class RelativeTime {
         }
 
         this._displacementMappings = [
-            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_LAST, (dt) => dt.setMinutes(-60, 0, 0)),
-            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_THIS, (dt) => dt.setMinutes(0, 0, 0)),
-            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setMinutes(60, 0, 0)),
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_LAST, (dt) => dt.startOf('hour').subtract(1, 'hours')),
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_THIS, (dt) => dt.startOf('hour')),
+            getMap(RelativeTime.UNIT_HOUR, RelativeTime.FROM_NOW_NEXT, (dt) => dt.startOf('hour').add(1, 'hours')),
 
-            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_LAST, (dt) => dt.setHours(-24, 0, 0, 0)),
-            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_THIS, (dt) => dt.setHours(0, 0, 0, 0)),
-            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setHours(24, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_LAST, (dt) => dt.startOf('day').subtract(1, 'day')),
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_THIS, (dt) => dt.startOf('day')),
+            getMap(RelativeTime.UNIT_DAY, RelativeTime.FROM_NOW_NEXT, (dt) => dt.startOf('day').add(1, 'day')),
 
-            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_LAST, (dt) => dt.setHours((-dt.getDay() - 7) * 24, 0, 0, 0)),
-            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_THIS, (dt) => dt.setHours((-dt.getDay()) * 24, 0, 0, 0)),
-            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_NEXT, (dt) => dt.setHours((-dt.getDay() + 7) * 24, 0, 0, 0)),
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_LAST, (dt) => dt.startOf('week').subtract(1, 'week')),
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_THIS, (dt) => dt.startOf('week')),
+            getMap(RelativeTime.UNIT_WEEK, RelativeTime.FROM_NOW_NEXT, (dt) => dt.startOf('week').add(1, 'week')),
 
-            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_LAST, (dt) => {
-                dt.setMonth(dt.getMonth() - 1, 1);
-                dt.setHours(0, 0, 0, 0);
-            }),
-            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_THIS, (dt) => {
-                dt.setMonth(dt.getMonth(), 1);
-                dt.setHours(0, 0, 0, 0);
-            }),
-            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_NEXT, (dt) => {
-                dt.setMonth(dt.getMonth() + 1, 1);
-                dt.setHours(0, 0, 0, 0);
-            }),
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_LAST, (dt) => dt.startOf('month').subtract(1, 'month')),
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_THIS, (dt) => dt.startOf('month')),
+            getMap(RelativeTime.UNIT_MONTH, RelativeTime.FROM_NOW_NEXT, (dt) => dt.startOf('month').add(1, 'month')),
         ];
     }
 
@@ -74,9 +68,9 @@ class RelativeTime {
             .find(m => m.unit === this._unit && m.fromNow === this._fromNow)
             .displacementFn;
 
-        let resultDate = new Date();
+        let resultDate = moment.tz(this._timeZone);
         displacementFn(resultDate);
-        return resultDate;
+        return resultDate.toDate();
     }
 }
 

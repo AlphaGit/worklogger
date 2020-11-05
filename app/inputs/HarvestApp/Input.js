@@ -1,6 +1,6 @@
 const logger = require('app/services/loggerFactory').getLogger('inputs/HarvestApp/Input');
 const { calculateDurationInMinutes } = require('app/services/durationCalculator');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const RequiredHarvestClient = require('app/services/HarvestClient');
 
@@ -50,18 +50,20 @@ module.exports = class Input {
                 return null;
             }
 
+            const timeZone = this._appConfiguration.options.timeZone;
+
             let startTime, endTime, duration;
 
             // Harvest has two types of company configuration:
             // 1. Timers enabled, in which case, time entries have a spent_date, a start and an end time
             // 2. Timers disabled, in which case, time entries have a spent_date and a duration (hours)
             if (canGetTimeFromStartAndEnd) {
-                startTime = moment(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma').toDate();
-                endTime = moment(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma').toDate();
+                startTime = moment.tz(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
+                endTime = moment.tz(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
                 duration = calculateDurationInMinutes(endTime, startTime, minimumLoggableTimeSlotInMinutes);
             } else {
-                startTime = moment(te.spent_date).toDate();
-                endTime = moment(te.spent_date).add(te.hours, 'hours').toDate();
+                startTime = moment.tz(te.spent_date, timeZone).toDate();
+                endTime = moment.tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
                 duration = te.hours * 60;
             }
 

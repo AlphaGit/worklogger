@@ -1,24 +1,24 @@
 const logger = require('app/services/loggerFactory').getLogger('services/outputLoader');
 const conditionLoader = require('app/services/conditionLoader');
 
-function loadOutputs(outputConfigurations) {
+function loadOutputs(outputConfigurations, appConfiguration) {
     return outputConfigurations.map(outputConfig => {
-        const output = loadOuput(outputConfig);
+        const output = loadOuput(outputConfig, appConfiguration);
         const condition = conditionLoader.loadCondition(outputConfig.condition);
         const excludeFromNonProcessedWarning = !!outputConfig.excludeFromNonProcessedWarning;
         return { output, condition, excludeFromNonProcessedWarning };
     });
 }
 
-function loadOuput(outputConfiguration) {
+function loadOuput(outputConfiguration, appConfiguration) {
     const outputType = outputConfiguration.type;
-    const formatter = loadFormatter(outputConfiguration.formatter);
+    const formatter = loadFormatter(outputConfiguration.formatter, appConfiguration);
 
     const Output = require(`app/outputs/${outputType}/Output`);
-    return new Output(formatter, outputConfiguration);
+    return new Output(formatter, outputConfiguration, appConfiguration);
 }
 
-function loadFormatter(formatterConfiguration) {
+function loadFormatter(formatterConfiguration, appConfiguration) {
     formatterConfiguration = (formatterConfiguration || {});
     let formatterType = formatterConfiguration.type;
 
@@ -30,7 +30,7 @@ function loadFormatter(formatterConfiguration) {
         logger.debug('Loading No-Format formatter');
         Formatter = require('app/formatters/NoFormatFormatter');
     }
-    return new Formatter(formatterConfiguration);
+    return new Formatter(formatterConfiguration, appConfiguration);
 }
 
 module.exports.loadOutputs = loadOutputs;

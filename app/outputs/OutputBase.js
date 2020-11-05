@@ -2,11 +2,12 @@ const FormatterBase = require('app/formatters/FormatterBase');
 const WorklogSet = require('app/models/WorklogSet');
 
 module.exports = class OutputBase {
-    constructor(formatter, outputConfiguration) {
+    constructor(formatter, outputConfiguration, appConfiguration) {
         if (!(formatter instanceof FormatterBase)) throw new Error('Formatter is required.');
 
         this._formatter = formatter;
         this._configuration = outputConfiguration;
+        this._appConfiguration = appConfiguration;
     }
 
     outputWorklogSet(worklogSet) {

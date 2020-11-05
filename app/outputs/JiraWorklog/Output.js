@@ -1,11 +1,11 @@
 const OutputBase = require('../OutputBase');
 const JiraClientRequired = require('./JiraClient');
 const logger = require('app/services/loggerFactory').getLogger('outputs/JiraWorklog');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 module.exports = class JiraWorklogOutput extends OutputBase {
-    constructor(formatter, outputConfiguration, { JiraClient = JiraClientRequired } = {}) {
-        super(formatter, outputConfiguration);
+    constructor(formatter, outputConfiguration, appConfiguration, { JiraClient = JiraClientRequired } = {}) {
+        super(formatter, outputConfiguration, appConfiguration);
 
         const baseUrl = outputConfiguration.JiraUrl;
         const userName = outputConfiguration.JiraUsername;
@@ -41,9 +41,11 @@ module.exports = class JiraWorklogOutput extends OutputBase {
     }
 
     _mapToJiraWorklog(worklog) {
+        const timeZone = this._appConfiguration.timeZone;
+
         return {
             comment: worklog.name,
-            started: moment(worklog.startDateTime).format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
+            started: moment.tz(worklog.startDateTime, timeZone).format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
             timeSpent: worklog.duration + 'm'
         };
     }

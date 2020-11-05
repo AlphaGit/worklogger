@@ -44,7 +44,10 @@
                 // for other relative option, calculated from this current moment
                 "offset": "0" // 0 | (+|-) <number> <m|h|d|w|M>
             }
-        }
+        },
+
+        // Optional, falls back to the current environment local timezone
+        "timeZone": "America/Toronto"
     },
     "inputs": [{
         "type": "string",

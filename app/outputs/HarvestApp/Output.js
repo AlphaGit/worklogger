@@ -1,11 +1,11 @@
 const OutputBase = require('app/outputs/OutputBase');
 const RequiredHarvestClient = require('app/services/HarvestClient');
 const logger = require('app/services/loggerFactory').getLogger('HarvestApp/Output');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 module.exports = class HarvestAppOutput extends OutputBase {
-    constructor(formatter, outputConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
-        super(formatter, outputConfiguration);
+    constructor(formatter, outputConfiguration, appConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
+        super(formatter, outputConfiguration, appConfiguration);
 
         this._harvestClient = new HarvestClient(outputConfiguration);
     }
@@ -42,12 +42,14 @@ module.exports = class HarvestAppOutput extends OutputBase {
     }
 
     _getTimeEntryFromWorklogTaskAndProject(worklog, project, task) {
+        const timeZone = this._appConfiguration.options.timeZone;
+
         return {
             project_id: project.projectId,
             task_id: task.taskId,
-            spent_date: moment(worklog.startDateTime).format('YYYY-MM-DD'),
-            started_time: moment(worklog.startDateTime).format('hh:mma'),
-            ended_time: moment(worklog.endDateTime).format('hh:mma'),
+            spent_date: moment(worklog.startDateTime, timeZone).format('YYYY-MM-DD'),
+            started_time: moment(worklog.startDateTime, timeZone).format('hh:mma'),
+            ended_time: moment(worklog.endDateTime, timeZone).format('hh:mma'),
             hours: worklog.duration / 60,
             notes: worklog.name,
             is_running: false

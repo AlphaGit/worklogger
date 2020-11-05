@@ -1,5 +1,12 @@
 const assert = require('assert');
 const RelativeTime = require('app/models/RelativeTime');
+const moment = require('moment-timezone');
+
+const defaultTimezone = 'America/Toronto';
+
+function getCurrentMoment() {
+    return moment.tz(defaultTimezone);
+}
 
 describe('RelativeTime', () => {
     describe('#constructor', () => {
@@ -28,21 +35,28 @@ describe('RelativeTime', () => {
         }
 
         it('can be instantiated with the right parameters', () => {
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR, defaultTimezone);
 
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY, defaultTimezone);
 
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK, defaultTimezone);
 
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
-            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH, defaultTimezone);
+            assertCanBeInstantiatedWith(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH, defaultTimezone);
+        });
+
+        it('works in different timezones', () => {
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH, 'America/Buenos_Aires');
+            const lastMonth = getCurrentMoment('America/Buenos_Aires').startOf('month').subtract(1, 'month');
+
+            assert.notStrictEqual(relativeTime.toDate(), lastMonth);
         });
     });
 
@@ -78,105 +92,87 @@ describe('RelativeTime', () => {
 
     describe('#toDate', () => {
         it('returns the right value for last hour', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR);
-            let expectedDate = new Date();
-            expectedDate.setMinutes(-60, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('hour').subtract(1, 'hour');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for this hour', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR);
-            let expectedDate = new Date();
-            expectedDate.setMinutes(0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('hour').subtract(1, 'hour');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for next hour', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR);
-            let expectedDate = new Date();
-            expectedDate.setMinutes(+60, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('hour').add(1, 'hour');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for last day', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY);
-            let expectedDate = new Date();
-            expectedDate.setHours(-24, 0, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('day').subtract(1, 'day');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for this day', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY);
-            let expectedDate = new Date();
-            expectedDate.setHours(0, 0, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('day').subtract(1, 'day');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for next day', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY);
-            let expectedDate = new Date();
-            expectedDate.setHours(24, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('day').add(1, 'day');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for last week', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK);
-            let expectedDate = new Date();
-            const dayOfWeek = expectedDate.getDay();
-            expectedDate.setHours(24 * (-dayOfWeek - 7), 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('week').subtract(1, 'week');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for this week', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK);
-            let expectedDate = new Date();
-            const dayOfWeek = expectedDate.getDay();
-            expectedDate.setHours(24 * -dayOfWeek, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('week');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for next week', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_WEEK);
-            let expectedDate = new Date();
-            const dayOfWeek = expectedDate.getDay();
-            expectedDate.setHours(24 * (7 - dayOfWeek), 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_WEEK, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('week').add(1, 'week');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for last month', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH);
-            let expectedDate = new Date();
-            expectedDate.setMonth(expectedDate.getMonth() - 1, 1);
-            expectedDate.setHours(0, 0, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('month').subtract(1, 'month');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for this month', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH);
-            let expectedDate = new Date();
-            expectedDate.setDate(1);
-            expectedDate.setHours(0, 0, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('month');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
 
         it('returns the right value for next month', () => {
-            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH);
-            let expectedDate = new Date();
-            expectedDate.setMonth(expectedDate.getMonth() + 1, 1);
-            expectedDate.setHours(0, 0, 0, 0, 0);
+            const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH, defaultTimezone);
+            const expectedDate = getCurrentMoment().startOf('month').add(1, 'month');
 
-            assert.equal(+relativeTime.toDate(), +expectedDate);
+            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
         });
     });
 });

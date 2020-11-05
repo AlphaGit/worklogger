@@ -27,7 +27,8 @@
                 "fromNow": "this",
                 "unit": "hour"
             }
-        }
+        },
+        "timeZone": "America/Toronto"
     },
     "inputs": [{
         "type": "GoogleCalendar",

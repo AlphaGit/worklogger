@@ -94,7 +94,7 @@ async function start(passedArguments) {
 
     function loadOutputsAndFormattersAndConditions(environment) {
         const outputLoader = require('app/services/outputLoader');
-        environment.outputs = outputLoader.loadOutputs(environment.appConfiguration.outputs);
+        environment.outputs = outputLoader.loadOutputs(environment.appConfiguration.outputs, environment.appConfiguration);
     }
 
     async function loadFromInputs(environment) {

@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const JiraWorklogOutput = require('app/outputs/JiraWorklog/Output');
 const FormatterBase = require('app/formatters/FormatterBase');
@@ -45,35 +45,27 @@ describe('JiraWorklog output', () => {
             });
 
             const worklogCount = 5;
-            const startingAt = new Date('2017-01-01T07:00-0500');
+            const startingAt = moment.tz('2017-01-01T07:00-0500', 'America/Toronto');
             const worklogSet = getTestWorklogSet({ worklogCount, startingAt, durationInMinutes: 30 });
             worklogSet.worklogs.forEach(w => {
                 w.addTag('JiraTicket', 'PID-123');
             });
 
-            // worklog times are:
-            // 1. 2017-01-01T07:00-0400 to 2017-01-01T07:30-0400
-            // 2. 2017-01-01T07:30-0400 to 2017-01-01T08:00-0400
-            // 3. 2017-01-01T08:00-0400 to 2017-01-01T08:30-0400
-            // 4. 2017-01-01T08:30-0400 to 2017-01-01T09:00-0400
-            // 5. 2017-01-01T09:00-0400 to 2017-01-01T09:30-0400
-
             await output.outputWorklogSet(worklogSet);
-            assert.equal(saveWorklogStub.callCount, worklogSet.worklogs.length);
+            assert.strictEqual(saveWorklogStub.callCount, worklogSet.worklogs.length);
 
             for (let i = 0; i < worklogCount; i++) {
                 const saveWorklogStubArguments = saveWorklogStub.getCall(i).args;
                 const [ ticketIdArgument, jiraWorklogArgument ] = saveWorklogStubArguments;
                 const worklog = worklogSet.worklogs[i];
 
-                assert.equal(ticketIdArgument, 'PID-123');
-                assert.equal(jiraWorklogArgument.comment, worklog.name);
-                let hour = Math.floor(7 + i / 2);
-                if (hour < 10) hour = `0${hour}`;
-                const minutes = i % 2 == 0 ? '00' : '30';
-                const expectedStarted = moment(`2017-01-01T${hour}:${minutes}:00.000-0500`);
-                assert.equal(jiraWorklogArgument.started, expectedStarted.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
-                assert.equal(jiraWorklogArgument.timeSpent, '30m');
+                assert.strictEqual(ticketIdArgument, 'PID-123');
+                assert.strictEqual(jiraWorklogArgument.comment, worklog.name);
+                const expectedStartingAt = startingAt.clone().add(30 * i, 'minutes');
+                assert.strictEqual(jiraWorklogArgument.started, expectedStartingAt.utc().format('YYYY-MM-DDTHH:mm:ss.SSSZZ'));
+                assert.strictEqual(jiraWorklogArgument.timeSpent, '30m');
+
+                
             }
         });
 
@@ -87,7 +79,7 @@ describe('JiraWorklog output', () => {
             });
 
             const worklogCount = 2;
-            const startingAt = new Date('2017-01-01T07:00-0500');
+            const startingAt = moment.tz('2017-01-01T07:00-0500', 'America/Toronto');
             const worklogSet = getTestWorklogSet({ worklogCount, startingAt, durationInMinutes: 30 });
             // worklogSet.worklogs[0]: no JiraTicket tag
             worklogSet.worklogs[1].addTag('JiraTicket', '');
@@ -100,14 +92,14 @@ describe('JiraWorklog output', () => {
 
 function getTestWorklogSet({
     worklogCount = 0,
-    startingAt = new Date('2017-01-01T17:00-0400'),
+    startingAt = moment.tz('2017-01-01T17:00-0400', 'America/Toronto'),
     durationInMinutes = 30
 } = {}) {
     const worklogs = [];
     for (let i = 0; i < worklogCount; i++) 
     {
-        const endingAt = new Date(+startingAt + durationInMinutes * 60 * 1000);
-        const worklog = new Worklog(`Worklog ${i+1}`, startingAt, endingAt);
+        const endingAt = startingAt.clone().add(durationInMinutes, 'minutes');
+        const worklog = new Worklog(`Worklog ${i+1}`, startingAt.toDate(), endingAt.toDate());
         worklogs.push(worklog);
         startingAt = endingAt;
     }
@@ -121,9 +113,10 @@ function getTestSubject({
     JiraPassword = 'password'
 } = {}) {
     const formatterConfiguration = {};
-    const formatter = new FormatterBase(formatterConfiguration);
+    const appConfiguration = { options: { timeZone: 'America/Toronto' } };
+    const formatter = new FormatterBase(formatterConfiguration, appConfiguration);
     const outputConfiguration = { JiraUrl, JiraUsername, JiraPassword };
-    return new JiraWorklogOutput(formatter, outputConfiguration, { JiraClient: fakeJiraClientClass });
+    return new JiraWorklogOutput(formatter, outputConfiguration, appConfiguration, { JiraClient: fakeJiraClientClass });
 }
 
 function getFakeJiraClientClass({
