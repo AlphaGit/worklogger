@@ -1,7 +1,9 @@
-name: PR Tests
+name: Run tests
 
 on:
-  - pull_request
+  pull_request:
+  push:
+    - master   
 
 jobs:
   build:
@@ -12,10 +14,14 @@ jobs:
         node-version: [10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: yarn
+
     - run: yarn test:all
