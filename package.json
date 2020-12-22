@@ -14,7 +14,7 @@
     "test": "mocha tests/allTestBase.js 'tests/**/*.js'",
     "lint": "eslint --format table .",
     "lint:fix": "eslint --fix .",
-    "tslint": "tslint -c tslint.json 'app/**/*.ts'",
+    "tslint": "tslint -c tslint.json --format stylish 'app/**/*.ts'",
     "watch:test": "watch \"npm test\" app tests",
     "watch:all": "watch \"npm run test:all\" app tests"
   },
