@@ -1,7 +1,11 @@
-const Worklog = require('app/models/Worklog');
-const logger = require('app/services/loggerFactory').getLogger('actions/addTags');
+import Worklog from 'app/models/Worklog';
+import LoggerFactory from 'app/services/loggerFactory';
 
-module.exports = class AddTagsAction {
+const logger = LoggerFactory.getLogger('actions/addTags');
+
+export class AddTagsAction {
+    private tagsToAdd: any;
+
     constructor(configuration) {
         if (!configuration || !Array.isArray(configuration.tagsToAdd))
             throw new Error('Required configuration: tagsToAdd.');
@@ -9,13 +13,28 @@ module.exports = class AddTagsAction {
         if (Array.isArray(configuration.tagsToAdd) && !configuration.tagsToAdd.length)
             throw new Error('Configuration cannot be empty: tagsToAdd.');
 
-        if (configuration.tagsToAdd.some(tag => !this._validateTagObject(tag)))
+        if (configuration.tagsToAdd.some(tag => !this.validateTagObject(tag)))
             throw new Error('Tags need to be valid tag-configuration objects.');
 
-        this._tagsToAdd = configuration.tagsToAdd;
+        this.tagsToAdd = configuration.tagsToAdd;
     }
 
-    _validateTagObject(tagObject) {
+    public apply(worklog) {
+        if (!(worklog instanceof Worklog))
+            throw new Error('Apply: a Worklog is required.');
+
+        this.tagsToAdd.forEach(tag => {
+            const tagValue = tag.value || this.extractCaptureFromSummary(worklog.name, tag.extractCaptureFromSummary);
+            worklog.addTag(tag.name, tagValue);
+        });
+    }
+
+    public toString() {
+        const tags = this.tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${t.extractCaptureFromSummary})`}]`);
+        return `AddTags: ${tags.join(' ')}`;
+    }
+
+    private validateTagObject(tagObject) {
         if (!tagObject) return false;
         if (!(typeof(tagObject) === 'object')) return false;
 
@@ -25,7 +44,7 @@ module.exports = class AddTagsAction {
         return true;
     }
 
-    _extractCaptureFromSummary(summary, regexText) {
+    private extractCaptureFromSummary(summary, regexText) {
         try {
             const regex = new RegExp(regexText);
             const result = regex.exec(summary);
@@ -41,20 +60,5 @@ module.exports = class AddTagsAction {
             logger.error(`Error while processing regex ${regexText} against text ${summary}`, e);
             return undefined;
         }
-    }
-
-    apply(worklog) {
-        if (!(worklog instanceof Worklog))
-            throw new Error('Apply: a Worklog is required.');
-
-        this._tagsToAdd.forEach(tag => {
-            const tagValue = tag.value || this._extractCaptureFromSummary(worklog.name, tag.extractCaptureFromSummary);
-            worklog.addTag(tag.name, tagValue);
-        });
-    }
-
-    toString() {
-        const tags = this._tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${t.extractCaptureFromSummary})`}]`)
-        return `AddTags: ${tags.join(' ')}`;
     }
 };
