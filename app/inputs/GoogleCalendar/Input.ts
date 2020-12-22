@@ -1,18 +1,28 @@
-const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput');
+import { LoggerFactory } from 'app/services/loggerFactory';
 
-const googleApisRequired = require('googleapis').google;
+const logger = LoggerFactory.getLogger('GoogleCalendarInput');
 
-const ModelMapperRequired = require('./ModelMapper');
+import { googleApis } from 'googleapis';
+const googleApisRequired = googleApis.google;
 
-const util = require('util');
+import { ModelMapperRequired } from './ModelMapper';
 
-module.exports = class Input {
+import { util } from 'util';
+
+export class Input {
+    private inputConfiguration: any;
+    private ModelMapper: any;
+    private fileLoader: any;
+    private getCalendarEvents: (query: any) => any;
+    private OAuth2: any;
+    private appConfiguration: any;
+
     constructor(
         serviceRegistrations,
         appConfiguration,
         inputConfiguration,
         googleApi = googleApisRequired,
-        ModelMapper = ModelMapperRequired
+        ModelMapper = ModelMapperRequired,
     ) {
         if (!serviceRegistrations)
             throw new Error('ServiceRegistrations for GoogleCalendarInput is required');
@@ -26,32 +36,18 @@ module.exports = class Input {
         const events = googleApi.calendar('v3').events;
         const listEvents = events.list.bind(events);
         this.getCalendarEvents = (query) => util.promisify(listEvents)(query);
-        
+
         this.OAuth2 = googleApi.auth.OAuth2;
     }
 
-    set inputConfiguration(value) {
-        if (!value)
-            throw new Error('Configuration for GoogleCalendarInput is required');
-
-        this._inputConfiguration = value;
+    public name() {
+        return this.inputConfiguration.name;
     }
 
-    get name() {
-        return this._inputConfiguration.name;
-    }
-
-    set appConfiguration(value) {
-        if (!value)
-            throw new Error('Application configuration is required');
-
-        this._appConfiguration = value;
-    }
-
-    async getWorkLogs(startDateTime, endDateTime) {
+    public async getWorkLogs(startDateTime, endDateTime) {
         logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
-        const storageRelativePath = this._inputConfiguration.storageRelativePath;
+        const storageRelativePath = this.inputConfiguration.storageRelativePath;
 
         const clientSecretPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_client_secret.json';
         const credentials = await this.fileLoader.loadJson(clientSecretPath);
@@ -75,26 +71,26 @@ module.exports = class Input {
         return this._mapToDomainModel(apiResponses);
     }
 
-    async _getEventsFromApi(auth, startDateTime, endDateTime) {
-        var calendarReturnPromises = this._inputConfiguration.calendars
+    private async _getEventsFromApi(auth, startDateTime, endDateTime) {
+        const calendarReturnPromises = this.inputConfiguration.calendars
             .map(calendarId => this._getEventsFromApiSingleCalendar(auth, calendarId, startDateTime, endDateTime));
         return await Promise.all(calendarReturnPromises);
     }
 
-    async _getEventsFromApiSingleCalendar(auth, calendar, startDateTime, endDateTime) {
+    private async _getEventsFromApiSingleCalendar(auth, calendar, startDateTime, endDateTime) {
         logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
 
         logger.debug('Retrieving entries from calendar', calendar.id);
 
         try {
             const calendarResponse = await this.getCalendarEvents({
-                auth: auth,
+                auth,
                 calendarId: calendar.id,
-                timeMin: startDateTime.toISOString(),
-                timeMax: endDateTime.toISOString(),
                 maxResults: 2500,
+                orderBy: 'startTime',
                 singleEvents: true,
-                orderBy: 'startTime'
+                timeMax: endDateTime.toISOString(),
+                timeMin: startDateTime.toISOString(),
             });
 
             const calendarEvents = calendarResponse.data.items
@@ -102,15 +98,15 @@ module.exports = class Input {
 
             return {
                 calendarConfig: calendar,
-                events: calendarEvents
-            }
+                events: calendarEvents,
+            };
         } catch (err) {
             throw new Error(`The API returned an error: ${err}`);
         }
     }
 
-    _mapToDomainModel(apiResponses) {
-        const minimumLoggableTimeSlotInMinutes = this._appConfiguration.options.minimumLoggableTimeSlotInMinutes;
+    private _mapToDomainModel(apiResponses) {
+        const minimumLoggableTimeSlotInMinutes = this.appConfiguration.options.minimumLoggableTimeSlotInMinutes;
         const mapper = new this.ModelMapper(minimumLoggableTimeSlotInMinutes);
         return mapper.map(apiResponses);
     }
