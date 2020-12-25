@@ -1,6 +1,6 @@
-const assert = require('assert');
-const TrueCondition = require('app/conditions/true');
-const Worklog = require('app/models/Worklog');
+import assert = require('assert');
+import { TrueCondition } from '../../../app/conditions/True/True';
+import { Worklog } from '../../../app/models/Worklog';
 
 describe('True condition', () => {
     describe('constructor', () => {
