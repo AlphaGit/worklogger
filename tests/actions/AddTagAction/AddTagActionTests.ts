@@ -1,8 +1,8 @@
-const assert = require('assert');
-const AddTagsAction = require('app/actions/addTags');
-const Worklog = require('app/models/Worklog');
+import assert = require('assert');
+import { AddTagAction } from '../../../app/actions/addTags/AddTagAction';
+import { Worklog } from '../../../app/models/Worklog';
 
-describe('addTags', () => {
+describe('AddTagAction', () => {
     describe('#constructor', () => {
         it('requires tagsToAdd configuration', () => {
             assertConfigurationIsRequired();
@@ -10,16 +10,16 @@ describe('addTags', () => {
             assertConfigurationIsRequired({ tagsToAdd: 1 });
         });
 
-        function assertConfigurationIsRequired(configuration) {
-            assert.throws(() => new AddTagsAction(configuration), /Required configuration: tagsToAdd\./);
+        function assertConfigurationIsRequired(configuration?) {
+            assert.throws(() => new AddTagAction(configuration), /Required configuration: tagsToAdd\./);
         }
 
         it('requires a non-empty tagsToAdd configuration', () => {
-            assert.throws(() => new AddTagsAction({ tagsToAdd: [] }), /Configuration cannot be empty: tagsToAdd\./);
+            assert.throws(() => new AddTagAction({ tagsToAdd: [] }), /Configuration cannot be empty: tagsToAdd\./);
         });
 
         function assertInvalidTagObjectThrows(tagObject) {
-            const instantiationAction = () => new AddTagsAction({ tagsToAdd: [ tagObject ] });
+            const instantiationAction = () => new AddTagAction({ tagsToAdd: [ tagObject ] });
             assert.throws(instantiationAction, /Tags need to be valid tag-configuration objects./);
         }
 
@@ -35,8 +35,8 @@ describe('addTags', () => {
         });
 
         it('can be instantiated', () => {
-            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: [{ name: 'tag1', value: 'value1' }] }));
-            assert.doesNotThrow(() => new AddTagsAction({ tagsToAdd: [{ name: 'tag1', extractCaptureFromSummary: '(\\w+)' }] }));
+            assert.doesNotThrow(() => new AddTagAction({ tagsToAdd: [{ name: 'tag1', value: 'value1' }] }));
+            assert.doesNotThrow(() => new AddTagAction({ tagsToAdd: [{ name: 'tag1', extractCaptureFromSummary: '(\\w+)' }] }));
         });
     });
 
@@ -47,7 +47,7 @@ describe('addTags', () => {
 
         it('requires a Worklog as a parameter', () => {
             const tagsToAdd = [{ name: 'tag1', value: 'value1' }];
-            const addTagsAction = new AddTagsAction({ tagsToAdd });
+            const addTagsAction = new AddTagAction({ tagsToAdd });
             assertWorklogIsRequired(addTagsAction, 1);
             assertWorklogIsRequired(addTagsAction, {});
 
@@ -57,7 +57,7 @@ describe('addTags', () => {
         describe('fixed values', () => {
             it('adds the specified tags to the worklog (fixed values)', () => {
                 const tagsToAdd = [{ name: 'tag1', value: 'value1' }, { name: 'tag2', value: 'value2' }];
-                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const addTagsAction = new AddTagAction({ tagsToAdd });
                 const worklog = new Worklog('name', new Date(), new Date());
 
                 addTagsAction.apply(worklog);
@@ -70,7 +70,7 @@ describe('addTags', () => {
         describe('extractCaptureFromSummary', () => {
             it('adds the specified tags to the worklog', () => {
                 const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(\\w+)' }];
-                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const addTagsAction = new AddTagAction({ tagsToAdd });
                 const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
 
                 addTagsAction.apply(worklog);
@@ -80,7 +80,7 @@ describe('addTags', () => {
 
             it('does not set the tag if it could not match the regex', () => {
                 const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(abc)' }];
-                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const addTagsAction = new AddTagAction({ tagsToAdd });
                 const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
 
                 addTagsAction.apply(worklog);
@@ -90,7 +90,7 @@ describe('addTags', () => {
 
             it('does not set the tag if the regex cannot be compiled', () => {
                 const tagsToAdd = [{ name: 'tag1', extractCaptureFromSummary: '(invalid regex' }];
-                const addTagsAction = new AddTagsAction({ tagsToAdd });
+                const addTagsAction = new AddTagAction({ tagsToAdd });
                 const worklog = new Worklog('   worklog summary   ', new Date(), new Date());
 
                 addTagsAction.apply(worklog);

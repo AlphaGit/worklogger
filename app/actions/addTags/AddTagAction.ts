@@ -1,8 +1,14 @@
-const Worklog = require('app/models/Worklog');
-const logger = require('app/services/loggerFactory').getLogger('actions/addTags');
+import { Worklog } from '../../models/Worklog';
+import LoggerFactory from '../../services/LoggerFactory';
+import { AddTagConfiguration } from './AddTagConfiguration';
+import { AddTagDefinition } from './AddTagDefinition';
 
-module.exports = class AddTagsAction {
-    constructor(configuration) {
+const logger = LoggerFactory.getLogger('actions/addTags');
+
+export class AddTagAction {
+    private _tagsToAdd: AddTagDefinition[];
+
+    constructor(configuration: AddTagConfiguration) {
         if (!configuration || !Array.isArray(configuration.tagsToAdd))
             throw new Error('Required configuration: tagsToAdd.');
 
@@ -15,7 +21,7 @@ module.exports = class AddTagsAction {
         this._tagsToAdd = configuration.tagsToAdd;
     }
 
-    _validateTagObject(tagObject) {
+    _validateTagObject(tagObject: AddTagDefinition): boolean {
         if (!tagObject) return false;
         if (!(typeof(tagObject) === 'object')) return false;
 
@@ -25,7 +31,7 @@ module.exports = class AddTagsAction {
         return true;
     }
 
-    _extractCaptureFromSummary(summary, regexText) {
+    _extractCaptureFromSummary(summary: string, regexText: string): string | undefined {
         try {
             const regex = new RegExp(regexText);
             const result = regex.exec(summary);
@@ -43,7 +49,7 @@ module.exports = class AddTagsAction {
         }
     }
 
-    apply(worklog) {
+    apply(worklog: Worklog): void {
         if (!(worklog instanceof Worklog))
             throw new Error('Apply: a Worklog is required.');
 
@@ -53,8 +59,8 @@ module.exports = class AddTagsAction {
         });
     }
 
-    toString() {
+    toString(): string {
         const tags = this._tagsToAdd.map(t => `[${t.name}: ${t.value || `Regex(${t.extractCaptureFromSummary})`}]`)
         return `AddTags: ${tags.join(' ')}`;
     }
-};
+}

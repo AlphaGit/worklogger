@@ -2,7 +2,7 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint/eslint-plugin"
     ],
     "parserOptions": {
         "ecmaVersion": 2019,
@@ -17,12 +17,20 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
     ],
-    "rules": {
-        "indent": [ "error", 4 ],
-        "linebreak-style": [ "error", "windows" ],
-        "quotes": [ "error", "single" ],
-        "no-console": "warn"
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [ ".js", ".ts" ],
+                "moduleDirectory": [
+                    "node_modules",
+                    "."
+                ]
+            }
+        }
     }
 }

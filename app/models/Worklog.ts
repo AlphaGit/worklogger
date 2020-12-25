@@ -1,6 +1,12 @@
-class Worklog {
-    constructor(name, startDateTime, endDateTime,
-        duration = (endDateTime - startDateTime) / (60 * 1000) // duration in minutes
+export class Worklog {
+    name: string;
+    startDateTime: Date;
+    endDateTime: Date;
+    duration: number;
+    private _tags: Record<string,string>;
+
+    constructor(name: string, startDateTime: Date, endDateTime: Date,
+        duration: number = (endDateTime.getTime() - startDateTime.getTime()) / (60 * 1000) // duration in minutes
     ) {
         this._validateStartDateTime(startDateTime);
         this._validateEndDateTime(endDateTime);
@@ -13,35 +19,35 @@ class Worklog {
         this._tags = {};
     }
 
-    _validateEndDateTime(endDateTime) {
+    _validateEndDateTime(endDateTime: Date): void {
         if (!endDateTime) throw new Error('Missing endDateTime parameter');
         if (!(endDateTime instanceof Date)) throw new Error('endDateTime needs to be a Date.');
     }
 
-    _validateStartDateTime(startDateTime) {
+    _validateStartDateTime(startDateTime: Date): void {
         if (!startDateTime) throw new Error('Missing startDateTime parameter');
         if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
     }
 
-    toString() {
+    toString(): string {
         let string = `${this.name || '(No name)'} (${this.duration} minutes)`;
-        for (let tagName in this._tags) {
+        for (const tagName in this._tags) {
             const tagValue = this._tags[tagName];
             string += `\n    ${tagName}:${tagValue}`;
         }
         return string;
     }
 
-    toOneLinerString() {
+    toOneLinerString(): string {
         let string = `(${this.getShortDuration()}) ${this.name}`;
-        for (let tagName in this._tags) {
+        for (const tagName in this._tags) {
             const tagValue = this._tags[tagName];
             string += ` [${tagName}:${tagValue}]`;
         }
         return string;
     }
 
-    getShortDuration() {
+    getShortDuration(): string {
         const hours = Math.floor(this.duration / 60);
         const minutes = this.duration % 60;
 
@@ -51,20 +57,18 @@ class Worklog {
         return parts.join(' ');
     }
 
-    addTag(name, value) {
+    addTag(name: string, value: string): void {
         this._validateTagName(name);
         this._tags[name] = value;
     }
 
-    getTagValue(name) {
+    getTagValue(name: string): string {
         this._validateTagName(name);
         return this._tags[name];
     }
 
-    _validateTagName(tagName) {
+    _validateTagName(tagName: string): void {
         if (tagName == null || tagName == undefined) throw new Error('Tag names cannot be empty');
         if (typeof(tagName) !== 'string') throw new Error('Tag names need to be strings');
     }
 }
-
-module.exports = Worklog;
