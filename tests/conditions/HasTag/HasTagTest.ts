@@ -1,6 +1,6 @@
-const assert = require('assert');
-const HasTagCondition = require('app/conditions/hasTag');
-const Worklog = require('app/models/Worklog');
+import assert = require('assert');
+import { HasTagCondition } from '../../../app/conditions/HasTag/HasTag';
+import { Worklog } from '../../../app/models/Worklog';
 
 describe('HasTagCondition', () => {
     describe('#constructor', () => {

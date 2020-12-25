@@ -1,5 +1,5 @@
 import assert = require('assert');
-import { AddTagAction } from '../../../app/actions/addTags/AddTagAction';
+import { AddTagAction } from '../../../app/actions/AddTag/AddTagAction';
 import { Worklog } from '../../../app/models/Worklog';
 
 describe('AddTagAction', () => {
