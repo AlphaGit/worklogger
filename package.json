@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "cover": "nyc --include=app/**/*.js mocha tests/allTestBase.js 'tests/**/*.js'",
+    "cover": "nyc --include='app/**/*.ts' yarn test",
     "test:all": "npm run lint && npm run cover",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "lint": "eslint --format table '**/*.ts'",
