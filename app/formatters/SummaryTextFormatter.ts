@@ -1,13 +1,12 @@
-const WorklogSet = require('app/models/WorklogSet');
-const FormatterBase = require('app/formatters/FormatterBase');
-const logger = require('app/services/loggerFactory').getLogger('SummaryTextFormatter');
+import { WorklogSet } from '../models/WorklogSet';
+import { FormatterBase } from './FormatterBase';
+import LoggerFactory from '../../app/services/LoggerFactory';
+import { Worklog } from '../models/Worklog';
+import { SummaryTextFormatterConfiguration } from './SummaryTextFormatterConfiguration';
+const logger = LoggerFactory.getLogger('SummaryTextFormatter');
 
-module.exports = class SummaryTextFormatter extends FormatterBase {
-    constructor(formatterConfiguration, appConfiguration) {
-        super(formatterConfiguration, appConfiguration);
-    }
-
-    format(worklogSet) {
+export class SummaryTextFormatter extends FormatterBase {
+    format(worklogSet: WorklogSet): string {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 
         const startDateTime = worklogSet.startDateTime.toISOString();
@@ -19,7 +18,7 @@ module.exports = class SummaryTextFormatter extends FormatterBase {
 
         const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
 
-        let outputLines = [];
+        let outputLines: string[] = [];
         outputLines.push(`Worklogs from ${startDateTime} to ${endDateTime}.`);
         outputLines.push('');
 
@@ -34,23 +33,25 @@ module.exports = class SummaryTextFormatter extends FormatterBase {
         return output;
     }
 
-    _getWorklogDurationSumInMinutes(worklogs) {
+    _getWorklogDurationSumInMinutes(worklogs: Worklog[]): number {
         return worklogs
             .map(w => w.duration)
             .reduce((d1, d2) => d1 + d2, 0);
     }
 
-    _getTotalHsMsString(totalDurationMinutes) {
+    _getTotalHsMsString(totalDurationMinutes: number): string {
         const totalHours = Math.floor(totalDurationMinutes / 60);
         const minutes = totalDurationMinutes % 60;
 
         return `${totalHours}hs ${minutes}m`;
     }
 
-    _generateAggregations(worklogSet) {
-        if (!this._configuration.aggregateByTags) return [];
+    _generateAggregations(worklogSet: WorklogSet): string[][] {
+        const configuration = this._configuration as SummaryTextFormatterConfiguration;
 
-        return this._configuration.aggregateByTags
+        if (!configuration.aggregateByTags) return [];
+
+        return configuration.aggregateByTags
             .map(tags => {
                 const aggregationLines = this._generateAggregationLines(worklogSet.worklogs, tags);
                 return [
@@ -62,14 +63,14 @@ module.exports = class SummaryTextFormatter extends FormatterBase {
             });
     }
 
-    _generateAggregationLines(worklogs, tags, indentationLevel = 1) {
+    _generateAggregationLines(worklogs: Worklog[], tags: string[], indentationLevel = 1): string[] {
         if (!worklogs || !worklogs.length || !tags || !tags.length) return [];
 
         const [firstTag, ...restTags] = tags;
-        let worklogsByTagValue = this._groupBy(worklogs, firstTag);
+        const worklogsByTagValue = this._groupBy(worklogs, firstTag);
 
         let aggregatedSummaries = [];
-        for (let worklogGrouping of worklogsByTagValue) {
+        for (const worklogGrouping of worklogsByTagValue) {
             const groupingTagValue = worklogGrouping.key || '(no value)';
             const workslogsInGroup = worklogGrouping.value;
 
@@ -84,11 +85,11 @@ module.exports = class SummaryTextFormatter extends FormatterBase {
         return aggregatedSummaries;
     }
 
-    _groupBy(worklogs, tag) {
+    _groupBy(worklogs: Worklog[], tag: string): Record<string, Worklog[]>[] {
         const groupKeys = [];
         const groupValuesByGroupKey = {};
 
-        for (let worklog of worklogs) {
+        for (const worklog of worklogs) {
             const tagValue = worklog.getTagValue(tag);
 
             // using Array.indexOf instead of !!groupValuesByGroupKey[tagValue]
@@ -102,10 +103,10 @@ module.exports = class SummaryTextFormatter extends FormatterBase {
         }
 
         const keyValueGroups = [];
-        for (let key of groupKeys) {
+        for (const key of groupKeys) {
             keyValueGroups.push({ key, value: groupValuesByGroupKey[key] });
         }
 
         return keyValueGroups;
     }
-};
+}

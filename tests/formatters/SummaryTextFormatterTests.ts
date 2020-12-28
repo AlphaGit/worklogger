@@ -1,9 +1,9 @@
-const assert = require('assert');
-const SummaryTextFormatter = require('app/formatters/SummaryTextFormatter');
-const Worklog = require('app/models/Worklog');
-const WorklogSet = require('app/models/WorklogSet');
-
-require('tests/harness/log4js').setLevel('off');
+import assert = require('assert');
+import { SummaryTextFormatter } from '../../app/formatters/SummaryTextFormatter';
+import { SummaryTextFormatterConfiguration } from '../../app/formatters/SummaryTextFormatterConfiguration';
+import { AppConfiguration } from '../../app/models/AppConfiguration';
+import { Worklog } from '../../app/models/Worklog';
+import { WorklogSet } from '../../app/models/WorklogSet';
 
 describe('SummaryTextFormatter', () => {
     describe('#format method', () => {
@@ -14,7 +14,7 @@ describe('SummaryTextFormatter', () => {
         it('verifies that it receives a WorklogSet', () => {
             const formatter = getTestSubject();
 
-            assertMissingWorklogSet(formatter);
+            assertMissingWorklogSet(formatter, undefined);
             assertMissingWorklogSet(formatter, null);
             assertMissingWorklogSet(formatter, 1);
             assertMissingWorklogSet(formatter, []);
@@ -44,7 +44,7 @@ describe('SummaryTextFormatter', () => {
             const worklog2 = getExampleWorklogByDuration({ startDateTime: worklog1.endDateTime, m: 1 });
             const worklogSet = getExampleWorklogSet({ worklogs: [worklog1, worklog2] });
 
-            const formatter = getTestSubject(worklogSet);
+            const formatter = getTestSubject();
 
             const result = formatter.format(worklogSet);
 
@@ -56,7 +56,7 @@ describe('SummaryTextFormatter', () => {
             const worklog2 = getExampleWorklogByDuration({ startDateTime: worklog1.endDateTime, h: 1, m: 1 });
             const worklogSet = getExampleWorklogSet({ worklogs: [worklog1, worklog2] });
 
-            const formatter = getTestSubject(worklogSet);
+            const formatter = getTestSubject();
 
             const result = formatter.format(worklogSet);
 
@@ -241,10 +241,9 @@ describe('SummaryTextFormatter', () => {
 function getTestSubject({
     aggregateByTags = []
 } = {}) {
-    const configuration = {
-        aggregateByTags
-    };
-    return new SummaryTextFormatter(configuration);
+    const configuration = new SummaryTextFormatterConfiguration(aggregateByTags);
+    const appConfiguration = new AppConfiguration();
+    return new SummaryTextFormatter(configuration, appConfiguration);
 }
 
 function getExampleWorklog({

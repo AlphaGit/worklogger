@@ -1,15 +1,15 @@
-const assert = require('assert');
-const NoFormatFormatter = require('app/formatters/NoFormatFormatter');
-const Worklog = require('app/models/Worklog');
-const WorklogSet = require('app/models/WorklogSet');
+import assert = require('assert');
+import { NoFormatFormatter } from '../../app/formatters/NoFormatFormatter';
+import { Worklog } from '../../app/models/Worklog';
+import { WorklogSet } from '../../app/models/WorklogSet';
 
 describe('NoFormatFormatter', () => {
     describe('#format', () => {
         it('returns the same object as it is being given', () => {
-            const formatter = new NoFormatFormatter({});
+            const formatter = new NoFormatFormatter({}, {});
             const worklogSet = getExampleWorklogSet();
             const result = formatter.format(worklogSet);
-            assert.deepEqual(result, worklogSet);
+            assert.strictEqual(result, worklogSet.toString());
         });
     });
 });

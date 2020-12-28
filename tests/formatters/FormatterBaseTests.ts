@@ -1,13 +1,10 @@
-const assert = require('assert');
-const FormatterBase = require('app/formatters/FormatterBase');
+import assert = require('assert');
+import { FormatterBase } from '../../app/formatters/FormatterBase';
+import { WorklogSet } from '../../app/models/WorklogSet';
 
 describe('FormatterBase', () => {
     it('can be instantiated', () => {
         assert.doesNotThrow(() => getTestSubject());
-    });
-
-    it('requires a configuration object', () => {
-        assert.throws(() => new FormatterBase(), /Formatter configuration object is required/);
     });
 
     describe('#format', () => {
@@ -18,11 +15,12 @@ describe('FormatterBase', () => {
 
         it('has no implementation', () => {
             const formatter = getTestSubject();
-            assert.throws(() => formatter.format(), /format\(\) needs to be implemented in derived class/);
+            const worklogSet = new WorklogSet(new Date(), new Date(), []);
+            assert.throws(() => formatter.format(worklogSet), /format\(\) needs to be implemented in derived class/);
         });
     });
 });
 
 function getTestSubject() {
-    return new FormatterBase({});
+    return new FormatterBase({}, {});
 }
