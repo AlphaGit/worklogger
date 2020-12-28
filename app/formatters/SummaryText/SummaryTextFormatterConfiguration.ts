@@ -1,4 +1,4 @@
-import { FormatterConfigurationBase } from "./FormatterConfigurationBase";
+import { FormatterConfigurationBase } from "../FormatterConfigurationBase";
 
 export class SummaryTextFormatterConfiguration extends FormatterConfigurationBase
 {

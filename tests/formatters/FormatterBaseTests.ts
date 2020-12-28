@@ -1,5 +1,6 @@
 import assert = require('assert');
 import { FormatterBase } from '../../app/formatters/FormatterBase';
+import { FormatterConfigurationBase } from '../../app/formatters/FormatterConfigurationBase';
 import { WorklogSet } from '../../app/models/WorklogSet';
 
 describe('FormatterBase', () => {
@@ -22,5 +23,6 @@ describe('FormatterBase', () => {
 });
 
 function getTestSubject() {
-    return new FormatterBase({}, {});
+    const config = new FormatterConfigurationBase();
+    return new FormatterBase(config, {});
 }

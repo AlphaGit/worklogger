@@ -1,5 +1,5 @@
 import assert = require('assert');
-import { HasTagCondition } from '../../../app/conditions/HasTag/HasTag';
+import { HasTagCondition } from '../../../app/conditions/HasTag';
 import { Worklog } from '../../../app/models/Worklog';
 
 describe('HasTagCondition', () => {

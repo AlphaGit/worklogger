@@ -1,5 +1,5 @@
 import assert = require('assert');
-import { TrueCondition } from '../../../app/conditions/True/True';
+import { TrueCondition } from '../../../app/conditions/True';
 import { Worklog } from '../../../app/models/Worklog';
 
 describe('True condition', () => {

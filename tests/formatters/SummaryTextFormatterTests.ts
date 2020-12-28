@@ -1,6 +1,5 @@
 import assert = require('assert');
-import { SummaryTextFormatter } from '../../app/formatters/SummaryTextFormatter';
-import { SummaryTextFormatterConfiguration } from '../../app/formatters/SummaryTextFormatterConfiguration';
+import { SummaryTextFormatter, SummaryTextFormatterConfiguration } from '../../app/formatters/SummaryText';
 import { AppConfiguration } from '../../app/models/AppConfiguration';
 import { Worklog } from '../../app/models/Worklog';
 import { WorklogSet } from '../../app/models/WorklogSet';
