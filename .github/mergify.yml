@@ -6,10 +6,5 @@ pull_request_rules:
       - check-success=build (12.x)
       - "#check-failure=0"
     actions:
-      review:
-        type: APPROVE
-        message: "@dependabot squash and merge"
-        bot_account: alphagit-bot
-      label:
-        add:
-          - auto-merged
+      merge:
+        method: squash
