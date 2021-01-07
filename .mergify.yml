@@ -1,0 +1,14 @@
+pull_request_rules:
+  - name: Dependabot automatic merges
+    conditions:
+      - author~=^dependabot(|-preview)\[bot\]$
+      - check-success=build (10.x)
+      - check-success=build (12.x)
+      - "#check-failure=0"
+    actions:
+      review:
+        type: APPROVE
+        message: "@dependabot squash and merge"
+      label:
+        add:
+          - auto-merged
