@@ -46,7 +46,7 @@
     "eslint": "^7.18.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "serverless": "^2.18.0",
+    "serverless": "^2.19.0",
     "serverless-event-constant-inputs": "0.0.1",
     "serverless-offline": "^6.8.0",
     "sinon": "^9.2.3",
