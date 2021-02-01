@@ -43,7 +43,7 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "serverless": "^2.21.1",
