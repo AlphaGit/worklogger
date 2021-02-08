@@ -1,5 +1,11 @@
-module.exports = class InputConfiguration {
-    constructor(configurationInput) {
+import { GoogleCalendarCalendarConfiguration } from "./GoogleCalendarCalendarConfiguration";
+
+export class InputConfiguration {
+    public name: string;
+    public storageRelativePath: string;
+    private _calendars: GoogleCalendarCalendarConfiguration[];
+
+    constructor(configurationInput: InputConfiguration) {
         if (!configurationInput)
             throw new Error('A configuration JSON is required.');
 
@@ -8,15 +14,15 @@ module.exports = class InputConfiguration {
         this.storageRelativePath = configurationInput.storageRelativePath;
     }
 
-    set calendars(value) {
+    set calendars(value: GoogleCalendarCalendarConfiguration[]) {
         if (!Array.isArray(value))
             throw new Error('An array is required');
 
         if (!value || !value.length)
             throw new Error('Need at least one calendar.');
 
-        for (var i = 0; i < value.length; i++) {
-            var calendarId = value[i];
+        for (let i = 0; i < value.length; i++) {
+            const calendarId = value[i];
 
             if (!calendarId)
                 throw new Error(`Calendar element ${i} (zero-based) does not have an id.`);
@@ -25,7 +31,7 @@ module.exports = class InputConfiguration {
         this._calendars = value;
     }
 
-    get calendars() {
+    get calendars(): GoogleCalendarCalendarConfiguration[] {
         return this._calendars;
     }
-};
+}

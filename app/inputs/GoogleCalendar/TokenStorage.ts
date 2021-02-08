@@ -1,23 +1,31 @@
 // from https://developers.google.com/google-apps/calendar/quickstart/nodejs
-const fsRequired = require('fs');
-const readlineRequired = require('readline');
-const googleApisRequired = require('googleapis').google;
-const logger = require('app/services/loggerFactory').getLogger('GoogleCalendarInput/TokenStorage');
+import { writeFile } from 'fs';
+import { createInterface } from 'readline';
 
-const util = require('util');
+import googleApis, { GoogleApis } from 'googleapis';
+const googleApisRequired = googleApis.google;
+
+import LoggerFactory from '../../services/LoggerFactory';
+const logger = LoggerFactory.getLogger('GoogleCalendarInput/TokenStorage');
+
+import { promisify }  from 'util';
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_PATH = 'worklogger_home/worklogger.json';
 
-module.exports = class TokenStorage {
-    constructor(fs = fsRequired,
-        readline = readlineRequired,
+export class TokenStorage {
+    private createInterface: any;
+    private googleApis: GoogleApis;
+    private writeFile: (fileName: any, content: any) => any;
+
+    constructor(fs,
+        ci = createInterface,
         googleApis = googleApisRequired) {
-        this.readline = readline;
+        this.createInterface = ci;
         this.googleApis = googleApis;
 
-        this.fs = fs;
-        this.writeFile = (fileName, content) => util.promisify(this.fs.writeFile)(fileName, content);
+        const wf = fs.writeFile || writeFile;
+        this.writeFile = (fileName, content) => promisify(wf)(fileName, content);
     }
 
     async _storeToken(token) {
@@ -26,8 +34,9 @@ module.exports = class TokenStorage {
         return token;
     }
 
+    // TODO Move this into a class specific to console token retrieval
     async _getNewtoken(oauth2Client) {
-        var authUrl = oauth2Client.generateAuthUrl({
+        const authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
         });
@@ -38,7 +47,7 @@ module.exports = class TokenStorage {
         closeInterface();
 
         try {
-            const getToken = util.promisify(oauth2Client.getToken);
+            const getToken = promisify(oauth2Client.getToken);
             const token = await getToken(code);
 
             await this._storeToken(token);
@@ -51,18 +60,18 @@ module.exports = class TokenStorage {
 
     getQuestionInterface() {
         // Inspired from: https://gist.github.com/tinovyatkin/4316e302d8419186fe3c6af3f26badff
-        var rl = this.readline.createInterface({
+        const rl = this.createInterface({
             input: process.stdin,
             output: process.stdout
         });
 
         // Prepare readline.question for promisification
-        rl.question[util.promisify.custom] = (question) => {
+        rl.question[promisify.custom] = (question) => {
             return new Promise((resolve) => {
                 rl.question(question, resolve);
             });
         }
-        const askQuestion = util.promisify(rl.question);
+        const askQuestion = promisify(rl.question);
         return {
             askQuestion,
             closeInterface: rl.close
