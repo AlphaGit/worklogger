@@ -33,7 +33,7 @@
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
     "app-module-path": "^2.1.0",
-    "aws-sdk": "^2.840.0",
+    "aws-sdk": "^2.841.0",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^67.0.0",
     "log4js": "^6.3.0",
