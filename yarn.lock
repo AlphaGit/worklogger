@@ -5688,10 +5688,10 @@ serverless-offline@^6.8.0:
     velocityjs "^2.0.0"
     ws "^7.2.1"
 
-serverless@^2.27.0:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.27.0.tgz#407c31c385139855a5b39c9bca1084b62658d962"
-  integrity sha512-0lQMIpehylEN8f2mIveM3w9Uw3xV+H07CiyL60I0uDaG01Pd80sJrUHfcxZ2hkg49m9qSshpixNcux0ZSU1ttQ==
+serverless@^2.27.1:
+  version "2.27.1"
+  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.27.1.tgz#7570ea7c912ac65fc7780d0958e5514b2cc3089e"
+  integrity sha512-/6lkmzAcDKaHVIxGrbhYSXNMuGisQPFhyj3peCsPYX9Nv6xyprtMDigVj8DRvuy/d5rEUle9mkuvnyZFnCPIVA==
   dependencies:
     "@serverless/cli" "^1.5.2"
     "@serverless/components" "^3.7.1"
