@@ -35,7 +35,7 @@
     "app-module-path": "^2.1.0",
     "aws-sdk": "^2.878.0",
     "fetch-event": "^1.0.0-alpha",
-    "googleapis": "^68.0.0",
+    "googleapis": "^70.0.0",
     "log4js": "^6.3.0",
     "minimist": "^1.2.3",
     "moment-timezone": "^0.5.33",
