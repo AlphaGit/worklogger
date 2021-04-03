@@ -5,40 +5,43 @@ service: worklogger
 provider:
   name: aws
   runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
 
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:PutObject"
-        - "s3:GetObject"
-      Resource: "arn:aws:s3:::worklogger/*"
-    - Effect: "Allow"
-      Action:
-        - "ses:SendEmail"
-      Resource: "*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:PutObject"
+            - "s3:GetObject"
+          Resource: "arn:aws:s3:::worklogger/*"
+        - Effect: "Allow"
+          Action:
+            - "ses:SendEmail"
+          Resource: "*"
 
 functions:
   logTimesheets:
     handler: lambdaHandler.logTimesheets
-    name: worklogger-logTimesheets-${self:provider.stage}
+    name: worklogger-logTimesheets-${opt:stage, 'dev'}
     description: Logs timesheets from different sources
     memorySize: 128
     timeout: 60
     package:
-      include:
+      patterns:
         - "*.js"
         - "app/**/*.js"
     events:
       # TODO make these configurable per deployment
       - schedule:
-          rate: cron(0 23 * * ? *)
+          rate: cron(0 11 * * ? *)
           enabled: true
           description: Daily run
           input:
             s3: worklogger
             c: daily_configuration.json
       - schedule:
-          rate: cron(0 23 1 * ? *)
+          rate: cron(0 11 1 * ? *)
           enabled: true
           description: Monthly run
           input:
