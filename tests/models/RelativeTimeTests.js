@@ -95,84 +95,84 @@ describe('RelativeTime', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_HOUR, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('hour').subtract(1, 'hour');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for this hour', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_HOUR, defaultTimezone);
-            const expectedDate = getCurrentMoment().startOf('hour').subtract(1, 'hour');
+            const expectedDate = getCurrentMoment().startOf('hour');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for next hour', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_HOUR, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('hour').add(1, 'hour');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for last day', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_DAY, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('day').subtract(1, 'day');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for this day', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_DAY, defaultTimezone);
-            const expectedDate = getCurrentMoment().startOf('day').subtract(1, 'day');
+            const expectedDate = getCurrentMoment().startOf('day');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for next day', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_DAY, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('day').add(1, 'day');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for last week', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_WEEK, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('week').subtract(1, 'week');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for this week', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_WEEK, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('week');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for next week', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_WEEK, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('week').add(1, 'week');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for last month', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_LAST, RelativeTime.UNIT_MONTH, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('month').subtract(1, 'month');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for this month', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_THIS, RelativeTime.UNIT_MONTH, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('month');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
 
         it('returns the right value for next month', () => {
             const relativeTime = new RelativeTime(RelativeTime.FROM_NOW_NEXT, RelativeTime.UNIT_MONTH, defaultTimezone);
             const expectedDate = getCurrentMoment().startOf('month').add(1, 'month');
 
-            assert.notStrictEqual(relativeTime.toDate(), expectedDate);
+            assert.deepStrictEqual(relativeTime.toDate(), expectedDate.toDate());
         });
     });
 });

@@ -15,7 +15,8 @@
     "lint": "eslint --format table .",
     "lint:fix": "eslint --fix .",
     "watch:test": "watch \"npm test\" app tests",
-    "watch:all": "watch \"npm run test:all\" app tests"
+    "watch:all": "watch \"npm run test:all\" app tests",
+    "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:$npm_package_version && docker push alphadock/worklogger:latest"
   },
   "keywords": [
     "work",
