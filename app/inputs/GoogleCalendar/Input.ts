@@ -10,7 +10,7 @@ import { promisify } from 'util';
 import { InputConfiguration } from './InputConfiguration'
 import { AppConfiguration } from '../../models/AppConfiguration';
 
-import { IGoogleCredentials } from './../IGoogleCredentials';
+import { IGoogleCredentials } from './IGoogleCredentials';
 import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
 import { IApiResponse } from './IApiResponse';
 import { IFileLoader } from '../../models/IFileLoader';

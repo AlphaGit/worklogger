@@ -1,7 +1,8 @@
 import { Worklog } from "../../models/Worklog";
 import { HasTagConditionConfiguration } from "./HasTagConditionConfiguration";
+import { ICondition } from "../ICondition";
 
-export class HasTagCondition {
+export class HasTagCondition implements ICondition {
     private _configuration: HasTagConditionConfiguration;
 
     constructor(conditionConfiguration: HasTagConditionConfiguration) {

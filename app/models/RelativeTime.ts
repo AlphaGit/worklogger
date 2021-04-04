@@ -1,7 +1,26 @@
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 
-class RelativeTime {
-    constructor(fromNow, unit, timeZone) {
+export class RelativeTime {
+    private _fromNow: string;
+    private _unit: string;
+    private _timeZone: string;
+
+    public static UNIT_HOUR = 'hour';
+    public static UNIT_DAY = 'day';
+    public static UNIT_WEEK = 'week';
+    public static UNIT_MONTH = 'month';
+
+    public static FROM_NOW_LAST = 'last';
+    public static FROM_NOW_THIS = 'this';
+    public static FROM_NOW_NEXT = 'next';
+
+    _displacementMappings: {
+        unit: string;
+        fromNow: string;
+        displacementFn: (dt: moment.Moment) => moment.Moment;
+    }[];
+
+    constructor(fromNow: string, unit: string, timeZone: string) {
         this._buildDisplacementMappings();
 
         this._validateFromNowValue(fromNow);
@@ -12,7 +31,7 @@ class RelativeTime {
         this._timeZone = timeZone;
     }
 
-    _validateUnitValue(unit) {
+    _validateUnitValue(unit: string): void {
         const allowedValues = [
             RelativeTime.UNIT_HOUR,
             RelativeTime.UNIT_DAY,
@@ -24,7 +43,7 @@ class RelativeTime {
             throw new Error('Parameter required: unit.');
     }
 
-    _validateFromNowValue(fromNow) {
+    _validateFromNowValue(fromNow: string): void {
         const allowedValues = [
             RelativeTime.FROM_NOW_LAST,
             RelativeTime.FROM_NOW_THIS,
@@ -35,7 +54,7 @@ class RelativeTime {
             throw new Error('Parameter required: fromNow.');
     }
 
-    _buildDisplacementMappings() {
+    _buildDisplacementMappings(): void {
         const getMap = function buildDisplacementMapping(unit, fromNow, displacementFn) {
             return {
                 unit,
@@ -63,25 +82,13 @@ class RelativeTime {
         ];
     }
 
-    toDate() {
+    toDate(): Date {
         const displacementFn = this._displacementMappings
             .find(m => m.unit === this._unit && m.fromNow === this._fromNow)
             .displacementFn;
 
-        let resultDate = moment.tz(this._timeZone);
+        const resultDate = moment.tz(this._timeZone);
         displacementFn(resultDate);
         return resultDate.toDate();
     }
 }
-
-// constants
-RelativeTime.FROM_NOW_THIS = 'this';
-RelativeTime.FROM_NOW_LAST = 'last';
-RelativeTime.FROM_NOW_NEXT = 'next';
-
-RelativeTime.UNIT_HOUR = 'hour';
-RelativeTime.UNIT_DAY = 'day';
-RelativeTime.UNIT_WEEK = 'week';
-RelativeTime.UNIT_MONTH = 'month';
-
-module.exports = RelativeTime;

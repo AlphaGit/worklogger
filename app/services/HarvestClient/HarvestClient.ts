@@ -1,16 +1,13 @@
 import node_fetch = require('node-fetch');
 const fetch = node_fetch.default;
-import { HarvestTimeEntry } from '../inputs/HarvestApp/TimeEntry';
+import { HarvestTimeEntry } from '../../inputs/HarvestApp/TimeEntry';
+import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
+import { IHarvestConfiguration } from './IHarvestConfiguration';
+import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';
 
-import LoggerFactory from './LoggerFactory';
+import LoggerFactory from '../LoggerFactory';
 
 const logger = LoggerFactory.getLogger('services/HarvestClient');
-
-interface IHarvestConfiguration {
-    accountId: string;
-    token: string;
-    contactInformation: string;
-}
 
 export default class HarvestClient {
     private _configuration: IHarvestConfiguration;
@@ -101,32 +98,4 @@ export default class HarvestClient {
             'Content-Type': 'application/json'
         };
     }
-}
-
-interface HarvestProjectAndTasks {
-    projectId: number;
-    projectName: string;
-    tasks: {
-        taskId: number;
-        taskName: string;
-    }[];
-}
-
-interface IHarvestInternal_TaskAssignment {
-    task: {
-        id: number;
-        name: string;
-    };
-} 
-
-interface IHarvestInternal_ProjectAssignment {
-    project: {
-        id: number;
-        name: string;
-    }; 
-    task_assignments: IHarvestInternal_TaskAssignment[];
-}
-
-interface IHarvestInternal_ProjectAssignmentResponse {
-    project_assignments: IHarvestInternal_ProjectAssignment[];
 }

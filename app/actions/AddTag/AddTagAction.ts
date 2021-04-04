@@ -2,10 +2,11 @@ import { Worklog } from '../../models/Worklog';
 import LoggerFactory from '../../services/LoggerFactory';
 import { AddTagConfiguration } from './AddTagConfiguration';
 import { AddTagDefinition } from './AddTagDefinition';
+import { IAction } from '../IAction';
 
 const logger = LoggerFactory.getLogger('actions/addTags');
 
-export class AddTagAction {
+export class AddTagAction implements IAction {
     private _tagsToAdd: AddTagDefinition[];
 
     constructor(configuration: AddTagConfiguration) {

@@ -1,5 +1,12 @@
-module.exports = class InputConfiguration {
-    constructor(configurationInput) {
+import { HarvestInputConfiguration } from './HarvestInputConfiguration';
+
+export class InputConfiguration {
+    accountId: string;
+    token: string;
+    contactInformation: string;
+    name: string;
+
+    constructor(configurationInput: HarvestInputConfiguration) {
         if (!configurationInput)
             throw new Error('A configuration JSON is required.');
 
@@ -8,4 +15,4 @@ module.exports = class InputConfiguration {
         this.contactInformation = configurationInput.contactInformation;
         this.name = configurationInput.name;
     }
-};
+}

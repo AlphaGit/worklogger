@@ -6,7 +6,7 @@ import { calculateDurationInMinutes } from '../../services/durationCalculator';
 
 import moment from 'moment-timezone';
 
-import HarvestClient from '../../services/HarvestClient';
+import HarvestClient from '../../services/HarvestClient/HarvestClient';
 
 import { Worklog } from '../../models/Worklog';
 import { AppConfiguration } from '../../models/AppConfiguration';
