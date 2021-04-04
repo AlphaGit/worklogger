@@ -1,17 +1,29 @@
-const logger = require('app/services/loggerFactory').getLogger('inputs/HarvestApp/Input');
-const { calculateDurationInMinutes } = require('app/services/durationCalculator');
-const moment = require('moment-timezone');
+import LoggerFactory from '../../services/LoggerFactory';
 
-const RequiredHarvestClient = require('app/services/HarvestClient');
+const logger = LoggerFactory.getLogger('inputs/HarvestApp/Input');
 
-const Worklog = require('app/models/Worklog');
+import { calculateDurationInMinutes } from '../../services/durationCalculator';
 
-module.exports = class Input {
+import moment from 'moment-timezone';
+
+import HarvestClient from '../../services/HarvestClient';
+
+import { Worklog } from '../../models/Worklog';
+import { AppConfiguration } from '../../models/AppConfiguration';
+import { InputConfiguration } from '../../models/InputConfiguration';
+import { ServiceRegistrations } from '../../models/ServiceRegistrations';
+import { HarvestTimeEntry } from './TimeEntry';
+
+export class Input {
+    private _appConfiguration: AppConfiguration;
+    private _inputConfiguration: InputConfiguration;
+    private _harvestClient: HarvestClient;
+
     constructor(
-        serviceRegistrations,
-        appConfiguration,
-        inputConfiguration,
-        { HarvestClient = RequiredHarvestClient } = {}
+        serviceRegistrations: ServiceRegistrations,
+        appConfiguration: AppConfiguration,
+        inputConfiguration: InputConfiguration,
+        harvestClient: HarvestClient
     ) {
         if (!appConfiguration)
             throw new Error('App configuration for Harvest App input is required.');
@@ -22,14 +34,14 @@ module.exports = class Input {
             throw new Error('Input configuration for Harvest App input is required.');
         this._inputConfiguration = inputConfiguration;
         
-        this._harvestClient = new HarvestClient(inputConfiguration);
+        this._harvestClient = harvestClient || new HarvestClient(inputConfiguration);
     }
 
-    get name() {
+    get name(): string {
         return this._inputConfiguration.name;
     }
 
-    async getWorkLogs(startDateTime, endDateTime) {
+    async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
         logger.info('Retrieving worklogs from Harvest between', startDateTime, 'and', endDateTime);
 
         const parameters = { from: startDateTime, to: endDateTime };
@@ -38,7 +50,7 @@ module.exports = class Input {
         return this._mapToDomainModel(timeEntries);
     }
 
-    _mapToDomainModel(timeEntries) {
+    _mapToDomainModel(timeEntries: HarvestTimeEntry[]): Worklog[] {
         const minimumLoggableTimeSlotInMinutes = this._appConfiguration.options.minimumLoggableTimeSlotInMinutes;
 
         const mappedWorklogs = timeEntries.map(te => {
@@ -83,4 +95,4 @@ module.exports = class Input {
 
         return mappedWorklogs;
     }
-};
+}

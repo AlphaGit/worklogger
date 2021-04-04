@@ -1,23 +1,37 @@
-const requiredFetch = require('node-fetch');
-const logger = require('app/services/loggerFactory').getLogger('services/HarvestClient');
+import node_fetch = require('node-fetch');
+const fetch = node_fetch.default;
+import { HarvestTimeEntry } from '../inputs/HarvestApp/TimeEntry';
 
-module.exports = class HarvestClient {
-    constructor(configuration, { fetch = requiredFetch } = {}) {
-        this._harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
+import LoggerFactory from './LoggerFactory';
+
+const logger = LoggerFactory.getLogger('services/HarvestClient');
+
+interface IHarvestConfiguration {
+    accountId: string;
+    token: string;
+    contactInformation: string;
+}
+
+export default class HarvestClient {
+    private _configuration: IHarvestConfiguration;
+    private _harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
+    private _fetch: typeof node_fetch.default;
+
+    constructor(configuration: IHarvestConfiguration) {
         this._validateConfiguration(configuration);
 
         this._configuration = configuration;
         this._fetch = fetch;
     }
 
-    _validateConfiguration(configuration) {
+    _validateConfiguration(configuration: IHarvestConfiguration): void {
         if (!configuration) throw new Error('Missing parameter: configuration.');
         if (!configuration.accountId) throw new Error('Required configuration: accountId.');
         if (!configuration.token) throw new Error('Required configuration: token.');
         if (!configuration.contactInformation) throw new Error('Required configuration: contactInformation.');
     }
 
-    async getTimeEntries({from, to} = {}) {
+    async getTimeEntries({ from, to }: { from: Date, to: Date }): Promise<HarvestTimeEntry[]> {
         logger.info('Retrieving time entries from Harvest');
  
         const params = new URLSearchParams();
@@ -32,7 +46,7 @@ module.exports = class HarvestClient {
         return jsonResponse.time_entries;
     }
 
-    async getProjectsAndTasks() {
+    async getProjectsAndTasks(): Promise<HarvestProjectAndTasks[]> {
         logger.info('Retrieving known projects and tasks from Harvest');
         const response = await this._fetch(`${this._harvestBaseUrl}/users/me/project_assignments.json`, {
             headers: this._getDefaultHeaders()
@@ -45,7 +59,7 @@ module.exports = class HarvestClient {
         return projects;
     }
 
-    async saveNewTimeEntry(timeEntry) {
+    async saveNewTimeEntry(timeEntry: HarvestTimeEntry): Promise<void> {
         this._validateTimeEntry(timeEntry);
 
         logger.trace('Sending to Harvest:', JSON.stringify(timeEntry));
@@ -58,7 +72,7 @@ module.exports = class HarvestClient {
         logger.trace(await res.json());
     }
 
-    _validateTimeEntry(timeEntry) {
+    _validateTimeEntry(timeEntry: HarvestTimeEntry): void {
         if (!timeEntry) throw new Error('Required parameter: timeEntry.');
         if (!timeEntry.project_id) throw new Error('Time entry needs to have project_id.');
         if (!timeEntry.task_id) throw new Error('Time entry needs to have task_id.');
@@ -68,7 +82,7 @@ module.exports = class HarvestClient {
         if (!timeEntry.ended_time) throw new Error('Time entry needs to have ended_time.');
     }
 
-    _getProjectsAndTasksFromApiResponse(apiResponse) {
+    _getProjectsAndTasksFromApiResponse(apiResponse: IHarvestInternal_ProjectAssignmentResponse): HarvestProjectAndTasks[] {
         return apiResponse.project_assignments.map(pa => ({
             projectId: pa.project.id,
             projectName: pa.project.name,
@@ -79,7 +93,7 @@ module.exports = class HarvestClient {
         }));
     }
 
-    _getDefaultHeaders() {
+    _getDefaultHeaders(): Record<string, string> {
         return {
             'Authorization': `Bearer ${this._configuration.token}`,
             'Harvest-Account-Id': `${this._configuration.accountId}`,
@@ -87,4 +101,32 @@ module.exports = class HarvestClient {
             'Content-Type': 'application/json'
         };
     }
-};
+}
+
+interface HarvestProjectAndTasks {
+    projectId: number;
+    projectName: string;
+    tasks: {
+        taskId: number;
+        taskName: string;
+    }[];
+}
+
+interface IHarvestInternal_TaskAssignment {
+    task: {
+        id: number;
+        name: string;
+    };
+} 
+
+interface IHarvestInternal_ProjectAssignment {
+    project: {
+        id: number;
+        name: string;
+    }; 
+    task_assignments: IHarvestInternal_TaskAssignment[];
+}
+
+interface IHarvestInternal_ProjectAssignmentResponse {
+    project_assignments: IHarvestInternal_ProjectAssignment[];
+}

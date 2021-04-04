@@ -13,14 +13,8 @@ import { AppConfiguration } from '../../models/AppConfiguration';
 import { IGoogleCredentials } from './../IGoogleCredentials';
 import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
 import { IApiResponse } from './IApiResponse';
-
-interface IFileLoader {
-    loadJson: (path: string) => Record<string, unknown>;
-}
-
-class ServiceRegistrations {
-    FileLoader: IFileLoader;
-}
+import { IFileLoader } from '../../models/IFileLoader';
+import { ServiceRegistrations } from '../../models/ServiceRegistrations';
 
 module.exports = class Input {
     private ModelMapper: ModelMapper;
