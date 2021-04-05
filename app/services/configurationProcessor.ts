@@ -1,8 +1,12 @@
-const logger = require('app/services/loggerFactory').getLogger('services/configurationProcessor');
-const RelativeTime = require('app/models/RelativeTime');
-const moment = require('moment-timezone');
+import LoggerFactory from './LoggerFactory';
 
-function getProcessedConfiguration(configuration) {
+const logger = LoggerFactory.getLogger('services/configurationProcessor');
+
+import { RelativeTime } from '../models/RelativeTime';
+import { AppConfiguration } from '../models/AppConfiguration';
+import moment from 'moment-timezone';
+
+export function getProcessedConfiguration(configuration: AppConfiguration): AppConfiguration {
     const timePeriod = configuration.options.timePeriod;
     const { begin, end } = timePeriod;
 
@@ -38,7 +42,3 @@ function parseOffset(timePeriod, timeZone) {
 
     return moment.tz(timeZone).add(value, unit).toDate();
 }
-
-module.exports = {
-    getProcessedConfiguration
-};
