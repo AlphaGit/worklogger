@@ -787,10 +787,10 @@
     uuid "^8.3.2"
     write-file-atomic "^3.0.3"
 
-"@serverless/utils@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@serverless/utils/-/utils-4.0.0.tgz#5080995bb1021efd77787bb7220c32a7ac83a1ad"
-  integrity sha512-SNLjh3qFnKvqZZAljTHY9IuoS+UZytBqfAki+V5DsVjXEKZrAKzem1kpKF2zeARg8tHFDProM0LGFCxGDkkgxw==
+"@serverless/utils@^4.0.0", "@serverless/utils@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@serverless/utils/-/utils-4.0.1.tgz#f72f949ac8fd3cb2e392b26c55d542a9e5287433"
+  integrity sha512-3/+Tw/kcIpBlrPyN244Ci7IZXVhGH9WLiLZcSwL0U96g0QQBofIGbv5v2h3Q6J4rBpPUOiZJcabJc7cIvlcP6Q==
   dependencies:
     chalk "^4.1.0"
     inquirer "^7.3.3"
@@ -1231,7 +1231,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aws-sdk@^2.834.0, aws-sdk@^2.876.0, aws-sdk@^2.879.0:
+aws-sdk@^2.834.0, aws-sdk@^2.879.0:
   version "2.879.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.879.0.tgz#d9fb5a8babac1ed0b3d0fb38a88e561580256082"
   integrity sha512-HRfjGwST1U9AvCJFAyqpAJwbjFR4LqUyEUk77qdJpdYHL9pGPHdnEfGRkBkPn36xcC7Em6gVvFveVoEihbQUyQ==
@@ -5685,19 +5685,19 @@ serverless-offline@^6.9.0:
     velocityjs "^2.0.3"
     ws "^7.4.2"
 
-serverless@^2.32.1:
-  version "2.32.1"
-  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.32.1.tgz#c57f8894a0eabd25beb81c5704a1f9761481c93e"
-  integrity sha512-7wVa/HoAjRUPq90SYJG0AFFmvZt9UibudXYP8/JXukNAy4OQWQAZy04MCXl1wtY/i9XWsXxJrM36Fk70UPUUqg==
+serverless@^2.33.1:
+  version "2.33.1"
+  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.33.1.tgz#3758bdc456f1ea2d958e7a379be2906bd527dbc8"
+  integrity sha512-NLRnK6376mAjGYnsfjr3UCIX8pH6US1hHow3ESRs+/ycIzRdG/LXlDAgq+4vLnPQ8t8vc9ZyU8FTFfrSR4sHqg==
   dependencies:
     "@serverless/cli" "^1.5.2"
     "@serverless/components" "^3.8.1"
     "@serverless/enterprise-plugin" "^4.5.3"
-    "@serverless/utils" "^4.0.0"
+    "@serverless/utils" "^4.0.1"
     ajv "^6.12.6"
     ajv-keywords "^3.5.2"
     archiver "^5.3.0"
-    aws-sdk "^2.876.0"
+    aws-sdk "^2.879.0"
     bluebird "^3.7.2"
     boxen "^5.0.0"
     cachedir "^2.3.0"
