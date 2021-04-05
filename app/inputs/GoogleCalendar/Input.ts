@@ -15,6 +15,7 @@ import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarCon
 import { IApiResponse } from './IApiResponse';
 import { IFileLoader } from '../../models/IFileLoader';
 import { ServiceRegistrations } from '../../models/ServiceRegistrations';
+import { Worklog } from '../../models/Worklog';
 
 module.exports = class Input {
     private ModelMapper: ModelMapper;
@@ -68,7 +69,7 @@ module.exports = class Input {
         this._appConfiguration = value;
     }
 
-    async getWorkLogs(startDateTime: Date, endDateTime: Date) {
+    async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
         logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
         const storageRelativePath = this._inputConfiguration.storageRelativePath;
