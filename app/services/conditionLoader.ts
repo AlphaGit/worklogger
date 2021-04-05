@@ -1,5 +1,5 @@
 import { ICondition } from '../conditions/ICondition';
-import { IConditionConfig } from './IConditionConfig';
+import { IConditionConfig } from '../conditions/IConditionConfig';
 
 export async function loadCondition(conditionConfig: IConditionConfig): Promise<ICondition> {
     let conditionType = (conditionConfig || {}).type;

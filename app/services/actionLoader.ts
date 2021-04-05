@@ -5,7 +5,7 @@ import { loadCondition } from './conditionLoader';
 
 import { IAction } from '../actions/IAction'
 import { ICondition } from '../conditions/ICondition';
-import { IConditionConfig } from './IConditionConfig';
+import { IConditionConfig } from '../conditions/IConditionConfig';
 
 export async function loadActionsAndConditions(actionConfigs: Transformation[]): Promise<IActionWithCondition[]> {
     return Promise.all(actionConfigs.map(async config => {
