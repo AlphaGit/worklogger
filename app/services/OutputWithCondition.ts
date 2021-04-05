@@ -1,4 +1,4 @@
-import OutputBase from '../outputs/OutputBase';
+import { OutputBase } from '../outputs/OutputBase';
 import { ICondition } from '../conditions/ICondition';
 
 export interface OutputWithCondition {

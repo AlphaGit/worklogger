@@ -7,7 +7,7 @@ import { IOutputConfiguration } from '../outputs/IOutputConfiguration';
 import { AppConfiguration } from '../models/AppConfiguration';
 import { OutputWithCondition } from './OutputWithCondition';
 import { IFormatterConfig } from '../formatters/IFormatterConfig';
-import OutputBase from '../outputs/OutputBase';
+import { OutputBase } from '../outputs/OutputBase';
 import { FormatterBase } from '../formatters/FormatterBase';
 
 export async function loadOutputs(outputConfigurations: IOutputConfiguration[], appConfiguration: AppConfiguration): Promise<OutputWithCondition[]> {
