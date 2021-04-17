@@ -1,16 +1,25 @@
-const OutputBase = require('app/outputs/OutputBase');
-const DefaultSESClient = require('aws-sdk/clients/ses');
-const logger = require('app/services/loggerFactory').getLogger('AWS-SES/Output');
-const mustache = require('mustache');
+import { OutputBase } from '../../outputs/OutputBase';
+import DefaultSESClient from 'aws-sdk/clients/ses';
+import LoggerFactory from '../../services/LoggerFactory';
+const logger = LoggerFactory.getLogger('AWS-SES/Output');
+import mustache from 'mustache';
+import { AppConfiguration } from '../../models/AppConfiguration';
+import { FormatterBase } from '../../formatters/FormatterBase';
+import { WorklogSet } from '../../models/WorklogSet';
+import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 
-module.exports = class AwsSesOutput extends OutputBase {
-    constructor(formatter, outputConfiguration, { SESClient = DefaultSESClient } = {}) {
-        super(formatter, outputConfiguration);
+export class AwsSesOutput extends OutputBase {
+    private SES: DefaultSESClient;
+    private _configuration: IAwsSesOutputConfiguration;
+
+    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: AppConfiguration, { SESClient = DefaultSESClient } = {}) {
+        super(formatter, outputConfiguration, appConfiguration);
+        this._configuration = outputConfiguration;
 
         this.SES = new SESClient();
     }
 
-    async outputWorklogSet(worklogSet) {
+    async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
         const formattedOutput = this._formatter.format(worklogSet);
