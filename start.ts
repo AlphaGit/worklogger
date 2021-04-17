@@ -1,13 +1,11 @@
-async function start(passedArguments) {
-    require('app-module-path/register');
+async function start(passedArguments: string | string[]) {
+    import { WorklogSet } from 'app/models/WorklogSet';
+    import { LoggerFactory } from 'app/services/LoggerFactory';
+    const logger = LoggerFactory.getLogger('worklogger');
 
-    const WorklogSet = require('app/models/WorklogSet');
-
-    const loggerFactory = require('app/services/loggerFactory');
-    const logger = loggerFactory.getLogger('worklogger');
     logger.level = 'trace';
 
-    let environment = {
+    const environment = {
         transformations: [],
         serviceRegistrations: {}
     };
@@ -37,8 +35,8 @@ async function start(passedArguments) {
     }
 
     function transformWorklogs(environment) {
-        for (let { action, condition } of environment.transformations) {
-            for (let worklog of environment.worklogSet.worklogs) {
+        for (const { action, condition } of environment.transformations) {
+            for (const worklog of environment.worklogSet.worklogs) {
                 if (condition.isSatisfiedBy(worklog))
                     action.apply(worklog);
             }
@@ -46,15 +44,15 @@ async function start(passedArguments) {
     }
 
     function loadActionsAndConditions(environment) {
-        const actionLoader = require('app/services/actionLoader');
-        environment.transformations = actionLoader.loadActionsAndConditions(environment.appConfiguration.transformations);
+        import { loadActionsAndConditions } from 'app/services/actionLoader';
+        environment.transformations = loadActionsAndConditions(environment.appConfiguration.transformations);
     }
 
     function warnNonOuputProcessed(environment) {
         logger.debug('Checking for worklogs that do not match any output.');
 
         let worklogs = environment.worklogSet.worklogs;
-        for (let { condition, excludeFromNonProcessedWarning } of environment.outputs) {
+        for (const { condition, excludeFromNonProcessedWarning } of environment.outputs) {
             if (excludeFromNonProcessedWarning) continue;
 
             worklogs = worklogs.filter(w => !condition.isSatisfiedBy(w));
@@ -74,7 +72,7 @@ async function start(passedArguments) {
         logger.debug('Processing loaded outputs.');
 
         const outputPromises = [];
-        for (let { output, condition } of environment.outputs) {
+        for (const { output, condition } of environment.outputs) {
             const conditionFn = condition.isSatisfiedBy.bind(condition);
             const filteredWorklogSet = environment.worklogSet.getFilteredCopy(conditionFn);
             outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
@@ -87,19 +85,19 @@ async function start(passedArguments) {
         const worklogSet = environment.worklogSet;
 
         logger.info(`Transformed worklogs: ${worklogSet.worklogs.length} worklogs`);
-        for (let worklog of worklogSet.worklogs) {
+        for (const worklog of worklogSet.worklogs) {
             logger.debug(`Worklog: ${worklog}`);
         }
     }
 
     function loadOutputsAndFormattersAndConditions(environment) {
-        const outputLoader = require('app/services/outputLoader');
-        environment.outputs = outputLoader.loadOutputs(environment.appConfiguration.outputs, environment.appConfiguration);
+        import { loadOutputs } from 'app/services/outputLoader';
+        environment.outputs = loadOutputs(environment.appConfiguration.outputs, environment.appConfiguration);
     }
 
     async function loadFromInputs(environment) {
-        const inputLoader = require('app/services/inputLoader');
-        const loadedInputs = inputLoader.loadInputs(environment.serviceRegistrations, environment.appConfiguration);
+        import { loadInputs } from 'app/services/inputLoader';
+        const loadedInputs = loadInputs(environment.serviceRegistrations, environment.appConfiguration);
         const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
         const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
 
@@ -129,9 +127,9 @@ async function start(passedArguments) {
         // TODO Pending: Logger config is not set yet, so this trace is always shown. 
         // logger.trace('Loaded configuration:', configurationContents);
 
-        const configurationProcessor = require('app/services/configurationProcessor');
+        import { getProcessedConfiguration } from 'app/services/configurationProcessor';
 
-        environment.appConfiguration = configurationProcessor.getProcessedConfiguration(configurationContents); // eslint-disable-line require-atomic-updates
+        environment.appConfiguration = getProcessedConfiguration(configurationContents);
     }
 
     function processArguments(environment) {
@@ -139,7 +137,7 @@ async function start(passedArguments) {
         logger.debug(`Received arguments: ${receivedArguments}`);
 
         if (typeof receivedArguments === 'string' || Array.isArray(receivedArguments)) {
-            const minimist = require('minimist');
+            import { minimist } from 'minimist';
             environment.arguments = minimist(receivedArguments);
             logger.trace('Parsed arguments', environment.arguments);
         } else if (typeof receivedArguments === 'object') {
@@ -153,10 +151,10 @@ async function start(passedArguments) {
     function registerServices(environment) {
         const s3Bucket = environment.arguments.s3;
         if (s3Bucket) {
-            const { S3FileLoader } = require('app/services/FileLoader/S3FileLoader');
+            import { S3FileLoader } from 'app/services/FileLoader/S3FileLoader';
             environment.serviceRegistrations.FileLoader = new S3FileLoader(s3Bucket);
         } else {
-            const { LocalFileLoader } = require('app/services/FileLoader/LocalFileLoader');
+            import { LocalFileLoader } from 'app/services/FileLoader/LocalFileLoader';
             environment.serviceRegistrations.FileLoader = new LocalFileLoader();
         }
     }
