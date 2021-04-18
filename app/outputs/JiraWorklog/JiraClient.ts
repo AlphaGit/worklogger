@@ -1,13 +1,16 @@
-const nodeFetch = require('node-fetch');
-const fetchRequired = require('fetch-event/node')(nodeFetch).fetch;
-const logger = require('app/services/loggerFactory').getLogger('outputs/JiraWorklog/JiraClient');
+import fetch from 'node-fetch';
 
-fetchRequired.on('fetch', event => {
-    logger.trace(event.request);
-});
+import LoggerFactory from '../../services/LoggerFactory';
+import { JiraWorklog } from './JiraWorklog';
+const logger = LoggerFactory.getLogger('outputs/JiraWorklog/JiraClient');
 
-module.exports = class JiraClient {
-    constructor(jiraBaseUrl, jiraUsername, jiraPassword, { fetch = fetchRequired } = {}) {
+export class JiraClient {
+    private _fetch: typeof fetch;
+    private _baseUrl: string;
+    private _username: string;
+    private _password: string;
+
+    constructor(jiraBaseUrl: string, jiraUsername: string, jiraPassword: string) {
         if (!jiraBaseUrl) throw new Error('Required parameter: jiraBaseUrl.');
         if (!jiraUsername) throw new Error('Required parameter: jiraUsername.');
         if (!jiraPassword) throw new Error('Required parameter: jiraPassword.');
@@ -18,7 +21,7 @@ module.exports = class JiraClient {
         this._password = jiraPassword;
     }
 
-    async saveWorklog(ticketId, worklog) {
+    async saveWorklog(ticketId: string, worklog: JiraWorklog): Promise<void> {
         this._validateTicketId(ticketId);
         this._validateWorklog(worklog);
 
@@ -26,7 +29,7 @@ module.exports = class JiraClient {
         logger.debug('Sending to JIRA ', url, ':', worklog);
 
         try {
-            const res = this._fetch(url, {
+            const res = await this._fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(worklog),
                 headers: this._getHeaders()
@@ -43,26 +46,26 @@ module.exports = class JiraClient {
         }
     }
 
-    _getHeaders() {
+    _getHeaders(): Record<string, string> {
         return {
             'Authorization': this._getAuthorizationValue(),
             'Content-Type': 'application/json'
         };
     }
 
-    _validateTicketId(ticketId) {
+    _validateTicketId(ticketId: string): void {
         if (!ticketId) throw new Error('Required parameter: ticketId.');
     }
 
-    _validateWorklog(worklog) {
+    _validateWorklog(worklog: JiraWorklog): void {
         if (!worklog) throw new Error('Required parameter: worklog.');
         if (!worklog.comment) throw new Error('Worklog requires comment field.');
         if (!worklog.started) throw new Error('Worklog requires started field.');
         if (!worklog.timeSpent) throw new Error('Worklog requires timeSpent field.');
     }
 
-    _getAuthorizationValue() {
+    _getAuthorizationValue(): string {
         const encodedCredentials = Buffer.from(`${this._username}:${this._password}`).toString('base64');
         return `Basic ${encodedCredentials}`;
     }
-};
+}

@@ -14,4 +14,5 @@ export class AppConfigurationOptions {
 export class AppConfiguration {
     options: AppConfigurationOptions;
     inputs: InputConfiguration[];
+    timeZone: string;
 }

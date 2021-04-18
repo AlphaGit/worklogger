@@ -1,18 +1,16 @@
-import node_fetch = require('node-fetch');
-const fetch = node_fetch.default;
+import fetch from 'node-fetch';
 import { HarvestTimeEntry } from '../../inputs/HarvestApp/TimeEntry';
 import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
 import { IHarvestConfiguration } from './IHarvestConfiguration';
 import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';
 
 import LoggerFactory from '../LoggerFactory';
-
 const logger = LoggerFactory.getLogger('services/HarvestClient');
 
 export class HarvestClient {
     private _configuration: IHarvestConfiguration;
     private _harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
-    private _fetch: typeof node_fetch.default;
+    private _fetch: typeof fetch;
 
     constructor(configuration: IHarvestConfiguration) {
         this._validateConfiguration(configuration);
