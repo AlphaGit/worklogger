@@ -9,7 +9,7 @@ import LoggerFactory from '../LoggerFactory';
 
 const logger = LoggerFactory.getLogger('services/HarvestClient');
 
-export default class HarvestClient {
+export class HarvestClient {
     private _configuration: IHarvestConfiguration;
     private _harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
     private _fetch: typeof node_fetch.default;

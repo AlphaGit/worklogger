@@ -1,23 +1,54 @@
-const OutputBase = require('app/outputs/OutputBase');
-const RequiredHarvestClient = require('app/services/HarvestClient');
-const logger = require('app/services/loggerFactory').getLogger('HarvestApp/Output');
-const moment = require('moment-timezone');
+import { OutputBase } from '../../outputs/OutputBase';
+import { HarvestClient as RequiredHarvestClient } from '../../services/HarvestClient/HarvestClient';
 
-module.exports = class HarvestAppOutput extends OutputBase {
-    constructor(formatter, outputConfiguration, appConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
+import LoggerFactory from '../../services/LoggerFactory';
+const logger = LoggerFactory.getLogger('HarvestApp/Output');
+
+import moment from 'moment-timezone';
+import { FormatterBase } from '../../formatters/FormatterBase';
+import { IOutputConfiguration } from '../IOutputConfiguration';
+import { AppConfiguration } from '../../models/AppConfiguration';
+import { IHarvestConfiguration } from '../../services/HarvestClient/IHarvestConfiguration';
+import { WorklogSet } from '../../models/WorklogSet';
+import { Worklog } from '../../models/Worklog';
+import { HarvestProjectAndTasks } from '../../services/HarvestClient/HarvestProjectAndTasks';
+import { HarvestTask } from '../../services/HarvestClient/HarvestTask';
+
+interface IHarvestAppOutputConfiguration extends IOutputConfiguration, IHarvestConfiguration {
+    selectProjectFromTag: string;
+    selectTaskFromTag: string;
+}
+
+class HarvestTimeEntry {
+    project_id: number;
+    task_id: number;
+    spent_date: string;
+    started_time: string;
+    ended_time: string;
+    hours: number;
+    notes: string;
+    is_running: boolean;
+}
+
+export class HarvestAppOutput extends OutputBase {
+    private _harvestClient: RequiredHarvestClient;
+    private _configuration: IHarvestAppOutputConfiguration;
+
+    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: AppConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this._harvestClient = new HarvestClient(outputConfiguration);
+        this._configuration = outputConfiguration;
     }
 
-    async outputWorklogSet(worklogSet) {
+    async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
         const projects = await this._harvestClient.getProjectsAndTasks();
         return await this._saveWorklogs(worklogSet.worklogs, projects);
     }
 
-    async _saveWorklogs(worklogs, projects) {
+    async _saveWorklogs(worklogs: Worklog[], projects: HarvestProjectAndTasks[]): Promise<void> {
         const timeEntries = this._mapWorklogsToTimeEntries(worklogs, projects);
 
         const saveNewTimeEntryFn = this._harvestClient.saveNewTimeEntry.bind(this._harvestClient);
@@ -29,7 +60,7 @@ module.exports = class HarvestAppOutput extends OutputBase {
         });
     }
 
-    _mapWorklogsToTimeEntries(worklogs, projects) {
+    _mapWorklogsToTimeEntries(worklogs: Worklog[], projects: HarvestProjectAndTasks[]): HarvestTimeEntry[] {
         return worklogs.map(w => {
             const project = this._getProjectForWorklog(w, projects);
             if (!project) return null;
@@ -41,10 +72,10 @@ module.exports = class HarvestAppOutput extends OutputBase {
         }).filter(w => !!w);
     }
 
-    _getTimeEntryFromWorklogTaskAndProject(worklog, project, task) {
+    _getTimeEntryFromWorklogTaskAndProject(worklog: Worklog, project: HarvestProjectAndTasks, task: HarvestTask): HarvestTimeEntry {
         const timeZone = this._appConfiguration.options.timeZone;
 
-        return {
+        const timeEntry: HarvestTimeEntry = {
             project_id: project.projectId,
             task_id: task.taskId,
             spent_date: moment.tz(worklog.startDateTime, timeZone).format('YYYY-MM-DD'),
@@ -54,9 +85,11 @@ module.exports = class HarvestAppOutput extends OutputBase {
             notes: worklog.name,
             is_running: false
         };
+
+        return timeEntry;
     }
 
-    _getProjectForWorklog(worklog, projects) {
+    _getProjectForWorklog(worklog: Worklog, projects: HarvestProjectAndTasks[]): HarvestProjectAndTasks {
         const projectTag = this._configuration.selectProjectFromTag || 'HarvestProject';
         const projectTagValue = worklog.getTagValue(projectTag);
         const project = projects.find(p => p.projectName == projectTagValue);
@@ -67,7 +100,7 @@ module.exports = class HarvestAppOutput extends OutputBase {
         return project;
     }
 
-    _getTaskForWorklog(worklog, project) {
+    _getTaskForWorklog(worklog: Worklog, project: HarvestProjectAndTasks): HarvestTask {
         const taskTag = this._configuration.selectTaskFromTag || 'HarvestTask';
         const taskTagValue = worklog.getTagValue(taskTag);
         const task = project.tasks.find(t => t.taskName == taskTagValue);
@@ -77,4 +110,4 @@ module.exports = class HarvestAppOutput extends OutputBase {
 
         return task;
     }
-};
+}
