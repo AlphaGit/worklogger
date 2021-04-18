@@ -1,34 +1,18 @@
 import { OutputBase } from '../../outputs/OutputBase';
 import { HarvestClient as RequiredHarvestClient } from '../../services/HarvestClient/HarvestClient';
-
-import LoggerFactory from '../../services/LoggerFactory';
-const logger = LoggerFactory.getLogger('HarvestApp/Output');
-
-import moment from 'moment-timezone';
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { IOutputConfiguration } from '../IOutputConfiguration';
 import { AppConfiguration } from '../../models/AppConfiguration';
-import { IHarvestConfiguration } from '../../services/HarvestClient/IHarvestConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { Worklog } from '../../models/Worklog';
 import { HarvestProjectAndTasks } from '../../services/HarvestClient/HarvestProjectAndTasks';
 import { HarvestTask } from '../../services/HarvestClient/HarvestTask';
+import { IHarvestAppOutputConfiguration } from './IHarvestAppOutputConfiguration';
+import { HarvestTimeEntry } from './HarvestTimeEntry';
 
-interface IHarvestAppOutputConfiguration extends IOutputConfiguration, IHarvestConfiguration {
-    selectProjectFromTag: string;
-    selectTaskFromTag: string;
-}
+import moment from 'moment-timezone';
 
-class HarvestTimeEntry {
-    project_id: number;
-    task_id: number;
-    spent_date: string;
-    started_time: string;
-    ended_time: string;
-    hours: number;
-    notes: string;
-    is_running: boolean;
-}
+const logger = LoggerFactory.getLogger('HarvestApp/Output');
 
 export class HarvestAppOutput extends OutputBase {
     private _harvestClient: RequiredHarvestClient;

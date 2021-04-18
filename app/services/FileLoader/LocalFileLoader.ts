@@ -1,9 +1,8 @@
 import { resolve } from 'path';
-
-import LoggerFactory from '../LoggerFactory';
-const logger = LoggerFactory.getLogger('services/FileLoader/LocalFileLoader');
-
+import { LoggerFactory } from '../LoggerFactory';
 import { IFileLoader } from './IFileLoader';
+
+const logger = LoggerFactory.getLogger('services/FileLoader/LocalFileLoader');
 
 export class LocalFileLoader implements IFileLoader {
     public async loadJson(filePath: string): Promise<Record<string, unknown>> {

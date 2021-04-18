@@ -1,8 +1,8 @@
-import LoggerFactory from '../LoggerFactory';
-const logger = LoggerFactory.getLogger('services/FileLoader/S3FileLoader');
-
+import { LoggerFactory } from '../LoggerFactory';
 import { S3 } from '@aws-sdk/client-s3';
 import { IFileLoader } from './IFileLoader';
+
+const logger = LoggerFactory.getLogger('services/FileLoader/S3FileLoader');
 
 export class S3FileLoader implements IFileLoader {
     private s3Bucket: string;

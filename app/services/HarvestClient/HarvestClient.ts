@@ -1,10 +1,10 @@
-import fetch from 'node-fetch';
 import { HarvestTimeEntry } from '../../inputs/HarvestApp/TimeEntry';
 import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
 import { IHarvestConfiguration } from './IHarvestConfiguration';
 import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';
+import { LoggerFactory } from '../LoggerFactory';
+import fetch from 'node-fetch';
 
-import LoggerFactory from '../LoggerFactory';
 const logger = LoggerFactory.getLogger('services/HarvestClient');
 
 export class HarvestClient {

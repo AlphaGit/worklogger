@@ -1,12 +1,14 @@
 import { OutputBase } from '../../outputs/OutputBase';
-import DefaultSESClient from 'aws-sdk/clients/ses';
-import LoggerFactory from '../../services/LoggerFactory';
-const logger = LoggerFactory.getLogger('AWS-SES/Output');
-import mustache from 'mustache';
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { WorklogSet } from '../../models/WorklogSet';
 import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
+
+import DefaultSESClient from 'aws-sdk/clients/ses';
+import mustache from 'mustache';
+
+const logger = LoggerFactory.getLogger('AWS-SES/Output');
 
 export class AwsSesOutput extends OutputBase {
     private SES: DefaultSESClient;

@@ -1,10 +1,4 @@
-import LoggerFactory from '../../services/LoggerFactory';
-
-const logger = LoggerFactory.getLogger('GoogleCalendarInput');
-
-import googleApis from 'googleapis';
-const googleApisRequired = googleApis.google;
-
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { ModelMapper } from './ModelMapper';
 import { promisify } from 'util';
 import { InputConfiguration } from './InputConfiguration'
@@ -16,6 +10,11 @@ import { IApiResponse } from './IApiResponse';
 import { IFileLoader } from '../../models/IFileLoader';
 import { ServiceRegistrations } from '../../models/ServiceRegistrations';
 import { Worklog } from '../../models/Worklog';
+
+import googleApis from 'googleapis';
+const googleApisRequired = googleApis.google;
+
+const logger = LoggerFactory.getLogger('GoogleCalendarInput');
 
 module.exports = class Input {
     private ModelMapper: ModelMapper;

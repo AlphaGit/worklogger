@@ -1,7 +1,8 @@
+import { LoggerFactory } from '../../services/LoggerFactory';
+import { JiraWorklog } from './JiraWorklog';
+
 import fetch from 'node-fetch';
 
-import LoggerFactory from '../../services/LoggerFactory';
-import { JiraWorklog } from './JiraWorklog';
 const logger = LoggerFactory.getLogger('outputs/JiraWorklog/JiraClient');
 
 export class JiraClient {

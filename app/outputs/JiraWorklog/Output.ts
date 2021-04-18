@@ -1,16 +1,16 @@
 import { OutputBase } from '../OutputBase';
 import { JiraClient } from './JiraClient';
-
-import LoggerFactory from '../../services/LoggerFactory';
-const logger = LoggerFactory.getLogger('outputs/JiraWorklog/Output');
-
-import moment from 'moment-timezone';
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { Worklog } from '../../models/Worklog';
 import { JiraWorklog } from './JiraWorklog';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
+
+import moment from 'moment-timezone';
+
+const logger = LoggerFactory.getLogger('outputs/JiraWorklog/Output');
 
 interface IJiraTicketWithWorklog {
     jiraTicket: string;

@@ -1,18 +1,15 @@
-import LoggerFactory from '../../services/LoggerFactory';
-
-const logger = LoggerFactory.getLogger('inputs/HarvestApp/Input');
-
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { calculateDurationInMinutes } from '../../services/durationCalculator';
-
-import moment from 'moment-timezone';
-
 import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
-
 import { Worklog } from '../../models/Worklog';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { InputConfiguration } from '../../models/InputConfiguration';
 import { ServiceRegistrations } from '../../models/ServiceRegistrations';
 import { HarvestTimeEntry } from './TimeEntry';
+
+import moment from 'moment-timezone';
+
+const logger = LoggerFactory.getLogger('inputs/HarvestApp/Input');
 
 export class Input {
     private _appConfiguration: AppConfiguration;

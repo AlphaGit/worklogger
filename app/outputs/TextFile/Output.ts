@@ -1,14 +1,13 @@
 import { writeFile } from 'fs';
-import LoggerFactory from '../../services/LoggerFactory';
-const logger = LoggerFactory.getLogger('TextFile/Output');
-
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { OutputBase } from '../OutputBase';
-
 import { promisify } from 'util';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { ITextFileOutputConfiguration } from './ITextFileOutputConfiguration';
+
+const logger = LoggerFactory.getLogger('TextFile/Output');
 
 export class TextFileOutput extends OutputBase {
     private _writeFile: (fileName: string, content: string) => Promise<void>;

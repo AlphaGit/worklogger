@@ -1,6 +1,7 @@
+import { WorklogSet } from 'app/models/WorklogSet';
+import { LoggerFactory } from 'app/services/LoggerFactory';
+
 async function start(passedArguments: string | string[]) {
-    import { WorklogSet } from 'app/models/WorklogSet';
-    import { LoggerFactory } from 'app/services/LoggerFactory';
     const logger = LoggerFactory.getLogger('worklogger');
 
     logger.level = 'trace';

@@ -1,8 +1,9 @@
 import { WorklogSet } from '../../models/WorklogSet';
 import { FormatterBase } from '../FormatterBase';
-import LoggerFactory from '../../services/LoggerFactory';
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { Worklog } from '../../models/Worklog';
 import { SummaryTextFormatterConfiguration } from './SummaryTextFormatterConfiguration';
+
 const logger = LoggerFactory.getLogger('SummaryTextFormatter');
 
 export class SummaryTextFormatter extends FormatterBase {

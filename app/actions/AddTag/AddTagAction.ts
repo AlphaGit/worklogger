@@ -1,5 +1,5 @@
 import { Worklog } from '../../models/Worklog';
-import LoggerFactory from '../../services/LoggerFactory';
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { AddTagConfiguration } from './AddTagConfiguration';
 import { AddTagDefinition } from './AddTagDefinition';
 import { IAction } from '../IAction';

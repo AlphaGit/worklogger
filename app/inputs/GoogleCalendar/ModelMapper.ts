@@ -1,17 +1,12 @@
 import { Worklog } from '../../models/Worklog';
-import LoggerFactory from '../../services/LoggerFactory';
-
-const logger = LoggerFactory.getLogger('GoogleCalendarInput/ModelMapper');
-
+import { LoggerFactory } from '../../services/LoggerFactory';
 import { calculateDurationInMinutes } from '../../services/durationCalculator';
 import { IApiResponse } from './IApiResponse';
 import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
 import { calendar_v3 } from 'googleapis';
+import { Tag } from './Tag';
 
-class Tag {
-    tagName: string;
-    tagValue: string;
-}
+const logger = LoggerFactory.getLogger('GoogleCalendarInput/ModelMapper');
 
 export class ModelMapper {
     private minimumLoggableTimeSlotInMinutes: number;

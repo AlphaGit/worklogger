@@ -1,10 +1,9 @@
-import LoggerFactory from './LoggerFactory';
-
-const logger = LoggerFactory.getLogger('services/inputLoader');
-
+import { LoggerFactory } from './LoggerFactory';
 import { ServiceRegistrations } from '../models/ServiceRegistrations';
 import { AppConfiguration } from '../models/AppConfiguration';
 import { IInput } from '../inputs/IInput';
+
+const logger = LoggerFactory.getLogger('services/inputLoader');
 
 export async function loadInputs(serviceRegistrations: ServiceRegistrations, appConfiguration: AppConfiguration): Promise<IInput[]> {
     const loadedInputs: IInput[] = [];
