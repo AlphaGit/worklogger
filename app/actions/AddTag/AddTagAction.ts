@@ -1,35 +1,22 @@
+import { getLogger } from 'log4js';
+
 import { Worklog } from '../../models/Worklog';
-import { LoggerFactory } from '../../services/LoggerFactory';
 import { AddTagConfiguration } from './AddTagConfiguration';
 import { AddTagDefinition } from './AddTagDefinition';
 import { IAction } from '../IAction';
 
-const logger = LoggerFactory.getLogger('actions/addTags');
-
 export class AddTagAction implements IAction {
     private _tagsToAdd: AddTagDefinition[];
+    private _logger = getLogger();
 
     constructor(configuration: AddTagConfiguration) {
-        if (!configuration || !Array.isArray(configuration.tagsToAdd))
-            throw new Error('Required configuration: tagsToAdd.');
-
         if (Array.isArray(configuration.tagsToAdd) && !configuration.tagsToAdd.length)
             throw new Error('Configuration cannot be empty: tagsToAdd.');
 
-        if (configuration.tagsToAdd.some(tag => !this._validateTagObject(tag)))
+        if (configuration.tagsToAdd.some(tag => !tag))
             throw new Error('Tags need to be valid tag-configuration objects.');
 
         this._tagsToAdd = configuration.tagsToAdd;
-    }
-
-    _validateTagObject(tagObject: AddTagDefinition): boolean {
-        if (!tagObject) return false;
-        if (!(typeof(tagObject) === 'object')) return false;
-
-        if (!tagObject.name) return false;
-        if (!tagObject.value && !tagObject.extractCaptureFromSummary) return false;
-
-        return true;
     }
 
     _extractCaptureFromSummary(summary: string, regexText: string): string | undefined {
@@ -37,15 +24,15 @@ export class AddTagAction implements IAction {
             const regex = new RegExp(regexText);
             const result = regex.exec(summary);
             if (!result) {
-                logger.trace(`Could not extract /${regexText}/ from worklog summary "${summary}" (no matches).`);
+                this._logger.trace(`Could not extract /${regexText}/ from worklog summary "${summary}" (no matches).`);
                 return undefined;
             }
 
             const matchedValue = result[1];
-            logger.trace(`Extracted /${regexText}/ from worklog summary "${summary}" => ${matchedValue}`);
+            this._logger.trace(`Extracted /${regexText}/ from worklog summary "${summary}" => ${matchedValue}`);
             return matchedValue;
         } catch (e) {
-            logger.error(`Error while processing regex ${regexText} against text ${summary}`, e);
+            this._logger.error(`Error while processing regex ${regexText} against text ${summary}`, e);
             return undefined;
         }
     }
