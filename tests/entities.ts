@@ -45,6 +45,7 @@ export const Worklogs = {
 export const WorklogSets = {
     mixed: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), [ Worklogs.normal(), Worklogs.noDuration(), Worklogs.noTags() ]),
     single: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), [ Worklogs.normal() ]),
+    singleNoTags: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), [ Worklogs.noTags() ]),
     double: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), [ Worklogs.normal(), Worklogs.normal2() ])
 }
 

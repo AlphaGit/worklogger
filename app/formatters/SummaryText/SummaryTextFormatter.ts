@@ -11,22 +11,20 @@ export class SummaryTextFormatter extends FormatterBase {
     format(worklogSet: WorklogSet): string {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 
+        let outputLines: string[] = [];
+
         const timeZone = this._appConfiguration.options.timeZone;
         const startDateTime = moment.tz(worklogSet.startDateTime, timeZone).format();
         const endDateTime = moment.tz(worklogSet.endDateTime, timeZone).format();
-
-        const aggregations = this._generateAggregations(worklogSet);
-
-        const totalDurationMinutes = this._getWorklogDurationSumInMinutes(worklogSet.worklogs);
-
-        let outputLines: string[] = [];
         outputLines.push(`Worklogs from ${startDateTime} to ${endDateTime}.`);
         outputLines.push('');
 
+        const aggregations = this._generateAggregations(worklogSet);
         if (aggregations.length) { 
             outputLines = outputLines.concat(...aggregations);
         }
 
+        const totalDurationMinutes = this._getWorklogDurationSumInMinutes(worklogSet.worklogs);
         const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
         outputLines.push(`Total time: ${totalDurationString}`);
 
