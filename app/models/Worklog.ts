@@ -2,19 +2,15 @@ export class Worklog {
     name: string;
     startDateTime: Date;
     endDateTime: Date;
-    duration: number;
     private _tags: Record<string,string>;
 
-    constructor(name: string, startDateTime: Date, endDateTime: Date,
-        duration: number = (endDateTime.getTime() - startDateTime.getTime()) / (60 * 1000) // duration in minutes
-    ) {
+    constructor(name: string, startDateTime: Date, endDateTime: Date) {
         this._validateStartDateTime(startDateTime);
         this._validateEndDateTime(endDateTime);
         
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.duration = duration;
 
         this._tags = {};
     }
@@ -29,8 +25,12 @@ export class Worklog {
         if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
     }
 
+    getDurationInMinutes(): number {
+        return (this.endDateTime.getTime() - this.startDateTime.getTime()) / (60 * 1000);
+    } 
+
     toString(): string {
-        let string = `${this.name || '(No name)'} (${this.duration} minutes)`;
+        let string = `${this.name || '(No name)'} (${this.getDurationInMinutes()} minutes)`;
         for (const tagName in this._tags) {
             const tagValue = this._tags[tagName];
             string += `\n    ${tagName}:${tagValue}`;
@@ -48,8 +48,8 @@ export class Worklog {
     }
 
     getShortDuration(): string {
-        const hours = Math.floor(this.duration / 60);
-        const minutes = this.duration % 60;
+        const hours = Math.floor(this.getDurationInMinutes() / 60);
+        const minutes = this.getDurationInMinutes() % 60;
 
         const parts = [];
         if (hours > 0) parts.push(`${hours} hs`);

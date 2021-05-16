@@ -3,6 +3,7 @@ import { FormatterBase } from '../FormatterBase';
 import { LoggerFactory } from '../../services/LoggerFactory';
 import { Worklog } from '../../models/Worklog';
 import { SummaryTextFormatterConfiguration } from './SummaryTextFormatterConfiguration';
+import * as moment from 'moment-timezone';
 
 const logger = LoggerFactory.getLogger('SummaryTextFormatter');
 
@@ -10,14 +11,13 @@ export class SummaryTextFormatter extends FormatterBase {
     format(worklogSet: WorklogSet): string {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 
-        const startDateTime = worklogSet.startDateTime.toISOString();
-        const endDateTime = worklogSet.endDateTime.toISOString();
+        const timeZone = this._appConfiguration.options.timeZone;
+        const startDateTime = moment.tz(worklogSet.startDateTime, timeZone).format();
+        const endDateTime = moment.tz(worklogSet.endDateTime, timeZone).format();
 
         const aggregations = this._generateAggregations(worklogSet);
 
         const totalDurationMinutes = this._getWorklogDurationSumInMinutes(worklogSet.worklogs);
-
-        const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
 
         let outputLines: string[] = [];
         outputLines.push(`Worklogs from ${startDateTime} to ${endDateTime}.`);
@@ -27,6 +27,7 @@ export class SummaryTextFormatter extends FormatterBase {
             outputLines = outputLines.concat(...aggregations);
         }
 
+        const totalDurationString = this._getTotalHsMsString(totalDurationMinutes);
         outputLines.push(`Total time: ${totalDurationString}`);
 
         const output = outputLines.join('\n');
@@ -36,7 +37,7 @@ export class SummaryTextFormatter extends FormatterBase {
 
     _getWorklogDurationSumInMinutes(worklogs: Worklog[]): number {
         return worklogs
-            .map(w => w.duration)
+            .map(w => w.getDurationInMinutes())
             .reduce((d1, d2) => d1 + d2, 0);
     }
 
