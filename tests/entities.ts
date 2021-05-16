@@ -1,10 +1,13 @@
 import * as moment from 'moment-timezone';
 
 import { Worklog } from "../app/models/Worklog";
+import { WorklogSet } from '../app/models/WorklogSet';
 
 export const Dates = {
+    today: (): Date => moment().startOf('day').toDate(),
     pastOneHour: (): Date => moment().subtract(1, 'hour').toDate(),
-    now: (): Date => moment().toDate()
+    now: (): Date => moment().toDate(),
+    tomorrow: (): Date => moment().add(1, 'day').startOf('day').toDate()
 };
 
 const normalWorklog = (): Worklog => {
@@ -28,3 +31,7 @@ export const Worklogs = {
     noTags: noTagsWorklog,
     noDuration: noDurationWorklog
 };
+
+export const WorklogSets = {
+    mixed: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), [ Worklogs.normal(), Worklogs.noDuration(), Worklogs.noTags() ])
+}
