@@ -8,12 +8,23 @@ export const Dates = {
 };
 
 const normalWorklog = (): Worklog => {
-    const normalWorklog = new Worklog('Planning meeting', Dates.pastOneHour(), Dates.now(), 60);
-    normalWorklog.addTag('client', 'ProCorp');
-    normalWorklog.addTag('project', 'Test Platform');
-    return normalWorklog;
+    const worklog = new Worklog('Planning meeting', Dates.pastOneHour(), Dates.now(), 60);
+    worklog.addTag('client', 'ProCorp');
+    worklog.addTag('project', 'Test Platform');
+    return worklog;
+};
+
+const noTagsWorklog = (): Worklog => new Worklog('Meeting', Dates.pastOneHour(), Dates.now(), 60);
+
+const noDurationWorklog = (): Worklog => {
+    const worklog = new Worklog('Checkpoint', Dates.pastOneHour(), Dates.pastOneHour(), 0);
+    worklog.addTag('client', 'ProCorp');
+    worklog.addTag('project', 'Test Platform');
+    return worklog;
 };
 
 export const Worklogs = {
-    normal: normalWorklog
+    normal: normalWorklog,
+    noTags: noTagsWorklog,
+    noDuration: noDurationWorklog
 };
