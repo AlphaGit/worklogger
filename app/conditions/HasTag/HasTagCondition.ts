@@ -3,25 +3,21 @@ import { HasTagConditionConfiguration } from "./HasTagConditionConfiguration";
 import { ICondition } from "../ICondition";
 
 export class HasTagCondition implements ICondition {
-    private _configuration: HasTagConditionConfiguration;
-
-    constructor(conditionConfiguration: HasTagConditionConfiguration) {
-        this._configuration = conditionConfiguration;
-    }
+    constructor(private configuration: HasTagConditionConfiguration) { }
 
     isSatisfiedBy(worklog: Worklog): boolean {
-        const checkTagValue = !!this._configuration.tagValue;
-        const worklogTagValue = worklog.getTagValue(this._configuration.tagName);
+        const checkTagValue = !!this.configuration.tagValue;
+        const worklogTagValue = worklog.getTagValue(this.configuration.tagName);
 
         return checkTagValue
-            ? worklogTagValue == this._configuration.tagValue
+            ? worklogTagValue == this.configuration.tagValue
             : !!worklogTagValue;
     }
 
     toString(): string {
-        const tagValue = !this._configuration.tagValue
+        const tagValue = !this.configuration.tagValue
             ? ''
-            : `: ${this._configuration.tagValue}`;
-        return `HasTag(${this._configuration.tagName}${tagValue})`;
+            : `: ${this.configuration.tagValue}`;
+        return `HasTag(${this.configuration.tagName}${tagValue})`;
     }
 }

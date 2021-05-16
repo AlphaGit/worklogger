@@ -1,19 +1,16 @@
-import { Worklog } from "../../models/Worklog";
+import { Worklogs } from "../../../tests/entities";
 import { AddTagAction } from "./AddTagAction";
 import { AddTagConfiguration } from "./AddTagConfiguration";
 import { AddTagDefinition } from "./AddTagDefinition";
-import * as moment from 'moment-timezone';
 
 let addTagDefinition: AddTagDefinition;
 let addTagConfiguration: AddTagConfiguration;
 let addTagAction: AddTagAction;
-let worklog: Worklog;
 
 beforeEach(() => {
     addTagDefinition = new AddTagDefinition('tagName', 'tagValue');
     addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
     addTagAction = new AddTagAction(addTagConfiguration);
-    worklog = new Worklog('worklogName', moment().subtract(1, 'hour').toDate(), moment().toDate(), 60);
 });
 
 describe('constructor', () => {
@@ -35,6 +32,7 @@ describe('constructor', () => {
 describe('apply', () => {
     describe('adds a tag', () => {
         test('string', () => {
+            const worklog = Worklogs.normal();
             addTagAction.apply(worklog);
             const { name, value } = addTagDefinition;
             expect(worklog.getTagValue(name)).toBe(value);
@@ -45,7 +43,8 @@ describe('apply', () => {
             const addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
             const addTagAction = new AddTagAction(addTagConfiguration);
 
-            worklog = new Worklog('worklog with value: abc', moment().subtract(1, 'hour').toDate(), moment().toDate(), 60);
+            const worklog = Worklogs.normal();
+            worklog.name = 'worklog with value: abc';
             addTagAction.apply(worklog);
 
             expect(worklog.getTagValue('tagName')).toBe('abc');
@@ -56,7 +55,8 @@ describe('apply', () => {
             const addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
             const addTagAction = new AddTagAction(addTagConfiguration);
 
-            worklog = new Worklog('worklog without match', moment().subtract(1, 'hour').toDate(), moment().toDate(), 60);
+            const worklog = Worklogs.normal();
+            worklog.name = 'worklog without match';
             addTagAction.apply(worklog);
 
             expect(worklog.getTagValue('tagName')).toBeUndefined();
@@ -67,7 +67,8 @@ describe('apply', () => {
             const addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
             const addTagAction = new AddTagAction(addTagConfiguration);
 
-            worklog = new Worklog('worklog with value: abc', moment().subtract(1, 'hour').toDate(), moment().toDate(), 60);
+            const worklog = Worklogs.normal();
+            worklog.name = 'worklog with value: abc';
             addTagAction.apply(worklog);
 
             expect(worklog.getTagValue('tagName')).toBeUndefined();
