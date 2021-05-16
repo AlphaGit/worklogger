@@ -26,7 +26,7 @@ export class Worklog {
     }
 
     getDurationInMinutes(): number {
-        return (this.endDateTime.getTime() - this.startDateTime.getTime()) / (60 * 1000);
+        return Math.round(this.endDateTime.getTime() - this.startDateTime.getTime()) / (60 * 1000);
     } 
 
     toString(): string {

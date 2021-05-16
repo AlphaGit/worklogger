@@ -2,7 +2,7 @@ import { AppConfiguration } from "../models/AppConfiguration";
 import { WorklogSet } from "../models/WorklogSet";
 import { FormatterConfigurationBase } from "./FormatterConfigurationBase";
 
-export class FormatterBase {
+export abstract class FormatterBase {
     protected _configuration: FormatterConfigurationBase;
     protected _appConfiguration: AppConfiguration;
 
@@ -12,8 +12,5 @@ export class FormatterBase {
         this._appConfiguration = appConfiguration;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    format(worklogSet: WorklogSet): string {
-        throw new Error('format() needs to be implemented in derived class.');
-    }
+    abstract format(worklogSet: WorklogSet): string;
 }
