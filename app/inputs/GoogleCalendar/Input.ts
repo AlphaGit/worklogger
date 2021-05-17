@@ -1,75 +1,40 @@
-import { LoggerFactory } from '../../services/LoggerFactory';
-import { ModelMapper } from './ModelMapper';
-import { promisify } from 'util';
-import { InputConfiguration } from './InputConfiguration'
-import { AppConfiguration } from '../../models/AppConfiguration';
+import { getLogger } from 'log4js';
+import { calendar_v3, google } from 'googleapis';
+import { OAuth2Client } from 'google-auth-library';
 
-import { IGoogleCredentials } from './IGoogleCredentials';
-import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
-import { IApiResponse } from './IApiResponse';
-import { IFileLoader } from '../../models/IFileLoader';
-import { ServiceRegistrations } from '../../models/ServiceRegistrations';
-import { Worklog } from '../../models/Worklog';
+import { AppConfiguration, ServiceRegistrations, IFileLoader, Worklog } from '../../models';
 
-import googleApis from 'googleapis';
-const googleApisRequired = googleApis.google;
+import { IGoogleCredentials, GoogleCalendarCalendarConfiguration, IApiResponse, ModelMapper, InputConfiguration } from '.';
 
-const logger = LoggerFactory.getLogger('GoogleCalendarInput');
-
-module.exports = class Input {
+export class Input {
+    private logger = getLogger();
     private ModelMapper: ModelMapper;
     private fileLoader: IFileLoader;
-    private getCalendarEvents: (query: googleApis.calendar_v3.Params$Resource$Events$List) => googleApis.Common.GaxiosPromise<googleApis.calendar_v3.Schema$Events>;
-    private OAuth2: typeof googleApis.Common.OAuth2Client;
     private _inputConfiguration: InputConfiguration;
-    private _appConfiguration: AppConfiguration;
+    private calendarApi: calendar_v3.Calendar;
 
     constructor(
         serviceRegistrations: ServiceRegistrations,
-        appConfiguration,
-        inputConfiguration,
-        googleApi = googleApisRequired,
+        appConfiguration: AppConfiguration,
+        inputConfiguration: InputConfiguration,
         modelMapperParam: ModelMapper
     ) {
         if (!serviceRegistrations)
             throw new Error('ServiceRegistrations for GoogleCalendarInput is required');
 
-        this.appConfiguration = appConfiguration;
-        this.inputConfiguration = inputConfiguration;
-
-        const minimumLoggableTimeSlotInMinutes = appConfiguration.options.minimumLoggableTimeSlotInMinutes;
-        this.ModelMapper = modelMapperParam || new ModelMapper(minimumLoggableTimeSlotInMinutes);
-
-        this.fileLoader = serviceRegistrations.FileLoader;
-
-        const events = googleApi.calendar('v3').events;
-        const listEvents = events.list.bind(events);
-        this.getCalendarEvents = (query) => promisify(listEvents)(query);
-        
-        this.OAuth2 = googleApi.auth.OAuth2;
-
-    }
-
-    set inputConfiguration(value) {
-        if (!value)
+        if (!inputConfiguration)
             throw new Error('Configuration for GoogleCalendarInput is required');
 
-        this._inputConfiguration = value;
-    }
+        this._inputConfiguration = inputConfiguration;
 
-    get name() {
-        return this._inputConfiguration.name;
-    }
+        const minimumTimeSlot = appConfiguration.options.minimumLoggableTimeSlotInMinutes;
+        this.ModelMapper = modelMapperParam || new ModelMapper(minimumTimeSlot);
 
-    set appConfiguration(value) {
-        if (!value)
-            throw new Error('Application configuration is required');
-
-        this._appConfiguration = value;
+        this.fileLoader = serviceRegistrations.FileLoader;
     }
 
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
-        logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
+        this.logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
         const storageRelativePath = this._inputConfiguration.storageRelativePath;
 
@@ -78,37 +43,37 @@ module.exports = class Input {
         const clientSecret = credentials.installed.client_secret;
         const clientId = credentials.installed.client_id;
         const redirectUrl = credentials.installed.redirect_uris[0];
-        const oauth2Client = new this.OAuth2(clientId, clientSecret, redirectUrl);
+        const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         try {
             const googleTokenPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_token.json';
             const tokenInfo = await this.fileLoader.loadJson(googleTokenPath);
-            logger.trace('Google App token read:', tokenInfo);
+            this.logger.trace('Google App token read:', tokenInfo);
             oauth2Client.credentials = tokenInfo;
         } catch (err) {
-            logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
+            this.logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
             throw err;
         }
 
         const apiResponses = await this._getEventsFromApi(oauth2Client, startDateTime, endDateTime);
 
-        return this._mapToDomainModel(apiResponses);
+        return this.ModelMapper.map(apiResponses);
     }
 
-    async _getEventsFromApi(auth: googleApis.Common.OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
+    async _getEventsFromApi(auth: OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
         const calendarReturnPromises = this._inputConfiguration.calendars
             .map(calendarInfo => this._getEventsFromApiSingleCalendar(auth, calendarInfo, startDateTime, endDateTime));
         return await Promise.all(calendarReturnPromises);
     }
 
-    async _getEventsFromApiSingleCalendar(auth: googleApis.Common.OAuth2Client, calendar: GoogleCalendarCalendarConfiguration, startDateTime: Date, endDateTime: Date): Promise<IApiResponse> {
-        logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
+    async _getEventsFromApiSingleCalendar(auth: OAuth2Client, calendar: GoogleCalendarCalendarConfiguration, startDateTime: Date, endDateTime: Date): Promise<IApiResponse> {
+        this.logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
 
-        logger.debug('Retrieving entries from calendar', calendar.id);
+        this.logger.debug('Retrieving entries from calendar', calendar.id);
 
         try {
-            const calendarResponse = await this.getCalendarEvents({
-                auth: auth,
+            const calendarResponse = await google.calendar("v3").events.list({
+                auth,
                 calendarId: calendar.id,
                 timeMin: startDateTime.toISOString(),
                 timeMax: endDateTime.toISOString(),
@@ -130,8 +95,4 @@ module.exports = class Input {
             throw new Error(`The API returned an error: ${err}`);
         }
     }
-
-    _mapToDomainModel(apiResponses: IApiResponse[]) {
-        return this.ModelMapper.map(apiResponses);
-    }
-};
+}
