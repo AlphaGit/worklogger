@@ -1,5 +1,5 @@
 import { getLogger } from 'log4js';
-import { calendar_v3, google } from 'googleapis';
+import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
 import { AppConfiguration, ServiceRegistrations, IFileLoader, Worklog } from '../../models';
@@ -10,8 +10,7 @@ export class Input {
     private logger = getLogger();
     private ModelMapper: ModelMapper;
     private fileLoader: IFileLoader;
-    private _inputConfiguration: InputConfiguration;
-    private calendarApi: calendar_v3.Calendar;
+    private inputConfiguration: InputConfiguration;
 
     constructor(
         serviceRegistrations: ServiceRegistrations,
@@ -25,7 +24,7 @@ export class Input {
         if (!inputConfiguration)
             throw new Error('Configuration for GoogleCalendarInput is required');
 
-        this._inputConfiguration = inputConfiguration;
+        this.inputConfiguration = inputConfiguration;
 
         const minimumTimeSlot = appConfiguration.options.minimumLoggableTimeSlotInMinutes;
         this.ModelMapper = modelMapperParam || new ModelMapper(minimumTimeSlot);
@@ -36,7 +35,7 @@ export class Input {
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
         this.logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
-        const storageRelativePath = this._inputConfiguration.storageRelativePath;
+        const storageRelativePath = this.inputConfiguration.storageRelativePath;
 
         const clientSecretPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_client_secret.json';
         const credentials = await this.fileLoader.loadJson(clientSecretPath) as IGoogleCredentials;
@@ -61,7 +60,7 @@ export class Input {
     }
 
     async _getEventsFromApi(auth: OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
-        const calendarReturnPromises = this._inputConfiguration.calendars
+        const calendarReturnPromises = this.inputConfiguration.calendars
             .map(calendarInfo => this._getEventsFromApiSingleCalendar(auth, calendarInfo, startDateTime, endDateTime));
         return await Promise.all(calendarReturnPromises);
     }

@@ -1,5 +1,4 @@
 export { Input } from './Input';
-export { InputConfiguration } from './InputConfiguration';
 
 export { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
 export { IApiResponse } from './IApiResponse';
