@@ -90,7 +90,10 @@
 
             // type: hasTag
             "tagName": "string",
-            "tagValue": "string"
+            "tagValue": "string",
+
+            // type: summaryMatches
+            "regex": "string"
         },
         "action": {
             "type": "string",
