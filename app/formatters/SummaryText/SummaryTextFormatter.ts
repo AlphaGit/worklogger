@@ -40,8 +40,8 @@ export class SummaryTextFormatter extends FormatterBase {
     }
 
     _getTotalHsMsString(totalDurationMinutes: number): string {
-        const totalHours = Math.floor(totalDurationMinutes / 60);
-        const minutes = totalDurationMinutes % 60;
+        const totalHours = Math.round(totalDurationMinutes / 60);
+        const minutes = Math.round(totalDurationMinutes % 60);
 
         return `${totalHours}hs ${minutes}m`;
     }
