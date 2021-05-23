@@ -1,7 +1,7 @@
 export class Worklog {
-    name: string;
-    startDateTime: Date;
-    endDateTime: Date;
+    public name: string;
+    public startDateTime: Date;
+    public endDateTime: Date;
     private _tags: Record<string,string>;
 
     constructor(name: string, startDateTime: Date, endDateTime: Date) {
