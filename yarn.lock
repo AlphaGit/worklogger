@@ -3325,10 +3325,10 @@ googleapis-common@^5.0.2:
     url-template "^2.0.8"
     uuid "^8.0.0"
 
-googleapis@^74.0.0:
-  version "74.0.0"
-  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-74.0.0.tgz#7ed52e5a8b37e1d3bd5a99b26d60f80405c07a5b"
-  integrity sha512-9t4RpKF7+qfqmO99LXgmElsKNMfZtc6Lit9yxO0bFbHfNGXTn06+JydB51TkFF2gyrhvyArEAh47NmmkCDkFGQ==
+googleapis@^74.1.0:
+  version "74.1.0"
+  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-74.1.0.tgz#77b67fc0b595689cac4a07e22dc7f86542dcfb86"
+  integrity sha512-nFT4Og99rhIlIPZ9vE6kAHa5PT2i8g5Wi5Vk1eIuQ18fp7U+k63aSOmyvORhbVBfgA6YdtO8A47Ur0JgPQXVzQ==
   dependencies:
     google-auth-library "^7.0.2"
     googleapis-common "^5.0.2"
