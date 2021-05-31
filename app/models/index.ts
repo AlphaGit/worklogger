@@ -1,5 +1,4 @@
-export { AppConfiguration } from './AppConfiguration';
-export { IFileLoader } from './IFileLoader';
+export { AppConfiguration, AppConfigurationOptions } from './AppConfiguration';
 export { InputConfiguration } from './InputConfiguration';
 export { RelativeTime } from './RelativeTime';
 export { ServiceRegistrations } from './ServiceRegistrations';

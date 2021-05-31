@@ -2,20 +2,21 @@ import { getLogger } from 'log4js';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
-import { AppConfiguration, ServiceRegistrations, IFileLoader, Worklog } from '../../models';
+import { AppConfiguration, ServiceRegistrations, Worklog } from '../../models';
+import { IFileLoader } from '../../services/FileLoader/IFileLoader';
 
-import { IGoogleCredentials, GoogleCalendarCalendarConfiguration, IApiResponse, ModelMapper, InputConfiguration } from '.';
+import { IGoogleCredentials, IApiResponse, ModelMapper, GoogleCalendarConfiguration, GoogleCalendarCalendarConfiguration } from '.';
 
 export class Input {
     private logger = getLogger();
     private ModelMapper: ModelMapper;
     private fileLoader: IFileLoader;
-    private inputConfiguration: InputConfiguration;
+    private inputConfiguration: GoogleCalendarConfiguration;
 
     constructor(
         serviceRegistrations: ServiceRegistrations,
         appConfiguration: AppConfiguration,
-        inputConfiguration: InputConfiguration,
+        inputConfiguration: GoogleCalendarConfiguration,
         modelMapperParam: ModelMapper
     ) {
         if (!serviceRegistrations)
@@ -26,37 +27,48 @@ export class Input {
 
         this.inputConfiguration = inputConfiguration;
 
-        const minimumTimeSlot = appConfiguration.options.minimumLoggableTimeSlotInMinutes;
-        this.ModelMapper = modelMapperParam || new ModelMapper(minimumTimeSlot);
+        this.ModelMapper = modelMapperParam || new ModelMapper();
 
         this.fileLoader = serviceRegistrations.FileLoader;
+    }
+
+    private getPath(filename: string): string {
+        const storagePath = this.inputConfiguration.storageRelativePath;
+        return (storagePath ? `${storagePath}/` : '') + filename;
     }
 
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
         this.logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
 
-        const storageRelativePath = this.inputConfiguration.storageRelativePath;
-
-        const clientSecretPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_client_secret.json';
-        const credentials = await this.fileLoader.loadJson(clientSecretPath) as IGoogleCredentials;
-        const clientSecret = credentials.installed.client_secret;
-        const clientId = credentials.installed.client_id;
-        const redirectUrl = credentials.installed.redirect_uris[0];
-        const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUrl);
-
-        try {
-            const googleTokenPath = (storageRelativePath ? `${storageRelativePath}/` : '') + 'google_token.json';
-            const tokenInfo = await this.fileLoader.loadJson(googleTokenPath);
-            this.logger.trace('Google App token read:', tokenInfo);
-            oauth2Client.credentials = tokenInfo;
-        } catch (err) {
-            this.logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
-            throw err;
-        }
+        const oauth2Client = await this.getAuthenticatedClient();
 
         const apiResponses = await this._getEventsFromApi(oauth2Client, startDateTime, endDateTime);
 
         return this.ModelMapper.map(apiResponses);
+    }
+
+    private async getAuthenticatedClient() {
+        try {
+            const clientSecretPath = this.getPath('google_client_secret.json');
+            const credentials = await this.fileLoader.loadJson(clientSecretPath) as IGoogleCredentials;
+
+            const {
+                client_secret: clientSecret,
+                client_id: clientId,
+                redirect_uris: redirectUrls
+            } = credentials.installed;
+            const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUrls[0]);
+
+            const googleTokenPath = this.getPath('google_token.json');
+            const tokenInfo = await this.fileLoader.loadJson(googleTokenPath);
+            this.logger.trace('Google App token read:', tokenInfo);
+            oauth2Client.credentials = tokenInfo;
+
+            return oauth2Client;
+        } catch (err) {
+            this.logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
+            throw err;
+        }
     }
 
     async _getEventsFromApi(auth: OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {

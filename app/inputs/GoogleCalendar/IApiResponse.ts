@@ -1,5 +1,5 @@
 import googleApis from 'googleapis';
-import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarCalendarConfiguration';
+import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarConfiguration';
 
 export interface IApiResponse {
     calendarConfig: GoogleCalendarCalendarConfiguration;

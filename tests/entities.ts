@@ -1,8 +1,6 @@
 import * as moment from 'moment-timezone';
 
-import { AppConfiguration, AppConfigurationOptions } from '../app/models/AppConfiguration';
-import { Worklog } from "../app/models/Worklog";
-import { WorklogSet } from '../app/models/WorklogSet';
+import { AppConfiguration, AppConfigurationOptions, ServiceRegistrations as Services, Worklog, WorklogSet } from '../app/models';
 
 export const Dates = {
     today: (): Date => moment().startOf('day').toDate(),
@@ -53,9 +51,22 @@ const getNormalAppConfiguration = (): AppConfiguration => {
     const configuration = new AppConfiguration();
     configuration.options = new AppConfigurationOptions();
     configuration.options.timeZone = 'America/Toronto';
+    configuration.options.minimumLoggableTimeSlotInMinutes = 30;
     return configuration;
 };
 
 export const AppConfigurations = {
     normal: getNormalAppConfiguration
+}
+
+const getMockServiceRegistrations = (): Services => {
+    const serviceRegistrations = new Services();
+    serviceRegistrations.FileLoader = {
+        loadJson: jest.fn()
+    };
+    return serviceRegistrations;
+};
+
+export const ServiceRegistrations = {
+    mock: getMockServiceRegistrations
 }
