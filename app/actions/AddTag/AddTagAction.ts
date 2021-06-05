@@ -4,6 +4,7 @@ import { Worklog } from '../../models/Worklog';
 import { AddTagConfiguration } from './AddTagConfiguration';
 import { AddTagDefinition } from './AddTagDefinition';
 import { IAction } from '../IAction';
+import { Tag } from '../../models';
 
 export class AddTagAction implements IAction {
     private _tagsToAdd: AddTagDefinition[];
@@ -41,9 +42,10 @@ export class AddTagAction implements IAction {
         if (!(worklog instanceof Worklog))
             throw new Error('Apply: a Worklog is required.');
 
-        this._tagsToAdd.forEach(tag => {
-            const tagValue = tag.value || this._extractCaptureFromSummary(worklog.name, tag.extractCaptureFromSummary);
-            worklog.addTag(tag.name, tagValue);
+        this._tagsToAdd.forEach(tagToAdd => {
+            const tagValue = tagToAdd.value || this._extractCaptureFromSummary(worklog.name, tagToAdd.extractCaptureFromSummary);
+            const tag = new Tag(tagToAdd.name, tagValue);
+            worklog.addTag(tag);
         });
     }
 

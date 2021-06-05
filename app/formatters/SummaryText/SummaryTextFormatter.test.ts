@@ -1,5 +1,6 @@
 import * as moment from "moment-timezone";
-import { AppConfigurations, Dates, WorklogSets } from "../../../tests/entities";
+import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/entities";
+import { Tag } from "../../models";
 import { AppConfiguration } from "../../models/AppConfiguration";
 import { SummaryTextFormatter } from "./SummaryTextFormatter";
 import { SummaryTextFormatterConfiguration } from "./SummaryTextFormatterConfiguration";
@@ -88,8 +89,8 @@ describe('format', () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
-        worklogSet.worklogs[0].addTag('client', 'ProCorp');
-        worklogSet.worklogs[0].addTag('project', 'Project1');
+        worklogSet.worklogs[0].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[0].addTag(new Tag('project', 'Project1'));
 
         const configuration = new SummaryTextFormatterConfiguration([['client'], ['project']]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
@@ -107,12 +108,12 @@ describe('format', () => {
         const worklogSet = WorklogSets.double();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
-        worklogSet.worklogs[0].addTag('client', 'ProCorp');
-        worklogSet.worklogs[0].addTag('project', 'Project1');
+        worklogSet.worklogs[0].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[0].addTag(new Tag('project', 'Project1'));
         worklogSet.worklogs[1].startDateTime = Dates.pastOneHour();
         worklogSet.worklogs[1].endDateTime = Dates.now();
-        worklogSet.worklogs[1].addTag('client', 'ProCorp');
-        worklogSet.worklogs[1].addTag('project', 'Project2');
+        worklogSet.worklogs[1].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[1].addTag(new Tag('project', 'Project2'));
 
         const configuration = new SummaryTextFormatterConfiguration([['client', 'project']]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);

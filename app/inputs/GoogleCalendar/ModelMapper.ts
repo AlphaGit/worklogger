@@ -1,5 +1,5 @@
-import { Worklog } from '../../models';
-import { GoogleCalendarCalendarConfiguration, Tag, IApiResponse } from '.';
+import { Worklog, Tag } from '../../models';
+import { GoogleCalendarCalendarConfiguration, IApiResponse } from '.';
 import { calendar_v3 } from 'googleapis';
 import { getLogger } from 'log4js';
 
@@ -29,9 +29,10 @@ export class ModelMapper {
 
         const worklog = new Worklog(event.summary, startTime, endTime);
 
-        for (const tag of calendarConfig.includeTags || []) {
-            const { tagName, tagValue } = this.parseTag(tag);
-            worklog.addTag(tagName, tagValue);
+        for (const tagToInclude of calendarConfig.includeTags || []) {
+            const { name, value } = this.parseTag(tagToInclude);
+            const tag = new Tag(name, value);
+            worklog.addTag(tag);
         }
 
         return worklog;
@@ -39,8 +40,8 @@ export class ModelMapper {
 
     private parseTag(tagString: string): Tag {
         const colonPosition = tagString.indexOf(':');
-        const tagName = tagString.substring(0, colonPosition);
-        const tagValue = tagString.substring(colonPosition + 1, tagString.length);
-        return { tagName, tagValue };
+        const name = tagString.substring(0, colonPosition);
+        const value = tagString.substring(colonPosition + 1, tagString.length);
+        return new Tag(name, value);
     }
 }

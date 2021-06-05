@@ -1,8 +1,10 @@
+import { Tag } from '.';
+
 export class Worklog {
     public name: string;
     public startDateTime: Date;
     public endDateTime: Date;
-    private _tags: Record<string,string>;
+    private _tags: Record<string, Tag>[] = {};
 
     constructor(name: string, startDateTime: Date, endDateTime: Date) {
         this._validateStartDateTime(startDateTime);
@@ -11,8 +13,6 @@ export class Worklog {
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-
-        this._tags = {};
     }
 
     _validateEndDateTime(endDateTime: Date): void {
@@ -26,7 +26,7 @@ export class Worklog {
     }
 
     getDurationInMinutes(): number {
-        return Math.round(this.endDateTime.getTime() - this.startDateTime.getTime()) / (60 * 1000);
+        return Math.round((this.endDateTime.getTime() - this.startDateTime.getTime()) / (60 * 1000));
     } 
 
     toString(): string {
@@ -57,18 +57,12 @@ export class Worklog {
         return parts.join(' ');
     }
 
-    addTag(name: string, value: string): void {
-        this._validateTagName(name);
-        this._tags[name] = value;
+    /** @todo use the tag structure instead of deconstructing it */
+    addTag(tag: Tag): void {
+        this._tags[tag.name] = tag;
     }
 
     getTagValue(name: string): string {
-        this._validateTagName(name);
-        return this._tags[name];
-    }
-
-    _validateTagName(tagName: string): void {
-        if (tagName == null || tagName == undefined) throw new Error('Tag names cannot be empty');
-        if (typeof(tagName) !== 'string') throw new Error('Tag names need to be strings');
+        return this._tags[name]?.value;
     }
 }

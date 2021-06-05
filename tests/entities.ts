@@ -1,6 +1,6 @@
 import * as moment from 'moment-timezone';
 
-import { AppConfiguration, AppConfigurationOptions, ServiceRegistrations as Services, Worklog, WorklogSet } from '../app/models';
+import { AppConfiguration, AppConfigurationOptions, ServiceRegistrations as Services, Tag, Worklog, WorklogSet } from '../app/models';
 
 export const Dates = {
     today: (): Date => moment().startOf('day').toDate(),
@@ -10,17 +10,27 @@ export const Dates = {
     tomorrow: (): Date => moment().add(1, 'day').startOf('day').toDate()
 };
 
+export const Tags = {
+    client: {
+        ProCorp: (): Tag => new Tag('client', 'ProCorp')
+    },
+    project: {
+        TestPlatform: (): Tag => new Tag('project', 'Test Platform'),
+        ResearchAndDevelopment: (): Tag => new Tag('project', 'R&D')
+    }
+}
+
 const normalWorklog = (): Worklog => {
     const worklog = new Worklog('Planning meeting', Dates.pastOneHour(), Dates.now());
-    worklog.addTag('client', 'ProCorp');
-    worklog.addTag('project', 'Test Platform');
+    worklog.addTag(Tags.client.ProCorp());
+    worklog.addTag(Tags.project.TestPlatform());
     return worklog;
 };
 
 const normalWorklog2 = (): Worklog => {
     const worklog = new Worklog('Investigating technologies', Dates.pastTwoHours(), Dates.pastOneHour());
-    worklog.addTag('client', 'ProCorp');
-    worklog.addTag('project', 'R&D');
+    worklog.addTag(Tags.client.ProCorp());
+    worklog.addTag(Tags.project.ResearchAndDevelopment());
     return worklog;
 }
 
@@ -28,8 +38,8 @@ const noTagsWorklog = (): Worklog => new Worklog('Meeting', Dates.pastOneHour(),
 
 const noDurationWorklog = (): Worklog => {
     const worklog = new Worklog('Checkpoint', Dates.pastOneHour(), Dates.pastOneHour());
-    worklog.addTag('client', 'ProCorp');
-    worklog.addTag('project', 'Test Platform');
+    worklog.addTag(Tags.client.ProCorp());
+    worklog.addTag(Tags.project.TestPlatform());
     return worklog;
 };
 

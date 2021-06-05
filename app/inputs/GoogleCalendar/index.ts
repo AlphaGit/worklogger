@@ -4,4 +4,3 @@ export { GoogleCalendarConfiguration, GoogleCalendarCalendarConfiguration } from
 export { IApiResponse } from './IApiResponse';
 export { IGoogleCredentials } from './IGoogleCredentials';
 export { ModelMapper } from './ModelMapper';
-export { Tag } from './Tag';

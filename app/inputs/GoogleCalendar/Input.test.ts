@@ -50,7 +50,7 @@ describe('getWorklogs', () => {
         expect(serviceRegistrations.FileLoader.loadJson).toHaveBeenCalledWith('localPath/subPath/google_client_secret.json');
     });
 
-    test('throws if credentials cannot be read', () => {
+    test('throws if credentials cannot be read', async () => {
         const serviceRegistrations = ServiceRegistrations.mock();
         serviceRegistrations.FileLoader.loadJson = jest.fn().mockImplementation(() => {
             throw new Error('Simulated credential error.');
@@ -62,7 +62,7 @@ describe('getWorklogs', () => {
 
         const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
-        expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
+        await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
     });
 
     test('filters results from events that started after our start time', async () => {
@@ -98,7 +98,7 @@ describe('getWorklogs', () => {
         expect(worklogs.length).toBe(1);
     });
 
-    test('throws if the calendar API fails', () => {
+    test('throws if the calendar API fails', async () => {
         const serviceRegistrations = ServiceRegistrations.mock();
         serviceRegistrations.FileLoader.loadJson = jest.fn().mockResolvedValue({
             installed: {
@@ -112,14 +112,14 @@ describe('getWorklogs', () => {
         configuration.storageRelativePath = 'localPath/subPath';
         configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
 
-        mockedEventsList.mockRejectedValue('Test error');
+        mockedEventsList.mockRejectedValue('Simulated API Error');
 
         const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
-        expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
+        await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('The API returned an error: Simulated API Error');
     });
 
-    test('throws if the calendar API fails', () => {
+    test('throws if the calendar API fails', async () => {
         const serviceRegistrations = ServiceRegistrations.mock();
         serviceRegistrations.FileLoader.loadJson = jest.fn().mockResolvedValue({
             installed: {
@@ -137,7 +137,7 @@ describe('getWorklogs', () => {
 
         const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
-        expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
+        await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('The API returned an error: Test error');
     });
 
     test('uses no storage path if none is set', async () => {
