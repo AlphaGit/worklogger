@@ -12,7 +12,7 @@ jest.mock('googleapis', () => ({
     }
 }));
 
-import { Input, GoogleCalendarConfiguration, ModelMapper } from '.'
+import { Input, GoogleCalendarConfiguration } from '.'
 import { AppConfigurations, Dates, ServiceRegistrations } from '../../../tests/entities';
 import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarConfiguration';
 
