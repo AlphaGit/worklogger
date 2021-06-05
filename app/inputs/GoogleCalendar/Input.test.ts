@@ -18,13 +18,13 @@ import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarConfigurati
 
 describe('constructor', () => {
     test('requires serverRegistrations to be present', () => {
-        expect(() => new Input(null, AppConfigurations.normal(), new GoogleCalendarConfiguration(), new ModelMapper())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
-        expect(() => new Input(undefined, AppConfigurations.normal(), new GoogleCalendarConfiguration(), new ModelMapper())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
+        expect(() => new Input(null, AppConfigurations.normal(), new GoogleCalendarConfiguration())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
+        expect(() => new Input(undefined, AppConfigurations.normal(), new GoogleCalendarConfiguration())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
     });
 
     test('requires input configuration to be present', () => {
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), null, new ModelMapper())).toThrow('Configuration for GoogleCalendarInput is required');
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), undefined, new ModelMapper())).toThrow('Configuration for GoogleCalendarInput is required');
+        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), null)).toThrow('Configuration for GoogleCalendarInput is required');
+        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), undefined)).toThrow('Configuration for GoogleCalendarInput is required');
     });
 });
 
@@ -43,7 +43,7 @@ describe('getWorklogs', () => {
         configuration.storageRelativePath = 'localPath/subPath';
         configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration, new ModelMapper());
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
         await input.getWorkLogs(Dates.pastTwoHours(), Dates.now());
 
@@ -60,7 +60,7 @@ describe('getWorklogs', () => {
         configuration.storageRelativePath = 'localPath/subPath';
         configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration, new ModelMapper());
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
         expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
     });
@@ -91,14 +91,14 @@ describe('getWorklogs', () => {
             }
         });
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration, new ModelMapper());
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
 
         const worklogs = await input.getWorkLogs(Dates.pastOneHour(), Dates.now());
 
         expect(worklogs.length).toBe(1);
     });
 
-    test('returns mapped worklogs from the event data', async () => {
+    test('throws if the calendar API fails', () => {
         const serviceRegistrations = ServiceRegistrations.mock();
         serviceRegistrations.FileLoader.loadJson = jest.fn().mockResolvedValue({
             installed: {
@@ -112,20 +112,54 @@ describe('getWorklogs', () => {
         configuration.storageRelativePath = 'localPath/subPath';
         configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
 
-        mockedEventsList.mockResolvedValue({
-            data: {
-                items: [{
-                    summary: 'Refinement meeting',
-                    start: { dateTime: Dates.now() },
-                    end: { dateTime: Dates.now() }
-                }] 
+        mockedEventsList.mockRejectedValue('Test error');
+
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+
+        expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
+    });
+
+    test('throws if the calendar API fails', () => {
+        const serviceRegistrations = ServiceRegistrations.mock();
+        serviceRegistrations.FileLoader.loadJson = jest.fn().mockResolvedValue({
+            installed: {
+                client_id: 'someClientId',
+                client_secret: 'someClientSecret',
+                redirect_uris: ['https://example.com']
             }
         });
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration, new ModelMapper());
+        const configuration = new GoogleCalendarConfiguration();
+        configuration.storageRelativePath = 'localPath/subPath';
+        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
 
-        const [worklog] = await input.getWorkLogs(Dates.pastOneHour(), Dates.now());
+        mockedEventsList.mockRejectedValue('Test error');
 
-        expect(worklog.name).toBe('Refinement meeting');
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+
+        expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
+    });
+
+    test('uses no storage path if none is set', async () => {
+        const serviceRegistrations = ServiceRegistrations.mock();
+        serviceRegistrations.FileLoader.loadJson = jest.fn().mockResolvedValue({
+            installed: {
+                client_id: 'someClientId',
+                client_secret: 'someClientSecret',
+                redirect_uris: ['https://example.com']
+            }
+        });
+
+        const configuration = new GoogleCalendarConfiguration();
+        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
+
+        mockedEventsList.mockResolvedValue({ data: { items: [] } });
+
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+
+        await input.getWorkLogs(Dates.pastTwoHours(), Dates.now());
+
+        expect(serviceRegistrations.FileLoader.loadJson).toHaveBeenCalledWith('google_client_secret.json');
+        expect(serviceRegistrations.FileLoader.loadJson).toHaveBeenCalledWith('google_token.json');
     });
 });

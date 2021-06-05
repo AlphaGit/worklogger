@@ -9,15 +9,14 @@ import { IGoogleCredentials, IApiResponse, ModelMapper, GoogleCalendarConfigurat
 
 export class Input {
     private logger = getLogger();
-    private ModelMapper: ModelMapper;
+    private modelMapper: ModelMapper = new ModelMapper();
     private fileLoader: IFileLoader;
     private inputConfiguration: GoogleCalendarConfiguration;
 
     constructor(
         serviceRegistrations: ServiceRegistrations,
         appConfiguration: AppConfiguration,
-        inputConfiguration: GoogleCalendarConfiguration,
-        modelMapperParam: ModelMapper
+        inputConfiguration: GoogleCalendarConfiguration
     ) {
         if (!serviceRegistrations)
             throw new Error('ServiceRegistrations for GoogleCalendarInput is required');
@@ -26,8 +25,6 @@ export class Input {
             throw new Error('Configuration for GoogleCalendarInput is required');
 
         this.inputConfiguration = inputConfiguration;
-
-        this.ModelMapper = modelMapperParam || new ModelMapper();
 
         this.fileLoader = serviceRegistrations.FileLoader;
     }
@@ -44,7 +41,7 @@ export class Input {
 
         const apiResponses = await this._getEventsFromApi(oauth2Client, startDateTime, endDateTime);
 
-        return this.ModelMapper.map(apiResponses);
+        return this.modelMapper.map(apiResponses);
     }
 
     private async getAuthenticatedClient() {
