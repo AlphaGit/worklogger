@@ -1,10 +1,11 @@
-import { LoggerFactory } from './LoggerFactory';
 import { loadCondition } from './conditionLoader';
 import { IAction } from '../actions/IAction'
 import { ICondition } from '../conditions/ICondition';
 import { IConditionConfig } from '../conditions/IConditionConfig';
 
-const logger = LoggerFactory.getLogger('services/actionLoader');
+import { getLogger } from 'log4js';
+
+const logger = getLogger('services/actionLoader');
 
 export async function loadActionsAndConditions(actionConfigs: Transformation[]): Promise<IActionWithCondition[]> {
     return Promise.all(actionConfigs.map(async config => {

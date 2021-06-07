@@ -1,2 +1,3 @@
 export { HarvestInputConfiguration } from './HarvestInputConfiguration';
-export { HarvestTimeEntry } from './TimeEntry';
+export { HarvestTimeEntry, HarvestProject, HarvestTask, HarvestClient } from './Models';
+export { Input } from './Input';

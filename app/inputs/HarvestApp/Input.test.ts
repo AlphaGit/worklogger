@@ -1,7 +1,5 @@
-import { AppConfigurations, Dates, ServiceRegistrations } from "../../../tests/entities";
-import { HarvestInputConfiguration } from "./";
-import { Input } from "./Input";
-import { HarvestClient, HarvestProject, HarvestTask, HarvestTimeEntry } from "./TimeEntry";
+import { AppConfigurations, Dates, ServiceRegistrations } from '../../../tests/entities';
+import { HarvestInputConfiguration, Input, HarvestTask, HarvestTimeEntry, HarvestProject, HarvestClient } from '.';
 
 const getTimeEntriesMock = jest.fn().mockResolvedValue([]);
 jest.mock('../../services/HarvestClient/HarvestClient', () => ({
