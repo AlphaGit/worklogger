@@ -1,94 +1,74 @@
-import { LoggerFactory } from '../../services/LoggerFactory';
-import { calculateDurationInMinutes } from '../../services/durationCalculator';
 import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
-import { Worklog } from '../../models/Worklog';
-import { AppConfiguration } from '../../models/AppConfiguration';
-import { InputConfiguration } from '../../models/InputConfiguration';
-import { ServiceRegistrations } from '../../models/ServiceRegistrations';
-import { HarvestTimeEntry } from './TimeEntry';
+import { AppConfiguration, Worklog, ServiceRegistrations, Tag } from '../../models';
+import { HarvestInputConfiguration, HarvestTimeEntry } from '.';
 
-import moment from 'moment-timezone';
-
-const logger = LoggerFactory.getLogger('inputs/HarvestApp/Input');
+import { tz } from 'moment-timezone';
+import { getLogger } from 'log4js';
 
 export class Input {
-    private _appConfiguration: AppConfiguration;
-    private _inputConfiguration: InputConfiguration;
-    private _harvestClient: HarvestClient;
+    private logger = getLogger('inputs/HarvestApp/Input');
+    private harvestClient: HarvestClient;
 
     constructor(
-        serviceRegistrations: ServiceRegistrations,
-        appConfiguration: AppConfiguration,
-        inputConfiguration: InputConfiguration,
-        harvestClient: HarvestClient
+        private serviceRegistrations: ServiceRegistrations,
+        private appConfiguration: AppConfiguration,
+        private inputConfiguration: HarvestInputConfiguration
     ) {
         if (!appConfiguration)
             throw new Error('App configuration for Harvest App input is required.');
 
-        this._appConfiguration = appConfiguration;
-
         if (!inputConfiguration)
             throw new Error('Input configuration for Harvest App input is required.');
-        this._inputConfiguration = inputConfiguration;
         
-        this._harvestClient = harvestClient || new HarvestClient(inputConfiguration);
+        this.harvestClient = new HarvestClient(inputConfiguration);
     }
 
     get name(): string {
-        return this._inputConfiguration.name;
+        return this.inputConfiguration.name;
     }
 
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
-        logger.info('Retrieving worklogs from Harvest between', startDateTime, 'and', endDateTime);
+        this.logger.info('Retrieving worklogs from Harvest between', startDateTime, 'and', endDateTime);
 
         const parameters = { from: startDateTime, to: endDateTime };
-        const timeEntries = await this._harvestClient.getTimeEntries(parameters);
+        const timeEntries = await this.harvestClient.getTimeEntries(parameters);
 
-        return this._mapToDomainModel(timeEntries);
+        return this.mapToDomainModel(timeEntries);
     }
 
-    _mapToDomainModel(timeEntries: HarvestTimeEntry[]): Worklog[] {
-        const minimumLoggableTimeSlotInMinutes = this._appConfiguration.options.minimumLoggableTimeSlotInMinutes;
-
+    private mapToDomainModel(timeEntries: HarvestTimeEntry[]): Worklog[] {
         const mappedWorklogs = timeEntries.map(te => {
-            const canGetTimeFromStartAndEnd = te.spent_date && te.started_time && te.ended_time;
-            const canGetTimeFromHours = !!te.hours;
+            const timeZone = this.appConfiguration.options.timeZone;
 
-            if (!canGetTimeFromStartAndEnd && !canGetTimeFromHours) {
-                logger.warn('Cannot detect worklog duration from time_entry', te);
-                return null;
-            }
-
-            const timeZone = this._appConfiguration.options.timeZone;
-
-            let startTime, endTime, duration;
+            let startTime, endTime;
 
             // Harvest has two types of company configuration:
             // 1. Timers enabled, in which case, time entries have a spent_date, a start and an end time
             // 2. Timers disabled, in which case, time entries have a spent_date and a duration (hours)
-            if (canGetTimeFromStartAndEnd) {
-                startTime = moment.tz(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
-                endTime = moment.tz(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
-                duration = calculateDurationInMinutes(endTime, startTime, minimumLoggableTimeSlotInMinutes);
+            if (te.spent_date && te.started_time && te.ended_time) {
+                startTime = tz(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
+                endTime = tz(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
+            } else if (te.spent_date && te.hours) {
+                startTime = tz(te.spent_date, timeZone).toDate();
+                endTime = tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
             } else {
-                startTime = moment.tz(te.spent_date, timeZone).toDate();
-                endTime = moment.tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
-                duration = te.hours * 60;
+                this.logger.warn('Cannot detect worklog duration from time_entry', te);
+                return null;
             }
 
-            const worklog = new Worklog(te.notes, startTime, endTime, duration);
-            worklog.addTag('HarvestClient', te.client.name);
-            worklog.addTag('HarvestProject', te.project.name);
-            worklog.addTag('HarvestTask', te.task.name);
+            const worklog = new Worklog(te.notes, startTime, endTime);
+            worklog.addTag(new Tag('HarvestClient', te.client.name));
+            worklog.addTag(new Tag('HarvestProject', te.project.name));
+            worklog.addTag(new Tag('HarvestTask', te.task.name));
             
             return worklog;
         })
             .filter(worklog => !!worklog);
 
         if (mappedWorklogs.length === timeEntries.length)
-            logger.info(`Retrieved ${mappedWorklogs.length} worklogs from Harvest time entries.`);
+            this.logger.info(`Retrieved ${mappedWorklogs.length} worklogs from Harvest time entries.`);
         else 
-            logger.warn(`Retrieved ${mappedWorklogs.length} worklogs from ${timeEntries.length} Harvest time entries.`);
+            this.logger.warn(`Retrieved ${mappedWorklogs.length} worklogs from ${timeEntries.length} Harvest time entries.`);
 
         return mappedWorklogs;
     }

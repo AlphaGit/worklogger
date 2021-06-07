@@ -1,4 +1,4 @@
-import { InputConfiguration } from "../../models/InputConfiguration";
+import { InputConfiguration } from "../../models";
 
 export class GoogleCalendarConfiguration extends InputConfiguration {
     calendars: GoogleCalendarCalendarConfiguration[];

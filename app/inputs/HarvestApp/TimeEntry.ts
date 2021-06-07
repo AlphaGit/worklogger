@@ -11,11 +11,11 @@ export class HarvestTask {
 }
 
 export class HarvestTimeEntry {
-    spent_date;
-    started_time;
-    ended_time;
-    hours;
-    notes;
+    spent_date: string;
+    started_time: string;
+    ended_time: string;
+    hours: number;
+    notes: string;
     client: HarvestClient;
     project: HarvestProject;
     task: HarvestTask;

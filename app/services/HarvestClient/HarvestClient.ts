@@ -8,18 +8,13 @@ import fetch from 'node-fetch';
 const logger = LoggerFactory.getLogger('services/HarvestClient');
 
 export class HarvestClient {
-    private _configuration: IHarvestConfiguration;
-    private _harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
-    private _fetch: typeof fetch;
+    private harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
 
-    constructor(configuration: IHarvestConfiguration) {
-        this._validateConfiguration(configuration);
-
-        this._configuration = configuration;
-        this._fetch = fetch;
+    constructor(private configuration: IHarvestConfiguration) {
+        this.validateConfiguration(configuration);
     }
 
-    _validateConfiguration(configuration: IHarvestConfiguration): void {
+    private validateConfiguration(configuration: IHarvestConfiguration): void {
         if (!configuration) throw new Error('Missing parameter: configuration.');
         if (!configuration.accountId) throw new Error('Required configuration: accountId.');
         if (!configuration.token) throw new Error('Required configuration: token.');
@@ -33,8 +28,8 @@ export class HarvestClient {
         if (from) params.set('from', from.toISOString());
         if (to) params.set('to', to.toISOString());
 
-        const response = await this._fetch(`${this._harvestBaseUrl}/time_entries?${params}`, {
-            headers: this._getDefaultHeaders()
+        const response = await fetch(`${this.harvestBaseUrl}/time_entries?${params}`, {
+            headers: this.getDefaultHeaders()
         });
         const jsonResponse = await response.json();
         logger.trace('Retrieved time entries from Harvest', jsonResponse);
@@ -43,31 +38,31 @@ export class HarvestClient {
 
     async getProjectsAndTasks(): Promise<HarvestProjectAndTasks[]> {
         logger.info('Retrieving known projects and tasks from Harvest');
-        const response = await this._fetch(`${this._harvestBaseUrl}/users/me/project_assignments.json`, {
-            headers: this._getDefaultHeaders()
+        const response = await fetch(`${this.harvestBaseUrl}/users/me/project_assignments.json`, {
+            headers: this.getDefaultHeaders()
         });
 
         const jsonResponse = await response.json();
-        const projects = this._getProjectsAndTasksFromApiResponse(jsonResponse);
+        const projects = this.getProjectsAndTasksFromApiResponse(jsonResponse);
         logger.trace('Projects and tasks retrieved from Harvest', JSON.stringify(projects));
 
         return projects;
     }
 
     async saveNewTimeEntry(timeEntry: HarvestTimeEntry): Promise<void> {
-        this._validateTimeEntry(timeEntry);
+        this.validateTimeEntry(timeEntry);
 
         logger.trace('Sending to Harvest:', JSON.stringify(timeEntry));
-        const res = await this._fetch('https://api.harvestapp.com/api/v2/time_entries', {
+        const res = await fetch(`${this.harvestBaseUrl}/time_entries`, {
             method: 'POST',
             body: JSON.stringify(timeEntry),
-            headers: this._getDefaultHeaders()
+            headers: this.getDefaultHeaders()
         })
 
         logger.trace(await res.json());
     }
 
-    _validateTimeEntry(timeEntry: HarvestTimeEntry): void {
+    private validateTimeEntry(timeEntry: HarvestTimeEntry): void {
         if (!timeEntry) throw new Error('Required parameter: timeEntry.');
         if (!timeEntry.project_id) throw new Error('Time entry needs to have project_id.');
         if (!timeEntry.task_id) throw new Error('Time entry needs to have task_id.');
@@ -77,7 +72,7 @@ export class HarvestClient {
         if (!timeEntry.ended_time) throw new Error('Time entry needs to have ended_time.');
     }
 
-    _getProjectsAndTasksFromApiResponse(apiResponse: IHarvestInternal_ProjectAssignmentResponse): HarvestProjectAndTasks[] {
+    private getProjectsAndTasksFromApiResponse(apiResponse: IHarvestInternal_ProjectAssignmentResponse): HarvestProjectAndTasks[] {
         return apiResponse.project_assignments.map(pa => ({
             projectId: pa.project.id,
             projectName: pa.project.name,
@@ -88,11 +83,11 @@ export class HarvestClient {
         }));
     }
 
-    _getDefaultHeaders(): Record<string, string> {
+    private getDefaultHeaders(): Record<string, string> {
         return {
-            'Authorization': `Bearer ${this._configuration.token}`,
-            'Harvest-Account-Id': `${this._configuration.accountId}`,
-            'User-Agent': `Worklogger (${this._configuration.contactInformation})`,
+            'Authorization': `Bearer ${this.configuration.token}`,
+            'Harvest-Account-Id': `${this.configuration.accountId}`,
+            'User-Agent': `Worklogger (${this.configuration.contactInformation})`,
             'Content-Type': 'application/json'
         };
     }
