@@ -8,12 +8,12 @@
     "url": "git+https://github.com/AlphaGit/worklogger.git"
   },
   "scripts": {
-    "start": "node index.js",
-    "cover": "nyc --include='app/**/*.ts' yarn test",
-    "test:all": "npm run lint && npm run cover",
-    "test": "jest",
     "lint": "eslint --format table '**/*.ts'",
     "lint:fix": "eslint --fix .",
+    "start": "node index.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:all": "npm run lint && npm run test:coverage",
     "watch:test": "watch \"npm test\" app tests",
     "watch:all": "watch \"npm run test:all\" app tests"
   },
