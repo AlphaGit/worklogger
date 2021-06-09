@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "eslint": "^7.28.0",
-    "mocha": "^8.4.0",
+    "mocha": "^9.0.0",
     "nyc": "^15.1.0",
     "serverless": "^2.45.1",
     "serverless-event-constant-inputs": "0.0.1",
