@@ -1,4 +1,4 @@
-import { Worklog, Tag } from ".";
+import { Worklog } from ".";
 import { Tags } from '../../tests/entities';
 
 describe('constructor', () => {

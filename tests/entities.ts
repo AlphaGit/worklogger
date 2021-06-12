@@ -60,7 +60,7 @@ export const WorklogSets = {
 const getNormalAppConfiguration = (): AppConfiguration => {
     const configuration = new AppConfiguration();
     configuration.options = new AppConfigurationOptions();
-    configuration.options.timeZone = 'America/Toronto';
+    configuration.options.timeZone = 'America/Vancouver';
     configuration.options.minimumLoggableTimeSlotInMinutes = 30;
     return configuration;
 };

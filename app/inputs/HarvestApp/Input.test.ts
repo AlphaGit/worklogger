@@ -98,15 +98,15 @@ describe('getWorkLogs', () => {
         expect(worklogs.length).toBe(2);
         const [worklog1, worklog2] = worklogs;
 
-        expect(worklog1.startDateTime).toEqual(new Date(2021, 0 /* January */, 3, 9));
-        expect(worklog1.endDateTime).toEqual(new Date(2021, 0 /* January */, 3, 10));
+        expect(worklog1.startDateTime).toEqual(new Date('2021-01-03T09:00:00-0800'));
+        expect(worklog1.endDateTime).toEqual(new Date('2021-01-03T10:00:00-0800'));
         expect(worklog1.name).toBe('Sync meeting');
         expect(worklog1.getTagValue('HarvestClient')).toBe('ProCorp');
         expect(worklog1.getTagValue('HarvestTask')).toBe('Research');
         expect(worklog1.getTagValue('HarvestProject')).toBe('Test Platform');
 
-        expect(worklog2.startDateTime).toEqual(new Date(2021, 0 /* January */, 3, 0));
-        expect(worklog2.endDateTime).toEqual(new Date(2021, 0 /* January */, 3, 2));
+        expect(worklog2.startDateTime).toEqual(new Date('2021-01-03T00:00:00-0800'));
+        expect(worklog2.endDateTime).toEqual(new Date('2021-01-03T02:00:00-0800'));
         expect(worklog2.name).toBe('Reviewing options');
         expect(worklog2.getTagValue('HarvestClient')).toBe('ProCorp');
         expect(worklog2.getTagValue('HarvestTask')).toBe('Research');
