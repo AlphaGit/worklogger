@@ -1,28 +1,11 @@
 import { Tag } from '.';
 
 export class Worklog {
-    public name: string;
-    public startDateTime: Date;
-    public endDateTime: Date;
-    private _tags: Record<string, Tag>[] = {};
+    private tags: Record<string, Tag> = {};
 
-    constructor(name: string, startDateTime: Date, endDateTime: Date) {
-        this._validateStartDateTime(startDateTime);
-        this._validateEndDateTime(endDateTime);
-        
-        this.name = name;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-    }
-
-    _validateEndDateTime(endDateTime: Date): void {
-        if (!endDateTime) throw new Error('Missing endDateTime parameter');
-        if (!(endDateTime instanceof Date)) throw new Error('endDateTime needs to be a Date.');
-    }
-
-    _validateStartDateTime(startDateTime: Date): void {
+    constructor(public name: string, public startDateTime: Date, public endDateTime: Date) {
         if (!startDateTime) throw new Error('Missing startDateTime parameter');
-        if (!(startDateTime instanceof Date)) throw new Error('startDateTime needs to be a Date.');
+        if (!endDateTime) throw new Error('Missing endDateTime parameter');
     }
 
     getDurationInMinutes(): number {
@@ -31,38 +14,35 @@ export class Worklog {
 
     toString(): string {
         let string = `${this.name || '(No name)'} (${this.getDurationInMinutes()} minutes)`;
-        for (const tagName in this._tags) {
-            const tagValue = this._tags[tagName];
+        for (const tagName in this.tags) {
+            const tagValue = this.tags[tagName].value;
             string += `\n    ${tagName}:${tagValue}`;
         }
         return string;
     }
 
     toOneLinerString(): string {
-        let string = `(${this.getShortDuration()}) ${this.name}`;
-        for (const tagName in this._tags) {
-            const tagValue = this._tags[tagName];
+        let string = `(${this.getShortDuration()}) ${this.name || '(No name)'}`;
+        for (const tagName in this.tags) {
+            const tagValue = this.tags[tagName].value;
             string += ` [${tagName}:${tagValue}]`;
         }
         return string;
     }
 
     getShortDuration(): string {
-        const hours = Math.floor(this.getDurationInMinutes() / 60);
-        const minutes = this.getDurationInMinutes() % 60;
+        const durationInMinutes = this.getDurationInMinutes();
+        const hours = Math.floor(durationInMinutes / 60);
+        const minutes = durationInMinutes % 60;
 
-        const parts = [];
-        if (hours > 0) parts.push(`${hours} hs`);
-        if (minutes > 0) parts.push(`${minutes} mins`);
-        return parts.join(' ');
+        return `${hours}h ${minutes}m`
     }
 
-    /** @todo use the tag structure instead of deconstructing it */
     addTag(tag: Tag): void {
-        this._tags[tag.name] = tag;
+        this.tags[tag.name] = tag;
     }
 
     getTagValue(name: string): string {
-        return this._tags[name]?.value;
+        return this.tags[name]?.value;
     }
 }
