@@ -19,7 +19,7 @@ export class OutputBase {
         throw new Error('outputWorklogSet() needs to be defined in derived classes.');
     }
 
-    _outputWorklogSetValidation(worklogSet: WorklogSet): void {
+    protected _outputWorklogSetValidation(worklogSet: WorklogSet): void {
         if (!worklogSet) throw new Error('Required parameter: worklogSet.');
         if (!(worklogSet instanceof WorklogSet)) throw new Error('worklogSet needs to be of type WorklogSet.');
     }

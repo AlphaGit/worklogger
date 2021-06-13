@@ -1,24 +1,22 @@
 import { OutputBase } from '../../outputs/OutputBase';
-import { LoggerFactory } from '../../services/LoggerFactory';
-import { AppConfiguration } from '../../models/AppConfiguration';
+import { AppConfiguration, WorklogSet } from '../../models';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { WorklogSet } from '../../models/WorklogSet';
 import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 
-import DefaultSESClient from 'aws-sdk/clients/ses';
-import mustache from 'mustache';
-
-const logger = LoggerFactory.getLogger('AWS-SES/Output');
+import { getLogger } from 'log4js';
+import { SESv2Client, SendEmailCommand, SendEmailCommandInput } from '@aws-sdk/client-sesv2';
+import { render } from 'mustache';
 
 export class AwsSesOutput extends OutputBase {
-    private SES: DefaultSESClient;
+    private SES: SESv2Client;
     private _configuration: IAwsSesOutputConfiguration;
+    private logger = getLogger('AWS-SES/Output');
 
-    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: AppConfiguration, { SESClient = DefaultSESClient } = {}) {
+    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: AppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
 
-        this.SES = new SESClient();
+        this.SES = new SESv2Client({ });
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
@@ -26,33 +24,35 @@ export class AwsSesOutput extends OutputBase {
 
         const formattedOutput = this._formatter.format(worklogSet);
 
-        const subject = mustache.render(this._configuration.subjectTemplate, worklogSet);
-        const body = mustache.render(this._configuration.bodyTemplate, { contents: formattedOutput, ...worklogSet });
+        const subject = render(this._configuration.subjectTemplate, worklogSet);
+        const body = render(this._configuration.bodyTemplate, { contents: formattedOutput, ...worklogSet });
 
-        const email = {
-            Source: this._configuration.fromAddress,
+        const email: SendEmailCommandInput = {
+            FromEmailAddress: this._configuration.fromAddress,
 
             Destination: {
                 ToAddresses: this._configuration.toAddresses
             },
 
-            Message: {
-                Body: {
-                    Text: {
+            Content: {
+                Simple: {
+                    Body: {
+                        Text: {
+                            Charset: 'UTF-8',
+                            Data: body
+                        }
+                    },
+                    Subject: {
                         Charset: 'UTF-8',
-                        Data: body
+                        Data: subject
                     }
-                },
-                Subject: {
-                    Charset: 'UTF-8',
-                    Data: subject
-                },
+                }
             }
         };
 
-        logger.debug('Email params:', email);
+        this.logger.debug('Email params:', email);
 
-        await this.SES.sendEmail(email).promise();
-        logger.info('Successfully sent worklogSet to SES.');
+        await this.SES.send(new SendEmailCommand(email));
+        this.logger.info('Successfully sent worklogSet to SES.');
     }
 }

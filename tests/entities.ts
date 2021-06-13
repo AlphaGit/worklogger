@@ -1,4 +1,6 @@
 import * as moment from 'moment-timezone';
+import { FormatterBase } from '../app/formatters/FormatterBase';
+import { FormatterConfigurationBase } from '../app/formatters/FormatterConfigurationBase';
 
 import { AppConfiguration, AppConfigurationOptions, ServiceRegistrations as Services, Tag, Worklog, WorklogSet } from '../app/models';
 
@@ -79,4 +81,26 @@ const getMockServiceRegistrations = (): Services => {
 
 export const ServiceRegistrations = {
     mock: getMockServiceRegistrations
+}
+
+class FakeFormatter extends FormatterBase {
+    protected _configuration: FormatterConfigurationBase;
+    protected _appConfiguration: AppConfiguration;
+
+    public formatFunction: (WorklogSet) => string =
+        (worklogSet) => worklogSet.toString();
+
+    format(worklogSet: WorklogSet): string {
+        return this.formatFunction(worklogSet);
+    }
+}
+
+class FakeFormatterConfiguration extends FormatterConfigurationBase { }
+
+export const FormatterConfigurations = {
+    fake: (): FormatterConfigurationBase => new FakeFormatterConfiguration()
+}
+
+export const Formatters = {
+    fake: (): FakeFormatter => new FakeFormatter(FormatterConfigurations.fake(), AppConfigurations.normal())
 }
