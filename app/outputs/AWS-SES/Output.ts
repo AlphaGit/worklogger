@@ -16,7 +16,8 @@ export class AwsSesOutput extends OutputBase {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
 
-        this.SES = new SESv2Client({ });
+        const region = this._configuration.aws.region;
+        this.SES = new SESv2Client({ region });
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
@@ -51,8 +52,8 @@ export class AwsSesOutput extends OutputBase {
         };
 
         this.logger.debug('Email params:', email);
-
-        await this.SES.send(new SendEmailCommand(email));
+        const command = new SendEmailCommand(email);
+        await this.SES.send(command);
         this.logger.info('Successfully sent worklogSet to SES.');
     }
 }

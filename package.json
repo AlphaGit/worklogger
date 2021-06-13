@@ -11,8 +11,8 @@
     "lint": "eslint --format table '**/*.ts'",
     "lint:fix": "eslint --fix .",
     "start": "node index.js",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test": "TZ=America/Vancouver jest",
+    "test:coverage": "TZ=America/Vancouver jest --coverage",
     "test:all": "npm run lint && npm run test:coverage",
     "watch:test": "watch \"npm test\" app tests",
     "watch:all": "watch \"npm run test:all\" app tests"
