@@ -1,24 +1,20 @@
 import { OutputBase } from '../../outputs/OutputBase';
-import { HarvestClient as RequiredHarvestClient } from '../../services/HarvestClient/HarvestClient';
-import { LoggerFactory } from '../../services/LoggerFactory';
+import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { AppConfiguration } from '../../models/AppConfiguration';
-import { WorklogSet } from '../../models/WorklogSet';
-import { Worklog } from '../../models/Worklog';
-import { HarvestProjectAndTasks } from '../../services/HarvestClient/HarvestProjectAndTasks';
-import { HarvestTask } from '../../services/HarvestClient/HarvestTask';
+import { AppConfiguration, WorklogSet, Worklog } from '../../models';
+import { HarvestProjectAndTasks, HarvestTask } from '../../services/HarvestClient';
 import { IHarvestAppOutputConfiguration } from './IHarvestAppOutputConfiguration';
-import { HarvestTimeEntry } from './HarvestTimeEntry';
+import { HarvestTimeEntry } from '.';
 
-import moment from 'moment-timezone';
-
-const logger = LoggerFactory.getLogger('HarvestApp/Output');
+import tz from 'moment-timezone';
+import { getLogger } from 'log4js';
 
 export class HarvestAppOutput extends OutputBase {
-    private _harvestClient: RequiredHarvestClient;
+    private logger = getLogger('HarvestApp/Output');
+    private _harvestClient: HarvestClient;
     private _configuration: IHarvestAppOutputConfiguration;
 
-    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: AppConfiguration, { HarvestClient = RequiredHarvestClient } = {}) {
+    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: AppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this._harvestClient = new HarvestClient(outputConfiguration);
@@ -40,7 +36,7 @@ export class HarvestAppOutput extends OutputBase {
 
         return await Promise.all(savingPromises).then(p => {
             const lengthText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
-            logger.info(`Sent ${lengthText} time entries to Harvest.`);
+            this.logger.info(`Sent ${lengthText} time entries to Harvest.`);
         });
     }
 
@@ -62,10 +58,10 @@ export class HarvestAppOutput extends OutputBase {
         const timeEntry: HarvestTimeEntry = {
             project_id: project.projectId,
             task_id: task.taskId,
-            spent_date: moment.tz(worklog.startDateTime, timeZone).format('YYYY-MM-DD'),
-            started_time: moment.tz(worklog.startDateTime, timeZone).format('hh:mma'),
-            ended_time: moment.tz(worklog.endDateTime, timeZone).format('hh:mma'),
-            hours: worklog.duration / 60,
+            spent_date: tz(worklog.startDateTime, timeZone).format('YYYY-MM-DD'),
+            started_time: tz(worklog.startDateTime, timeZone).format('hh:mma'),
+            ended_time: tz(worklog.endDateTime, timeZone).format('hh:mma'),
+            hours: worklog.getDurationInMinutes() / 60,
             notes: worklog.name,
             is_running: false
         };
@@ -79,7 +75,7 @@ export class HarvestAppOutput extends OutputBase {
         const project = projects.find(p => p.projectName == projectTagValue);
 
         if (!project)
-            logger.warn(`Harvest project "${projectTagValue}" not found (processing worklog ${worklog.toOneLinerString()}.`);
+            this.logger.warn(`Harvest project "${projectTagValue}" not found (processing worklog ${worklog.toOneLinerString()}.`);
 
         return project;
     }
@@ -90,7 +86,7 @@ export class HarvestAppOutput extends OutputBase {
         const task = project.tasks.find(t => t.taskName == taskTagValue);
 
         if (!task)
-            logger.warn(`Harvest task "${taskTagValue}" not found.`);
+            this.logger.warn(`Harvest task "${taskTagValue}" not found.`);
 
         return task;
     }

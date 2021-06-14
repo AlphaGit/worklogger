@@ -49,6 +49,8 @@ describe('outputWorklogSet', () => {
         const formatter = Formatters.fake();
         formatter.formatFunction = jest.fn().mockReturnValue('<worklogSet contents>');
         const worklogSet = WorklogSets.single();
+        worklogSet.startDateTime = new Date('2021-06-13T00:00:00-0700');
+        worklogSet.endDateTime = new Date('2021-06-14T00:00:00-0700');
 
         exampleSesConfiguration.subjectTemplate = 'Worklogs until {{endDateTime}}';
         exampleSesConfiguration.bodyTemplate = 'From {{startDateTime}}: {{worklogs.0.name}} {{contents}}';
