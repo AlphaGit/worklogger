@@ -42,6 +42,10 @@ export class Worklog {
         this.tags[tag.name] = tag;
     }
 
+    removeTag(tagName: string): void {
+        delete this.tags[tagName];
+    }
+
     getTagValue(name: string): string {
         return this.tags[name]?.value;
     }
