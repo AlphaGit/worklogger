@@ -1,5 +1,5 @@
-import { Worklog } from ".";
-import { Tags } from '../../tests/entities';
+import { Worklog, Tag } from ".";
+import { Tags, Worklogs } from '../../tests/entities';
 
 describe('constructor', () => {
     test('requires a startDateTime', () => {
@@ -98,5 +98,36 @@ describe('toString', () => {
 
         worklog.name = '';
         expect(worklog.toString()).toBe('(No name) (146 minutes)\n    client:ProCorp\n    project:Test Platform');
+    });
+});
+
+describe('addTag', () => {
+    test('adds a tag', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        expect(worklog.getTagValue('tag1')).toBe('value1');
+    });
+});
+
+describe('getTagValue', () => {
+    test('gets a tag value', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        expect(worklog.getTagValue('tag1')).toBe('value1');
+    });
+});
+
+describe('removeTag', () => {
+    test('removes a tag', () => {
+        const worklog = Worklogs.normal();
+        const tagName = Tags.client.ProCorp().name;
+
+        expect(worklog.getTagValue(tagName)).toBeTruthy();
+
+        worklog.removeTag(tagName);
+
+        expect(worklog.getTagValue(tagName)).toBeUndefined();
     });
 });
