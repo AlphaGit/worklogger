@@ -1,72 +1,60 @@
-import { LoggerFactory } from '../../services/LoggerFactory';
 import { JiraWorklog } from './JiraWorklog';
 
 import fetch from 'node-fetch';
-
-const logger = LoggerFactory.getLogger('outputs/JiraWorklog/JiraClient');
+import { getLogger } from 'log4js';
 
 export class JiraClient {
-    private _fetch: typeof fetch;
-    private _baseUrl: string;
-    private _username: string;
-    private _password: string;
+    private logger = getLogger('outputs/JiraWorklog/JiraClient');
 
-    constructor(jiraBaseUrl: string, jiraUsername: string, jiraPassword: string) {
-        if (!jiraBaseUrl) throw new Error('Required parameter: jiraBaseUrl.');
-        if (!jiraUsername) throw new Error('Required parameter: jiraUsername.');
-        if (!jiraPassword) throw new Error('Required parameter: jiraPassword.');
-
-        this._fetch = fetch;
-        this._baseUrl = jiraBaseUrl;
-        this._username = jiraUsername;
-        this._password = jiraPassword;
+    constructor(private baseUrl: string, private username: string, private password: string) {
+        if (!baseUrl) throw new Error('Required parameter: baseUrl.');
+        if (!username) throw new Error('Required parameter: username.');
+        if (!password) throw new Error('Required parameter: password.');
     }
 
     async saveWorklog(ticketId: string, worklog: JiraWorklog): Promise<void> {
-        this._validateTicketId(ticketId);
-        this._validateWorklog(worklog);
+        this.validateTicketId(ticketId);
+        this.validateWorklog(worklog);
 
-        const url = `${this._baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
-        logger.debug('Sending to JIRA ', url, ':', worklog);
+        const url = `${this.baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
+        this.logger.debug('Sending to JIRA ', url, ':', worklog);
 
         try {
-            const res = await this._fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(worklog),
-                headers: this._getHeaders()
+                headers: this.getHeaders()
             });
 
-            logger.trace(res);
+            this.logger.trace(res);
 
             if (res.status != 201)
                 throw new Error(`${ticketId} could not be sent to JIRA, JIRA responded with ${res.status}: ${res.statusText}`);
 
             return await res.json();
         } catch (e) {
-            logger.error(e.name, e.message);
+            this.logger.error(e.name, e.message);
+            throw e;
         }
     }
 
-    _getHeaders(): Record<string, string> {
+    private getHeaders(): Record<string, string> {
         return {
-            'Authorization': this._getAuthorizationValue(),
+            'Authorization': this.getAuthorizationValue(),
             'Content-Type': 'application/json'
         };
     }
 
-    _validateTicketId(ticketId: string): void {
+    private validateTicketId(ticketId: string): void {
         if (!ticketId) throw new Error('Required parameter: ticketId.');
     }
 
-    _validateWorklog(worklog: JiraWorklog): void {
+    private validateWorklog(worklog: JiraWorklog): void {
         if (!worklog) throw new Error('Required parameter: worklog.');
-        if (!worklog.comment) throw new Error('Worklog requires comment field.');
-        if (!worklog.started) throw new Error('Worklog requires started field.');
-        if (!worklog.timeSpent) throw new Error('Worklog requires timeSpent field.');
     }
 
-    _getAuthorizationValue(): string {
-        const encodedCredentials = Buffer.from(`${this._username}:${this._password}`).toString('base64');
+    private getAuthorizationValue(): string {
+        const encodedCredentials = Buffer.from(`${this.username}:${this.password}`).toString('base64');
         return `Basic ${encodedCredentials}`;
     }
 }
