@@ -627,15 +627,14 @@
     node-fetch "^2.6.0"
     shortid "^2.2.14"
 
-"@serverless/components@^3.13.1":
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/@serverless/components/-/components-3.13.2.tgz#2bf1322441e36457ee615546a576cdaf96aae36e"
-  integrity sha512-fIYqo9cONxQeNpyWFTTLi6+r2S1KivOU5sys6nVQSR24jRVqxSpPN2eMz6BCUB8rw7N4kf+wbQDLwlyFbIroyQ==
+"@serverless/components@^3.13.2":
+  version "3.13.3"
+  resolved "https://registry.yarnpkg.com/@serverless/components/-/components-3.13.3.tgz#7e195de82c71c4691f54c7ba6f0154d85d2dc5b4"
+  integrity sha512-pG7XgMbMO8x+XbnG7RJ5WIBoZTG+6PMZsOSVF1ID37/Y5WhAM6PjI0PSJTgRzgheBJm6H96lIGvHXR1sN1xqHQ==
   dependencies:
     "@serverless/platform-client" "^4.2.2"
-    "@serverless/platform-client-china" "^2.1.9"
+    "@serverless/platform-client-china" "^2.2.0"
     "@serverless/utils" "^4.0.0"
-    "@tencent-sdk/faas" "^0.1.4"
     adm-zip "^0.5.4"
     ansi-escapes "^4.3.1"
     chalk "^4.1.0"
@@ -709,12 +708,12 @@
     "@types/lodash" "^4.14.123"
     lodash "^4.17.11"
 
-"@serverless/platform-client-china@^2.1.9":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@serverless/platform-client-china/-/platform-client-china-2.1.9.tgz#4d07d6c77fc578893a81d1f8c1d1d1186f6cb2be"
-  integrity sha512-PAqhHshlwY1PTeuwCaJeXfGB64w1Vg6C9FtpoFv7dkb7OAlYl86evJbugGUc4YlsdhQsgJvG3QSZpo7sYK1Ipw==
+"@serverless/platform-client-china@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@serverless/platform-client-china/-/platform-client-china-2.2.0.tgz#8e609fb949d354f43ebcc803af61e1190ca08f6c"
+  integrity sha512-cNEMjQ826PfZOYSY00eIOSFZEdmy4QU4L6wU9rzhpIhURRsoULnPE5tfYAs2yTYPBRSgV9o3eqLmh5+pOcVbLw==
   dependencies:
-    "@serverless/utils-china" "^1.0.14"
+    "@serverless/utils-china" "^1.1.4"
     adm-zip "^0.5.1"
     archiver "^5.0.2"
     axios "^0.21.1"
@@ -782,16 +781,17 @@
     graphlib "^2.1.7"
     traverse "^0.6.6"
 
-"@serverless/utils-china@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@serverless/utils-china/-/utils-china-1.0.14.tgz#6495220bea5be95a36c9073de9ea4264c9cc1695"
-  integrity sha512-7ku9ePjb+bneFV1Akmz0t8pU8hhHfPJsBjG/Kf6IjyGAQrEjN/PcY2QUDm0emdCNyCsuido1wp0DWMGiwuhC8Q==
+"@serverless/utils-china@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@serverless/utils-china/-/utils-china-1.1.4.tgz#5a76c90d5d0f33c144fe0e82c799251a46415adb"
+  integrity sha512-8s73M1k+mST7Z/Rp8wgmZh50tjpwX+fqsbYYRuFGgyuWTvgqAlUflDOWAeQuDx4pEndWEqjbG09ZrZNqlHuZqQ==
   dependencies:
-    "@tencent-sdk/capi" "^1.1.2"
+    "@tencent-sdk/capi" "^1.1.8"
     dijkstrajs "^1.0.1"
     dot-qs "0.2.0"
     duplexify "^4.1.1"
     end-of-stream "^1.4.4"
+    got "^11.8.2"
     https-proxy-agent "^5.0.0"
     kafka-node "^5.0.0"
     protobufjs "^6.9.0"
@@ -905,7 +905,7 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tencent-sdk/capi@^1.1.2", "@tencent-sdk/capi@^1.1.8":
+"@tencent-sdk/capi@^1.1.8":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@tencent-sdk/capi/-/capi-1.1.8.tgz#955130f9c7da88a599c05b3eae01b2f0e15a9beb"
   integrity sha512-AmyMQndtxMsM59eDeA0gGiw8T2LzNvDhx/xl+ygFXXrsw+yb/mit73ndHkiHKcRA1EpNHTyD1PN9ATxghzplfg==
@@ -914,33 +914,6 @@
     "@types/request-promise-native" "^1.0.17"
     request "^2.88.0"
     request-promise-native "^1.0.8"
-
-"@tencent-sdk/cls@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@tencent-sdk/cls/-/cls-0.2.1.tgz#787bfad2e4ccd464439e69059a1128d6d374bd9a"
-  integrity sha512-nSEPLAQyXf694XqoXi/OnWjfaJNPoo+JaPt81Kpy1QogOSZdEqEebgGj/ROs8kPjRa3kf+6+0s8MSQRtJBOOyQ==
-  dependencies:
-    got "^11.8.0"
-
-"@tencent-sdk/common@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@tencent-sdk/common/-/common-0.1.0.tgz#0997d99ac2a85a8e5a7a374a8a894f71ca955a40"
-  integrity sha512-WHVGulaFv/CLwSqYC5501FCMNclu7B7nH1OminksjV2HSonIvx3o3Pms4+2/2Lse/sB5RCmPiiitV7g09b4mWw==
-  dependencies:
-    "@tencent-sdk/capi" "^1.1.8"
-    camelcase "^6.2.0"
-    type-fest "^1.0.2"
-
-"@tencent-sdk/faas@^0.1.4":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@tencent-sdk/faas/-/faas-0.1.5.tgz#e7ab812e18106bed06e5f02e8885b01a24522615"
-  integrity sha512-6wEkJCm1rN9LOgH/BZHW6ajJpYZQuf1qwfW+tGTNkczW0RepWASznS6MCzWC9HX09oosVpg8sGCGtcgWQSP1Qg==
-  dependencies:
-    "@tencent-sdk/capi" "^1.1.8"
-    "@tencent-sdk/cls" "0.2.1"
-    "@tencent-sdk/common" "0.1.0"
-    camelcase "^6.2.0"
-    dayjs "^1.10.4"
 
 "@tokenizer/token@^0.1.1":
   version "0.1.1"
@@ -1332,7 +1305,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aws-sdk@^2.834.0, aws-sdk@^2.937.0, aws-sdk@^2.939.0:
+aws-sdk@^2.834.0, aws-sdk@^2.939.0:
   version "2.939.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.939.0.tgz#c07c9d726bcb2ffdb69016f880ae310ad72f36a5"
   integrity sha512-2KEAtTlVMDcpHP6+P9JU+mXTNhX3KZ0StW0Qi87oh8EUoRITZj64FrUylNvrCg69thCliAcNzBdlA1g5Iq+qEA==
@@ -2052,10 +2025,10 @@ date-format@^3.0.0:
   resolved "https://registry.yarnpkg.com/date-format/-/date-format-3.0.0.tgz#eb8780365c7d2b1511078fb491e6479780f3ad95"
   integrity sha512-eyTcpKOcamdhWJXj56DpQMo1ylSQpcGtGKXcU0Tb97+K56/CF5amAqqqNj0+KvA0iw2ynxtHWFsPDSClCxe48w==
 
-dayjs@^1.10.4, dayjs@^1.10.5:
-  version "1.10.5"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.5.tgz#5600df4548fc2453b3f163ebb2abbe965ccfb986"
-  integrity sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==
+dayjs@^1.10.4, dayjs@^1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.6.tgz#288b2aa82f2d8418a6c9d4df5898c0737ad02a63"
+  integrity sha512-AztC/IOW4L1Q41A86phW5Thhcrco3xuAA+YX/BLpLWWjRcTj5TOt/QImBLmCKlrF7u7k47arTnOyL6GnbG8Hvw==
 
 debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   version "4.3.2"
@@ -3279,7 +3252,7 @@ googleapis@^80.1.0:
     google-auth-library "^7.0.2"
     googleapis-common "^5.0.2"
 
-got@^11.8.0, got@^11.8.2:
+got@^11.8.2:
   version "11.8.2"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.2.tgz#7abb3959ea28c31f3576f1576c1effce23f33599"
   integrity sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ==
@@ -5734,19 +5707,19 @@ serverless-offline@^7.0.0:
     velocityjs "^2.0.3"
     ws "^7.4.2"
 
-serverless@^2.50.0:
-  version "2.50.0"
-  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.50.0.tgz#fe7c528cf3f5f7c949dcc6a67cb23ace5d8c338c"
-  integrity sha512-9n2Afh0vEI6guDAue3Fm1Xu1B7i7zVR+LC37AHUhhmAxYRu0hH6ao1ERdrgUhHbzmV2P42yLRD0osB4alrp8gw==
+serverless@^2.51.0:
+  version "2.51.0"
+  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.51.0.tgz#e9adad8261d71fbe5176a9c8127dcca8d274b493"
+  integrity sha512-Pi2GwZo1hLXUmVIgYFTjnc231Z4kbk240ZHN2bZw6twniX+QiuJIvmDNiVVUExZe0LzL9iaefuGd6AsqygE9Yw==
   dependencies:
     "@serverless/cli" "^1.5.2"
-    "@serverless/components" "^3.13.1"
+    "@serverless/components" "^3.13.2"
     "@serverless/dashboard-plugin" "^5.4.3"
     "@serverless/utils" "^5.3.0"
     ajv "^6.12.6"
     ajv-keywords "^3.5.2"
     archiver "^5.3.0"
-    aws-sdk "^2.937.0"
+    aws-sdk "^2.939.0"
     bluebird "^3.7.2"
     boxen "^5.0.1"
     cachedir "^2.3.0"
@@ -5755,7 +5728,7 @@ serverless@^2.50.0:
     ci-info "^3.2.0"
     cli-progress-footer "^1.1.1"
     d "^1.0.1"
-    dayjs "^1.10.5"
+    dayjs "^1.10.6"
     decompress "^4.2.1"
     dotenv "^10.0.0"
     essentials "^1.1.1"
@@ -6441,11 +6414,6 @@ type-fest@^0.8.0:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
-
-type-fest@^1.0.2:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.1.3.tgz#ea1a602e98e5a968a56a289886a52f04c686fc81"
-  integrity sha512-CsiQeFMR1jZEq8R+H59qe+bBevnjoV5N2WZTTdlyqxeoODQOOepN2+msQOywcieDq5sBjabKzTn3U+sfHZlMdw==
 
 type-is@^1.6.16:
   version "1.6.18"
