@@ -1,6 +1,5 @@
 import { OutputBase } from '../OutputBase';
 import { JiraClient } from './JiraClient';
-import { LoggerFactory } from '../../services/LoggerFactory';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
@@ -9,8 +8,7 @@ import { JiraWorklog } from './JiraWorklog';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
 
 import moment from 'moment-timezone';
-
-const logger = LoggerFactory.getLogger('outputs/JiraWorklog/Output');
+import { getLogger } from 'log4js';
 
 interface IJiraTicketWithWorklog {
     jiraTicket: string;
@@ -18,14 +16,13 @@ interface IJiraTicketWithWorklog {
 }
 
 export class JiraWorklogOutput extends OutputBase {
-    _jiraClient: JiraClient;
+    private logger = getLogger('outputs/JiraWorklog/Output');
+    private _jiraClient: JiraClient;
+
     constructor(formatter: FormatterBase, outputConfiguration: IJiraWorklogOutputConfiguration, appConfiguration: AppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
-        const baseUrl = outputConfiguration.JiraUrl;
-        const userName = outputConfiguration.JiraUsername;
-        const password = outputConfiguration.JiraPassword;
-        this._jiraClient = new JiraClient(baseUrl, userName, password);
+        this._jiraClient = new JiraClient(outputConfiguration);
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
@@ -38,7 +35,7 @@ export class JiraWorklogOutput extends OutputBase {
         });
 
         return await Promise.all(sendingToJiraPromises).then(p => {
-            logger.info(`Sent ${p.length} worklogs to JIRA.`);
+            this.logger.info(`Sent ${p.length} worklogs to JIRA.`);
         });
     }
 
@@ -47,7 +44,7 @@ export class JiraWorklogOutput extends OutputBase {
         (worklogs || []).forEach(w => {
             const jiraTicketTagValue = w.getTagValue('JiraTicket');
             if (!jiraTicketTagValue) {
-                logger.warn(`Not sent to JIRA, missing JiraTicket: ${w.toOneLinerString()}`);
+                this.logger.warn(`Not sent to JIRA, missing JiraTicket: ${w.toOneLinerString()}`);
             } else {
                 filteredWorklogs.push({ jiraTicket: jiraTicketTagValue, jiraWorklog: this._mapToJiraWorklog(w) });
             }
@@ -56,12 +53,12 @@ export class JiraWorklogOutput extends OutputBase {
     }
 
     _mapToJiraWorklog(worklog: Worklog): JiraWorklog {
-        const timeZone = this._appConfiguration.timeZone;
+        const timeZone = this._appConfiguration.options.timeZone;
 
         return {
             comment: worklog.name,
             started: moment.tz(worklog.startDateTime, timeZone).format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
-            timeSpent: worklog.duration + 'm'
+            timeSpent: worklog.getDurationInMinutes() + 'm'
         };
     }
 }

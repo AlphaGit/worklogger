@@ -4,25 +4,35 @@ const { Response } = jest.requireActual('node-fetch');
 import fetch from 'node-fetch';
 jest.mock('node-fetch');
 
-import { JiraClient, JiraWorklog } from '.';
+import { JiraClient, JiraWorklog, IJiraWorklogOutputConfiguration } from '.';
+
+const jiraClientConfiguration: IJiraWorklogOutputConfiguration = {
+    JiraUrl: 'https://jira.example.com',
+    JiraUsername: 'username',
+    JiraPassword: 'password',
+    type: 'Jira',
+    condition: null,
+    excludeFromNonProcessedWarning: false,
+    formatter: null
+};
 
 describe('constructor', () => {
     test('requires a jiraBaseUrl', () => {
-        expect(() => new JiraClient(null, 'userName', 'password')).toThrow('Required parameter: baseUrl.');
-        expect(() => new JiraClient(undefined, 'userName', 'password')).toThrow('Required parameter: baseUrl.');
-        expect(() => new JiraClient('', 'userName', 'password')).toThrow('Required parameter: baseUrl.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUrl: null })).toThrow('Required parameter: baseUrl.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUrl: undefined })).toThrow('Required parameter: baseUrl.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUrl: '' })).toThrow('Required parameter: baseUrl.');
     });
 
     test('requires a jiraUsername', () => {
-        expect(() => new JiraClient('https://jira.example.com', null, 'password')).toThrow('Required parameter: username.');
-        expect(() => new JiraClient('https://jira.example.com', undefined, 'password')).toThrow('Required parameter: username.');
-        expect(() => new JiraClient('https://jira.example.com', '', 'password')).toThrow('Required parameter: username.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUsername: null })).toThrow('Required parameter: username.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUsername: undefined })).toThrow('Required parameter: username.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraUsername: '' })).toThrow('Required parameter: username.');
     });
 
     test('requires a jiraPassword', () => {
-        expect(() => new JiraClient('https://jira.example.com', 'username', null)).toThrow('Required parameter: password.');
-        expect(() => new JiraClient('https://jira.example.com', 'username', undefined)).toThrow('Required parameter: password.');
-        expect(() => new JiraClient('https://jira.example.com', 'username', '')).toThrow('Required parameter: password.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraPassword: null })).toThrow('Required parameter: password.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraPassword: undefined })).toThrow('Required parameter: password.');
+        expect(() => new JiraClient({ ...jiraClientConfiguration, JiraPassword: '' })).toThrow('Required parameter: password.');
     });
 });
 
@@ -32,7 +42,7 @@ describe('saveWorklog', () => {
     const fetchMock = mocked(fetch);
 
     beforeEach(() => {
-        jiraClient = new JiraClient('https://jira.example.com', 'username', 'password');
+        jiraClient = new JiraClient(jiraClientConfiguration);
         jiraWorklog = new JiraWorklog('worklogComment', '2021-01-03T08:00:00-0500', '2h');
         fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
     });

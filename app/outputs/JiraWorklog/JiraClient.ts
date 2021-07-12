@@ -1,4 +1,4 @@
-import { JiraWorklog } from './JiraWorklog';
+import { JiraWorklog, IJiraWorklogOutputConfiguration } from '.';
 
 import fetch from 'node-fetch';
 import { getLogger } from 'log4js';
@@ -6,17 +6,17 @@ import { getLogger } from 'log4js';
 export class JiraClient {
     private logger = getLogger('outputs/JiraWorklog/JiraClient');
 
-    constructor(private baseUrl: string, private username: string, private password: string) {
-        if (!baseUrl) throw new Error('Required parameter: baseUrl.');
-        if (!username) throw new Error('Required parameter: username.');
-        if (!password) throw new Error('Required parameter: password.');
+    constructor(private config: IJiraWorklogOutputConfiguration) {
+        if (!config.JiraUrl) throw new Error('Required parameter: baseUrl.');
+        if (!config.JiraUsername) throw new Error('Required parameter: username.');
+        if (!config.JiraPassword) throw new Error('Required parameter: password.');
     }
 
     async saveWorklog(ticketId: string, worklog: JiraWorklog): Promise<void> {
         this.validateTicketId(ticketId);
         this.validateWorklog(worklog);
 
-        const url = `${this.baseUrl}/rest/api/2/issue/${ticketId}/worklog`;
+        const url = `${this.config.JiraUrl}/rest/api/2/issue/${ticketId}/worklog`;
         this.logger.debug('Sending to JIRA ', url, ':', worklog);
 
         try {
@@ -54,7 +54,7 @@ export class JiraClient {
     }
 
     private getAuthorizationValue(): string {
-        const encodedCredentials = Buffer.from(`${this.username}:${this.password}`).toString('base64');
+        const encodedCredentials = Buffer.from(`${this.config.JiraUsername}:${this.config.JiraPassword}`).toString('base64');
         return `Basic ${encodedCredentials}`;
     }
 }
