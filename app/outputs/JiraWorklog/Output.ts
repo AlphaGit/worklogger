@@ -7,7 +7,7 @@ import { Worklog } from '../../models/Worklog';
 import { JiraWorklog } from './JiraWorklog';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
 
-import moment from 'moment-timezone';
+import * as moment from 'moment-timezone';
 import { getLogger } from 'log4js';
 
 interface IJiraTicketWithWorklog {
@@ -28,7 +28,7 @@ export class JiraWorklogOutput extends OutputBase {
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
-        const filteredWorklogs = this._getWorklogsWithJiraTicket(worklogSet.worklogs);
+        const filteredWorklogs = this.getWorklogsWithJiraTicket(worklogSet.worklogs);
 
         const sendingToJiraPromises = filteredWorklogs.map(w => {
             return this._jiraClient.saveWorklog(w.jiraTicket, w.jiraWorklog);
@@ -39,20 +39,20 @@ export class JiraWorklogOutput extends OutputBase {
         });
     }
 
-    _getWorklogsWithJiraTicket(worklogs: Worklog[]): IJiraTicketWithWorklog[] {
+    private getWorklogsWithJiraTicket(worklogs: Worklog[]): IJiraTicketWithWorklog[] {
         const filteredWorklogs: IJiraTicketWithWorklog[] = [];
         (worklogs || []).forEach(w => {
             const jiraTicketTagValue = w.getTagValue('JiraTicket');
             if (!jiraTicketTagValue) {
                 this.logger.warn(`Not sent to JIRA, missing JiraTicket: ${w.toOneLinerString()}`);
             } else {
-                filteredWorklogs.push({ jiraTicket: jiraTicketTagValue, jiraWorklog: this._mapToJiraWorklog(w) });
+                filteredWorklogs.push({ jiraTicket: jiraTicketTagValue, jiraWorklog: this.mapToJiraWorklog(w) });
             }
         });
         return filteredWorklogs;
     }
 
-    _mapToJiraWorklog(worklog: Worklog): JiraWorklog {
+    private mapToJiraWorklog(worklog: Worklog): JiraWorklog {
         const timeZone = this._appConfiguration.options.timeZone;
 
         return {

@@ -3,7 +3,11 @@ import { JiraWorklog, IJiraWorklogOutputConfiguration } from '.';
 import fetch from 'node-fetch';
 import { getLogger } from 'log4js';
 
-export class JiraClient {
+export interface IJiraClient {
+    saveWorklog(ticketId: string, worklog: JiraWorklog): Promise<void>;
+}
+
+export class JiraClient implements IJiraClient {
     private logger = getLogger('outputs/JiraWorklog/JiraClient');
 
     constructor(private config: IJiraWorklogOutputConfiguration) {
