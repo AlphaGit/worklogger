@@ -4,15 +4,13 @@ import { AppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { IOutputConfiguration } from '../IOutputConfiguration';
 
-import { getLogger, Logger } from 'log4js';
+import { getLogger } from 'log4js';
 
 export class LoggerOutput extends OutputBase {
-    _logger: Logger;
+    private _logger = getLogger();
 
     constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: AppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
-
-        this._logger = getLogger();
     }
 
     outputWorklogSet(worklogSet: WorklogSet): void {
