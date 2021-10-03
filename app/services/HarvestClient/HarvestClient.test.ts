@@ -134,26 +134,26 @@ describe('getProjectsAndTasks', () => {
 });
 
 describe('saveNewTimeEntry', () => {
+    const timeEntry = new HarvestTimeEntry();
+    timeEntry.client = new HarvestclientModel();
+    timeEntry.client.name = 'Client 1';
+    timeEntry.ended_time = '9 AM';
+    timeEntry.hours = 1;
+    timeEntry.notes = 'Notes';
+    timeEntry.project = new HarvestProject();
+    timeEntry.project.name = 'Project 1';
+    timeEntry.project_id = 1;
+    timeEntry.spent_date = '2020-02-02';
+    timeEntry.started_time = '8 AM';
+    timeEntry.task = new HarvestTask();
+    timeEntry.task.name = 'Task 2';
+    timeEntry.task_id = 2;
+
     test('makes request with the right parameters', async () => {
         const fetchMock = mocked(fetch);
         fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
 
         const harvestClient = new HarvestClient(harvestClientConfig);
-        const timeEntry = new HarvestTimeEntry();
-        timeEntry.client = new HarvestclientModel();
-        timeEntry.client.name = 'Client 1';
-        timeEntry.ended_time = '9 AM';
-        timeEntry.hours = 1;
-        timeEntry.notes = 'Notes';
-        timeEntry.project = new HarvestProject();
-        timeEntry.project.name = 'Project 1';
-        timeEntry.project_id = 1;
-        timeEntry.spent_date = '2020-02-02';
-        timeEntry.started_time = '8 AM';
-        timeEntry.task = new HarvestTask();
-        timeEntry.task.name = 'Task 2';
-        timeEntry.task_id = 2;
-
         await harvestClient.saveNewTimeEntry(timeEntry);
 
         const url = `${HarvestClient.HarvestBaseUrl}/time_entries`;
@@ -167,5 +167,32 @@ describe('saveNewTimeEntry', () => {
             method: 'POST',
             body: JSON.stringify(timeEntry)
         });
+    });
+
+    test('validates completeness of the time entry', async () => {
+        const fetchMock = mocked(fetch);
+        fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
+
+        const harvestClient = new HarvestClient(harvestClientConfig);
+
+        await expect(async () => harvestClient.saveNewTimeEntry(undefined)).rejects.toThrow('Required parameter: timeEntry.');
+
+        const withoutProjectId = { ...timeEntry, project_id: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutProjectId)).rejects.toThrow('Time entry needs to have project_id.');
+
+        const withoutTaskId = { ...timeEntry, task_id: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutTaskId)).rejects.toThrow('Time entry needs to have task_id.');
+
+        const withoutSpentDate = { ...timeEntry, spent_date: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutSpentDate)).rejects.toThrow('Time entry needs to have spent_date.');
+
+        const withoutHours = { ...timeEntry, hours: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutHours)).rejects.toThrow('Time entry needs to have hours.');
+
+        const withoutStartedTime = { ...timeEntry, started_time: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutStartedTime)).rejects.toThrow('Time entry needs to have started_time.');
+
+        const withoutEndedTime = { ...timeEntry, ended_time: null };
+        await expect(async () => harvestClient.saveNewTimeEntry(withoutEndedTime)).rejects.toThrow('Time entry needs to have ended_time.');
     });
 });
