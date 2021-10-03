@@ -1,0 +1,171 @@
+import { HarvestClient, IHarvestConfiguration } from ".";
+import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask } from "../../inputs/HarvestApp/Models";
+import { Dates } from '../../../tests/entities';
+
+import { mocked } from 'ts-jest/utils';
+const { Response } = jest.requireActual('node-fetch');
+
+import fetch from 'node-fetch';
+import { HarvestTimeEntry } from "../../inputs/HarvestApp/Models";
+jest.mock('node-fetch');
+
+const harvestClientConfig = {
+    accountId: 'accountId',
+    contactInformation: 'email@example.com',
+    token: 'exampleToken'
+} as IHarvestConfiguration;
+
+describe('constructor', () => {
+    test('validates configuration', () => {
+        expect(() => new HarvestClient(undefined)).toThrow('Missing parameter: configuration.');
+
+        const withoutAccountId = { ...harvestClientConfig, accountId: undefined };
+        expect(() => new HarvestClient(withoutAccountId)).toThrow('Required configuration: accountId.');
+
+        const withoutToken = { ...harvestClientConfig, token: undefined };
+        expect(() => new HarvestClient(withoutToken)).toThrow('Required configuration: token.');
+
+        const withoutContactInfo = { ...harvestClientConfig, contactInformation: undefined };
+        expect(() => new HarvestClient(withoutContactInfo)).toThrow('Required configuration: contactInformation.')
+    });
+});
+
+describe('getTimeEntries', () => {
+    test('makes request with the right parameters', async () => {
+        const fetchMock = mocked(fetch);
+        fetchMock.mockClear().mockResolvedValue(new Response(`{
+            "time_entries": [{
+                "spent_date": "2020-02-02",
+                "started_time": "8:00",
+                "ended_time": "9:00",
+                "hours": 1,
+                "notes": "Some notes",
+                "client": {
+                    "name": "ClientName"
+                },
+                "project": {
+                    "name": "ProjectName"
+                },
+                "task": {
+                    "name": "TaskName"
+                },
+                "project_id": 1,
+                "task_id": 2
+            }]
+        }`, { status: 200 }));
+
+        const harvestClient = new HarvestClient(harvestClientConfig);
+        const times = { from: Dates.pastTwoHours(), to: Dates.now() };
+        const response = await harvestClient.getTimeEntries(times);
+
+        const url = new URL(`${HarvestClient.HarvestBaseUrl}/time_entries`);
+        url.searchParams.set('from', times.from.toISOString());
+        url.searchParams.set('to', times.to.toISOString());
+        expect(fetchMock).toBeCalledWith(url.toString(), {
+            headers: {
+                Authorization: `Bearer ${harvestClientConfig.token}`,
+                'Content-Type': 'application/json',
+                'Harvest-Account-Id': harvestClientConfig.accountId,
+                'User-Agent': `Worklogger (${harvestClientConfig.contactInformation})`
+            }
+        });
+
+        expect(response).toStrictEqual([{
+            spent_date: '2020-02-02',
+            started_time: '8:00',
+            ended_time: '9:00',
+            hours: 1,
+            notes: 'Some notes',
+            client: {
+                name: 'ClientName'
+            },
+            project: {
+                name: 'ProjectName'
+            },
+            task: {
+                name: 'TaskName'
+            },
+            project_id: 1,
+            task_id: 2
+        }]);
+    });
+});
+
+describe('getProjectsAndTasks', () => {
+    test('makes request with the right parameters', async () => {
+        const fetchMock = mocked(fetch);
+        fetchMock.mockClear().mockResolvedValue(new Response(`{
+            "project_assignments": [{
+                "project": {
+                    "id": 1,
+                    "name": "Project 1"
+                },
+                "task_assignments": [{
+                    "task": {
+                        "id": 2,
+                        "name": "Task 2"
+                    }
+                }]
+            }]
+        }`, { status: 200 }));
+
+        const harvestClient = new HarvestClient(harvestClientConfig);
+        const response = await harvestClient.getProjectsAndTasks();
+
+        const url = `${HarvestClient.HarvestBaseUrl}/users/me/project_assignments.json`;
+        expect(fetchMock).toBeCalledWith(url, {
+            headers: {
+                Authorization: `Bearer ${harvestClientConfig.token}`,
+                'Content-Type': 'application/json',
+                'Harvest-Account-Id': harvestClientConfig.accountId,
+                'User-Agent': `Worklogger (${harvestClientConfig.contactInformation})`
+            }
+        });
+
+        expect(response).toStrictEqual([{
+            projectId: 1,
+            projectName: 'Project 1',
+            tasks: [{
+                taskId: 2,
+                taskName: 'Task 2'
+            }]
+        }])
+    });
+});
+
+describe('saveNewTimeEntry', () => {
+    test('makes request with the right parameters', async () => {
+        const fetchMock = mocked(fetch);
+        fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
+
+        const harvestClient = new HarvestClient(harvestClientConfig);
+        const timeEntry = new HarvestTimeEntry();
+        timeEntry.client = new HarvestclientModel();
+        timeEntry.client.name = 'Client 1';
+        timeEntry.ended_time = '9 AM';
+        timeEntry.hours = 1;
+        timeEntry.notes = 'Notes';
+        timeEntry.project = new HarvestProject();
+        timeEntry.project.name = 'Project 1';
+        timeEntry.project_id = 1;
+        timeEntry.spent_date = '2020-02-02';
+        timeEntry.started_time = '8 AM';
+        timeEntry.task = new HarvestTask();
+        timeEntry.task.name = 'Task 2';
+        timeEntry.task_id = 2;
+
+        await harvestClient.saveNewTimeEntry(timeEntry);
+
+        const url = `${HarvestClient.HarvestBaseUrl}/time_entries`;
+        expect(fetchMock).toBeCalledWith(url, {
+            headers: {
+                Authorization: `Bearer ${harvestClientConfig.token}`,
+                'Content-Type': 'application/json',
+                'Harvest-Account-Id': harvestClientConfig.accountId,
+                'User-Agent': `Worklogger (${harvestClientConfig.contactInformation})`
+            },
+            method: 'POST',
+            body: JSON.stringify(timeEntry)
+        });
+    });
+});

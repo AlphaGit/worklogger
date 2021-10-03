@@ -8,7 +8,7 @@ import fetch from 'node-fetch';
 const logger = LoggerFactory.getLogger('services/HarvestClient');
 
 export class HarvestClient {
-    private harvestBaseUrl = 'https://api.harvestapp.com/api/v2';
+    static HarvestBaseUrl = 'https://api.harvestapp.com/api/v2';
 
     constructor(private configuration: IHarvestConfiguration) {
         this.validateConfiguration(configuration);
@@ -28,7 +28,7 @@ export class HarvestClient {
         if (from) params.set('from', from.toISOString());
         if (to) params.set('to', to.toISOString());
 
-        const response = await fetch(`${this.harvestBaseUrl}/time_entries?${params}`, {
+        const response = await fetch(`${HarvestClient.HarvestBaseUrl}/time_entries?${params}`, {
             headers: this.getDefaultHeaders()
         });
         const jsonResponse = await response.json();
@@ -38,7 +38,7 @@ export class HarvestClient {
 
     async getProjectsAndTasks(): Promise<HarvestProjectAndTasks[]> {
         logger.info('Retrieving known projects and tasks from Harvest');
-        const response = await fetch(`${this.harvestBaseUrl}/users/me/project_assignments.json`, {
+        const response = await fetch(`${HarvestClient.HarvestBaseUrl}/users/me/project_assignments.json`, {
             headers: this.getDefaultHeaders()
         });
 
@@ -53,7 +53,7 @@ export class HarvestClient {
         this.validateTimeEntry(timeEntry);
 
         logger.trace('Sending to Harvest:', JSON.stringify(timeEntry));
-        const res = await fetch(`${this.harvestBaseUrl}/time_entries`, {
+        const res = await fetch(`${HarvestClient.HarvestBaseUrl}/time_entries`, {
             method: 'POST',
             body: JSON.stringify(timeEntry),
             headers: this.getDefaultHeaders()
