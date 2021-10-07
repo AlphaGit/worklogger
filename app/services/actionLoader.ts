@@ -8,7 +8,7 @@ import { getLogger } from 'log4js';
 const logger = getLogger('services/actionLoader');
 
 export async function loadActionsAndConditions(actionConfigs: Transformation[]): Promise<IActionWithCondition[]> {
-    return Promise.all(actionConfigs.map(async config => {
+    return await Promise.all(actionConfigs.map(async config => {
         const action = await loadAction(config.action) as IAction;
         const condition = await loadCondition(config.condition) as ICondition;
         logger.debug('Loaded: On condition', condition.toString(), 'apply action', action.toString());
@@ -22,7 +22,9 @@ async function loadAction(actionConfig) {
 }
 
 class Transformation {
-    action: string;
+    action: {
+        type: string
+    };
     condition: IConditionConfig;
 }
 
