@@ -3,8 +3,8 @@ import { IConditionConfig } from '../conditions/IConditionConfig';
 
 export async function loadCondition(conditionConfig: IConditionConfig): Promise<ICondition> {
     let conditionType = (conditionConfig || {}).type;
-    if (!conditionType) conditionType = 'true';
+    if (!conditionType) conditionType = 'True/';
 
-    const conditionClass = await import(`app/conditions/${conditionType}`);
-    return new conditionClass(conditionConfig);
+    const conditionClass = await import(`../conditions/${conditionType}`);
+    return new conditionClass.default(conditionConfig);
 }

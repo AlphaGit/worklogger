@@ -18,7 +18,7 @@ export async function loadActionsAndConditions(actionConfigs: Transformation[]):
 
 async function loadAction(actionConfig) {
     const actionClass = await import(`app/actions/${actionConfig.type}`);
-    return new actionClass(actionConfig);
+    return new actionClass.default(actionConfig);
 }
 
 class Transformation {
