@@ -1,7 +1,7 @@
 import { LoggerFactory } from './LoggerFactory';
 import { RelativeTime } from '../models/RelativeTime';
 import { AppConfiguration } from '../models/AppConfiguration';
-import moment from 'moment-timezone';
+import { tz } from 'moment-timezone';
 
 const logger = LoggerFactory.getLogger('services/configurationProcessor');
 
@@ -9,7 +9,7 @@ export function getProcessedConfiguration(configuration: AppConfiguration): AppC
     const timePeriod = configuration.options.timePeriod;
     const { begin, end } = timePeriod;
 
-    configuration.options.timeZone = configuration.options.timeZone || moment.tz.guess();
+    configuration.options.timeZone = configuration.options.timeZone || tz.guess();
     const timeZone = configuration.options.timeZone;
 
     timePeriod.startDateTime = parseAbsoluteTime(begin, timeZone) || parseRelativeTime(begin, timeZone) || parseOffset(begin, timeZone);
@@ -30,7 +30,7 @@ function parseAbsoluteTime(timePeriod, timeZone) {
     const dateTimeString = timePeriod.dateTime;
     if (!(dateTimeString || '').length) return null;
 
-    return moment.tz(dateTimeString, timeZone).toDate();
+    return tz(dateTimeString, timeZone).toDate();
 }
 
 function parseOffset(timePeriod, timeZone) {
@@ -39,5 +39,5 @@ function parseOffset(timePeriod, timeZone) {
 
     const { value, unit } = offset.match(/(?<value>(?:\+|-)?\d+)(?<unit>[mhwdM])?/).groups;
 
-    return moment.tz(timeZone).add(value, unit).toDate();
+    return tz(timeZone).add(value, unit).toDate();
 }

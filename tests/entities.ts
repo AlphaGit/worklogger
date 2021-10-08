@@ -62,6 +62,18 @@ export const WorklogSets = {
 const getNormalAppConfiguration = (): AppConfiguration => {
     const configuration = new AppConfiguration();
     configuration.options = new AppConfigurationOptions();
+    configuration.options.timePeriod = {
+        begin: {
+            fromNow: 'last',
+            unit: 'day',
+        },
+        end: {
+            fromNow: 'this',
+            unit: 'day'
+        },
+        startDateTime: undefined,
+        endDateTime: undefined
+    }
     configuration.options.timeZone = 'America/Vancouver';
     configuration.options.minimumLoggableTimeSlotInMinutes = 30;
     return configuration;

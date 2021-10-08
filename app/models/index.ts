@@ -1,4 +1,4 @@
-export { AppConfiguration, AppConfigurationOptions } from './AppConfiguration';
+export { AppConfiguration, AppConfigurationOptions, TimeSpecification } from './AppConfiguration';
 export { InputConfiguration } from './InputConfiguration';
 export { RelativeTime } from './RelativeTime';
 export { ServiceRegistrations } from './ServiceRegistrations';
