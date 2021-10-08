@@ -20,17 +20,17 @@ export async function loadOutputs(outputConfigurations: IOutputConfiguration[], 
 
 async function loadOuput(outputConfiguration: IOutputConfiguration, appConfiguration: AppConfiguration): Promise<OutputBase> {
     const outputType = outputConfiguration.type;
-    const formatter = loadFormatter(outputConfiguration.formatter, appConfiguration);
+    const formatter = await loadFormatter(outputConfiguration.formatter, appConfiguration);
 
-    const OutputClass = await import(`app/outputs/${outputType}/Output`);
-    return new OutputClass(formatter, outputConfiguration, appConfiguration);
+    const outputModule = await import(`app/outputs/${outputType}/Output`);
+    return new outputModule.default(formatter, outputConfiguration, appConfiguration);
 }
 
 async function loadFormatter(formatterConfiguration: IFormatterConfig | undefined, appConfiguration: AppConfiguration): Promise<FormatterBase> {
     const formatterType = formatterConfiguration?.type || 'NoFormatFormatter';
 
     logger.debug(`Loading ${formatterType} formatter`);
-    const FormatterClass = await import(`app/formatters/${formatterType}`);
+    const formatterModule = await import(`app/formatters/${formatterType}`);
 
-    return new FormatterClass(formatterConfiguration, appConfiguration);
+    return new formatterModule.default(formatterConfiguration, appConfiguration);
 }
