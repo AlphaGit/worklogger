@@ -1,11 +1,11 @@
 import { WorklogSet } from '../../models/WorklogSet';
 import { FormatterBase } from '../FormatterBase';
-import { LoggerFactory } from '../../services/LoggerFactory';
 import { Worklog } from '../../models/Worklog';
 import { SummaryTextFormatterConfiguration } from './SummaryTextFormatterConfiguration';
 import * as moment from 'moment-timezone';
+import { getLogger } from 'log4js';
 
-const logger = LoggerFactory.getLogger('SummaryTextFormatter');
+const logger = getLogger('SummaryTextFormatter');
 
 export class SummaryTextFormatter extends FormatterBase {
     format(worklogSet: WorklogSet): string {

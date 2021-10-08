@@ -2,10 +2,10 @@ import { HarvestTimeEntry } from '../../inputs/HarvestApp/Models';
 import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
 import { IHarvestConfiguration } from './IHarvestConfiguration';
 import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';
-import { LoggerFactory } from '../LoggerFactory';
 import fetch from 'node-fetch';
+import { getLogger } from 'log4js';
 
-const logger = LoggerFactory.getLogger('services/HarvestClient');
+const logger = getLogger('services/HarvestClient');
 
 export class HarvestClient {
     static HarvestBaseUrl = 'https://api.harvestapp.com/api/v2';

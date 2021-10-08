@@ -1,12 +1,12 @@
 import { promises as fs } from 'fs';
-import { LoggerFactory } from '../../services/LoggerFactory';
 import { OutputBase } from '../OutputBase';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { AppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { ITextFileOutputConfiguration } from './ITextFileOutputConfiguration';
+import { getLogger } from 'log4js';
 
-const logger = LoggerFactory.getLogger('TextFile/Output');
+const logger = getLogger('TextFile/Output');
 
 export class TextFileOutput extends OutputBase {
     private _configuration: ITextFileOutputConfiguration;

@@ -1,9 +1,9 @@
-import { LoggerFactory } from './LoggerFactory';
 import { RelativeTime } from '../models/RelativeTime';
 import { AppConfiguration } from '../models/AppConfiguration';
 import { tz } from 'moment-timezone';
+import { getLogger } from 'log4js';
 
-const logger = LoggerFactory.getLogger('services/configurationProcessor');
+const logger = getLogger('services/configurationProcessor');
 
 export function getProcessedConfiguration(configuration: AppConfiguration): AppConfiguration {
     const timePeriod = configuration.options.timePeriod;

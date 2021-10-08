@@ -1,8 +1,8 @@
 import { WorklogSet } from 'app/models/WorklogSet';
-import { LoggerFactory } from 'app/services/LoggerFactory';
+import { getLogger } from 'log4js';
 
 async function start(passedArguments: string | string[]) {
-    const logger = LoggerFactory.getLogger('worklogger');
+    const logger = getLogger('worklogger');
 
     logger.level = 'trace';
 

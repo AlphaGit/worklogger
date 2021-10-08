@@ -1,4 +1,3 @@
-import { LoggerFactory } from './LoggerFactory';
 import { loadCondition } from './conditionLoader';
 import { IOutputConfiguration } from '../outputs/IOutputConfiguration';
 import { AppConfiguration } from '../models/AppConfiguration';
@@ -6,8 +5,9 @@ import { OutputWithCondition } from './OutputWithCondition';
 import { IFormatterConfig } from '../formatters/IFormatterConfig';
 import { OutputBase } from '../outputs/OutputBase';
 import { FormatterBase } from '../formatters/FormatterBase';
+import { getLogger } from 'log4js';
 
-const logger = LoggerFactory.getLogger('services/outputLoader');
+const logger = getLogger('services/outputLoader');
 
 export async function loadOutputs(outputConfigurations: IOutputConfiguration[], appConfiguration: AppConfiguration): Promise<OutputWithCondition[]> {
     return Promise.all(outputConfigurations.map(async outputConfig => {
