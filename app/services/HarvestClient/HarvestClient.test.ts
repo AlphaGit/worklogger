@@ -1,12 +1,11 @@
 import { HarvestClient, IHarvestConfiguration } from ".";
-import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask } from "../../inputs/HarvestApp/Models";
+import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask, HarvestTimeEntry } from "../../inputs/HarvestApp/Models";
 import { Dates } from '../../../tests/entities';
 
 import { mocked } from 'ts-jest/utils';
 const { Response } = jest.requireActual('node-fetch');
 
 import fetch from 'node-fetch';
-import { HarvestTimeEntry } from "../../inputs/HarvestApp/Models";
 jest.mock('node-fetch');
 
 const harvestClientConfig = {
