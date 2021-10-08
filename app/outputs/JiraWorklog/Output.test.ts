@@ -51,4 +51,11 @@ describe('outputWorklogSet', () => {
             started: moment(passingWorklog.startDateTime).format('YYYY-MM-DDTHH:mm:ss.SSSZZ')
         });
     });
+
+    test('works with empty worklogSets', async () => {
+        const worklogSet = WorklogSets.empty();
+        worklogSet.worklogs = undefined;
+        await output.outputWorklogSet(worklogSet);
+        expect(jiraClientMock.saveWorklog).not.toHaveBeenCalled();
+    });
 });
