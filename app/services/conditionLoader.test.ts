@@ -5,7 +5,7 @@ import { TrueCondition } from '../conditions/True';
 describe('loadCondition', () => {
     test('loads requested condition module', async () => {
         const conditionClassMock = jest.fn(() => ({ condition: 'condition1' }));
-        const moduleMock = jest.fn(() => ({ default: conditionClassMock }));
+        const moduleMock = jest.fn(() => conditionClassMock);
         jest.doMock('../conditions/condition1', moduleMock, { virtual: true });
 
         const conditionConfig = { type: 'condition1' } as IConditionConfig;

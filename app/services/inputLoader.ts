@@ -9,7 +9,7 @@ export async function loadInputs(serviceRegistrations: IServiceRegistrations, ap
     const loadedInputs: IInput[] = [];
 
     for (const input of appConfiguration.inputs) {
-        logger.debug('Loading configuration for', input.type);
+        logger.debug('Loading', input.type);
 
         const inputModule = await import(`../inputs/${input.type}/Input`);
         if (!inputModule.default) {

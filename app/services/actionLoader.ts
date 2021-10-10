@@ -17,7 +17,7 @@ export async function loadActionsAndConditions(actionConfigs: ITransformation[])
 }
 
 async function loadAction(actionConfig: { type: string }) {
-    const actionClass = await import(`app/actions/${actionConfig.type}`);
+    const actionClass = await import(`../actions/${actionConfig.type}`);
     if (!actionClass.default)
         throw new Error(`Action ${actionConfig.type} does not have a default export.`);
     return new actionClass.default(actionConfig);

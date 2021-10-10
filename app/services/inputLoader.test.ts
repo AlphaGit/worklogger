@@ -21,13 +21,6 @@ describe('loadInputs', () => {
             }]
         };
 
-        const input1ConfigClassMock = jest.fn(() => ({ inputConfig: 'input1' }));
-        const input2ConfigClassMock = jest.fn(() => ({ inputConfig: 'input2' }));
-        const input1ConfigModuleMock = jest.fn(() => input1ConfigClassMock);
-        const input2ConfigModuleMock = jest.fn(() => input2ConfigClassMock);
-        jest.doMock('../inputs/input1/InputConfiguration', input1ConfigModuleMock, { virtual: true });
-        jest.doMock('../inputs/input2/InputConfiguration', input2ConfigModuleMock, { virtual: true });
-
         const input1ClassMock = jest.fn(() => ({ input: 'input1' }));
         const input2ClassMock = jest.fn(() => ({ input: 'input2' }));
         const input1ModuleMock = jest.fn(() => input1ClassMock);
@@ -37,14 +30,10 @@ describe('loadInputs', () => {
 
         const results = await loadInputs(serviceRegistations, config);
 
-        expect(input1ConfigModuleMock).toBeCalled();
-        expect(input2ConfigModuleMock).toBeCalled();
-        expect(input1ConfigClassMock).toBeCalledWith(config.inputs[0]);
-        expect(input2ConfigClassMock).toBeCalledWith(config.inputs[1]);
         expect(input1ModuleMock).toBeCalled();
         expect(input2ModuleMock).toBeCalled();
-        expect(input1ClassMock).toBeCalledWith(serviceRegistations, config, { inputConfig: 'input1' });
-        expect(input2ClassMock).toBeCalledWith(serviceRegistations, config, { inputConfig: 'input2' });
+        expect(input1ClassMock).toBeCalledWith(serviceRegistations, config, config.inputs[0]);
+        expect(input2ClassMock).toBeCalledWith(serviceRegistations, config, config.inputs[1]);
 
         expect(results.length).toBe(2);
         expect(results[0]).toStrictEqual({ input: 'input1' });
