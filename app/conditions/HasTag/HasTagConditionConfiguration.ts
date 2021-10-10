@@ -1,5 +1,4 @@
-
-export class HasTagConditionConfiguration {
+export type HasTagConditionConfiguration = {
     tagName: string;
     tagValue?: string;
 }

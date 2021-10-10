@@ -51,7 +51,7 @@ describe('apply', () => {
         });
 
         test('regex (no match)', () => {
-            const addTagDefinition = new AddTagDefinition('tagName', null, 'value: (\\w+)');
+            const addTagDefinition = new AddTagDefinition('tagName', '', 'value: (\\w+)');
             const addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
             const addTagAction = new AddTagAction(addTagConfiguration);
 
@@ -59,11 +59,11 @@ describe('apply', () => {
             worklog.name = 'worklog without match';
             addTagAction.apply(worklog);
 
-            expect(worklog.getTagValue('tagName')).toBeUndefined();
+            expect(worklog.getTagValue('tagName')).toBe('');
         });
 
         test('regex (invalid)', () => {
-            const addTagDefinition = new AddTagDefinition('tagName', null, 'value: (');
+            const addTagDefinition = new AddTagDefinition('tagName', '', 'value: (');
             const addTagConfiguration = new AddTagConfiguration([addTagDefinition]);
             const addTagAction = new AddTagAction(addTagConfiguration);
 
@@ -71,7 +71,7 @@ describe('apply', () => {
             worklog.name = 'worklog with value: abc';
             addTagAction.apply(worklog);
 
-            expect(worklog.getTagValue('tagName')).toBeUndefined();
+            expect(worklog.getTagValue('tagName')).toBe('');
         });
     });
 

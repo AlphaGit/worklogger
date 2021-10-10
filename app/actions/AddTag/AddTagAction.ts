@@ -20,8 +20,10 @@ export class AddTagAction implements IAction {
         this._tagsToAdd = configuration.tagsToAdd;
     }
 
-    _extractCaptureFromSummary(summary: string, regexText: string): string | undefined {
+    _extractCaptureFromSummary(summary: string, regexText?: string): string | undefined {
         try {
+            if (!regexText) return undefined;
+
             const regex = new RegExp(regexText);
             const result = regex.exec(summary);
             if (!result) {
@@ -44,7 +46,7 @@ export class AddTagAction implements IAction {
 
         this._tagsToAdd.forEach(tagToAdd => {
             const tagValue = tagToAdd.value || this._extractCaptureFromSummary(worklog.name, tagToAdd.extractCaptureFromSummary);
-            const tag = new Tag(tagToAdd.name, tagValue);
+            const tag = new Tag(tagToAdd.name, tagValue ?? '');
             worklog.addTag(tag);
         });
     }

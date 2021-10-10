@@ -1,7 +1,7 @@
 import { RelativeTime } from '../models/RelativeTime';
 import { IAppConfiguration } from '../models/AppConfiguration';
 import { TimeSpecification } from '../models';
-import { tz } from 'moment-timezone';
+import { tz, DurationInputArg2 } from 'moment-timezone';
 import { getLogger } from 'log4js';
 
 const logger = getLogger('services/configurationProcessor');
@@ -55,7 +55,7 @@ function parseOffset(timePeriod: TimeSpecification, timeZone: string) {
     if (!match) {
         throw new Error(`Unrecognized offset setting: ${offset}`);
     }
-    const { value, unit } = match.groups as unknown as { value: number, unit: string };
+    const { value, unit } = match.groups as unknown as { value: number, unit: DurationInputArg2 };
 
     return tz(timeZone).add(value, unit).toDate();
 }
