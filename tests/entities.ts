@@ -1,8 +1,9 @@
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import { FormatterBase } from '../app/formatters/FormatterBase';
 import { FormatterConfigurationBase } from '../app/formatters/FormatterConfigurationBase';
 
-import { AppConfiguration, AppConfigurationOptions, ServiceRegistrations as Services, Tag, Worklog, WorklogSet } from '../app/models';
+import { IAppConfiguration, IServiceRegistrations, Tag, Worklog, WorklogSet } from '../app/models';
+import { FromNow, Unit } from '../app/models/RelativeTime';
 
 export const Dates = {
     today: (): Date => moment().startOf('day').toDate(),
@@ -60,36 +61,42 @@ export const WorklogSets = {
     empty: (): WorklogSet => new WorklogSet(Dates.today(), Dates.tomorrow(), []),
 }
 
-const getNormalAppConfiguration = (): AppConfiguration => {
-    const configuration = new AppConfiguration();
-    configuration.options = new AppConfigurationOptions();
-    configuration.options.timePeriod = {
-        begin: {
-            fromNow: 'last',
-            unit: 'day',
+const getNormalAppConfiguration = (): IAppConfiguration => {
+    return {
+        options: {
+            timePeriod: {
+                begin: {
+                    fromNow: FromNow.Last,
+                    unit: Unit.Day,
+                },
+                end: {
+                    fromNow: FromNow.This,
+                    unit: Unit.Day
+                }
+            },
+            timeZone: 'America/Vancouver',
+            minimumLoggableTimeSlotInMinutes: 30
         },
-        end: {
-            fromNow: 'this',
-            unit: 'day'
+        inputs: [],
+        log4js: {
+            appenders: {},
+            categories: {}
         },
-        startDateTime: undefined,
-        endDateTime: undefined
-    }
-    configuration.options.timeZone = 'America/Vancouver';
-    configuration.options.minimumLoggableTimeSlotInMinutes = 30;
-    return configuration;
+        transformations: [],
+        outputs: []
+    };
 };
 
 export const AppConfigurations = {
     normal: getNormalAppConfiguration
 }
 
-const getMockServiceRegistrations = (): Services => {
-    const serviceRegistrations = new Services();
-    serviceRegistrations.FileLoader = {
-        loadJson: jest.fn()
+const getMockServiceRegistrations = (): IServiceRegistrations => {
+    return {
+        FileLoader: {
+            loadJson: jest.fn()
+        }
     };
-    return serviceRegistrations;
 };
 
 export const ServiceRegistrations = {
@@ -97,10 +104,13 @@ export const ServiceRegistrations = {
 }
 
 class FakeFormatter extends FormatterBase {
-    protected _configuration: FormatterConfigurationBase;
-    protected _appConfiguration: AppConfiguration;
+    constructor(
+        public formatterConfiguration: FormatterConfigurationBase,
+        public appConfiguration: IAppConfiguration) {
+        super(formatterConfiguration, appConfiguration);
+    }
 
-    public formatFunction: (WorklogSet) => string =
+    public formatFunction: (worklogSet: WorklogSet) => string =
         (worklogSet) => worklogSet.toString();
 
     format(worklogSet: WorklogSet): string {

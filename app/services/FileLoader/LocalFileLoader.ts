@@ -9,7 +9,7 @@ export class LocalFileLoader implements IFileLoader {
         const fullPath = resolve(filePath);
         logger.info('Loading local file:', fullPath);
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const contents = require(filePath);
-        return Promise.resolve(contents);
+        const contents = require(fullPath);
+        return contents;
     }
 }

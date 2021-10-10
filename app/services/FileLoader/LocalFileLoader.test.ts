@@ -1,17 +1,17 @@
 import { LocalFileLoader } from "./LocalFileLoader";
 
-const resolveMock = jest.fn();
 jest.mock('path', () => ({
-    resolve: () => resolveMock
+    resolve: (path: string) => path
 }));
+
 describe('loadJson', () => {
     test('loads the file specified through a relative path', async () => {
-        jest.mock('subDir/filePath.txt', () => ({
+        jest.mock('subDir/filePath.json', () => ({
             a: () => ({})
         }), { virtual: true });
 
         const localFileLoader = new LocalFileLoader();
-        const resolvedFile = await localFileLoader.loadJson('subDir/filePath.txt');
+        const resolvedFile = await localFileLoader.loadJson('subDir/filePath.json');
         expect(resolvedFile.a).toBeTruthy();
     });
 

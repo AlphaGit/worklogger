@@ -23,17 +23,17 @@ describe('loadInputs', () => {
 
         const input1ConfigClassMock = jest.fn(() => ({ inputConfig: 'input1' }));
         const input2ConfigClassMock = jest.fn(() => ({ inputConfig: 'input2' }));
-        const input1ConfigModuleMock = jest.fn(() => ({ default: input1ConfigClassMock }));
-        const input2ConfigModuleMock = jest.fn(() => ({ default: input2ConfigClassMock }));
-        jest.doMock('app/inputs/input1/InputConfiguration', input1ConfigModuleMock, { virtual: true });
-        jest.doMock('app/inputs/input2/InputConfiguration', input2ConfigModuleMock, { virtual: true });
+        const input1ConfigModuleMock = jest.fn(() => input1ConfigClassMock);
+        const input2ConfigModuleMock = jest.fn(() => input2ConfigClassMock);
+        jest.doMock('../inputs/input1/InputConfiguration', input1ConfigModuleMock, { virtual: true });
+        jest.doMock('../inputs/input2/InputConfiguration', input2ConfigModuleMock, { virtual: true });
 
         const input1ClassMock = jest.fn(() => ({ input: 'input1' }));
         const input2ClassMock = jest.fn(() => ({ input: 'input2' }));
-        const input1ModuleMock = jest.fn(() => ({ default: input1ClassMock }));
-        const input2ModuleMock = jest.fn(() => ({ default: input2ClassMock }));
-        jest.doMock('app/inputs/input1/Input', input1ModuleMock, { virtual: true });
-        jest.doMock('app/inputs/input2/Input', input2ModuleMock, { virtual: true });
+        const input1ModuleMock = jest.fn(() => input1ClassMock);
+        const input2ModuleMock = jest.fn(() => input2ClassMock);
+        jest.doMock('../inputs/input1/Input', input1ModuleMock, { virtual: true });
+        jest.doMock('../inputs/input2/Input', input2ModuleMock, { virtual: true });
 
         const results = await loadInputs(serviceRegistations, config);
 

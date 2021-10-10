@@ -1,13 +1,13 @@
 import { FormatterBase } from '../formatters/FormatterBase';
 import { WorklogSet } from '../models/WorklogSet';
 import { IOutputConfiguration } from '../outputs/IOutputConfiguration';
-import { AppConfiguration } from '../models/AppConfiguration';
+import { IAppConfiguration } from '../models/AppConfiguration';
 
 export abstract class OutputBase {
     protected _formatter: FormatterBase;
-    protected _appConfiguration: AppConfiguration;
+    protected _appConfiguration: IAppConfiguration;
     
-    constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: AppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
         if (!(formatter instanceof FormatterBase)) throw new Error('Formatter is required.');
 
         this._formatter = formatter;

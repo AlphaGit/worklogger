@@ -19,15 +19,15 @@ export class ModelMapper {
 
         const mapIndividualWorklog = this.mapIndividualEventToWorklog.bind(this, calendarConfig);
         return events
-            .filter(e => !!e.start.dateTime && !!e.end.dateTime)
+            .filter(e => !!e.start?.dateTime && !!e.end?.dateTime)
             .map(mapIndividualWorklog);
     }
 
     private mapIndividualEventToWorklog(calendarConfig: GoogleCalendarCalendarConfiguration, event: calendar_v3.Schema$Event): Worklog {
-        const startTime = new Date(event.start.dateTime);
-        const endTime = new Date(event.end.dateTime);
+        const startTime = new Date(event.start?.dateTime ?? 0);
+        const endTime = new Date(event.end?.dateTime ?? 0);
 
-        const worklog = new Worklog(event.summary, startTime, endTime);
+        const worklog = new Worklog(event.summary ?? '(No description)', startTime, endTime);
 
         for (const tagToInclude of calendarConfig.includeTags || []) {
             const { name, value } = this.parseTag(tagToInclude);

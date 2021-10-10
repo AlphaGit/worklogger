@@ -1,5 +1,5 @@
 import { IFileLoader } from '../services/FileLoader/IFileLoader';
 
-export class ServiceRegistrations {
+export interface IServiceRegistrations {
     FileLoader: IFileLoader;
 }

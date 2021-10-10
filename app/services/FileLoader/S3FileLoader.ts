@@ -22,7 +22,10 @@ export class S3FileLoader implements IFileLoader {
         try {
             const s3 = new S3({ });
             const data = await s3.getObject(requestParams);
-            const json = data.Body.toString();
+            const json = data.Body?.toString();
+
+            if (!json) throw new Error(`Did not receive any data from ${requestParams.Bucket}/${requestParams.Key}`);
+
             return JSON.parse(json);
         } catch (err) {
             logger.error(`Error while retrieving ${requestParams.Bucket}/${requestParams.Key}`, err);

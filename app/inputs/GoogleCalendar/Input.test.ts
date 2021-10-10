@@ -14,19 +14,16 @@ jest.mock('googleapis', () => ({
 
 import { Input, GoogleCalendarConfiguration } from '.'
 import { AppConfigurations, Dates, ServiceRegistrations } from '../../../tests/entities';
-import { GoogleCalendarCalendarConfiguration } from './GoogleCalendarConfiguration';
 
-describe('constructor', () => {
-    test('requires serverRegistrations to be present', () => {
-        expect(() => new Input(null, AppConfigurations.normal(), new GoogleCalendarConfiguration())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
-        expect(() => new Input(undefined, AppConfigurations.normal(), new GoogleCalendarConfiguration())).toThrow('ServiceRegistrations for GoogleCalendarInput is required');
-    });
-
-    test('requires input configuration to be present', () => {
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), null)).toThrow('Configuration for GoogleCalendarInput is required');
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), undefined)).toThrow('Configuration for GoogleCalendarInput is required');
-    });
-});
+const defaultConfiguration: GoogleCalendarConfiguration = {
+    calendars: [{
+        id: '1@google.com',
+        includeTags: []
+    }],
+    storageRelativePath: 'localPath/subPath',
+    name: 'Google Calendar',
+    type: 'GoogleCalendar'
+};
 
 describe('getWorklogs', () => {
     test('retrieves credentials from a configured storage', async () => {
@@ -39,11 +36,7 @@ describe('getWorklogs', () => {
             }
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.storageRelativePath = 'localPath/subPath';
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
-
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), defaultConfiguration);
 
         await input.getWorkLogs(Dates.pastTwoHours(), Dates.now());
 
@@ -56,11 +49,7 @@ describe('getWorklogs', () => {
             throw new Error('Simulated credential error.');
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.storageRelativePath = 'localPath/subPath';
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
-
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), defaultConfiguration);
 
         await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('Simulated credential error.');
     });
@@ -75,10 +64,6 @@ describe('getWorklogs', () => {
             }
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.storageRelativePath = 'localPath/subPath';
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
-
         mockedEventsList.mockResolvedValue({
             data: {
                 items: [{
@@ -91,7 +76,7 @@ describe('getWorklogs', () => {
             }
         });
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), defaultConfiguration);
 
         const worklogs = await input.getWorkLogs(Dates.pastOneHour(), Dates.now());
 
@@ -108,13 +93,9 @@ describe('getWorklogs', () => {
             }
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.storageRelativePath = 'localPath/subPath';
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
-
         mockedEventsList.mockRejectedValue('Simulated API Error');
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), defaultConfiguration);
 
         await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('The API returned an error: Simulated API Error');
     });
@@ -129,13 +110,9 @@ describe('getWorklogs', () => {
             }
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.storageRelativePath = 'localPath/subPath';
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
-
         mockedEventsList.mockRejectedValue('Test error');
 
-        const input = new Input(serviceRegistrations, AppConfigurations.normal(), configuration);
+        const input = new Input(serviceRegistrations, AppConfigurations.normal(), defaultConfiguration);
 
         await expect(async () => await input.getWorkLogs(Dates.pastTwoHours(), Dates.now())).rejects.toThrow('The API returned an error: Test error');
     });
@@ -150,8 +127,10 @@ describe('getWorklogs', () => {
             }
         });
 
-        const configuration = new GoogleCalendarConfiguration();
-        configuration.calendars = [new GoogleCalendarCalendarConfiguration()];
+        const configuration = {
+            ...defaultConfiguration,
+            storageRelativePath: ''
+        };
 
         mockedEventsList.mockResolvedValue({ data: { items: [] } });
 

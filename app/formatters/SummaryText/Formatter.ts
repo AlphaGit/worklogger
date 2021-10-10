@@ -69,7 +69,7 @@ export class SummaryTextFormatter extends FormatterBase {
         const [firstTag, ...restTags] = tags;
         const worklogsByTagValue = this._groupBy(worklogs, firstTag);
 
-        let aggregatedSummaries = [];
+        let aggregatedSummaries: string[] = [];
         for (const worklogGrouping of worklogsByTagValue) {
             const groupingTagValue = worklogGrouping.key || '(no value)';
             const workslogsInGroup = worklogGrouping.value;
@@ -85,9 +85,9 @@ export class SummaryTextFormatter extends FormatterBase {
         return aggregatedSummaries;
     }
 
-    _groupBy(worklogs: Worklog[], tag: string): Record<string, Worklog[]>[] {
+    _groupBy(worklogs: Worklog[], tag: string): { key: string, value: Worklog[] }[] {
         const groupKeys = [];
-        const groupValuesByGroupKey = {};
+        const groupValuesByGroupKey: Record<string, Worklog[]> = {};
 
         for (const worklog of worklogs) {
             const tagValue = worklog.getTagValue(tag);
@@ -110,3 +110,5 @@ export class SummaryTextFormatter extends FormatterBase {
         return keyValueGroups;
     }
 }
+
+export default SummaryTextFormatter;

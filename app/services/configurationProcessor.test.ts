@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 import { AppConfigurations } from "../../tests/entities";
 import { TimeSpecification } from "../models";
 import { getProcessedConfiguration } from "./configurationProcessor";
@@ -11,12 +11,12 @@ describe('getProcessedConfiguration', () => {
         jest.spyOn(Intl, 'DateTimeFormat')
             .mockImplementation((locale, options) => new DateTimeFormat(locale, { ...options, timeZone: 'America/Chicago' }));
 
-        const config = { ...appConfiguration, options: { ...appConfiguration.options, timeZone: undefined } };
+        const config = { ...appConfiguration, options: { ...appConfiguration.options, timeZone: '' } };
         const result = getProcessedConfiguration(config);
 
         jest.resetAllMocks();
 
-        expect(result.options.timeZone).toBe('America/Chicago');
+        expect(result.timeZone).toBe('America/Chicago');
     });
 
     describe('sets the start and end time based on configuration', () => {
@@ -39,8 +39,8 @@ describe('getProcessedConfiguration', () => {
             };
             const result = getProcessedConfiguration(config);
 
-            expect(result.options.timePeriod.startDateTime).toStrictEqual(new Date('2020-01-01T01:02:03Z'));
-            expect(result.options.timePeriod.endDateTime).toStrictEqual(new Date('2020-01-02T01:02:03Z'));
+            expect(result.start).toStrictEqual(new Date('2020-01-01T01:02:03Z'));
+            expect(result.end).toStrictEqual(new Date('2020-01-02T01:02:03Z'));
         });
 
         test('with fromNow/unit', () => {
@@ -64,8 +64,8 @@ describe('getProcessedConfiguration', () => {
             };
             const result = getProcessedConfiguration(config);
 
-            expect(result.options.timePeriod.startDateTime).toStrictEqual(moment().subtract(1, 'day').startOf('day').toDate());
-            expect(result.options.timePeriod.endDateTime).toStrictEqual(moment().startOf('day').toDate());
+            expect(result.start).toStrictEqual(moment().subtract(1, 'day').startOf('day').toDate());
+            expect(result.end).toStrictEqual(moment().startOf('day').toDate());
         });
 
         test('with offset', () => {
@@ -87,8 +87,8 @@ describe('getProcessedConfiguration', () => {
             };
             const result = getProcessedConfiguration(config);
 
-            expect(+result.options.timePeriod.startDateTime).toBeCloseTo(+moment().subtract(24, 'hour').toDate(), -2);
-            expect(+result.options.timePeriod.endDateTime).toBeCloseTo(+moment().toDate(), -2);
+            expect(+result.start).toBeCloseTo(+moment().subtract(24, 'hour').toDate(), -2);
+            expect(+result.end).toBeCloseTo(+moment().toDate(), -2);
         });
     });
 });

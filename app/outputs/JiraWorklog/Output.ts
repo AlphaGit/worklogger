@@ -1,7 +1,7 @@
 import { OutputBase } from '../OutputBase';
 import { JiraClient } from './JiraClient';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { AppConfiguration } from '../../models/AppConfiguration';
+import { IAppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { Worklog } from '../../models/Worklog';
 import { JiraWorklog } from './JiraWorklog';
@@ -19,7 +19,7 @@ export class JiraWorklogOutput extends OutputBase {
     private logger = getLogger('outputs/JiraWorklog/Output');
     private _jiraClient: JiraClient;
 
-    constructor(formatter: FormatterBase, outputConfiguration: IJiraWorklogOutputConfiguration, appConfiguration: AppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: IJiraWorklogOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this._jiraClient = new JiraClient(outputConfiguration);
@@ -62,3 +62,5 @@ export class JiraWorklogOutput extends OutputBase {
         };
     }
 }
+
+export default JiraWorklog;

@@ -91,3 +91,5 @@ export class HarvestAppOutput extends OutputBase {
         return task;
     }
 }
+
+export default HarvestAppOutput;

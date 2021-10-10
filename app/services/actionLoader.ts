@@ -7,7 +7,7 @@ import { getLogger } from 'log4js';
 
 const logger = getLogger('services/actionLoader');
 
-export async function loadActionsAndConditions(actionConfigs: Transformation[]): Promise<IActionWithCondition[]> {
+export async function loadActionsAndConditions(actionConfigs: ITransformation[]): Promise<IActionWithCondition[]> {
     return await Promise.all(actionConfigs.map(async config => {
         const action = await loadAction(config.action) as IAction;
         const condition = await loadCondition(config.condition) as ICondition;
@@ -16,19 +16,21 @@ export async function loadActionsAndConditions(actionConfigs: Transformation[]):
     }));
 }
 
-async function loadAction(actionConfig) {
+async function loadAction(actionConfig: { type: string }) {
     const actionClass = await import(`app/actions/${actionConfig.type}`);
+    if (!actionClass.default)
+        throw new Error(`Action ${actionConfig.type} does not have a default export.`);
     return new actionClass.default(actionConfig);
 }
 
-class Transformation {
+export interface ITransformation {
     action: {
         type: string
     };
     condition: IConditionConfig;
 }
 
-interface IActionWithCondition {
+export interface IActionWithCondition {
     action: IAction;
     condition: ICondition;
 }

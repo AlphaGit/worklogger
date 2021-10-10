@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { OutputBase } from '../OutputBase';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { AppConfiguration } from '../../models/AppConfiguration';
+import { IAppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { ITextFileOutputConfiguration } from './ITextFileOutputConfiguration';
 import { getLogger } from 'log4js';
@@ -11,7 +11,7 @@ const logger = getLogger('TextFile/Output');
 export class TextFileOutput extends OutputBase {
     private _configuration: ITextFileOutputConfiguration;
 
-    constructor(formatter: FormatterBase, outputConfiguration: ITextFileOutputConfiguration, appConfiguration: AppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: ITextFileOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
     }
@@ -31,3 +31,5 @@ export class TextFileOutput extends OutputBase {
         }
     }
 }
+
+export default TextFileOutput;

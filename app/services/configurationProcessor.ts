@@ -1,43 +1,61 @@
 import { RelativeTime } from '../models/RelativeTime';
-import { AppConfiguration } from '../models/AppConfiguration';
+import { IAppConfiguration } from '../models/AppConfiguration';
+import { TimeSpecification } from '../models';
 import { tz } from 'moment-timezone';
 import { getLogger } from 'log4js';
 
 const logger = getLogger('services/configurationProcessor');
 
-export function getProcessedConfiguration(configuration: AppConfiguration): AppConfiguration {
-    const timePeriod = configuration.options.timePeriod;
-    const { begin, end } = timePeriod;
+export type ParsedTimeFrame = {
+    start: Date;
+    end: Date;
+    timeZone: string;
+};
 
-    configuration.options.timeZone = configuration.options.timeZone || tz.guess();
-    const timeZone = configuration.options.timeZone;
+export function getProcessedConfiguration(configuration: IAppConfiguration): ParsedTimeFrame {
+    const { begin, end } = configuration.options.timePeriod;
+    const timeZone = configuration.options.timeZone || tz.guess();
 
-    timePeriod.startDateTime = parseAbsoluteTime(begin, timeZone) || parseRelativeTime(begin, timeZone) || parseOffset(begin, timeZone);
-    timePeriod.endDateTime = parseAbsoluteTime(end, timeZone) || parseRelativeTime(end, timeZone) || parseOffset(end, timeZone);
-    logger.info(`Range of dates to consider from inputs: ${timePeriod.startDateTime} - ${timePeriod.endDateTime}`);
+    const parsedStart = parseAbsoluteTime(begin, timeZone) || parseRelativeTime(begin, timeZone) || parseOffset(begin, timeZone);
+    if (!parsedStart) {
+        logger.error('Could not parse a proper start date. Configuration:', { begin });
+        throw new Error('Could not parse a proper start date.');
+    }
 
-    return configuration;
+    const parsedEnd = parseAbsoluteTime(end, timeZone) || parseRelativeTime(end, timeZone) || parseOffset(end, timeZone);
+    if (!parsedEnd) {
+        logger.error('Could not parse a proper end date. Configuration:', { end });
+        throw new Error('Could not parse a proper end date.');
+    }
+
+    logger.info(`Range of dates to consider from inputs: ${parsedStart} - ${parsedEnd}`);
+    return { start: parsedStart, end: parsedEnd, timeZone };
 }
 
-function parseRelativeTime(timePeriod, timeZone) {
-    if (!timePeriod.fromNow || !timePeriod.unit) return null;
+function parseRelativeTime(timePeriod: TimeSpecification, timeZone: string) {
+    const { fromNow, unit } = timePeriod;
+    if (!fromNow || !unit) return null;
 
-    const relativeTime = new RelativeTime(timePeriod.fromNow, timePeriod.unit, timeZone);
+    const relativeTime = new RelativeTime(fromNow, unit, timeZone);
     return relativeTime.toDate();
 }
 
-function parseAbsoluteTime(timePeriod, timeZone) {
+function parseAbsoluteTime(timePeriod: TimeSpecification, timeZone: string) {
     const dateTimeString = timePeriod.dateTime;
     if (!(dateTimeString || '').length) return null;
 
     return tz(dateTimeString, timeZone).toDate();
 }
 
-function parseOffset(timePeriod, timeZone) {
+function parseOffset(timePeriod: TimeSpecification, timeZone: string) {
     const offset = timePeriod.offset;
     if (!offset) return null;
 
-    const { value, unit } = offset.match(/(?<value>(?:\+|-)?\d+)(?<unit>[mhwdM])?/).groups;
+    const match = offset.match(/(?<value>(?:\+|-)?\d+)(?<unit>[mhwdM])?/);
+    if (!match) {
+        throw new Error(`Unrecognized offset setting: ${offset}`);
+    }
+    const { value, unit } = match.groups as unknown as { value: number, unit: string };
 
     return tz(timeZone).add(value, unit).toDate();
 }

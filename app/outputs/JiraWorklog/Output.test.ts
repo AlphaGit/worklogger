@@ -3,7 +3,7 @@ import { AppConfigurations, Formatters, WorklogSets } from '../../../tests/entit
 import { Tag } from '../../models';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
 
-import * as moment from "moment-timezone";
+import moment from "moment-timezone";
 
 const jiraClientMock: IJiraClient = {
     saveWorklog: jest.fn()

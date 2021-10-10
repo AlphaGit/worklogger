@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint --format table '**/*.ts'",
     "lint:fix": "eslint --fix .",
-    "start": "node index.js",
+    "start": "ts-node index.ts",
     "test": "TZ=America/Vancouver jest",
     "test:coverage": "TZ=America/Vancouver jest --coverage",
     "test:all": "npm run lint && npm run test:coverage",
@@ -47,6 +47,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/log4js": "^2.3.5",
+    "@types/minimist": "^1.2.2",
     "@types/mocha": "^8.2.0",
     "@types/mustache": "^4.1.1",
     "@types/node-fetch": "^2.5.9",

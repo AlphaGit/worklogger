@@ -1,13 +1,13 @@
 import * as moment from "moment-timezone";
 import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/entities";
 import { Tag } from "../../models";
-import { AppConfiguration } from "../../models/AppConfiguration";
-import { SummaryTextFormatter } from "./SummaryTextFormatter";
+import { IAppConfiguration } from "../../models/AppConfiguration";
+import { SummaryTextFormatter } from "./Formatter";
 import { SummaryTextFormatterConfiguration } from "./SummaryTextFormatterConfiguration";
 
 describe('format', () => {
     let formatter: SummaryTextFormatter;
-    let appConfiguration: AppConfiguration;
+    let appConfiguration: IAppConfiguration;
 
     beforeEach(() => {
         appConfiguration = AppConfigurations.normal();

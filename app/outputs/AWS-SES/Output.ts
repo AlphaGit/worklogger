@@ -1,5 +1,5 @@
 import { OutputBase } from '../../outputs/OutputBase';
-import { AppConfiguration, WorklogSet } from '../../models';
+import { IAppConfiguration, WorklogSet } from '../../models';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 
@@ -12,7 +12,7 @@ export class AwsSesOutput extends OutputBase {
     private _configuration: IAwsSesOutputConfiguration;
     private logger = getLogger('AWS-SES/Output');
 
-    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: AppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
 
@@ -57,3 +57,5 @@ export class AwsSesOutput extends OutputBase {
         this.logger.info('Successfully sent worklogSet to SES.');
     }
 }
+
+export default AwsSesOutput;

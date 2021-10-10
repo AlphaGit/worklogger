@@ -1,59 +1,60 @@
-import { WorklogSet } from 'app/models/WorklogSet';
-import { getLogger } from 'log4js';
+import { IAppConfiguration, IServiceRegistrations, Worklog, WorklogSet } from './app/models'
+import { getLogger, configure as configureLogger } from 'log4js';
+import { loadActionsAndConditions, IActionWithCondition } from './app/services/actionLoader';
+import { getProcessedConfiguration, ParsedTimeFrame } from './app/services/configurationProcessor';
+import { loadOutputs } from './app/services/outputLoader';
+import { loadInputs } from './app/services/inputLoader';
+import minimist from 'minimist';
+import { S3FileLoader } from './app/services/FileLoader/S3FileLoader';
+import { LocalFileLoader } from './app/services/FileLoader/LocalFileLoader';
+import { OutputWithCondition } from './app/services/OutputWithCondition';
 
-async function start(passedArguments: string | string[]) {
+export async function start(receivedArguments: string[]): Promise<void> {
     const logger = getLogger('worklogger');
 
     logger.level = 'trace';
 
-    const environment = {
-        transformations: [],
-        serviceRegistrations: {}
-    };
-
     try {
-        await processArguments(environment);
-        await registerServices(environment);
-        await loadConfiguration(environment);
-        await configureLoggerFactory(environment);
-        await loadFromInputs(environment);
-        await createWorklogSet(environment);
-        await loadActionsAndConditions(environment);
-        await transformWorklogs(environment);
-        await displayWorklogSet(environment);
-        await loadOutputsAndFormattersAndConditions(environment);
-        await outputWorklogSet(environment);
-        await warnNonOuputProcessed(environment);
+        const parsedArguments = await processArguments();
+        const serviceRegistrations = await registerServices(parsedArguments);
+
+        const appConfiguration = await loadConfiguration(parsedArguments, serviceRegistrations);
+        configureLogger(appConfiguration.log4js);
+        logger.info('Logger configuration initialized.');
+
+        const timeFrame = getProcessedConfiguration(appConfiguration);
+        const worklogsPerInput = await loadFromInputs(serviceRegistrations, appConfiguration, timeFrame);
+        const worklogSet = await createWorklogSet(worklogsPerInput, timeFrame);
+        const actions = await loadActions(appConfiguration);
+        await transformWorklogs(actions, worklogSet);
+        await displayWorklogSet(worklogSet);
+        const outputs = await loadOutputsAndFormattersAndConditions(appConfiguration);
+        await outputWorklogSet(outputs, worklogSet);
+        await warnNonOuputProcessed(outputs, worklogSet);
 
         logger.info('Done.');
     } catch (e) {
         logger.error(e);
     }
 
-    function configureLoggerFactory(environment) {
-        loggerFactory.configure(environment.appConfiguration.log4js);
-        logger.info('Logger configuration initialized.');
-    }
-
-    function transformWorklogs(environment) {
-        for (const { action, condition } of environment.transformations) {
-            for (const worklog of environment.worklogSet.worklogs) {
+    async function transformWorklogs(actions: IActionWithCondition[], worklogSet: WorklogSet): Promise<void> {
+        for (const { action, condition } of actions) {
+            for (const worklog of worklogSet.worklogs) {
                 if (condition.isSatisfiedBy(worklog))
                     action.apply(worklog);
             }
         }
     }
 
-    function loadActionsAndConditions(environment) {
-        import { loadActionsAndConditions } from 'app/services/actionLoader';
-        environment.transformations = loadActionsAndConditions(environment.appConfiguration.transformations);
+    async function loadActions(appConfiguration: IAppConfiguration): Promise<IActionWithCondition[]> {
+        return await loadActionsAndConditions(appConfiguration.transformations);
     }
 
-    function warnNonOuputProcessed(environment) {
+    async function warnNonOuputProcessed(outputs: OutputWithCondition[], worklogSet: WorklogSet): Promise<void> {
         logger.debug('Checking for worklogs that do not match any output.');
 
-        let worklogs = environment.worklogSet.worklogs;
-        for (const { condition, excludeFromNonProcessedWarning } of environment.outputs) {
+        let worklogs = worklogSet.worklogs;
+        for (const { condition, excludeFromNonProcessedWarning } of outputs) {
             if (excludeFromNonProcessedWarning) continue;
 
             worklogs = worklogs.filter(w => !condition.isSatisfiedBy(w));
@@ -69,98 +70,68 @@ async function start(passedArguments: string | string[]) {
         }
     }
 
-    async function outputWorklogSet(environment) {
+    async function outputWorklogSet(outputs: OutputWithCondition[], worklogSet: WorklogSet): Promise<void> {
         logger.debug('Processing loaded outputs.');
 
         const outputPromises = [];
-        for (const { output, condition } of environment.outputs) {
+        for (const { output, condition } of outputs) {
             const conditionFn = condition.isSatisfiedBy.bind(condition);
-            const filteredWorklogSet = environment.worklogSet.getFilteredCopy(conditionFn);
+            const filteredWorklogSet = worklogSet.getFilteredCopy(conditionFn);
             outputPromises.push(output.outputWorklogSet(filteredWorklogSet));
         }
 
-        return await Promise.all(outputPromises);
+        await Promise.all(outputPromises);
     }
 
-    function displayWorklogSet(environment) {
-        const worklogSet = environment.worklogSet;
-
+    async function displayWorklogSet(worklogSet: WorklogSet): Promise<void> {
         logger.info(`Transformed worklogs: ${worklogSet.worklogs.length} worklogs`);
         for (const worklog of worklogSet.worklogs) {
             logger.debug(`Worklog: ${worklog}`);
         }
     }
 
-    function loadOutputsAndFormattersAndConditions(environment) {
-        import { loadOutputs } from 'app/services/outputLoader';
-        environment.outputs = loadOutputs(environment.appConfiguration.outputs, environment.appConfiguration);
+    async function loadOutputsAndFormattersAndConditions(appConfiguration: IAppConfiguration): Promise<OutputWithCondition[]> {
+        return await loadOutputs(appConfiguration.outputs, appConfiguration);
     }
 
-    async function loadFromInputs(environment) {
-        import { loadInputs } from 'app/services/inputLoader';
-        const loadedInputs = loadInputs(environment.serviceRegistrations, environment.appConfiguration);
-        const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
-        const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
+    async function loadFromInputs(serviceRegistrations: IServiceRegistrations, appConfiguration: IAppConfiguration, timeFrame: ParsedTimeFrame): Promise<Worklog[][]> {
+        const loadedInputs = await loadInputs(serviceRegistrations, appConfiguration);
 
-        const loaderFunctions = await loadedInputs.map(async i => {
-            const retrievedWorklogs = await i.getWorkLogs(startDateTime, endDateTime);
+        return await Promise.all(loadedInputs.map(async i => {
+            const retrievedWorklogs = await i.getWorkLogs(timeFrame.start, timeFrame.end);
             logger.debug(`Worklogs retrieved from ${i.name}: `);
             for (const worklog of retrievedWorklogs) {
                 logger.debug(`- ${worklog.toOneLinerString()}`);
             }
             return retrievedWorklogs;
-        });
-        environment.worklogsPerInput = await Promise.all(loaderFunctions); // eslint-disable-line require-atomic-updates
+        }));
     }
 
-    function createWorklogSet(environment) {
-        const flattenedWorklogs = Array.prototype.concat(...environment.worklogsPerInput);
-        const startDateTime = environment.appConfiguration.options.timePeriod.startDateTime;
-        const endDateTime = environment.appConfiguration.options.timePeriod.endDateTime;
+    async function createWorklogSet(worklogsPerInput: Worklog[][], timeFrame: ParsedTimeFrame): Promise<WorklogSet> {
+        const flattenedWorklogs = Array.prototype.concat(...worklogsPerInput);
 
-        environment.worklogSet = new WorklogSet(startDateTime, endDateTime, flattenedWorklogs);
+        return new WorklogSet(timeFrame.start, timeFrame.end, flattenedWorklogs);
     }
 
-    async function loadConfiguration(environment) {
-        const configurationFilePath = environment.arguments.c || 'configuration.json';
-        const fileLoader = environment.serviceRegistrations.FileLoader;
-        const configurationContents = await fileLoader.loadJson(configurationFilePath);
+    async function loadConfiguration(parsedArguments: minimist.ParsedArgs, serviceRegistrations: IServiceRegistrations): Promise<IAppConfiguration> {
+        const configurationFilePath = parsedArguments.c || 'configuration.json';
+        const fileLoader = serviceRegistrations.FileLoader;
+        return <IAppConfiguration><unknown>(await fileLoader.loadJson(configurationFilePath));
         // TODO Pending: Logger config is not set yet, so this trace is always shown. 
         // logger.trace('Loaded configuration:', configurationContents);
-
-        import { getProcessedConfiguration } from 'app/services/configurationProcessor';
-
-        environment.appConfiguration = getProcessedConfiguration(configurationContents);
     }
 
-    function processArguments(environment) {
-        const receivedArguments = passedArguments;
-        logger.debug(`Received arguments: ${receivedArguments}`);
-
-        if (typeof receivedArguments === 'string' || Array.isArray(receivedArguments)) {
-            import { minimist } from 'minimist';
-            environment.arguments = minimist(receivedArguments);
-            logger.trace('Parsed arguments', environment.arguments);
-        } else if (typeof receivedArguments === 'object') {
-            environment.arguments = receivedArguments;
-            logger.trace('Using arguments', environment.arguments);
-        } else {
-            throw new Error('Received arguments type not recognized.');
-        }
+    async function processArguments(): Promise<minimist.ParsedArgs> {
+        logger.debug('Received arguments', receivedArguments);
+        const parsedArguments = minimist(receivedArguments);
+        logger.trace('Parsed arguments', parsedArguments);
+        return parsedArguments;
     }
 
-    function registerServices(environment) {
-        const s3Bucket = environment.arguments.s3;
-        if (s3Bucket) {
-            import { S3FileLoader } from 'app/services/FileLoader/S3FileLoader';
-            environment.serviceRegistrations.FileLoader = new S3FileLoader(s3Bucket);
-        } else {
-            import { LocalFileLoader } from 'app/services/FileLoader/LocalFileLoader';
-            environment.serviceRegistrations.FileLoader = new LocalFileLoader();
-        }
+    async function registerServices(parsedArguments: minimist.ParsedArgs): Promise<IServiceRegistrations> {
+        const s3Bucket = parsedArguments.s3;
+        return {
+            FileLoader: s3Bucket ? new S3FileLoader(s3Bucket) : new LocalFileLoader()
+        } as IServiceRegistrations;
     }
 }
-
-module.exports = {
-    start
-};

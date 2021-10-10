@@ -11,9 +11,9 @@ jest.mock('./conditionLoader', () => ({
 describe('loadActionsAndConditions', () => {
     test('loads specified actions', async () => {
         const actionsMock = jest.fn(() => ({ action: 'action' }));
-        const moduleMock = jest.fn().mockResolvedValue({ default: actionsMock });
-        jest.doMock('app/actions/action1', moduleMock, { virtual: true });
-        jest.doMock('app/actions/action2', moduleMock, { virtual: true });
+        const moduleMock = jest.fn(() => actionsMock);
+        jest.doMock('../actions/action1', moduleMock, { virtual: true });
+        jest.doMock('../actions/action2', moduleMock, { virtual: true });
         const actionsToLoad = [{
             action: {
                 type: 'action1'

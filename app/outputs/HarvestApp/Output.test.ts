@@ -4,7 +4,7 @@ import { AppConfigurations, Formatters, WorklogSets } from '../../../tests/entit
 import { Tag } from "../../models";
 import { HarvestProjectAndTasks } from "../../services/HarvestClient";
 
-import * as moment from "moment-timezone";
+import moment from "moment-timezone";
 
 const getProjectsAndTasksMock = jest.fn();
 const saveNewTimeEntryMock = jest.fn();

@@ -2,20 +2,21 @@ import { getLogger } from 'log4js';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
-import { AppConfiguration, ServiceRegistrations, Worklog } from '../../models';
+import { IAppConfiguration, IServiceRegistrations, Worklog } from '../../models';
 import { IFileLoader } from '../../services/FileLoader/IFileLoader';
 
 import { IGoogleCredentials, IApiResponse, ModelMapper, GoogleCalendarConfiguration, GoogleCalendarCalendarConfiguration } from '.';
+import { IInput } from '../IInput';
 
-export class Input {
+export class Input implements IInput {
     private logger = getLogger();
     private modelMapper: ModelMapper = new ModelMapper();
     private fileLoader: IFileLoader;
     private inputConfiguration: GoogleCalendarConfiguration;
 
     constructor(
-        serviceRegistrations: ServiceRegistrations,
-        appConfiguration: AppConfiguration,
+        serviceRegistrations: IServiceRegistrations,
+        appConfiguration: IAppConfiguration,
         inputConfiguration: GoogleCalendarConfiguration
     ) {
         if (!serviceRegistrations)
@@ -25,9 +26,12 @@ export class Input {
             throw new Error('Configuration for GoogleCalendarInput is required');
 
         this.inputConfiguration = inputConfiguration;
+        this.name = inputConfiguration.name;
 
         this.fileLoader = serviceRegistrations.FileLoader;
     }
+
+    name: string;
 
     private getPath(filename: string): string {
         const storagePath = this.inputConfiguration.storageRelativePath;
@@ -89,9 +93,10 @@ export class Input {
                 singleEvents: true,
                 orderBy: 'startTime'
             });
+            this.logger.trace('Calendar response', { calendarResponse });
 
-            const calendarEvents = calendarResponse.data.items
-                .filter(e => new Date(e.start.dateTime) >= startDateTime);
+            const calendarEvents = (calendarResponse.data.items || [])
+                .filter(e => new Date(e.start?.dateTime ?? 0) >= startDateTime);
 
             const apiResponse: IApiResponse = {
                 calendarConfig: calendar,
@@ -104,3 +109,5 @@ export class Input {
         }
     }
 }
+
+export default Input;
