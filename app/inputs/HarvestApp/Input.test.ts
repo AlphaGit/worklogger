@@ -1,5 +1,5 @@
 import { AppConfigurations, Dates, ServiceRegistrations } from '../../../tests/entities';
-import { HarvestInputConfiguration, Input, HarvestTask, HarvestTimeEntry, HarvestProject, HarvestClient } from '.';
+import { Input, HarvestTask, HarvestTimeEntry, HarvestProject, HarvestClient } from '.';
 
 const getTimeEntriesMock = jest.fn().mockResolvedValue([]);
 jest.mock('../../services/HarvestClient/HarvestClient', () => ({
@@ -8,21 +8,17 @@ jest.mock('../../services/HarvestClient/HarvestClient', () => ({
     })
 }));
 
-const harvestInputConfiguration = new HarvestInputConfiguration();
-harvestInputConfiguration.name = 'Company1 Harvest';
-harvestInputConfiguration.accountId = 'id1234';
-harvestInputConfiguration.token = 'token123';
-harvestInputConfiguration.contactInformation = 'test@example.com';
+const harvestInputConfiguration = {
+    name: 'Company1 Harvest',
+    accountId: 'id1234',
+    token: 'token123',
+    contactInformation: 'test@example.com',
+};
 
 describe('constructor', () => {
     test('requires an appConfiguration', () => {
         expect(() => new Input(ServiceRegistrations.mock(), null, harvestInputConfiguration)).toThrow('App configuration for Harvest App input is required.');
         expect(() => new Input(ServiceRegistrations.mock(), undefined, harvestInputConfiguration)).toThrow('App configuration for Harvest App input is required.');
-    });
-
-    test('requires an inputConfiguration', () => {
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), null)).toThrow('Input configuration for Harvest App input is required.');
-        expect(() => new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), undefined)).toThrow('Input configuration for Harvest App input is required.');
     });
 });
 

@@ -1,4 +1,4 @@
-import { HasTagCondition, HasTagConditionConfiguration } from ".";
+import { HasTagCondition } from ".";
 import { Worklogs } from "../../../tests/entities";
 
 describe('isSatisfiedBy', () => {

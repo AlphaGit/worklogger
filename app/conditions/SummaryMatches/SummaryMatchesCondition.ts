@@ -1,14 +1,14 @@
 import { Worklog } from "../../models";
 import { ICondition } from "../ICondition";
 
-export interface ISummaryMatchesConditionConfiguration {
+export type SummaryMatchesConditionConfiguration = {
     regex: string;
 }
 
 export class SummaryMatchesCondition implements ICondition {
     private _regex: RegExp;
 
-    constructor(conditionConfiguration: ISummaryMatchesConditionConfiguration) {
+    constructor(conditionConfiguration: SummaryMatchesConditionConfiguration) {
         this._regex = new RegExp(conditionConfiguration.regex);
     }
 

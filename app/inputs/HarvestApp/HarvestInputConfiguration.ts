@@ -1,6 +1,6 @@
 import { IHarvestConfiguration } from '../../services/HarvestClient/IHarvestConfiguration';
 
-export class HarvestInputConfiguration implements IHarvestConfiguration {
+export type HarvestInputConfiguration = IHarvestConfiguration & {
     accountId: string;
     token: string;
     contactInformation: string;
