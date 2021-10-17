@@ -1,4 +1,4 @@
-FROM node:12.7-alpine
+FROM node:14-alpine
 LABEL maintainer="alphagma@gmail.com"
 
 COPY ./ /app/

@@ -1,0 +1,7 @@
+services:
+  worklogger:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./worklogger_home:/app/worklogger_home
