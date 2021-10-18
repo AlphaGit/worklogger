@@ -62,7 +62,6 @@
     "serverless": "^2.16.0",
     "serverless-event-constant-inputs": "0.0.1",
     "serverless-offline": "^6.8.0",
-    "sinon": "^9.2.2",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4",
     "watch": "^1.0.2"
