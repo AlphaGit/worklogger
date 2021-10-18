@@ -40,7 +40,7 @@
     "googleapis": "^59.0.0",
     "log4js": "^6.3.0",
     "minimist": "^1.2.3",
-    "moment-timezone": "^0.5.32",
+    "moment-timezone": "^0.5.33",
     "mustache": "^4.2.0",
     "node-fetch": "^3.0.0",
     "ts-node": "^10.3.0"
