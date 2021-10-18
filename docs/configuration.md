@@ -150,6 +150,9 @@
         // (no configurations)
 
         // Type: AWS-SES
+        "aws": {
+            "region": "us-east-1"
+        },
         "fromEmailAddress": "exampleSender@example.com",
         "toAddresses": ["email1@example.com", "email2@example.com"],
         "subjectTemplate": "Info for {{startDateTime}} to {{endDateTime}}", // info from models/WorklogSet.js
