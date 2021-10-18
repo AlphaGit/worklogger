@@ -2,11 +2,7 @@ import { HarvestClient, IHarvestConfiguration } from ".";
 import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask, HarvestTimeEntry } from "../../inputs/HarvestApp/Models";
 import { Dates } from '../../../tests/entities';
 
-import { mocked } from 'ts-jest/utils';
-const { Response } = jest.requireActual('node-fetch');
-
-import fetch from 'node-fetch';
-jest.mock('node-fetch');
+import fetchMock from 'jest-fetch-mock';
 
 const harvestClientConfig = {
     accountId: 'accountId',
@@ -31,8 +27,8 @@ describe('constructor', () => {
 
 describe('getTimeEntries', () => {
     test('makes request with the right parameters', async () => {
-        const fetchMock = mocked(fetch);
-        fetchMock.mockClear().mockResolvedValue(new Response(`{
+        fetchMock.resetMocks();
+        fetchMock.mockResponse(`{
             "time_entries": [{
                 "spent_date": "2020-02-02",
                 "started_time": "8:00",
@@ -51,7 +47,7 @@ describe('getTimeEntries', () => {
                 "project_id": 1,
                 "task_id": 2
             }]
-        }`, { status: 200 }));
+        }`, { status: 200 });
 
         const harvestClient = new HarvestClient(harvestClientConfig);
         const times = { from: Dates.pastTwoHours(), to: Dates.now() };
@@ -92,8 +88,8 @@ describe('getTimeEntries', () => {
 
 describe('getProjectsAndTasks', () => {
     test('makes request with the right parameters', async () => {
-        const fetchMock = mocked(fetch);
-        fetchMock.mockClear().mockResolvedValue(new Response(`{
+        fetchMock.resetMocks();
+        fetchMock.mockResponse(`{
             "project_assignments": [{
                 "project": {
                     "id": 1,
@@ -106,7 +102,7 @@ describe('getProjectsAndTasks', () => {
                     }
                 }]
             }]
-        }`, { status: 200 }));
+        }`, { status: 200 });
 
         const harvestClient = new HarvestClient(harvestClientConfig);
         const response = await harvestClient.getProjectsAndTasks();
@@ -149,8 +145,8 @@ describe('saveNewTimeEntry', () => {
     timeEntry.task_id = 2;
 
     test('makes request with the right parameters', async () => {
-        const fetchMock = mocked(fetch);
-        fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
+        fetchMock.mockReset();
+        fetchMock.mockResponse('{}', { status: 201 });
 
         const harvestClient = new HarvestClient(harvestClientConfig);
         await harvestClient.saveNewTimeEntry(timeEntry);
@@ -169,8 +165,8 @@ describe('saveNewTimeEntry', () => {
     });
 
     test('validates completeness of the time entry', async () => {
-        const fetchMock = mocked(fetch);
-        fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
+        fetchMock.resetMocks();
+        fetchMock.mockResponse('{}', { status: 201 });
 
         const harvestClient = new HarvestClient(harvestClientConfig);
 

@@ -31,7 +31,7 @@ export class HarvestClient {
         const response = await fetch(`${HarvestClient.HarvestBaseUrl}/time_entries?${params}`, {
             headers: this.getDefaultHeaders()
         });
-        const jsonResponse = await response.json();
+        const jsonResponse = await response.json() as { time_entries: HarvestTimeEntry[] };
         logger.trace('Retrieved time entries from Harvest', jsonResponse);
         return jsonResponse.time_entries;
     }
@@ -42,7 +42,7 @@ export class HarvestClient {
             headers: this.getDefaultHeaders()
         });
 
-        const jsonResponse = await response.json();
+        const jsonResponse = await response.json() as IHarvestInternal_ProjectAssignmentResponse;
         const projects = this.getProjectsAndTasksFromApiResponse(jsonResponse);
         logger.trace('Projects and tasks retrieved from Harvest', JSON.stringify(projects));
 

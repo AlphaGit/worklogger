@@ -34,10 +34,8 @@ export class JiraClient implements IJiraClient {
 
             if (res.status != 201)
                 throw new Error(`${ticketId} could not be sent to JIRA, JIRA responded with ${res.status}: ${res.statusText}`);
-
-            return await res.json();
         } catch (e) {
-            this.logger.error(e.name, e.message);
+            this.logger.error(e); 
             throw e;
         }
     }

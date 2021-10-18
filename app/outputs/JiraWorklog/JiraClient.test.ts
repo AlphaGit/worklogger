@@ -1,10 +1,5 @@
-import { mocked } from 'ts-jest/utils';
-const { Response } = jest.requireActual('node-fetch');
-
-import fetch from 'node-fetch';
-jest.mock('node-fetch');
-
 import { JiraClient, JiraWorklog, IJiraWorklogOutputConfiguration } from '.';
+import fetchMock from 'jest-fetch-mock';
 
 const jiraClientConfiguration: IJiraWorklogOutputConfiguration = {
     JiraUrl: 'https://jira.example.com',
@@ -39,12 +34,13 @@ describe('constructor', () => {
 describe('saveWorklog', () => {
     let jiraClient: JiraClient;
     let jiraWorklog: JiraWorklog;
-    const fetchMock = mocked(fetch);
 
     beforeEach(() => {
         jiraClient = new JiraClient(jiraClientConfiguration);
         jiraWorklog = new JiraWorklog('worklogComment', '2021-01-03T08:00:00-0500', '2h');
-        fetchMock.mockClear().mockResolvedValue(new Response('{}', { status: 201 }));
+
+        fetchMock.resetMocks()
+        fetchMock.mockResponse('{}', { status: 201 });
     });
 
     test('requires a ticketId', async () => {
@@ -69,7 +65,8 @@ describe('saveWorklog', () => {
         const expectedUrl = `https://jira.example.com/rest/api/2/issue/${ticketNumber}/worklog`;
         expect(actualUrl).toBe(expectedUrl);
 
-        expect(actualOptions.method).toBe('POST');
+        expect(actualOptions).toBeTruthy();
+        expect(actualOptions?.method).toBe('POST');
         expect(actualOptions.headers['Authorization']).toBe(`Basic ${Buffer.from('username:password').toString('base64')}`);
         expect(actualOptions.headers['Content-Type']).toBe('application/json');
 
