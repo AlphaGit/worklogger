@@ -43,7 +43,7 @@
     "moment-timezone": "^0.5.32",
     "mustache": "^4.2.0",
     "node-fetch": "^3.0.0",
-    "ts-node": "^9.1.1"
+    "ts-node": "^10.3.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
@@ -64,7 +64,7 @@
     "serverless-offline": "^6.8.0",
     "sinon": "^9.2.2",
     "ts-jest": "^27.0.7",
-    "typescript": "^4.2.4",
+    "typescript": "^4.4.4",
     "watch": "^1.0.2"
   },
   "jest": {
