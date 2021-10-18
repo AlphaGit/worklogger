@@ -1,14 +1,8 @@
 import { AppConfigurations, Formatters, WorklogSets } from '../../../tests/entities';
 import { ITextFileOutputConfiguration } from './ITextFileOutputConfiguration';
 import { TextFileOutput } from "./Output";
-
-jest.mock('fs', () => ({
-    promises: {
-        writeFile: jest.fn().mockResolvedValue(undefined),
-    },
-    realpath: {}
-}));
-import { promises as fs } from 'fs';
+import mockfs from 'mock-fs';
+import { readFileSync } from 'fs';
 
 const exampleFormatterConfiguration: ITextFileOutputConfiguration = {
     filePath: './output.txt',
@@ -39,6 +33,7 @@ describe('outputWorklogSet', () => {
     });
 
     test('uses the formatter to format the workglogSet', async () => {
+        mockfs();
         const formatter = Formatters.fake();
         formatter.formatFunction = jest.fn().mockReturnValue('Example formatted string');
         const output = getTextFileOutput(formatter);
@@ -47,6 +42,7 @@ describe('outputWorklogSet', () => {
         await output.outputWorklogSet(worklogSet);
 
         expect(formatter.formatFunction).toBeCalledWith(worklogSet);
-        expect(fs.writeFile).toBeCalledWith('./output.txt', 'Example formatted string');
+        expect(readFileSync('./output.txt', {  encoding: 'utf8' })).toBe('Example formatted string');
+        mockfs.restore();
     });
 });
