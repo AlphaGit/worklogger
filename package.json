@@ -60,7 +60,7 @@
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.2",
     "inquirer": "^8.0.0",
-    "jest": "^27.3.0",
+    "jest": "^27.3.1",
     "jest-fetch-mock": "^3.0.3",
     "mock-fs": "^5.1.1",
     "nyc": "^15.1.0",
