@@ -37,7 +37,7 @@
     "@aws-sdk/client-sesv2": "^3.37.0",
     "@aws-sdk/signature-v4-crt": "^3.31.0",
     "app-module-path": "^2.1.0",
-    "aws-sdk": "^2.1011.0",
+    "aws-sdk": "^2.1012.0",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^89.0.0",
     "log4js": "^6.3.0",
