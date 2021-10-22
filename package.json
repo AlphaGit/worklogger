@@ -53,7 +53,7 @@
     "@types/minimist": "^1.2.2",
     "@types/mock-fs": "^4.13.1",
     "@types/mustache": "^4.1.2",
-    "@types/node": "^16.11.1",
+    "@types/node": "^16.11.3",
     "@types/node-fetch": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "5.1.0",
     "@typescript-eslint/parser": "5.1.0",
