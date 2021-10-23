@@ -1,4 +1,4 @@
-import { HarvestTimeEntry } from '../../inputs/HarvestApp/Models';
+import { HarvestTimeEntry } from './Models';
 import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
 import { IHarvestConfiguration } from './IHarvestConfiguration';
 import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';

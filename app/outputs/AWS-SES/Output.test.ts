@@ -6,7 +6,7 @@ import { IAwsSesOutputConfiguration } from "./IAwsSesOutputConfiguration";
 const { SendEmailCommand } = jest.requireActual('@aws-sdk/client-sesv2');
 const sendEmailMock = jest.fn();
 jest.mock('@aws-sdk/client-sesv2', () => ({
-    SendEmailCommand: (input) => new SendEmailCommand(input),
+    SendEmailCommand: (input: SendEmailCommandInput) => new SendEmailCommand(input),
     SESv2Client: () => ({
         send: sendEmailMock
     })

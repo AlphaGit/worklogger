@@ -1,2 +1,2 @@
 export { HarvestAppOutput } from './Output';
-export { HarvestTimeEntry } from './HarvestTimeEntry';
+export { HarvestTimeEntry } from '../../services/HarvestClient';

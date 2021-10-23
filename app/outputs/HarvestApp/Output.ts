@@ -1,7 +1,7 @@
 import { OutputBase } from '../../outputs/OutputBase';
 import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
 import { FormatterBase } from '../../formatters/FormatterBase';
-import { AppConfiguration, WorklogSet, Worklog } from '../../models';
+import { IAppConfiguration, WorklogSet, Worklog } from '../../models';
 import { HarvestProjectAndTasks, HarvestTask } from '../../services/HarvestClient';
 import { IHarvestAppOutputConfiguration } from './IHarvestAppOutputConfiguration';
 import { HarvestTimeEntry } from '.';
@@ -14,7 +14,7 @@ export class HarvestAppOutput extends OutputBase {
     private harvestClient: HarvestClient;
     private configuration: IHarvestAppOutputConfiguration;
 
-    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: AppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this.harvestClient = new HarvestClient(outputConfiguration);
@@ -31,8 +31,9 @@ export class HarvestAppOutput extends OutputBase {
     private async saveWorklogs(worklogs: Worklog[], projects: HarvestProjectAndTasks[]): Promise<void> {
         const timeEntries = this.mapWorklogsToTimeEntries(worklogs, projects);
 
-        const saveNewTimeEntryFn = this.harvestClient.saveNewTimeEntry.bind(this.harvestClient);
-        const savingPromises = timeEntries.map(saveNewTimeEntryFn);
+        const savingPromises = timeEntries.map(timeEntry => {
+            return this.harvestClient.saveNewTimeEntry(timeEntry);
+        });
 
         return await Promise.all(savingPromises).then(p => {
             const countText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
@@ -63,7 +64,10 @@ export class HarvestAppOutput extends OutputBase {
             ended_time: moment.tz(worklog.endDateTime, timeZone).format('hh:mma'),
             hours: worklog.getDurationInMinutes() / 60,
             notes: worklog.name,
-            is_running: false
+            is_running: false,
+            client: null,
+            project: null,
+            task: null
         };
 
         return timeEntry;

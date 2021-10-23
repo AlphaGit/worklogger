@@ -1,5 +1,5 @@
 import { HarvestClient, IHarvestConfiguration } from ".";
-import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask, HarvestTimeEntry } from "../../inputs/HarvestApp/Models";
+import { HarvestClient as HarvestclientModel, HarvestProject, HarvestTask, HarvestTimeEntry } from "./Models";
 import { Dates } from '../../../tests/entities';
 
 import fetchMock from 'jest-fetch-mock';

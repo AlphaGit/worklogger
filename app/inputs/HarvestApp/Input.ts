@@ -1,5 +1,5 @@
 import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
-import { AppConfiguration, Worklog, ServiceRegistrations, Tag } from '../../models';
+import { IAppConfiguration, Worklog, IServiceRegistrations, Tag } from '../../models';
 import { HarvestInputConfiguration, HarvestTimeEntry } from '.';
 
 import { tz } from 'moment-timezone';
@@ -10,8 +10,8 @@ export class Input {
     private harvestClient: HarvestClient;
 
     constructor(
-        private serviceRegistrations: ServiceRegistrations,
-        private appConfiguration: AppConfiguration,
+        private serviceRegistrations: IServiceRegistrations,
+        private appConfiguration: IAppConfiguration,
         private inputConfiguration: HarvestInputConfiguration
     ) {
         if (!appConfiguration)

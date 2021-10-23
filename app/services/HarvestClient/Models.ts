@@ -21,4 +21,5 @@ export class HarvestTimeEntry {
     task: HarvestTask;
     project_id: number;
     task_id: number;
+    is_running: boolean;
 }

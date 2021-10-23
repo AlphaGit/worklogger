@@ -65,7 +65,7 @@ describe('outputWorklogSet', () => {
 
         expect(saveNewTimeEntryMock).toHaveBeenCalledTimes(3);
         const timeEntries = saveNewTimeEntryMock.mock.calls.map(c => c[0]) as HarvestTimeEntry[];
-        
+
         timeEntries.forEach((timeEntry, index) => {
             const worklog = worklogSet.worklogs[index];
 
