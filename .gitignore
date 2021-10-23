@@ -4,12 +4,16 @@ jspm_packages
 
 # Serverless directories
 .serverless
+.build
 _private/
 
 *.sublime-workspace
 npm-debug.log.*
 coverage/
 /.nyc_output
+
+# local files for development
 worklogger_home/
 
-
+# misc
+.DS_Store
