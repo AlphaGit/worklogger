@@ -58,3 +58,4 @@ functions:
 plugins:
   - serverless-offline
   - serverless-event-constant-inputs
+  - serverless-plugin-typescript

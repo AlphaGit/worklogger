@@ -1,3 +1,3 @@
 export class FormatterConfigurationBase {
-    public type: string;
+    public type = '';
 }
