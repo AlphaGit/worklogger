@@ -1,5 +1,6 @@
 services:
   worklogger:
+    image: alphadock/worklogger:latest
     build:
       context: .
       dockerfile: Dockerfile
