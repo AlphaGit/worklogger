@@ -9,7 +9,12 @@ import { S3FileLoader } from './app/services/FileLoader/S3FileLoader';
 import { LocalFileLoader } from './app/services/FileLoader/LocalFileLoader';
 import { OutputWithCondition } from './app/services/OutputWithCondition';
 
-export async function start(receivedArguments: string[]): Promise<void> {
+type Arguments = {
+    s3: string;
+    c: string;
+};
+
+export async function start(receivedArguments: string[] | Arguments): Promise<void> {
     const logger = getLogger('worklogger');
 
     logger.level = 'trace';
@@ -113,7 +118,7 @@ export async function start(receivedArguments: string[]): Promise<void> {
         return new WorklogSet(timeFrame.start, timeFrame.end, flattenedWorklogs);
     }
 
-    async function loadConfiguration(parsedArguments: minimist.ParsedArgs, serviceRegistrations: IServiceRegistrations): Promise<IAppConfiguration> {
+    async function loadConfiguration(parsedArguments: Arguments, serviceRegistrations: IServiceRegistrations): Promise<IAppConfiguration> {
         const configurationFilePath = parsedArguments.c || 'configuration.json';
         const fileLoader = serviceRegistrations.FileLoader;
         return <IAppConfiguration><unknown>(await fileLoader.loadJson(configurationFilePath));
@@ -121,14 +126,22 @@ export async function start(receivedArguments: string[]): Promise<void> {
         // logger.trace('Loaded configuration:', configurationContents);
     }
 
-    async function processArguments(): Promise<minimist.ParsedArgs> {
+    async function processArguments(): Promise<Arguments> {
         logger.debug('Received arguments', receivedArguments);
-        const parsedArguments = minimist(receivedArguments);
-        logger.trace('Parsed arguments', parsedArguments);
-        return parsedArguments;
+
+        if (Array.isArray(receivedArguments)) {
+            const parsedArguments = minimist(receivedArguments);
+            logger.trace('Parsed arguments', parsedArguments);
+            return {
+                s3: parsedArguments.s3,
+                c: parsedArguments.c
+            };
+        }
+
+        return receivedArguments;
     }
 
-    async function registerServices(parsedArguments: minimist.ParsedArgs): Promise<IServiceRegistrations> {
+    async function registerServices(parsedArguments: Arguments): Promise<IServiceRegistrations> {
         const s3Bucket = parsedArguments.s3;
         return {
             FileLoader: s3Bucket ? new S3FileLoader(s3Bucket) : new LocalFileLoader()
