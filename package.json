@@ -14,8 +14,6 @@
     "test": "TZ=America/Vancouver jest",
     "test:coverage": "TZ=America/Vancouver jest --coverage",
     "test:all": "yarn lint && yarn test:coverage",
-    "watch:test": "watch \"yarn test\" app tests",
-    "watch:all": "watch \"yarn test:all\" app tests",
     "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:$npm_package_version && docker push alphadock/worklogger:latest"
   },
   "keywords": [
@@ -73,7 +71,6 @@
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "watch": "^1.0.2",
     "webpack": "^5.60.0",
     "webpack-bundle-analyzer": "^4.5.0"
   },
