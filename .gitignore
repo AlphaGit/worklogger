@@ -19,8 +19,8 @@ worklogger_home/
 .DS_Store
 
 # yarn 2
-.pnp.*
 .yarn/*
+!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
