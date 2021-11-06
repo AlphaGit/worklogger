@@ -42,7 +42,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.0.2"],
             ["@types/log4js", "npm:2.3.5"],
             ["@types/minimist", "npm:1.2.2"],
-            ["@types/mock-fs", "npm:4.13.1"],
             ["@types/mustache", "npm:4.1.2"],
             ["@types/node", "npm:16.11.6"],
             ["@types/node-fetch", "npm:3.0.3"],
@@ -52,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["aws-lambda", "npm:1.0.6"],
             ["aws-sdk", "npm:2.1020.0"],
             ["eslint", "npm:8.1.0"],
+            ["eslint-import-resolver-node", "npm:0.3.6"],
             ["eslint-plugin-import", "virtual:f4038cdc04c026a4129db4e4867c7f29a467f17c47718c2c45a756ffaed35934b2bcee5f4622afa338e8fe15a1334bbee152be4f9601b99b2bc4e6517ffc0aa3#npm:2.25.2"],
             ["fetch-event", "npm:1.0.0-alpha"],
             ["googleapis", "npm:89.0.0"],
@@ -60,7 +60,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-fetch-mock", "npm:3.0.3"],
             ["log4js", "npm:6.3.0"],
             ["minimist", "npm:1.2.5"],
-            ["mock-fs", "npm:5.1.1"],
             ["moment-timezone", "npm:0.5.33"],
             ["mustache", "npm:4.2.0"],
             ["node-fetch", "npm:3.0.0"],
@@ -3411,16 +3410,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@types/mock-fs", [
-        ["npm:4.13.1", {
-          "packageLocation": "./.yarn/cache/@types-mock-fs-npm-4.13.1-b37c9b92f6-a5fcf8212d.zip/node_modules/@types/mock-fs/",
-          "packageDependencies": [
-            ["@types/mock-fs", "npm:4.13.1"],
-            ["@types/node", "npm:16.11.6"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@types/mustache", [
         ["npm:4.1.2", {
           "packageLocation": "./.yarn/cache/@types-mustache-npm-4.1.2-efedf4a5f4-1f37849aae.zip/node_modules/@types/mustache/",
@@ -6073,20 +6062,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7", {
-          "packageLocation": "./.yarn/__virtual__/debug-virtual-2769557a9c/0/cache/debug-npm-3.2.7-754e818c7a-b3d8c59407.zip/node_modules/debug/",
-          "packageDependencies": [
-            ["debug", "virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7"],
-            ["@types/supports-color", null],
-            ["ms", "npm:2.1.3"],
-            ["supports-color", null]
-          ],
-          "packagePeers": [
-            "@types/supports-color",
-            "supports-color"
-          ],
-          "linkType": "HARD",
-        }],
         ["virtual:9a034ef0efef078dcae2dc39b9a2133ca3b8e682d8569a9070736a031962f703cb436513a421db083d139248d8f686df8c44878f42a4e7b719432f71eaf9f671#npm:4.3.2", {
           "packageLocation": "./.yarn/__virtual__/debug-virtual-db951adc0b/0/cache/debug-npm-4.3.2-f0148b6afe-820ea160e2.zip/node_modules/debug/",
           "packageDependencies": [
@@ -6107,6 +6082,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debug", "virtual:a4051453531124d4e4a72b98f69049d2976f5adbe5673a601205b4e3a869eb5275a77ee94bef4598131bcf9e6e932770b860771166c6bd68dac79c278d232583#npm:2.6.9"],
             ["@types/supports-color", null],
             ["ms", "npm:2.0.0"],
+            ["supports-color", null]
+          ],
+          "packagePeers": [
+            "@types/supports-color",
+            "supports-color"
+          ],
+          "linkType": "HARD",
+        }],
+        ["virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7", {
+          "packageLocation": "./.yarn/__virtual__/debug-virtual-b810fb6338/0/cache/debug-npm-3.2.7-754e818c7a-b3d8c59407.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7"],
+            ["@types/supports-color", null],
+            ["ms", "npm:2.1.3"],
             ["supports-color", null]
           ],
           "packagePeers": [
@@ -6969,7 +6958,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/eslint-import-resolver-node-npm-0.3.6-d9426786c6-6266733af1.zip/node_modules/eslint-import-resolver-node/",
           "packageDependencies": [
             ["eslint-import-resolver-node", "npm:0.3.6"],
-            ["debug", "virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7"],
+            ["debug", "virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7"],
             ["resolve", "patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"]
           ],
           "linkType": "HARD",
@@ -6980,7 +6969,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/eslint-module-utils-npm-2.7.1-2b7798b493-c30dfa125a.zip/node_modules/eslint-module-utils/",
           "packageDependencies": [
             ["eslint-module-utils", "npm:2.7.1"],
-            ["debug", "virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7"],
+            ["debug", "virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7"],
             ["find-up", "npm:2.1.0"],
             ["pkg-dir", "npm:2.0.0"]
           ],
@@ -11138,15 +11127,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["mock-fs", [
-        ["npm:5.1.1", {
-          "packageLocation": "./.yarn/cache/mock-fs-npm-5.1.1-37c218eda0-81ab29c968.zip/node_modules/mock-fs/",
-          "packageDependencies": [
-            ["mock-fs", "npm:5.1.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["moment", [
         ["npm:2.29.1", {
           "packageLocation": "./.yarn/cache/moment-npm-2.29.1-787d9fdafd-1e14d5f422.zip/node_modules/moment/",
@@ -12279,7 +12259,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["portfinder", "npm:1.0.28"],
             ["async", "npm:2.6.3"],
-            ["debug", "virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7"],
+            ["debug", "virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7"],
             ["mkdirp", "npm:0.5.5"]
           ],
           "linkType": "HARD",
@@ -14048,7 +14028,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["superagent", "npm:3.8.3"],
             ["component-emitter", "npm:1.3.0"],
             ["cookiejar", "npm:2.1.3"],
-            ["debug", "virtual:8bdf672d54f36156a0f721b1434bbc1348d0f0fc5e805c421e22316652d3adb4ab5ec9db167a289ec9115ad44ae048edb781152c06b39311b623662569c1a6c3#npm:3.2.7"],
+            ["debug", "virtual:d9426786c635bc4b52511d6cc4b56156f50d780a698c0e20fc6caf10d3be51cbf176e79cff882f4d42a23ff4d0f89fe94222849578214e7fbae0f2754c82af02#npm:3.2.7"],
             ["extend", "npm:3.0.2"],
             ["form-data", "npm:2.5.1"],
             ["formidable", "npm:1.2.6"],
@@ -15465,7 +15445,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.0.2"],
             ["@types/log4js", "npm:2.3.5"],
             ["@types/minimist", "npm:1.2.2"],
-            ["@types/mock-fs", "npm:4.13.1"],
             ["@types/mustache", "npm:4.1.2"],
             ["@types/node", "npm:16.11.6"],
             ["@types/node-fetch", "npm:3.0.3"],
@@ -15475,6 +15454,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["aws-lambda", "npm:1.0.6"],
             ["aws-sdk", "npm:2.1020.0"],
             ["eslint", "npm:8.1.0"],
+            ["eslint-import-resolver-node", "npm:0.3.6"],
             ["eslint-plugin-import", "virtual:f4038cdc04c026a4129db4e4867c7f29a467f17c47718c2c45a756ffaed35934b2bcee5f4622afa338e8fe15a1334bbee152be4f9601b99b2bc4e6517ffc0aa3#npm:2.25.2"],
             ["fetch-event", "npm:1.0.0-alpha"],
             ["googleapis", "npm:89.0.0"],
@@ -15483,7 +15463,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-fetch-mock", "npm:3.0.3"],
             ["log4js", "npm:6.3.0"],
             ["minimist", "npm:1.2.5"],
-            ["mock-fs", "npm:5.1.1"],
             ["moment-timezone", "npm:0.5.33"],
             ["mustache", "npm:4.2.0"],
             ["node-fetch", "npm:3.0.0"],

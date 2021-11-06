@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment-timezone";
 import { AppConfigurations } from "../../tests/entities";
 import { TimeSpecification } from "../models";
 import { getProcessedConfiguration } from "./configurationProcessor";
@@ -64,8 +64,9 @@ describe('getProcessedConfiguration', () => {
             };
             const result = getProcessedConfiguration(config);
 
-            expect(result.start).toStrictEqual(moment().subtract(1, 'day').startOf('day').toDate());
-            expect(result.end).toStrictEqual(moment().startOf('day').toDate());
+            const timeZone = appConfiguration.options.timeZone
+            expect(result.start).toStrictEqual(moment.tz(timeZone).subtract(1, 'day').startOf('day').toDate());
+            expect(result.end).toStrictEqual(moment.tz(timeZone).startOf('day').toDate());
         });
 
         test('with offset', () => {
@@ -87,8 +88,8 @@ describe('getProcessedConfiguration', () => {
             };
             const result = getProcessedConfiguration(config);
 
-            expect(+result.start).toBeCloseTo(+moment().subtract(24, 'hour').toDate(), -2);
-            expect(+result.end).toBeCloseTo(+moment().toDate(), -2);
+            expect(+result.start).toBeCloseTo(+moment.tz().subtract(24, 'hour').toDate(), -2);
+            expect(+result.end).toBeCloseTo(+moment.tz().toDate(), -2);
         });
     });
 });
