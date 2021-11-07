@@ -7,8 +7,7 @@
 # See: https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/
 #      https://securitylab.github.com/research/github-actions-preventing-pwn-requests
 
-# Inspired from https://github.com/styled-icons/styled-icons/blob/main/.github/workflows/dependabot.yml
-# and https://gist.github.com/amacneil/60bf679f357bad9d62103cfdc86cbd74
+# Inspired from https://gist.github.com/amacneil/60bf679f357bad9d62103cfdc86cbd74
 name: Dependabot
 on:
   - pull_request_target
@@ -50,8 +49,6 @@ jobs:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
-
-      - run: git checkout HEAD^ -- pnpm-lock.yaml
 
       - run: yarn install --skip-builds
 
