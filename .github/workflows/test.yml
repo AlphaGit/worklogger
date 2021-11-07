@@ -1,8 +1,6 @@
 name: Run tests
 
-on:
-  pull_request:
-    types: [synchronize]
+on: [pull_request, push]
 
 jobs:
   build:
