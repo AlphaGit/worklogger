@@ -25,6 +25,7 @@ jobs:
     # See also: https://github.com/yarnpkg/berry/issues/1679#issuecomment-669937860
     env:
       YARN_ENABLE_SCRIPTS: false
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
     steps:
       - uses: actions/checkout@v2.3.5
