@@ -4042,21 +4042,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-lambda@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "aws-lambda@npm:1.0.6"
+"aws-lambda@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "aws-lambda@npm:1.0.7"
   dependencies:
-    aws-sdk: "*"
+    aws-sdk: ^2.814.0
     commander: ^3.0.2
-    js-yaml: ^3.13.1
+    js-yaml: ^3.14.1
     watchpack: ^2.0.0-beta.10
   bin:
-    lambda: ./bin/lambda
-  checksum: ec9e1cf07269b632e641d83378fa293b78ec066b5cd5d5d60a062e4414aafa868f314b63c4b2a0efa7f85d0b2a555409bf70f2e9b62b63d3ee6ca28051b25138
+    lambda: bin/lambda
+  checksum: 11316e87b5c4fc36e6bd0495742a3c0ed13befc9527a7b251a58180d141d9afd68b684f37aeb3b53d117d3c2f96747eace31826b683543f1edddc03f392865fd
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:*, aws-sdk@npm:^2.1021.0, aws-sdk@npm:^2.1023.0, aws-sdk@npm:^2.834.0":
+"aws-sdk@npm:^2.1021.0, aws-sdk@npm:^2.1023.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
   version: 2.1023.0
   resolution: "aws-sdk@npm:2.1023.0"
   dependencies:
@@ -13693,7 +13693,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.3.0
     "@typescript-eslint/parser": 5.3.0
     app-module-path: ^2.1.0
-    aws-lambda: ^1.0.6
+    aws-lambda: ^1.0.7
     aws-sdk: ^2.1023.0
     eslint: ^8.1.0
     eslint-import-resolver-node: ^0.3.6
