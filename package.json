@@ -38,7 +38,7 @@
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1023.0",
     "fetch-event": "^1.0.0-alpha",
-    "googleapis": "^89.0.0",
+    "googleapis": "^91.0.0",
     "log4js": "^6.3.0",
     "minimist": "^1.2.3",
     "moment-timezone": "^0.5.33",
