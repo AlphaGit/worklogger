@@ -9412,12 +9412,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.31, moment-timezone@npm:^0.5.33":
-  version: 0.5.33
-  resolution: "moment-timezone@npm:0.5.33"
+"moment-timezone@npm:^0.5.31, moment-timezone@npm:^0.5.34":
+  version: 0.5.34
+  resolution: "moment-timezone@npm:0.5.34"
   dependencies:
     moment: ">= 2.9.0"
-  checksum: dea6043b4a21aedf2e64d545cdfc795a11e0739edb06f4eb10570503118cb1fe4ab57e012a5f3594bd1cdd2a3c617f42836fb6e4faff33eb25a1fe3cc239c9bf
+  checksum: 12a1d3d52e4ba509cf1fa36bbda59d898a08fa80ab35f6c358747e93aec1f07e617cec647eaf2e8acf5f9132e581d4704d34a9edffa9a80c5cd04bf23b277595
   languageName: node
   linkType: hard
 
@@ -13236,7 +13236,7 @@ __metadata:
     jest-fetch-mock: ^3.0.3
     log4js: ^6.3.0
     minimist: ^1.2.3
-    moment-timezone: ^0.5.33
+    moment-timezone: ^0.5.34
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
