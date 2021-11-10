@@ -2394,9 +2394,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^5.20.0":
-  version: 5.20.0
-  resolution: "@serverless/utils@npm:5.20.0"
+"@serverless/utils@npm:^5.20.0, @serverless/utils@npm:^5.20.1":
+  version: 5.20.1
+  resolution: "@serverless/utils@npm:5.20.1"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
@@ -2427,7 +2427,7 @@ __metadata:
     uni-global: ^1.0.0
     uuid: ^8.3.2
     write-file-atomic: ^3.0.3
-  checksum: 066e0e3f313cc5c6bd22b7e8cd064fed5daefd5bd6b0ed515ff0467b608342ee9f8e37d8b59fae45180ce966659d3b0e9bf40806bd02695adb1734884ce6ef52
+  checksum: 8a227ac5329063c9072fb05b0daea1c8b7be8d7b362ab58c6bd3934b6726166cf82bf15b5dd81e763f14621d124e525dd7b54a121d5467d9989dd5be352ea4ec
   languageName: node
   linkType: hard
 
@@ -3587,7 +3587,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1021.0, aws-sdk@npm:^2.1024.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
+"aws-sdk@npm:^2.1024.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
   version: 2.1024.0
   resolution: "aws-sdk@npm:2.1024.0"
   dependencies:
@@ -11356,19 +11356,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.65.0":
-  version: 2.65.0
-  resolution: "serverless@npm:2.65.0"
+"serverless@npm:^2.66.0":
+  version: 2.66.0
+  resolution: "serverless@npm:2.66.0"
   dependencies:
     "@serverless/cli": ^1.5.3
     "@serverless/components": ^3.17.2
     "@serverless/dashboard-plugin": ^5.5.1
     "@serverless/platform-client": ^4.3.0
-    "@serverless/utils": ^5.20.0
+    "@serverless/utils": ^5.20.1
     ajv: ^6.12.6
     ajv-keywords: ^3.5.2
     archiver: ^5.3.0
-    aws-sdk: ^2.1021.0
+    aws-sdk: ^2.1024.0
     bluebird: ^3.7.2
     boxen: ^5.1.2
     cachedir: ^2.3.0
@@ -11419,7 +11419,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 4b87f3a34c7c187e075c79f8a0bb8ab634b67f0ddbb46e2f0f4be669cb8904a5b074dbeed30e45f5a35c5b3aa4992614512062376c7c9a9ee32e4eb2e6815b12
+  checksum: 17bae6dc7376c05c147d1a973bda36d8ab5798eb2792d4410094287c6981b679b45c856a57abc6120271ece740a6913ccd7b654f20d4ac2d83f47122a7df8bd6
   languageName: node
   linkType: hard
 
@@ -13240,7 +13240,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.65.0
+    serverless: ^2.66.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.2.0
     serverless-webpack: ^5.5.5
