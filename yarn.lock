@@ -2192,9 +2192,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/components@npm:^3.17.2":
-  version: 3.17.2
-  resolution: "@serverless/components@npm:3.17.2"
+"@serverless/components@npm:^3.18.0":
+  version: 3.18.0
+  resolution: "@serverless/components@npm:3.18.0"
   dependencies:
     "@serverless/platform-client": ^4.2.2
     "@serverless/platform-client-china": ^2.2.0
@@ -2227,7 +2227,7 @@ __metadata:
     uuid: ^8.3.2
   bin:
     components: bin/bin
-  checksum: 0b4677aebb5f54c2f28a1cd7d0c3ec4e88126665ac9ee75e91470c711faf0ef635a752341b41dd3f6cfe704e95fa87940c574807ba4793c1eb827ce6e510db89
+  checksum: eb06a902e88affc8e3c1d2c39d91fd602ca9a5a99d6c299590813c621ceb3f19b6d9feed673bd4939f6fca1e2ff28a5768b698c3fa7603e93ae97609dde78985
   languageName: node
   linkType: hard
 
@@ -3587,9 +3587,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1024.0, aws-sdk@npm:^2.1026.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
-  version: 2.1026.0
-  resolution: "aws-sdk@npm:2.1026.0"
+"aws-sdk@npm:^2.1025.0, aws-sdk@npm:^2.1026.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
+  version: 2.1027.0
+  resolution: "aws-sdk@npm:2.1027.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3600,7 +3600,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 3ac323624e94948fc64bd7ff4854f70d02dbae6e3fc98a665bbf9b9f71b89d21709d7d5998810a41decee5c8162e2d5a81568762a590f942ae4eb8f173d68b42
+  checksum: a878ac474c5b9240ba46839242f6bccd195c8d77fbc1a941c3f73c0a6aeb42b53b895bf305da6cfcf33fda67cc53f2f3c23956e6a026d5e007c330611f2eac9d
   languageName: node
   linkType: hard
 
@@ -11356,19 +11356,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.66.0":
-  version: 2.66.0
-  resolution: "serverless@npm:2.66.0"
+"serverless@npm:^2.66.1":
+  version: 2.66.1
+  resolution: "serverless@npm:2.66.1"
   dependencies:
     "@serverless/cli": ^1.5.3
-    "@serverless/components": ^3.17.2
+    "@serverless/components": ^3.18.0
     "@serverless/dashboard-plugin": ^5.5.1
     "@serverless/platform-client": ^4.3.0
     "@serverless/utils": ^5.20.1
     ajv: ^6.12.6
     ajv-keywords: ^3.5.2
     archiver: ^5.3.0
-    aws-sdk: ^2.1024.0
+    aws-sdk: ^2.1025.0
     bluebird: ^3.7.2
     boxen: ^5.1.2
     cachedir: ^2.3.0
@@ -11419,7 +11419,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 17bae6dc7376c05c147d1a973bda36d8ab5798eb2792d4410094287c6981b679b45c856a57abc6120271ece740a6913ccd7b654f20d4ac2d83f47122a7df8bd6
+  checksum: f4a237b7a910c9ba191bafb467bdd16ef1f802cc410709a0ac013842b89f18737c41160c4a2f7c3efa5e6d294ed147ebc922a8ef68321ad351a378b9feaf3f95
   languageName: node
   linkType: hard
 
@@ -13240,7 +13240,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.66.0
+    serverless: ^2.66.1
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.2.0
     serverless-webpack: ^5.5.5
