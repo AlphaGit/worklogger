@@ -2192,9 +2192,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/components@npm:^3.18.0":
-  version: 3.18.0
-  resolution: "@serverless/components@npm:3.18.0"
+"@serverless/components@npm:^3.18.1":
+  version: 3.18.1
+  resolution: "@serverless/components@npm:3.18.1"
   dependencies:
     "@serverless/platform-client": ^4.2.2
     "@serverless/platform-client-china": ^2.2.0
@@ -2227,7 +2227,7 @@ __metadata:
     uuid: ^8.3.2
   bin:
     components: bin/bin
-  checksum: eb06a902e88affc8e3c1d2c39d91fd602ca9a5a99d6c299590813c621ceb3f19b6d9feed673bd4939f6fca1e2ff28a5768b698c3fa7603e93ae97609dde78985
+  checksum: f7fcc576c2799d42bf9201757aacb7205d78098eaa0c02382f340bf153cb90366390e26e7ffd28646c96516783efe08748c2910493ffbcdd59a4024f233af6e9
   languageName: node
   linkType: hard
 
@@ -3587,7 +3587,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1025.0, aws-sdk@npm:^2.1030.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
+"aws-sdk@npm:^2.1030.0, aws-sdk@npm:^2.814.0, aws-sdk@npm:^2.834.0":
   version: 2.1030.0
   resolution: "aws-sdk@npm:2.1030.0"
   dependencies:
@@ -11356,19 +11356,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.66.1":
-  version: 2.66.1
-  resolution: "serverless@npm:2.66.1"
+"serverless@npm:^2.66.2":
+  version: 2.66.2
+  resolution: "serverless@npm:2.66.2"
   dependencies:
     "@serverless/cli": ^1.5.3
-    "@serverless/components": ^3.18.0
+    "@serverless/components": ^3.18.1
     "@serverless/dashboard-plugin": ^5.5.1
     "@serverless/platform-client": ^4.3.0
     "@serverless/utils": ^5.20.1
     ajv: ^6.12.6
     ajv-keywords: ^3.5.2
     archiver: ^5.3.0
-    aws-sdk: ^2.1025.0
+    aws-sdk: ^2.1030.0
     bluebird: ^3.7.2
     boxen: ^5.1.2
     cachedir: ^2.3.0
@@ -11419,7 +11419,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: f4a237b7a910c9ba191bafb467bdd16ef1f802cc410709a0ac013842b89f18737c41160c4a2f7c3efa5e6d294ed147ebc922a8ef68321ad351a378b9feaf3f95
+  checksum: 855784b3624b480cc74827f2a1b0407a450a1f47b0b20e0e1a3fdb46327323eb430349ebbecdf0fd0361979b756eb3a8190da8c7b1b064d1ee57c7a8d76963e9
   languageName: node
   linkType: hard
 
@@ -13240,7 +13240,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.66.1
+    serverless: ^2.66.2
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.2.0
     serverless-webpack: ^5.5.5
