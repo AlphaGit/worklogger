@@ -3587,7 +3587,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1030.0, aws-sdk@npm:^2.1032.0, aws-sdk@npm:^2.1036.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1030.0, aws-sdk@npm:^2.1036.0, aws-sdk@npm:^2.814.0":
   version: 2.1036.0
   resolution: "aws-sdk@npm:2.1036.0"
   dependencies:
@@ -11303,14 +11303,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^8.3.0":
-  version: 8.3.0
-  resolution: "serverless-offline@npm:8.3.0"
+"serverless-offline@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "serverless-offline@npm:8.3.1"
   dependencies:
     "@hapi/boom": ^9.1.4
     "@hapi/h2o2": ^9.1.0
     "@hapi/hapi": ^20.2.1
-    aws-sdk: ^2.1032.0
+    aws-sdk: ^2.1036.0
     boxen: ^5.1.2
     chalk: ^4.1.2
     cuid: ^2.1.8
@@ -11335,10 +11335,10 @@ __metadata:
     semver: ^7.3.5
     update-notifier: ^5.1.0
     velocityjs: ^2.0.5
-    ws: ^7.5.5
+    ws: ^7.5.6
   peerDependencies:
-    serverless: ^1.60.0 || 2
-  checksum: 691666ade3e3bdcd84c251d77be4556a4b8b9be25740b337b9712fd0e97da9c58a82af426353385b251dfa26bada2baca7ce112573ba69f3d401b97a8cb4dc8b
+    serverless: ^1.60.0 || 2 || 3
+  checksum: 8a40078e94b3e794c3c5e44b2b0cfe5eae6028a5f9bd230f7179714df097320ae4fa4de241ff47fca59ddfad0c1558e670e9dd5ada0b10fe0e83ccf55300b476
   languageName: node
   linkType: hard
 
@@ -13250,7 +13250,7 @@ __metadata:
     nyc: ^15.1.0
     serverless: ^2.66.2
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^8.3.0
+    serverless-offline: ^8.3.1
     serverless-webpack: ^5.6.0
     ts-jest: ^27.0.7
     ts-loader: ^9.2.6
@@ -13334,9 +13334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^7.3.1, ws@npm:^7.4.6, ws@npm:^7.5.0, ws@npm:^7.5.3, ws@npm:^7.5.5":
-  version: 7.5.5
-  resolution: "ws@npm:7.5.5"
+"ws@npm:^7.3.1, ws@npm:^7.4.6, ws@npm:^7.5.0, ws@npm:^7.5.3, ws@npm:^7.5.6":
+  version: 7.5.6
+  resolution: "ws@npm:7.5.6"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -13345,7 +13345,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: bd2b437256012af526c69c03d6670a132e7ab0fe5853f3b7092826acea4203fad4ee2a8d0d9bd44834b2b968e747bf34f753ab535f4a3edf40d262da4b1d0805
+  checksum: 0c2ffc9a539dd61dd2b00ff6cc5c98a3371e2521011fe23da4b3578bb7ac26cbdf7ca8a68e8e08023c122ae247013216dde2a20c908de415a6bcc87bdef68c87
   languageName: node
   linkType: hard
 
