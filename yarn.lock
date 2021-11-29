@@ -3587,7 +3587,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1030.0, aws-sdk@npm:^2.1036.0, aws-sdk@npm:^2.1038.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1036.0, aws-sdk@npm:^2.1038.0, aws-sdk@npm:^2.814.0":
   version: 2.1038.0
   resolution: "aws-sdk@npm:2.1038.0"
   dependencies:
@@ -4081,7 +4081,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacheable-request@npm:^7.0.1":
+"cacheable-request@npm:^7.0.2":
   version: 7.0.2
   resolution: "cacheable-request@npm:7.0.2"
   dependencies:
@@ -4271,10 +4271,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.1.1, ci-info@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "ci-info@npm:3.2.0"
-  checksum: c68995a94e95ce3f233ff845e62dfc56f2e8ff1e3f5c1361bcdd520cbbc9726d8a54cbc1a685cb9ee19c3c5e71a1dade6dda23eb364b59b8e6c32508a9b761bc
+"ci-info@npm:^3.1.1, ci-info@npm:^3.2.0, ci-info@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "ci-info@npm:3.3.0"
+  checksum: c3d86fe374938ecda5093b1ba39acb535d8309185ba3f23587747c6a057e63f45419b406d880304dbc0e1d72392c9a33e42fe9a1e299209bc0ded5efaa232b66
   languageName: node
   linkType: hard
 
@@ -4344,17 +4344,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-progress-footer@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "cli-progress-footer@npm:2.1.1"
+"cli-progress-footer@npm:^2.1.1, cli-progress-footer@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "cli-progress-footer@npm:2.2.0"
   dependencies:
-    cli-color: ^2.0.0
+    cli-color: ^2.0.1
     d: ^1.0.1
     es5-ext: ^0.10.53
+    mute-stream: 0.0.8
     process-utils: ^4.0.0
     timers-ext: ^0.1.7
     type: ^2.5.0
-  checksum: 81a62afb7efe671cc80687f7e16a98cd1361a91c2248aa89b77642addad5e8f5091de9e8167edcf1ad0907f22cfe6c9070425a88023878c8473d9d77006203c0
+  checksum: 8bb9543d48f53e16464f6333ede7efe1e60aae1094c2cabfc0f20fd42c2a4cfa49417f114b47b9765aa3776ced8f9e9ff74195db1cbd48973b425268c3654974
   languageName: node
   linkType: hard
 
@@ -6818,22 +6819,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"got@npm:^11.8.2":
-  version: 11.8.2
-  resolution: "got@npm:11.8.2"
+"got@npm:^11.8.2, got@npm:^11.8.3":
+  version: 11.8.3
+  resolution: "got@npm:11.8.3"
   dependencies:
     "@sindresorhus/is": ^4.0.0
     "@szmarczak/http-timer": ^4.0.5
     "@types/cacheable-request": ^6.0.1
     "@types/responselike": ^1.0.0
     cacheable-lookup: ^5.0.3
-    cacheable-request: ^7.0.1
+    cacheable-request: ^7.0.2
     decompress-response: ^6.0.0
     http2-wrapper: ^1.0.0-beta.5.2
     lowercase-keys: ^2.0.0
     p-cancelable: ^2.0.0
     responselike: ^2.0.0
-  checksum: 41ad7bf74f7ec18bca81997ea0a6c8b6b75405cc3ba76d49c5d9d4658cad200d5a9fa7b0a13058458d0df6bed217baabd122d5d351c6bc6996514a5e428744bb
+  checksum: 3b6db107d9765470b18e4cb22f7c7400381be7425b9be5823f0168d6c21b5d6b28b023c0b3ee208f73f6638c3ce251948ca9b54a1e8f936d3691139ac202d01b
   languageName: node
   linkType: hard
 
@@ -11364,9 +11365,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.66.2":
-  version: 2.66.2
-  resolution: "serverless@npm:2.66.2"
+"serverless@npm:^2.67.0":
+  version: 2.67.0
+  resolution: "serverless@npm:2.67.0"
   dependencies:
     "@serverless/cli": ^1.5.3
     "@serverless/components": ^3.18.1
@@ -11376,14 +11377,14 @@ __metadata:
     ajv: ^6.12.6
     ajv-keywords: ^3.5.2
     archiver: ^5.3.0
-    aws-sdk: ^2.1030.0
+    aws-sdk: ^2.1036.0
     bluebird: ^3.7.2
     boxen: ^5.1.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
     child-process-ext: ^2.1.1
-    ci-info: ^3.2.0
-    cli-progress-footer: ^2.1.1
+    ci-info: ^3.3.0
+    cli-progress-footer: ^2.2.0
     d: ^1.0.1
     dayjs: ^1.10.7
     decompress: ^4.2.1
@@ -11396,7 +11397,7 @@ __metadata:
     fs-extra: ^9.1.0
     get-stdin: ^8.0.0
     globby: ^11.0.4
-    got: ^11.8.2
+    got: ^11.8.3
     graceful-fs: ^4.2.8
     https-proxy-agent: ^5.0.0
     is-docker: ^2.2.1
@@ -11415,7 +11416,7 @@ __metadata:
     promise-queue: ^2.2.5
     replaceall: ^0.1.6
     semver: ^7.3.5
-    signal-exit: ^3.0.5
+    signal-exit: ^3.0.6
     strip-ansi: ^6.0.1
     tabtab: ^3.0.2
     tar: ^6.1.11
@@ -11427,7 +11428,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 855784b3624b480cc74827f2a1b0407a450a1f47b0b20e0e1a3fdb46327323eb430349ebbecdf0fd0361979b756eb3a8190da8c7b1b064d1ee57c7a8d76963e9
+  checksum: 2511ebe844a17dad0195ff2299f33001a6e7f49b4803cc5770017cc13aa66dd6a847ce4ba6c5d0435d387d52b086235a86bf2d6922814a998d2ca9fc4145779f
   languageName: node
   linkType: hard
 
@@ -11504,10 +11505,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "signal-exit@npm:3.0.5"
-  checksum: a1d3d0d63f581bd298b30ed8f6de21b73a0fe5a0c0f123b2e8ed7168bbff8f4c1a45e681de12a1966a89bb725d8eb727816be1c436e136951f31953e4a201587
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "signal-exit@npm:3.0.6"
+  checksum: b819ac81ba757af559dad0804233ae31bf6f054591cd8a671e9cbcf09f21c72ec3076fe87d1e04861f5b33b47d63f0694b568de99c99cd733ee2060515beb6d5
   languageName: node
   linkType: hard
 
@@ -13248,7 +13249,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.66.2
+    serverless: ^2.67.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.3.1
     serverless-webpack: ^5.6.0
