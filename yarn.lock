@@ -11366,9 +11366,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.67.0":
-  version: 2.67.0
-  resolution: "serverless@npm:2.67.0"
+"serverless@npm:^2.68.0":
+  version: 2.68.0
+  resolution: "serverless@npm:2.68.0"
   dependencies:
     "@serverless/cli": ^1.5.3
     "@serverless/components": ^3.18.1
@@ -11378,7 +11378,7 @@ __metadata:
     ajv: ^6.12.6
     ajv-keywords: ^3.5.2
     archiver: ^5.3.0
-    aws-sdk: ^2.1036.0
+    aws-sdk: ^2.1041.0
     bluebird: ^3.7.2
     boxen: ^5.1.2
     cachedir: ^2.3.0
@@ -11429,7 +11429,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 2511ebe844a17dad0195ff2299f33001a6e7f49b4803cc5770017cc13aa66dd6a847ce4ba6c5d0435d387d52b086235a86bf2d6922814a998d2ca9fc4145779f
+  checksum: 93cc25f616e567c80ae9464bef9a3e8361f28948230ed46aaa559d0d2651d3217cd7add5722b3c0879b6c982ac95da08e34fff1ebca47301c5357321eaa54999
   languageName: node
   linkType: hard
 
@@ -13250,7 +13250,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.67.0
+    serverless: ^2.68.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.3.1
     serverless-webpack: ^5.6.0
