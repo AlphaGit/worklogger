@@ -11366,9 +11366,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^2.69.0":
-  version: 2.69.0
-  resolution: "serverless@npm:2.69.0"
+"serverless@npm:^2.69.1":
+  version: 2.69.1
+  resolution: "serverless@npm:2.69.1"
   dependencies:
     "@serverless/cli": ^1.5.3
     "@serverless/components": ^3.18.1
@@ -11429,7 +11429,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 5828d3521f542e815a35e1545c1df59b1870eee590e43e14371a19fd84c3dc89a4555b6303e705f8e625ff4b084c9efc30f5a8316418d2c545761e7be6c9b4ed
+  checksum: 0fa9ee894a7ff7620cc55b10c56779ac74a3bd25d21dfa0d448575c720cc1361cf54c019b79e413003584bd1c7a9de959f218972d42feaab549593816465e3d5
   languageName: node
   linkType: hard
 
@@ -13253,7 +13253,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^2.69.0
+    serverless: ^2.69.1
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.3.1
     serverless-webpack: ^5.6.0
