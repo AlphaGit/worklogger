@@ -793,18 +793,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.41.0":
-  version: 3.41.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.41.0"
+"@aws-sdk/signature-v4-crt@npm:^3.45.0":
+  version: 3.45.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.45.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.37.0
     "@aws-sdk/querystring-parser": 3.40.0
-    "@aws-sdk/signature-v4": 3.40.0
+    "@aws-sdk/signature-v4": 3.45.0
     "@aws-sdk/util-hex-encoding": 3.37.0
     "@aws-sdk/util-uri-escape": 3.37.0
     aws-crt: ^1.9.7
     tslib: ^2.3.0
-  checksum: a4705ff5373cff3edbb587a6f0c4c875042df88f0e71d63123608d2b7ca4665287cd3a038bc1a7ab39c484efcf32675d1f42379548d2896cb9033ec131085b63
+  checksum: b8ec6cde153e16653873cea296b569cd28c4c7b967fae2cb3de44fead114df2489cf2ec22309d76bd818a540df4f7bb07ae70b127dbfb9436155f3b9fa9d8956
   languageName: node
   linkType: hard
 
@@ -818,6 +818,19 @@ __metadata:
     "@aws-sdk/util-uri-escape": 3.37.0
     tslib: ^2.3.0
   checksum: 5e58a0b43bab13aa2d1945a1ddca3b8e26306aa163061e772f06af6272fb7e1289b87f0a243445a11bd9b91004575c8b0b3e636e5b20f9e8675231a25d7de6d7
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/signature-v4@npm:3.45.0":
+  version: 3.45.0
+  resolution: "@aws-sdk/signature-v4@npm:3.45.0"
+  dependencies:
+    "@aws-sdk/is-array-buffer": 3.37.0
+    "@aws-sdk/types": 3.40.0
+    "@aws-sdk/util-hex-encoding": 3.37.0
+    "@aws-sdk/util-uri-escape": 3.37.0
+    tslib: ^2.3.0
+  checksum: aa0d3f3c24a644fd8025ce4ad9392f82e4e2d2e8a1c025a990596578bc10df2f9c350fac4d103c584e3dc1798d97710b3955615ac484c14033ef01ce1e5dbc81
   languageName: node
   linkType: hard
 
@@ -13226,7 +13239,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.44.0
     "@aws-sdk/client-sesv2": ^3.43.0
-    "@aws-sdk/signature-v4-crt": ^3.41.0
+    "@aws-sdk/signature-v4-crt": ^3.45.0
     "@types/aws-lambda": ^8.10.88
     "@types/jest": ^27.0.3
     "@types/log4js": ^2.3.5
