@@ -58,7 +58,7 @@
     "@typescript-eslint/parser": "5.8.1",
     "eslint": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.25.4",
     "inquirer": "^8.0.0",
     "jest": "^27.4.5",
     "jest-fetch-mock": "^3.0.3",
