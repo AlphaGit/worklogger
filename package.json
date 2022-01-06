@@ -60,7 +60,7 @@
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-import": "^2.25.4",
     "inquirer": "^8.0.0",
-    "jest": "^27.4.6",
+    "jest": "^27.4.7",
     "jest-fetch-mock": "^3.0.3",
     "nyc": "^15.1.0",
     "serverless": "^2.70.0",
