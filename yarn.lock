@@ -513,15 +513,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/is-array-buffer@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/is-array-buffer@npm:3.47.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: 28862bc17b4c63f442f2fdcfd26a196f55bd8d5766327dd19ee0572091721b34d2df2b969279fbfd970d2367191c606c775d8a55a64e638a407468c342f7f924
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/is-array-buffer@npm:3.47.1":
   version: 3.47.1
   resolution: "@aws-sdk/is-array-buffer@npm:3.47.1"
@@ -784,16 +775,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.47.0"
-  dependencies:
-    "@aws-sdk/types": 3.47.0
-    tslib: ^2.3.0
-  checksum: 6fad35a257ee707b9328b6aab9284f75ff22e4929dd77a5d8d07d16ccc7f7deb98f33b639d2f97fa28a1783de2ebd0e547d2fa57e26c776a0df1f9c40e091757
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.47.1":
   version: 3.47.1
   resolution: "@aws-sdk/querystring-parser@npm:3.47.1"
@@ -835,19 +816,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/signature-v4@npm:3.47.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.47.0
-    "@aws-sdk/types": 3.47.0
-    "@aws-sdk/util-hex-encoding": 3.47.0
-    "@aws-sdk/util-uri-escape": 3.47.0
-    tslib: ^2.3.0
-  checksum: 499171baffc6182a2c1c1e4bea4e56e881d8c2a31e63d1c94a89143de308e63216bcccd896e7a5f1463ba3ef47bc028e9b4ff5406379781ce05f5e705f5764a6
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4@npm:3.47.1":
   version: 3.47.1
   resolution: "@aws-sdk/signature-v4@npm:3.47.1"
@@ -869,13 +837,6 @@ __metadata:
     "@aws-sdk/types": 3.47.1
     tslib: ^2.3.0
   checksum: 3940ce5542c78daad0f49478b8c7f8685e10897c3f386bfdf2ccec556a0ef645c160f6c23058758716a55244da063cb59131677393af88629bf46cd3444b2f51
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/types@npm:3.47.0"
-  checksum: d730344320e5c6a362435266a00454882da1467e1b55845bdf7b830c7f0812deb6ee3db8f814e066d8d58443a0324d1f96f0a6d0124f65c06d9f573ef9b6b4cf
   languageName: node
   linkType: hard
 
@@ -998,15 +959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/util-hex-encoding@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/util-hex-encoding@npm:3.47.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: 03d2042b87385138dd8dc7a30e6a5cf7068c7e57b471a18ecbe4d920447611f81e2f22e27157eae0a0d4b015336cd99b0953643c25c98d69db75e39c17ae56e3
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/util-hex-encoding@npm:3.47.1":
   version: 3.47.1
   resolution: "@aws-sdk/util-hex-encoding@npm:3.47.1"
@@ -1022,15 +974,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: d17fd73797d093a0de2e53ed3999562061858f78b88f993a83d8035fdda613c252a2fbab9abaf1d4fb595ae84e1747e17b137f8079fb99568c0c1641c54f5c4f
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-uri-escape@npm:3.47.0":
-  version: 3.47.0
-  resolution: "@aws-sdk/util-uri-escape@npm:3.47.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: f5399a7272abbc8f0089434336070c3582e266b2a46fa846ba7068befd5e74d1de4b6e594dbb3e4d258f38e8577c0dcb32fc6ea88cb7fe92dccfb2c27b2ef64f
   languageName: node
   linkType: hard
 
@@ -13029,16 +12972,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "webpack-sources@npm:3.2.2"
-  checksum: cc81f1f1bfd1c25c7a565598850294b515bcccf7974d0249b4a0c8c607307866ce3f9e8cdef1c74d5facfb0d993944c499cfd4b7c8f52d01359b6671cc5823d4
+"webpack-sources@npm:^3.2.3":
+  version: 3.2.3
+  resolution: "webpack-sources@npm:3.2.3"
+  checksum: 989e401b9fe3536529e2a99dac8c1bdc50e3a0a2c8669cbafad31271eadd994bc9405f88a3039cd2e29db5e6d9d0926ceb7a1a4e7409ece021fe79c37d9c4607
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.66.0":
-  version: 5.66.0
-  resolution: "webpack@npm:5.66.0"
+"webpack@npm:^5.67.0":
+  version: 5.67.0
+  resolution: "webpack@npm:5.67.0"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -13063,13 +13006,13 @@ __metadata:
     tapable: ^2.1.1
     terser-webpack-plugin: ^5.1.3
     watchpack: ^2.3.1
-    webpack-sources: ^3.2.2
+    webpack-sources: ^3.2.3
   peerDependenciesMeta:
     webpack-cli:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 5a44664a840fd64c5383aa78847b205ae0b42b607f85ee1d6a568617a210c1b9caab1822bce40a89a3b5eb0f626a83fb5fe2055c638aa230897bf224030d28e8
+  checksum: a7f810a5e1d4d78b533ca0caf42fa889839326073cedd3ac8e59e5c4890ca864ab0265fa5b2608715746ff3e34cbfaf4f15d56a92bc3f717a2f5c13202d58b6c
   languageName: node
   linkType: hard
 
@@ -13275,7 +13218,7 @@ __metadata:
     ts-loader: ^9.2.6
     ts-node: ^10.4.0
     typescript: ^4.5.5
-    webpack: ^5.66.0
+    webpack: ^5.67.0
     webpack-bundle-analyzer: ^4.5.0
   languageName: unknown
   linkType: soft
