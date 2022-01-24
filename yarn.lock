@@ -8979,16 +8979,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log4js@npm:*, log4js@npm:^6.4.0":
-  version: 6.4.0
-  resolution: "log4js@npm:6.4.0"
+"log4js@npm:*, log4js@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "log4js@npm:6.4.1"
   dependencies:
     date-format: ^4.0.3
     debug: ^4.3.3
     flatted: ^3.2.4
     rfdc: ^1.3.0
     streamroller: ^3.0.2
-  checksum: 6d3ca32c218e59234c8e25da614ed517718bbd773ef9a89a5fb542c37ec7747fd4fb4c2226dd67b0ec5143af3c674bbac0fa1a628dcb5908a44b39c6b497d91f
+  checksum: 0614949662314573ec7dcd841769a4d23d8cb8268685458a40fcd94f2ae6ec628234cfb9a6bc17821fb6ea6ce3765e779b4966ba1cf918f393dc37155a3615cb
   languageName: node
   linkType: hard
 
@@ -13227,7 +13227,7 @@ __metadata:
     inquirer: ^8.0.0
     jest: ^27.4.7
     jest-fetch-mock: ^3.0.3
-    log4js: ^6.4.0
+    log4js: ^6.4.1
     minimist: ^1.2.3
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
