@@ -2140,9 +2140,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/platform-client@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "@serverless/platform-client@npm:4.3.0"
+"@serverless/platform-client@npm:^4.3.0, @serverless/platform-client@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@serverless/platform-client@npm:4.3.1"
   dependencies:
     adm-zip: ^0.5.5
     archiver: ^5.3.0
@@ -2159,13 +2159,13 @@ __metadata:
     throat: ^5.0.0
     traverse: ^0.6.6
     ws: ^7.5.3
-  checksum: cb08b394c6e4eb7744cc70a4302611a8e98dd809b8141dceb91240e739706850d0e35c7c5e4adc79a8168b833bf39029215d7ca441a8af6b7b3afb2b9b2bc58e
+  checksum: b9571181a4e9ac7cbc303244ca09d5b515d71259a8ff0f001a08cbdea4a3d801fdfa328e9dd18a16fd6b80b4a34c9f7e3a6d093e46fc4ef3c2dc99fe8094b510
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@serverless/utils@npm:6.0.0"
+"@serverless/utils@npm:^6.0.0, @serverless/utils@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@serverless/utils@npm:6.0.2"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
@@ -2181,7 +2181,7 @@ __metadata:
     filenamify: ^4.3.0
     get-stream: ^6.0.1
     got: ^11.8.3
-    inquirer: ^7.3.3
+    inquirer: ^8.2.0
     js-yaml: ^4.1.0
     jwt-decode: ^3.1.2
     lodash: ^4.17.21
@@ -2192,11 +2192,11 @@ __metadata:
     ncjsm: ^4.3.0
     p-event: ^4.2.0
     supports-color: ^8.1.1
-    type: ^2.5.0
+    type: ^2.6.0
     uni-global: ^1.0.0
     uuid: ^8.3.2
-    write-file-atomic: ^3.0.3
-  checksum: d805f13b22dbd4dd5940ade362333b129de106cc51a809ecf2c7665be4ec00f20a8de724627ba03c3d49d41b5ad8c13b04affe9148da41b859c7874f0f85e1fb
+    write-file-atomic: ^4.0.0
+  checksum: 2735644a0d7bbaeb7072622f3d1c34f06596b33236062af66eb2b3aab737fd16804c049063fd49ea6c818a705e4acce45ae699fba0f0ddf2c40ea18f6c9897a1
   languageName: node
   linkType: hard
 
@@ -3027,15 +3027,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.9.0":
-  version: 8.9.0
-  resolution: "ajv@npm:8.9.0"
+"ajv@npm:^8.0.0, ajv@npm:^8.10.0":
+  version: 8.10.0
+  resolution: "ajv@npm:8.10.0"
   dependencies:
     fast-deep-equal: ^3.1.1
     json-schema-traverse: ^1.0.0
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
-  checksum: 756c048bfa917b43bb84c8a0a53e6a489123203bc4bdec8cbeb8ec2d715674f5e61d49560a1a6ec83268af4f33bed324f5cb6d9c76d96849fd58ed7089b8e7f3
+  checksum: 3594728ef1e31219ef97bfacb203d0d72db8ad5c35d6d0578e38ee453e4537c2bf927dad144bb84b0c893f661d71b58337d4643e8ee2f2a6e1d63b041c92fe82
   languageName: node
   linkType: hard
 
@@ -3348,7 +3348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1065.0, aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1065.0, aws-sdk@npm:^2.1073.0, aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.814.0":
   version: 2.1076.0
   resolution: "aws-sdk@npm:2.1076.0"
   dependencies:
@@ -6637,28 +6637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^7.3.3":
-  version: 7.3.3
-  resolution: "inquirer@npm:7.3.3"
-  dependencies:
-    ansi-escapes: ^4.2.1
-    chalk: ^4.1.0
-    cli-cursor: ^3.1.0
-    cli-width: ^3.0.0
-    external-editor: ^3.0.3
-    figures: ^3.0.0
-    lodash: ^4.17.19
-    mute-stream: 0.0.8
-    run-async: ^2.4.0
-    rxjs: ^6.6.0
-    string-width: ^4.1.0
-    strip-ansi: ^6.0.0
-    through: ^2.3.6
-  checksum: 4d387fc1eb6126acbd58cbdb9ad99d2887d181df86ab0c2b9abdf734e751093e2d5882c2b6dc7144d9ab16b7ab30a78a1d7f01fb6a2850a44aeb175d1e3f8778
-  languageName: node
-  linkType: hard
-
-"inquirer@npm:^8.0.0":
+"inquirer@npm:^8.0.0, inquirer@npm:^8.2.0":
   version: 8.2.0
   resolution: "inquirer@npm:8.2.0"
   dependencies:
@@ -8284,7 +8263,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
+"lodash@npm:^4, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -10199,15 +10178,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^6.6.0":
-  version: 6.6.7
-  resolution: "rxjs@npm:6.6.7"
-  dependencies:
-    tslib: ^1.9.0
-  checksum: bc334edef1bb8bbf56590b0b25734ba0deaf8825b703256a93714308ea36dff8a11d25533671adf8e104e5e8f256aa6fdfe39b2e248cdbd7a5f90c260acbbd1b
-  languageName: node
-  linkType: hard
-
 "rxjs@npm:^7.2.0":
   version: 7.4.0
   resolution: "rxjs@npm:7.4.0"
@@ -10406,17 +10376,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "serverless@npm:3.0.1"
+"serverless@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "serverless@npm:3.2.1"
   dependencies:
     "@serverless/dashboard-plugin": ^6.0.0
-    "@serverless/platform-client": ^4.3.0
-    "@serverless/utils": ^6.0.0
-    ajv: ^8.9.0
+    "@serverless/platform-client": ^4.3.1
+    "@serverless/utils": ^6.0.2
+    ajv: ^8.10.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1065.0
+    aws-sdk: ^2.1073.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10453,19 +10423,19 @@ __metadata:
     promise-queue: ^2.2.5
     require-from-string: ^2.0.2
     semver: ^7.3.5
-    signal-exit: ^3.0.6
+    signal-exit: ^3.0.7
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
     tar: ^6.1.11
     timers-ext: ^0.1.7
-    type: ^2.5.0
+    type: ^2.6.0
     untildify: ^4.0.0
     uuid: ^8.3.2
     yaml-ast-parser: 0.0.43
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 01023c3c30e0cdea9b2aeb44a98e68e553ea326bc3b6902295081d9bbccad997055bae921bee70b3cdf544deb46a5a94569c3064ff0f93aaef74d948be2ba67d
+  checksum: 44e3954ed2cdbff321394d35913ff09ab607e74e529e20dd5399072062c2ad8bd9a761cc906f48aa8262c0909191b4be5fcf3cf4e54f6882706db4a574c1c311
   languageName: node
   linkType: hard
 
@@ -10533,10 +10503,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "signal-exit@npm:3.0.6"
-  checksum: b819ac81ba757af559dad0804233ae31bf6f054591cd8a671e9cbcf09f21c72ec3076fe87d1e04861f5b33b47d63f0694b568de99c99cd733ee2060515beb6d5
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "signal-exit@npm:3.0.7"
+  checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
   languageName: node
   linkType: hard
 
@@ -11382,7 +11352,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.11.1, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.11.1, tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
@@ -11483,10 +11453,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type@npm:^2.1.0, type@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "type@npm:2.5.0"
-  checksum: 0fe1bb4e8ba298b2b245fdc6bca6178887e29e2134d231e468366615b3adffd651d464eb51d8b15f8cfd168577c282a17e19bf80f036a60d4df16308a83a93c4
+"type@npm:^2.1.0, type@npm:^2.5.0, type@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "type@npm:2.6.0"
+  checksum: 80da01fcc0f6ed5a253dc326530e134000a8f66ea44b6d9687cde2f894f0d0b2486595b0cd040a64f7f79dc3120784236f8c9ef667a8aef03984e049b447cfb4
   languageName: node
   linkType: hard
 
@@ -12064,7 +12034,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^3.0.1
+    serverless: ^3.2.1
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.4.0
     serverless-webpack: ^5.6.1
@@ -12116,7 +12086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^3.0.0, write-file-atomic@npm:^3.0.3":
+"write-file-atomic@npm:^3.0.0":
   version: 3.0.3
   resolution: "write-file-atomic@npm:3.0.3"
   dependencies:
@@ -12125,6 +12095,16 @@ __metadata:
     signal-exit: ^3.0.2
     typedarray-to-buffer: ^3.1.5
   checksum: c55b24617cc61c3a4379f425fc62a386cc51916a9b9d993f39734d005a09d5a4bb748bc251f1304e7abd71d0a26d339996c275955f527a131b1dcded67878280
+  languageName: node
+  linkType: hard
+
+"write-file-atomic@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "write-file-atomic@npm:4.0.1"
+  dependencies:
+    imurmurhash: ^0.1.4
+    signal-exit: ^3.0.7
+  checksum: 8f780232533ca6223c63c9b9c01c4386ca8c625ebe5017a9ed17d037aec19462ae17109e0aa155bff5966ee4ae7a27b67a99f55caf3f32ffd84155e9da3929fc
   languageName: node
   linkType: hard
 
