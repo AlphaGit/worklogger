@@ -44,7 +44,7 @@
     "moment-timezone": "^0.5.34",
     "mustache": "^4.2.0",
     "node-fetch": "^3.0.0",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.5.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
