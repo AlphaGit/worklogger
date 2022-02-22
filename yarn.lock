@@ -513,15 +513,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/is-array-buffer@npm:3.49.0":
-  version: 3.49.0
-  resolution: "@aws-sdk/is-array-buffer@npm:3.49.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: dafd11f5dbb947cd988b2108f0e33ef6457a325e2b53d450bd89147e773ff4152acc856feaeb7703a8016b9e40c5df13fab7c53feb7d1519a66622d5b2e8e781
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/is-array-buffer@npm:3.52.0":
   version: 3.52.0
   resolution: "@aws-sdk/is-array-buffer@npm:3.52.0"
@@ -784,16 +775,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.50.0":
-  version: 3.50.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.50.0"
-  dependencies:
-    "@aws-sdk/types": 3.50.0
-    tslib: ^2.3.0
-  checksum: 1ca4b1d68b1e72d8fba6aa8af5500c68076736fe2887fb1facd7ce63ca4c7c4b1513f0383f7deeb2990c38832748b99af2947131a671e4867957c3428e176f6a
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.52.0":
   version: 3.52.0
   resolution: "@aws-sdk/querystring-parser@npm:3.52.0"
@@ -835,19 +816,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4@npm:3.50.0":
-  version: 3.50.0
-  resolution: "@aws-sdk/signature-v4@npm:3.50.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.49.0
-    "@aws-sdk/types": 3.50.0
-    "@aws-sdk/util-hex-encoding": 3.49.0
-    "@aws-sdk/util-uri-escape": 3.49.0
-    tslib: ^2.3.0
-  checksum: edcf8cac4e7dcf1a277432d1afde0710449c46f44fd1f52416a0614fad718d9dafcbcb7c3dd22e1b4bf027671aa10f004bec35b462686f4fec45523c07f5803b
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4@npm:3.52.0":
   version: 3.52.0
   resolution: "@aws-sdk/signature-v4@npm:3.52.0"
@@ -869,13 +837,6 @@ __metadata:
     "@aws-sdk/types": 3.52.0
     tslib: ^2.3.0
   checksum: 7855fe7f5159aa9225a51144cae455bbe433b86fd8d22a3dcb7f9b64e77dbb48916148b72848defd4bfe574c31dda6c04a2bb97bc1a4dfea2a417a2c79fa9827
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.50.0":
-  version: 3.50.0
-  resolution: "@aws-sdk/types@npm:3.50.0"
-  checksum: dc732972edbf4d65fb2e3e8aebf3a881c4693e827fe54d51b3bd372d8c4fede831be1a8a24c8eeaeadc85b37cfce6da1f048675c0e2610ffb2e5cd9c85b03e3b
   languageName: node
   linkType: hard
 
@@ -998,15 +959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/util-hex-encoding@npm:3.49.0":
-  version: 3.49.0
-  resolution: "@aws-sdk/util-hex-encoding@npm:3.49.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: 1fb96531acca47a97f5570f4a52cca439bc688378fb6c31b1abc9cd8adbb33b7883902a8814b32b3fbff39dc897d4d8167df452dbdef0c239766f1156537f267
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/util-hex-encoding@npm:3.52.0":
   version: 3.52.0
   resolution: "@aws-sdk/util-hex-encoding@npm:3.52.0"
@@ -1022,15 +974,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: d17fd73797d093a0de2e53ed3999562061858f78b88f993a83d8035fdda613c252a2fbab9abaf1d4fb595ae84e1747e17b137f8079fb99568c0c1641c54f5c4f
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-uri-escape@npm:3.49.0":
-  version: 3.49.0
-  resolution: "@aws-sdk/util-uri-escape@npm:3.49.0"
-  dependencies:
-    tslib: ^2.3.0
-  checksum: beb9685dc2855b803d31bad4ad4ee2fb49c10416b5d08379854097a859dcb8e56c6d959ed23aa38de0921929c2ceeddecdd63cb08cb78cea56af40500587ba04
   languageName: node
   linkType: hard
 
@@ -2625,30 +2568,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.12.0":
-  version: 5.12.0
-  resolution: "@typescript-eslint/parser@npm:5.12.0"
+"@typescript-eslint/parser@npm:5.12.1":
+  version: 5.12.1
+  resolution: "@typescript-eslint/parser@npm:5.12.1"
   dependencies:
-    "@typescript-eslint/scope-manager": 5.12.0
-    "@typescript-eslint/types": 5.12.0
-    "@typescript-eslint/typescript-estree": 5.12.0
+    "@typescript-eslint/scope-manager": 5.12.1
+    "@typescript-eslint/types": 5.12.1
+    "@typescript-eslint/typescript-estree": 5.12.1
     debug: ^4.3.2
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 0453c14d967ebba4ebe0d763882b7a1258f23a710d127f53196d360b78722d880cc8c0299feb52ecc4e10600834c22559bf543211249d878efad864f7ec856bc
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/scope-manager@npm:5.12.0":
-  version: 5.12.0
-  resolution: "@typescript-eslint/scope-manager@npm:5.12.0"
-  dependencies:
-    "@typescript-eslint/types": 5.12.0
-    "@typescript-eslint/visitor-keys": 5.12.0
-  checksum: 87cc4e8ab3b495293e51685566cafca6f217c7328fc1210e4a9c3a89e864c5e3a04ddde11708e07820185fd158cb448980607a93fd658fa2089c152f27a847d0
+  checksum: d2995b00937de1d289d0a5742ad0744cfa8fbaed1a1a965eaa5dc8dca6e36e18f5c3802148c4bde0ab014a91330ebe186d01b0871ee30f36ac41361dc1d525d4
   languageName: node
   linkType: hard
 
@@ -2678,35 +2611,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.12.0":
-  version: 5.12.0
-  resolution: "@typescript-eslint/types@npm:5.12.0"
-  checksum: f5e7f8270cb0f9f18886bf00f8f1fd589b793f4c05dc2de53cc826beb969161e19ffc10f51237402fb9f3d24f5aaf3bb41b1d8da70e115ec3ff11e79b3471988
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:5.12.1":
   version: 5.12.1
   resolution: "@typescript-eslint/types@npm:5.12.1"
   checksum: 753cb4b0f266500298f07c0386d72e7d9570f26e2deb7017fd677d21bb8bca7f2ca01d3f4b43d86fbb7337a76f0c9da86657de96f107dba92632d726b4e7797e
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:5.12.0":
-  version: 5.12.0
-  resolution: "@typescript-eslint/typescript-estree@npm:5.12.0"
-  dependencies:
-    "@typescript-eslint/types": 5.12.0
-    "@typescript-eslint/visitor-keys": 5.12.0
-    debug: ^4.3.2
-    globby: ^11.0.4
-    is-glob: ^4.0.3
-    semver: ^7.3.5
-    tsutils: ^3.21.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 6a8e852c210b20370eb564f3beb245c425e65a4de3e78a1e2f278a241b6acf72ba43b10767df18fc1654b529453529f721fa673569406ace4011712c9c837900
   languageName: node
   linkType: hard
 
@@ -2741,16 +2649,6 @@ __metadata:
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   checksum: 0eb277ad4e60fa46b586d5df8e05be6e0d3963a59cf409a348e2c512d5e88d657a56026754ee10c31ee1333794e145f7ffe33e08d28aa1bed4b4ab4b02a95712
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:5.12.0":
-  version: 5.12.0
-  resolution: "@typescript-eslint/visitor-keys@npm:5.12.0"
-  dependencies:
-    "@typescript-eslint/types": 5.12.0
-    eslint-visitor-keys: ^3.0.0
-  checksum: c3774f542aae801926edf86fe6cab534c4cdac914b035730912443ed53fcc701b0f0e7b1a0d5fc959484637c55f63409fc43df5508c334e202d66d4654484d11
   languageName: node
   linkType: hard
 
@@ -12081,7 +11979,7 @@ __metadata:
     "@types/node": ^17.0.19
     "@types/node-fetch": ^3.0.3
     "@typescript-eslint/eslint-plugin": 5.12.1
-    "@typescript-eslint/parser": 5.12.0
+    "@typescript-eslint/parser": 5.12.1
     app-module-path: ^2.1.0
     aws-lambda: ^1.0.7
     aws-sdk: ^2.1078.0
