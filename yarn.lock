@@ -2723,13 +2723,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/dashboard-plugin@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@serverless/dashboard-plugin@npm:6.0.0"
+"@serverless/dashboard-plugin@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@serverless/dashboard-plugin@npm:6.1.0"
   dependencies:
     "@serverless/event-mocks": ^1.1.1
-    "@serverless/platform-client": ^4.3.0
-    "@serverless/utils": ^6.0.0
+    "@serverless/platform-client": ^4.3.1
+    "@serverless/utils": ^6.0.2
     child-process-ext: ^2.1.1
     chokidar: ^3.5.3
     flat: ^5.0.2
@@ -2744,10 +2744,10 @@ __metadata:
     open: ^7.4.2
     semver: ^7.3.5
     simple-git: ^2.48.0
-    type: ^2.5.0
+    type: ^2.6.0
     uuid: ^8.3.2
     yamljs: ^0.3.0
-  checksum: 93d05c0f25f10f9f499ba318c2e7f5860fce956758c60f859107a24a239fd074537c9dc3c453786e70529035a8bf5cbe15823920ce44a7f687375ca909908e85
+  checksum: 4d2951834202424dc21a86267d7979286a4fee7157015ec4a100d05f76fd5de3b271bcdd3b29175f0f203f1cf38946dce59b3fcc1834964f8441554edeeeadb0
   languageName: node
   linkType: hard
 
@@ -2761,7 +2761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/platform-client@npm:^4.3.0, @serverless/platform-client@npm:^4.3.1":
+"@serverless/platform-client@npm:^4.3.1":
   version: 4.3.1
   resolution: "@serverless/platform-client@npm:4.3.1"
   dependencies:
@@ -2784,7 +2784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.0, @serverless/utils@npm:^6.0.2":
+"@serverless/utils@npm:^6.0.2":
   version: 6.0.2
   resolution: "@serverless/utils@npm:6.0.2"
   dependencies:
@@ -3969,7 +3969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1065.0, aws-sdk@npm:^2.1073.0, aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1065.0, aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.814.0":
   version: 2.1076.0
   resolution: "aws-sdk@npm:2.1076.0"
   dependencies:
@@ -10997,17 +10997,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "serverless@npm:3.2.1"
+"serverless@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "serverless@npm:3.3.0"
   dependencies:
-    "@serverless/dashboard-plugin": ^6.0.0
+    "@serverless/dashboard-plugin": ^6.1.0
     "@serverless/platform-client": ^4.3.1
     "@serverless/utils": ^6.0.2
     ajv: ^8.10.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1073.0
+    aws-sdk: ^2.1076.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -11056,7 +11056,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 44e3954ed2cdbff321394d35913ff09ab607e74e529e20dd5399072062c2ad8bd9a761cc906f48aa8262c0909191b4be5fcf3cf4e54f6882706db4a574c1c311
+  checksum: dd77bd84d4f5387f0bf6e05bc0c3e3c32fbbfd03416710dcf91d90331100e6d06b9245d9aa48a17e0edbf8e60176050b836542d58de3ffa8d076abbfbbee9904
   languageName: node
   linkType: hard
 
@@ -12663,7 +12663,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^3.2.1
+    serverless: ^3.3.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.4.0
     serverless-webpack: ^5.6.1
