@@ -2152,9 +2152,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/dashboard-plugin@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@serverless/dashboard-plugin@npm:6.1.0"
+"@serverless/aws-lambda-otel-extension-dist@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@serverless/aws-lambda-otel-extension-dist@npm:0.1.5"
+  checksum: c7359fcb3ee14f2d822aa7fe90f852d5946c911b6f668695b5fc666c39ddacdc70c0cde0849be7ee27038d13608598ec1a316d658ef7a1866e1fe292456dd323
+  languageName: node
+  linkType: hard
+
+"@serverless/dashboard-plugin@npm:^6.1.1":
+  version: 6.1.2
+  resolution: "@serverless/dashboard-plugin@npm:6.1.2"
   dependencies:
     "@serverless/event-mocks": ^1.1.1
     "@serverless/platform-client": ^4.3.1
@@ -2176,7 +2183,7 @@ __metadata:
     type: ^2.6.0
     uuid: ^8.3.2
     yamljs: ^0.3.0
-  checksum: 4d2951834202424dc21a86267d7979286a4fee7157015ec4a100d05f76fd5de3b271bcdd3b29175f0f203f1cf38946dce59b3fcc1834964f8441554edeeeadb0
+  checksum: 657712625bbcf22606ec20d061d80ae2f89f4f12ae1d45b1e32d3decd58e253ac9fde34c18b0c5948adc404eadab83cf8c13a2584f7ffd58efbd46e70385e6f6
   languageName: node
   linkType: hard
 
@@ -10381,17 +10388,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "serverless@npm:3.3.0"
+"serverless@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "serverless@npm:3.4.0"
   dependencies:
-    "@serverless/dashboard-plugin": ^6.1.0
+    "@serverless/aws-lambda-otel-extension-dist": ^0.1.5
+    "@serverless/dashboard-plugin": ^6.1.1
     "@serverless/platform-client": ^4.3.1
     "@serverless/utils": ^6.0.2
     ajv: ^8.10.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1076.0
+    aws-sdk: ^2.1081.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10440,7 +10448,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: dd77bd84d4f5387f0bf6e05bc0c3e3c32fbbfd03416710dcf91d90331100e6d06b9245d9aa48a17e0edbf8e60176050b836542d58de3ffa8d076abbfbbee9904
+  checksum: a5cee7b837f21c4f182542b09a0da4072341963cc93a89f6aa88827e829e730dea6631fbeeff331e30bbd2ce1ae6852422f72170d3662f30f5d9be06cab32366
   languageName: node
   linkType: hard
 
@@ -12047,7 +12055,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.0.0
     nyc: ^15.1.0
-    serverless: ^3.3.0
+    serverless: ^3.4.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.5.0
     serverless-webpack: ^5.6.1
