@@ -805,16 +805,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.52.0":
-  version: 3.52.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.52.0"
-  dependencies:
-    "@aws-sdk/types": 3.52.0
-    tslib: ^2.3.0
-  checksum: 8216e467afee21c81a8e56c193984992e51e1a7cc507806133dff9304a0e97786f3eae8d751d11e78dfba980e817adbb82b28bcefc9eeafaa10709eb4c90d465
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.53.0":
   version: 3.53.0
   resolution: "@aws-sdk/querystring-parser@npm:3.53.0"
@@ -841,31 +831,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.52.0":
-  version: 3.52.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.52.0"
+"@aws-sdk/signature-v4-crt@npm:^3.53.0":
+  version: 3.53.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.53.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.52.0
-    "@aws-sdk/querystring-parser": 3.52.0
-    "@aws-sdk/signature-v4": 3.52.0
+    "@aws-sdk/querystring-parser": 3.53.0
+    "@aws-sdk/signature-v4": 3.53.0
     "@aws-sdk/util-hex-encoding": 3.52.0
     "@aws-sdk/util-uri-escape": 3.52.0
     aws-crt: ^1.9.7
     tslib: ^2.3.0
-  checksum: 770b5ed081d59fad435325f40248176ef60a73606d5832fb101219cac95d8a0b36abbfc50572763bdd0d64d1c27d17aa3eac35a9f41e70c02f34f53540cd0446
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/signature-v4@npm:3.52.0":
-  version: 3.52.0
-  resolution: "@aws-sdk/signature-v4@npm:3.52.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.52.0
-    "@aws-sdk/types": 3.52.0
-    "@aws-sdk/util-hex-encoding": 3.52.0
-    "@aws-sdk/util-uri-escape": 3.52.0
-    tslib: ^2.3.0
-  checksum: 4c1f8bb93bd8fd0ed3e34da527ab9063a54c3411e17a48c12f0e3665883c865fd0f41645f9076d87a87518abca886afb429506e11f924b6d35b353829c7be4cc
+  checksum: 713175aa28bc49177fea76f65fe598cc3d547c8382152b85f9bd113d57f867810ba99876cb0c7f920ca9e4c79a918e3dbe0d85aa61a529b3c3a0cf233b778005
   languageName: node
   linkType: hard
 
@@ -890,13 +867,6 @@ __metadata:
     "@aws-sdk/types": 3.53.0
     tslib: ^2.3.0
   checksum: f947df9ad49dd0ccbb5d856627e1ad65e0af32ded212e8498fc040ded648e071e8a63676971352987296b66403b59e6843f51f4051789ae6efe30cf1db0aae62
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.52.0":
-  version: 3.52.0
-  resolution: "@aws-sdk/types@npm:3.52.0"
-  checksum: 8aa9d35cd3d82558ab9f4a0009c368a83a90f17f923de450920780edef9a37ecd153fa67da5e6114bdde5adb81a2d7a1f259f3622b2cf2f7d25fc4b7b3f144a7
   languageName: node
   linkType: hard
 
@@ -12050,7 +12020,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.53.0
     "@aws-sdk/client-sesv2": ^3.53.0
-    "@aws-sdk/signature-v4-crt": ^3.52.0
+    "@aws-sdk/signature-v4-crt": ^3.53.0
     "@types/aws-lambda": ^8.10.92
     "@types/jest": ^27.4.1
     "@types/log4js": ^2.3.5
