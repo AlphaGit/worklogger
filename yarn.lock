@@ -136,9 +136,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.53.0":
-  version: 3.53.0
-  resolution: "@aws-sdk/client-s3@npm:3.53.0"
+"@aws-sdk/client-s3@npm:^3.53.1":
+  version: 3.53.1
+  resolution: "@aws-sdk/client-s3@npm:3.53.1"
   dependencies:
     "@aws-crypto/sha1-browser": 2.0.0
     "@aws-crypto/sha256-browser": 2.0.0
@@ -152,7 +152,7 @@ __metadata:
     "@aws-sdk/fetch-http-handler": 3.53.0
     "@aws-sdk/hash-blob-browser": 3.53.0
     "@aws-sdk/hash-node": 3.53.0
-    "@aws-sdk/hash-stream-node": 3.53.0
+    "@aws-sdk/hash-stream-node": 3.53.1
     "@aws-sdk/invalid-dependency": 3.53.0
     "@aws-sdk/md5-js": 3.53.0
     "@aws-sdk/middleware-bucket-endpoint": 3.53.0
@@ -192,7 +192,7 @@ __metadata:
     entities: 2.2.0
     fast-xml-parser: 3.19.0
     tslib: ^2.3.0
-  checksum: 8091267c6bf6ac03e6124cbbb6edc3b6e37e5d923615b94645e0c1a74c604ce0295f2c02b469d0089b25bd78d5e20f9998f245c7caac986cf1782c2752027d0c
+  checksum: 2c1b401ba3403ca38431ff6f028471cf4b73a9b15d36eb47d23d5207df87f2681764c3dd844dff60f549f643ec7c2b017c20b2dbb1698e4623cf80032c5055ca
   languageName: node
   linkType: hard
 
@@ -521,13 +521,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/hash-stream-node@npm:3.53.0":
-  version: 3.53.0
-  resolution: "@aws-sdk/hash-stream-node@npm:3.53.0"
+"@aws-sdk/hash-stream-node@npm:3.53.1":
+  version: 3.53.1
+  resolution: "@aws-sdk/hash-stream-node@npm:3.53.1"
   dependencies:
     "@aws-sdk/types": 3.53.0
     tslib: ^2.3.0
-  checksum: 7fdacacf992641150381f16c6532995c610bef524f33664a571c90d8545cf4aaf9277161a6c2951dba970a24e3c2e3e437b803cafe2832f8c0f1e9b448ba1293
+  checksum: 47ec235e1d922d1c654895a870b5f82bca677344a553e0dd89fc6bfa01869f63bb06212d6cef62fefaf8e02832c249c810b06c2087791a6e7b4d46fb8d20bba7
   languageName: node
   linkType: hard
 
@@ -12026,7 +12026,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.53.0
+    "@aws-sdk/client-s3": ^3.53.1
     "@aws-sdk/client-sesv2": ^3.53.0
     "@aws-sdk/signature-v4-crt": ^3.53.0
     "@types/aws-lambda": ^8.10.92
