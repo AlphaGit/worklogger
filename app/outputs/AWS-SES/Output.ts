@@ -41,6 +41,10 @@ export class AwsSesOutput extends OutputBase {
                         Text: {
                             Charset: 'UTF-8',
                             Data: body
+                        },
+                        Html: {
+                            Charset: 'UTF-8',
+                            Data: '<html><body>' + body.replace(/\n/g, '<br/>') + '</body></html>'
                         }
                     },
                     Subject: {

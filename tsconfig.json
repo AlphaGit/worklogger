@@ -71,6 +71,7 @@
     "preserveConstEnums": true,                     /* Do not optimize numerical enum values to their constant value. */
   },
   "exclude": [
-    "./node_modules"
+    "./node_modules",
+    "./app/**/*.test.ts"
   ]
 }
