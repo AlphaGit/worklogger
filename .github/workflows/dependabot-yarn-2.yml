@@ -61,6 +61,6 @@ jobs:
         run: |
           git config user.name "dependabot-fix"
           git config user.email "dependabot-fix@example.com"
-          git add yarn.lock pnp.cjs .yarn/cache/
+          git add yarn.lock .yarn/cache/
           git commit -m '[dependabot skip] Fix yarn.lock'
           git push
