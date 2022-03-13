@@ -25,6 +25,12 @@ describe('loadOutputs', () => {
             formatter: {
                 type: 'formatter2'
             }
+        }, {
+            type: 'output2',
+            excludeFromNonProcessedWarning: false,
+            condition: {
+                type: 'condition2'
+            }
         }];
 
         const output1ClassMock = jest.fn((formatter, outputConfig, appConfig) => ({ output: 'output1', formatter, outputConfig, appConfig }));
@@ -41,7 +47,7 @@ describe('loadOutputs', () => {
 
         const noFormatFormatterClassMock = jest.fn(() => ({ formatter: 'NoFormat' }));
         const noFormatFormatterModuleMock = jest.fn(() => noFormatFormatterClassMock);
-        jest.doMock('../formatters/NoFormatFormatter/Formatter', noFormatFormatterModuleMock, { virtual: true });
+        jest.doMock('../formatters/NoFormat/Formatter', noFormatFormatterModuleMock, { virtual: true });
 
         const formatter2ClassMock = jest.fn(() => ({ formatter: 'formatter2' }));
         const formatter2ModuleMock = jest.fn(() => formatter2ClassMock);
@@ -49,8 +55,8 @@ describe('loadOutputs', () => {
 
         const outputs = await loadOutputs(outputConfigs, appConfiguration);
 
-        expect(outputs.length).toBe(2);
-        const [output1, output2] = outputs;
+        expect(outputs.length).toBe(3);
+        const [output1, output2, output3] = outputs;
 
         expect(output1.condition).toBeInstanceOf(TrueCondition);
         expect(output1.excludeFromNonProcessedWarning).toBe(false);
@@ -71,6 +77,17 @@ describe('loadOutputs', () => {
             outputConfig: outputConfigs[1],
             formatter: {
                 formatter: 'formatter2'
+            }
+        });
+
+        expect(output3.condition).toStrictEqual({ condition: 'condition2' });
+        expect(output3.excludeFromNonProcessedWarning).toBe(false);
+        expect(output3.output).toStrictEqual({
+            output: 'output2',
+            appConfig: appConfiguration,
+            outputConfig: outputConfigs[2],
+            formatter: {
+                formatter: 'NoFormat'
             }
         });
     });

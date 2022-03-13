@@ -1,6 +1,6 @@
 import { AppConfigurations, WorklogSets } from "../../../tests/entities";
 import { FormatterConfigurationBase } from "../FormatterConfigurationBase";
-import { NoFormatFormatter } from "./NoFormatFormatter";
+import { NoFormatFormatter } from "./Formatter";
 
 describe('format', () => {
     test('returns the string representation of the worklog', () => {

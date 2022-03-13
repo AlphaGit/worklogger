@@ -1,1 +1,1 @@
-export { NoFormatFormatter } from './NoFormatFormatter';
+export { NoFormatFormatter } from './Formatter';

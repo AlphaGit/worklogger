@@ -30,7 +30,10 @@ async function loadOuput(outputConfiguration: IOutputConfiguration, appConfigura
 }
 
 async function loadFormatter(formatterConfiguration: IFormatterConfig | undefined, appConfiguration: IAppConfiguration): Promise<FormatterBase> {
-    const formatterType = formatterConfiguration?.type || 'NoFormatFormatter';
+    if (!formatterConfiguration)
+        formatterConfiguration = { type: 'NoFormat' };
+
+    const formatterType = formatterConfiguration?.type || 'NoFormat';
 
     logger.debug(`Loading ${formatterType} formatter`);
     const formatterModule = await import(`../formatters/${formatterType}/Formatter`);
