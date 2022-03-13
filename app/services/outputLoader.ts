@@ -5,9 +5,9 @@ import { OutputWithCondition } from './OutputWithCondition';
 import { IFormatterConfig } from '../formatters/IFormatterConfig';
 import { OutputBase } from '../outputs/OutputBase';
 import { FormatterBase } from '../formatters/FormatterBase';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../services/Logger';
 
-const logger = getLogger('services/outputLoader');
+const logger = getLogger(LoggerCategory.Services);
 
 export async function loadOutputs(outputConfigurations: IOutputConfiguration[], appConfiguration: IAppConfiguration): Promise<OutputWithCondition[]> {
     return Promise.all(outputConfigurations.map(async outputConfig => {

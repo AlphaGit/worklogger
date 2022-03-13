@@ -1,4 +1,4 @@
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 import { google, Auth } from 'googleapis';
 
 import { IAppConfiguration, IServiceRegistrations, Worklog } from '../../models';
@@ -8,7 +8,7 @@ import { IGoogleCredentials, IApiResponse, ModelMapper, GoogleCalendarConfigurat
 import { IInput } from '../IInput';
 
 export class Input implements IInput {
-    private logger = getLogger();
+    private logger = getLogger(LoggerCategory.Inputs);
     private modelMapper: ModelMapper = new ModelMapper();
     private fileLoader: IFileLoader;
     private inputConfiguration: GoogleCalendarConfiguration;

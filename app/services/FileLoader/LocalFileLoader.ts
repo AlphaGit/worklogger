@@ -1,8 +1,8 @@
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../Logger';
 import { resolve } from 'path';
 import { IFileLoader } from './IFileLoader';
 
-const logger = getLogger('services/FileLoader/LocalFileLoader');
+const logger = getLogger(LoggerCategory.Services);
 
 export class LocalFileLoader implements IFileLoader {
     public async loadJson(filePath: string): Promise<Record<string, unknown>> {

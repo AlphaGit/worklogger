@@ -3,9 +3,9 @@ import { HarvestProjectAndTasks } from './HarvestProjectAndTasks';
 import { IHarvestConfiguration } from './IHarvestConfiguration';
 import { IHarvestInternal_ProjectAssignmentResponse } from './IHarvestInternal_ProjectAssignmentResponse';
 import fetch from 'node-fetch';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../Logger';
 
-const logger = getLogger('services/HarvestClient');
+const logger = getLogger(LoggerCategory.Services);
 
 export class HarvestClient {
     static HarvestBaseUrl = 'https://api.harvestapp.com/api/v2';

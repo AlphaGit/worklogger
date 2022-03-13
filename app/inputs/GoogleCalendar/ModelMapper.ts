@@ -1,10 +1,10 @@
 import { Worklog, Tag } from '../../models';
 import { GoogleCalendarCalendarConfiguration, IApiResponse } from '.';
 import { calendar_v3 } from 'googleapis';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class ModelMapper {
-    private logger = getLogger('GoogleCalendarInput/ModelMapper');
+    private logger = getLogger(LoggerCategory.Inputs);
 
     map(apiResponses: IApiResponse[]): Worklog[] {
         return apiResponses

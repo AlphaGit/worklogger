@@ -1,5 +1,5 @@
 import { IAppConfiguration, IServiceRegistrations, Worklog, WorklogSet } from './app/models'
-import { getLogger, configure as configureLogger } from 'log4js';
+import { getLogger, configureLogger, LoggerCategory } from './app/services/Logger';
 import { loadActionsAndConditions, IActionWithCondition } from './app/services/actionLoader';
 import { getProcessedConfiguration, ParsedTimeFrame } from './app/services/configurationProcessor';
 import { loadOutputs } from './app/services/outputLoader';
@@ -15,7 +15,7 @@ type Arguments = {
 };
 
 export async function start(receivedArguments: string[] | Arguments): Promise<void> {
-    const logger = getLogger('worklogger');
+    const logger = getLogger(LoggerCategory.App);
 
     logger.level = 'trace';
 

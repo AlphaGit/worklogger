@@ -8,7 +8,7 @@ import { JiraWorklog } from './JiraWorklog';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
 
 import * as moment from 'moment-timezone';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 interface IJiraTicketWithWorklog {
     jiraTicket: string;
@@ -16,7 +16,7 @@ interface IJiraTicketWithWorklog {
 }
 
 export class JiraWorklogOutput extends OutputBase {
-    private logger = getLogger('outputs/JiraWorklog/Output');
+    private logger = getLogger(LoggerCategory.Outputs);
     private _jiraClient: JiraClient;
 
     constructor(formatter: FormatterBase, outputConfiguration: IJiraWorklogOutputConfiguration, appConfiguration: IAppConfiguration) {

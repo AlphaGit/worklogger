@@ -1,14 +1,14 @@
 import { JiraWorklog, IJiraWorklogOutputConfiguration } from '.';
 
 import fetch from 'node-fetch';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export interface IJiraClient {
     saveWorklog(ticketId: string, worklog: JiraWorklog): Promise<void>;
 }
 
 export class JiraClient implements IJiraClient {
-    private logger = getLogger('outputs/JiraWorklog/JiraClient');
+    private logger = getLogger(LoggerCategory.Outputs);
 
     constructor(private config: IJiraWorklogOutputConfiguration) {
         if (!config.JiraUrl) throw new Error('Required parameter: baseUrl.');

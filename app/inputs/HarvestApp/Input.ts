@@ -3,10 +3,10 @@ import { IAppConfiguration, Worklog, IServiceRegistrations, Tag } from '../../mo
 import { HarvestInputConfiguration, HarvestTimeEntry } from '.';
 
 import { tz } from 'moment-timezone';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class Input {
-    private logger = getLogger('inputs/HarvestApp/Input');
+    private logger = getLogger(LoggerCategory.Inputs);
     private harvestClient: HarvestClient;
 
     constructor(

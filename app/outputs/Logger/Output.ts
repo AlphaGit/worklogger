@@ -4,10 +4,10 @@ import { IAppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { IOutputConfiguration } from '../IOutputConfiguration';
 
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class LoggerOutput extends OutputBase {
-    private _logger = getLogger();
+    private _logger = getLogger(LoggerCategory.Outputs);
 
     constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);

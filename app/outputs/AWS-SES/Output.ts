@@ -3,14 +3,14 @@ import { IAppConfiguration, WorklogSet } from '../../models';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 import { SESv2Client, SendEmailCommand, SendEmailCommandInput } from '@aws-sdk/client-sesv2';
 import { render } from 'mustache';
 
 export class AwsSesOutput extends OutputBase {
     private SES: SESv2Client;
     private _configuration: IAwsSesOutputConfiguration;
-    private logger = getLogger('AWS-SES/Output');
+    private logger = getLogger(LoggerCategory.Outputs);
 
     constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);

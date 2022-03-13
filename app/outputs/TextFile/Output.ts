@@ -4,9 +4,9 @@ import { FormatterBase } from '../../formatters/FormatterBase';
 import { IAppConfiguration } from '../../models/AppConfiguration';
 import { WorklogSet } from '../../models/WorklogSet';
 import { ITextFileOutputConfiguration } from './ITextFileOutputConfiguration';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
-const logger = getLogger('TextFile/Output');
+const logger = getLogger(LoggerCategory.Outputs);
 
 export class TextFileOutput extends OutputBase {
     private _configuration: ITextFileOutputConfiguration;

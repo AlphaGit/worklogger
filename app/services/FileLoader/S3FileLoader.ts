@@ -1,9 +1,9 @@
 import { S3 } from '@aws-sdk/client-s3';
 import { IFileLoader } from './IFileLoader';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../Logger';
 import { Readable } from 'stream';
 
-const logger = getLogger('services/FileLoader/S3FileLoader');
+const logger = getLogger(LoggerCategory.Services);
 
 export class S3FileLoader implements IFileLoader {
     private s3Bucket: string;

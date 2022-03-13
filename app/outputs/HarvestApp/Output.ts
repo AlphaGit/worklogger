@@ -7,10 +7,10 @@ import { IHarvestAppOutputConfiguration } from './IHarvestAppOutputConfiguration
 import { HarvestTimeEntry } from '.';
 
 import * as moment from 'moment-timezone';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class HarvestAppOutput extends OutputBase {
-    private logger = getLogger('HarvestApp/Output');
+    private logger = getLogger(LoggerCategory.Outputs);
     private harvestClient: HarvestClient;
     private configuration: IHarvestAppOutputConfiguration;
 

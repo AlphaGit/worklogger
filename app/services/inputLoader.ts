@@ -1,9 +1,9 @@
 import { IServiceRegistrations } from '../models/ServiceRegistrations';
 import { IAppConfiguration } from '../models/AppConfiguration';
 import { IInput } from '../inputs/IInput';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../services/Logger';
 
-const logger = getLogger('services/inputLoader');
+const logger = getLogger(LoggerCategory.Services);
 
 export async function loadInputs(serviceRegistrations: IServiceRegistrations, appConfiguration: IAppConfiguration): Promise<IInput[]> {
     const loadedInputs: IInput[] = [];

@@ -2,9 +2,9 @@ import { RelativeTime } from '../models/RelativeTime';
 import { IAppConfiguration } from '../models/AppConfiguration';
 import { TimeSpecification } from '../models';
 import { tz, DurationInputArg2 } from 'moment-timezone';
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../services/Logger';
 
-const logger = getLogger('services/configurationProcessor');
+const logger = getLogger(LoggerCategory.Services);
 
 export type ParsedTimeFrame = {
     start: Date;

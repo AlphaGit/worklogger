@@ -1,4 +1,4 @@
-import { getLogger } from 'log4js';
+import { getLogger, LoggerCategory } from '../../services/Logger';
 
 import { Worklog } from '../../models/Worklog';
 import { AddTagConfiguration } from './AddTagConfiguration';
@@ -8,7 +8,7 @@ import { Tag } from '../../models';
 
 export class AddTagAction implements IAction {
     private _tagsToAdd: AddTagDefinition[];
-    private _logger = getLogger();
+    private _logger = getLogger(LoggerCategory.Actions);
 
     constructor(configuration: AddTagConfiguration) {
         if (Array.isArray(configuration.tagsToAdd) && !configuration.tagsToAdd.length)
