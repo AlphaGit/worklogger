@@ -8839,7 +8839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:*, node-fetch@npm:^3.0.0":
+"node-fetch@npm:*, node-fetch@npm:^3.2.3":
   version: 3.2.3
   resolution: "node-fetch@npm:3.2.3"
   dependencies:
@@ -11909,7 +11909,7 @@ __metadata:
     minimist: ^1.2.3
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
-    node-fetch: ^3.0.0
+    node-fetch: ^3.2.3
     nyc: ^15.1.0
     serverless: ^3.7.4
     serverless-event-constant-inputs: 0.0.1
