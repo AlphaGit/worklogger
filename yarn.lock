@@ -216,7 +216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-sesv2@npm:^3.53.0":
+"@aws-sdk/client-sesv2@npm:^3.54.0":
   version: 3.54.0
   resolution: "@aws-sdk/client-sesv2@npm:3.54.0"
   dependencies:
@@ -11882,7 +11882,7 @@ __metadata:
   resolution: "worklogger@workspace:."
   dependencies:
     "@aws-sdk/client-s3": ^3.54.0
-    "@aws-sdk/client-sesv2": ^3.53.0
+    "@aws-sdk/client-sesv2": ^3.54.0
     "@aws-sdk/signature-v4-crt": ^3.53.0
     "@types/aws-lambda": ^8.10.92
     "@types/jest": ^27.4.1
