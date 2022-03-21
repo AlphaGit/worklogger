@@ -2242,13 +2242,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/aws-lambda-otel-extension-dist@npm:^0.1.9":
-  version: 0.1.11
-  resolution: "@serverless/aws-lambda-otel-extension-dist@npm:0.1.11"
-  checksum: 3e6b356c791656aa4cf79130feca4387bafb745fc400084636ef32f6a44f5c4c60c84ad4e5454c39d30dc60444e5221b3dc5fe56ee6ef9766c68fb1b5fb7eeb0
-  languageName: node
-  linkType: hard
-
 "@serverless/dashboard-plugin@npm:^6.1.5":
   version: 6.1.5
   resolution: "@serverless/dashboard-plugin@npm:6.1.5"
@@ -3444,9 +3437,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1090.0, aws-sdk@npm:^2.1093.0, aws-sdk@npm:^2.814.0":
-  version: 2.1093.0
-  resolution: "aws-sdk@npm:2.1093.0"
+"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1093.0, aws-sdk@npm:^2.1095.0, aws-sdk@npm:^2.814.0":
+  version: 2.1096.0
+  resolution: "aws-sdk@npm:2.1096.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3457,7 +3450,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 2b2fc480c715fdaadc4ccd6f852afb0dfcb9a947cf1a740cd747959459edb9ec17551f7dcc6c81f9213456343acb9358dd847396a79b3e4fec68235f314b79f9
+  checksum: 1f18a52e3155a6badeccdbd6496d0a0adc3c39e8ce03ed3cf2686d9d66ab66ccfa167143582a81f45420ecd3751e28876e9f6a64ee8a4de07f48ff3c36701d69
   languageName: node
   linkType: hard
 
@@ -3824,6 +3817,13 @@ __metadata:
   version: 3.2.0
   resolution: "builtin-modules@npm:3.2.0"
   checksum: 0265aa1ba78e1a16f4e18668d815cb43fb364e6a6b8aa9189c6f44c7b894a551a43b323c40206959d2d4b2568c1f2805607ad6c88adc306a776ce6904cca6715
+  languageName: node
+  linkType: hard
+
+"builtins@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "builtins@npm:1.0.3"
+  checksum: 47ce94f7eee0e644969da1f1a28e5f29bd2e48b25b2bbb61164c345881086e29464ccb1fb88dbc155ea26e8b1f5fc8a923b26c8c1ed0935b67b644d410674513
   languageName: node
   linkType: hard
 
@@ -4607,10 +4607,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.8":
-  version: 1.10.8
-  resolution: "dayjs@npm:1.10.8"
-  checksum: 5a6b358a0646a780b7dbbec07b8c4400425143f88bf127f456bd2e75a854046f54808d65da2bf964c8267b82dbde0530e990376757ce7d961349d9cde8716a1d
+"dayjs@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "dayjs@npm:1.11.0"
+  checksum: 2d36f6d71345114cdcd89147adf9e05b4f8fe81684e08c8bf1f86b140aa0b86ecc3cae661a9348d96feb7fbefd03e1bc3697303688e95209670abcb36b4ece15
   languageName: node
   linkType: hard
 
@@ -8968,6 +8968,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"npm-registry-utilities@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "npm-registry-utilities@npm:1.0.0"
+  dependencies:
+    ext: ^1.6.0
+    fs2: ^0.3.9
+    memoizee: ^0.4.15
+    node-fetch: ^2.6.7
+    semver: ^7.3.5
+    type: ^2.6.0
+    validate-npm-package-name: ^3.0.0
+  checksum: c7d4be7326544a2a309fa524c459e5d283034cb8771516290e6ba6474ec82fa7b0db6a2bfa019b22ed433180f10c9c2f997c6d56f87c1479ab13324493494d48
+  languageName: node
+  linkType: hard
+
 "npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
@@ -10332,18 +10347,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.7.4":
-  version: 3.7.4
-  resolution: "serverless@npm:3.7.4"
+"serverless@npm:^3.7.9":
+  version: 3.7.9
+  resolution: "serverless@npm:3.7.9"
   dependencies:
-    "@serverless/aws-lambda-otel-extension-dist": ^0.1.9
     "@serverless/dashboard-plugin": ^6.1.5
     "@serverless/platform-client": ^4.3.2
     "@serverless/utils": ^6.0.3
     ajv: ^8.10.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1090.0
+    aws-sdk: ^2.1095.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10351,7 +10365,7 @@ __metadata:
     ci-info: ^3.3.0
     cli-progress-footer: ^2.3.0
     d: ^1.0.1
-    dayjs: ^1.10.8
+    dayjs: ^1.11.0
     decompress: ^4.2.1
     dotenv: ^10.0.0
     dotenv-expand: ^5.1.0
@@ -10373,6 +10387,7 @@ __metadata:
     memoizee: ^0.4.15
     micromatch: ^4.0.4
     node-fetch: ^2.6.7
+    npm-registry-utilities: ^1.0.0
     object-hash: ^2.2.0
     open: ^7.4.2
     path2: ^0.1.0
@@ -10392,7 +10407,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: d256648e1feaa85049ed20df4aa75fcad6b5720794d1df2e8c5f52d73d3b26bf8d543ca2b5cc3938c8abd1e68becbbbb4161c31be75298b7aad08520d6ee5999
+  checksum: 8075b247eaa2a762580659d7077664f2990bb864aa5f39cb6d8e2d969293755c703367712bbed30d6ec5407f1a33ae1169d6bb41f90cbc859a1ca53f36b42c62
   languageName: node
   linkType: hard
 
@@ -11627,6 +11642,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"validate-npm-package-name@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "validate-npm-package-name@npm:3.0.0"
+  dependencies:
+    builtins: ^1.0.3
+  checksum: ce4c68207abfb22c05eedb09ff97adbcedc80304a235a0844f5344f1fd5086aa80e4dbec5684d6094e26e35065277b765c1caef68bcea66b9056761eddb22967
+  languageName: node
+  linkType: hard
+
 "velocityjs@npm:^2.0.6":
   version: 2.0.6
   resolution: "velocityjs@npm:2.0.6"
@@ -11922,7 +11946,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.7.4
+    serverless: ^3.7.9
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.5.0
     serverless-webpack: ^5.6.1
