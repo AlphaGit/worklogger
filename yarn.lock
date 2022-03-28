@@ -2198,13 +2198,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/dashboard-plugin@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@serverless/dashboard-plugin@npm:6.1.5"
+"@serverless/dashboard-plugin@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@serverless/dashboard-plugin@npm:6.2.0"
   dependencies:
     "@serverless/event-mocks": ^1.1.1
     "@serverless/platform-client": ^4.3.2
-    "@serverless/utils": ^6.0.2
+    "@serverless/utils": ^6.0.3
     child-process-ext: ^2.1.1
     chokidar: ^3.5.3
     flat: ^5.0.2
@@ -2218,11 +2218,11 @@ __metadata:
     node-fetch: ^2.6.7
     open: ^7.4.2
     semver: ^7.3.5
-    simple-git: ^2.48.0
+    simple-git: ^3.4.0
     type: ^2.6.0
     uuid: ^8.3.2
     yamljs: ^0.3.0
-  checksum: c6cdcae586eb60b58a131237d9ae1c97be64f2de72c5f86ccd182f3c4cc412d179e77b3ef1c291f9128e6067ed6d4a23b8a19b5022ca53c5596289e230af3656
+  checksum: b1b368e06e3eebac62b867a8e4cf14465cc0f1a736e9bc635b3de78cd42201c9d34cbb0ff0fd5301bc454f2e57404370d7c81b308571452114be16ed8ae734d5
   languageName: node
   linkType: hard
 
@@ -2259,7 +2259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.2, @serverless/utils@npm:^6.0.3":
+"@serverless/utils@npm:^6.0.3":
   version: 6.0.3
   resolution: "@serverless/utils@npm:6.0.3"
   dependencies:
@@ -3094,15 +3094,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.10.0":
-  version: 8.10.0
-  resolution: "ajv@npm:8.10.0"
+"ajv@npm:^8.0.0, ajv@npm:^8.11.0":
+  version: 8.11.0
+  resolution: "ajv@npm:8.11.0"
   dependencies:
     fast-deep-equal: ^3.1.1
     json-schema-traverse: ^1.0.0
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
-  checksum: 3594728ef1e31219ef97bfacb203d0d72db8ad5c35d6d0578e38ee453e4537c2bf927dad144bb84b0c893f661d71b58337d4643e8ee2f2a6e1d63b041c92fe82
+  checksum: 5e0ff226806763be73e93dd7805b634f6f5921e3e90ca04acdf8db81eed9d8d3f0d4c5f1213047f45ebbf8047ffe0c840fa1ef2ec42c3a644899f69aa72b5bef
   languageName: node
   linkType: hard
 
@@ -3393,9 +3393,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1093.0, aws-sdk@npm:^2.1095.0, aws-sdk@npm:^2.814.0":
-  version: 2.1096.0
-  resolution: "aws-sdk@npm:2.1096.0"
+"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1093.0, aws-sdk@npm:^2.1100.0, aws-sdk@npm:^2.814.0":
+  version: 2.1101.0
+  resolution: "aws-sdk@npm:2.1101.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3406,7 +3406,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 1f18a52e3155a6badeccdbd6496d0a0adc3c39e8ce03ed3cf2686d9d66ab66ccfa167143582a81f45420ecd3751e28876e9f6a64ee8a4de07f48ff3c36701d69
+  checksum: e0df61cce4724d7873872dfe8c4c052f70207c8e33dec235aa503b073c371eedc8d77044050803685d1b309835e7a45fb666e05e6efd4abced4d1cb4f901d84f
   languageName: node
   linkType: hard
 
@@ -3633,7 +3633,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"braces@npm:^3.0.1, braces@npm:~3.0.2":
+"braces@npm:^3.0.2, braces@npm:~3.0.2":
   version: 3.0.2
   resolution: "braces@npm:3.0.2"
   dependencies:
@@ -8444,13 +8444,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.0, micromatch@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "micromatch@npm:4.0.4"
+"micromatch@npm:^4.0.0, micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "micromatch@npm:4.0.5"
   dependencies:
-    braces: ^3.0.1
-    picomatch: ^2.2.3
-  checksum: ef3d1c88e79e0a68b0e94a03137676f3324ac18a908c245a9e5936f838079fcc108ac7170a5fadc265a9c2596963462e402841406bda1a4bb7b68805601d631c
+    braces: ^3.0.2
+    picomatch: ^2.3.1
+  checksum: 02a17b671c06e8fefeeb6ef996119c1e597c942e632a21ef589154f23898c9c6a9858526246abb14f8bca6e77734aa9dcf65476fca47cedfb80d9577d52843fc
   languageName: node
   linkType: hard
 
@@ -9500,7 +9500,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
@@ -10303,17 +10303,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.7.9":
-  version: 3.7.9
-  resolution: "serverless@npm:3.7.9"
+"serverless@npm:^3.10.0":
+  version: 3.10.0
+  resolution: "serverless@npm:3.10.0"
   dependencies:
-    "@serverless/dashboard-plugin": ^6.1.5
+    "@serverless/dashboard-plugin": ^6.2.0
     "@serverless/platform-client": ^4.3.2
     "@serverless/utils": ^6.0.3
-    ajv: ^8.10.0
+    ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1095.0
+    aws-sdk: ^2.1100.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10341,7 +10341,7 @@ __metadata:
     json-refs: ^3.0.15
     lodash: ^4.17.21
     memoizee: ^0.4.15
-    micromatch: ^4.0.4
+    micromatch: ^4.0.5
     node-fetch: ^2.6.7
     npm-registry-utilities: ^1.0.0
     object-hash: ^2.2.0
@@ -10363,7 +10363,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 8075b247eaa2a762580659d7077664f2990bb864aa5f39cb6d8e2d969293755c703367712bbed30d6ec5407f1a33ae1169d6bb41f90cbc859a1ca53f36b42c62
+  checksum: 186680e14f15e67090af54aa5ba4c657962e6b7734ea5eac044438aa31b4e5ed9c03025f252dbe193521d598fd86eb7a164927f1806033a40398dfcf785c73bc
   languageName: node
   linkType: hard
 
@@ -10438,14 +10438,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:^2.48.0":
-  version: 2.48.0
-  resolution: "simple-git@npm:2.48.0"
+"simple-git@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "simple-git@npm:3.4.0"
   dependencies:
     "@kwsites/file-exists": ^1.1.1
     "@kwsites/promise-deferred": ^1.1.1
-    debug: ^4.3.2
-  checksum: ba84b942ad5cebb9d43df2f147e414e348584f40023121896959f22d05e260ae71b862a93db5c473413f8d218f2122f2964d22f6b7bd77cc12dabc7e73b066be
+    debug: ^4.3.3
+  checksum: 9b05f05dcca69631317fdfa30288d342ac08b9822daea3a939c24fbbe24048ef768cae22e3e72b7a78c268635a63f72536e4530927c12d815a21be6e1e7a294e
   languageName: node
   linkType: hard
 
@@ -11901,7 +11901,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.7.9
+    serverless: ^3.10.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.5.0
     serverless-webpack: ^5.6.1
