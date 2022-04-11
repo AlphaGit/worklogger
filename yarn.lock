@@ -2214,9 +2214,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/dashboard-plugin@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@serverless/dashboard-plugin@npm:6.2.0"
+"@serverless/dashboard-plugin@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@serverless/dashboard-plugin@npm:6.2.1"
   dependencies:
     "@serverless/event-mocks": ^1.1.1
     "@serverless/platform-client": ^4.3.2
@@ -2226,7 +2226,7 @@ __metadata:
     flat: ^5.0.2
     fs-extra: ^9.1.0
     js-yaml: ^4.1.0
-    jszip: ^3.7.1
+    jszip: ^3.8.0
     lodash: ^4.17.21
     memoizee: ^0.4.15
     ncjsm: ^4.3.0
@@ -2234,11 +2234,11 @@ __metadata:
     node-fetch: ^2.6.7
     open: ^7.4.2
     semver: ^7.3.5
-    simple-git: ^3.4.0
+    simple-git: ^3.5.0
     type: ^2.6.0
     uuid: ^8.3.2
     yamljs: ^0.3.0
-  checksum: b1b368e06e3eebac62b867a8e4cf14465cc0f1a736e9bc635b3de78cd42201c9d34cbb0ff0fd5301bc454f2e57404370d7c81b308571452114be16ed8ae734d5
+  checksum: 62891c8088ffa7274386699ad2406f0c96391dfddc8d60dd717c7470b157e64d6477d38a1055e945f0d4c0993cc18b5bd6b9a3f18b29bfe50f90341af1ee043e
   languageName: node
   linkType: hard
 
@@ -3409,9 +3409,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1104.0, aws-sdk@npm:^2.1106.0, aws-sdk@npm:^2.814.0":
-  version: 2.1106.0
-  resolution: "aws-sdk@npm:2.1106.0"
+"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1106.0, aws-sdk@npm:^2.1109.0, aws-sdk@npm:^2.814.0":
+  version: 2.1111.0
+  resolution: "aws-sdk@npm:2.1111.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3422,7 +3422,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 245b8eaf44be33ed17b95238ce9a175841d6402ac97a178646766e14309fd0bbfc9f19da0e63227ab9692f1d0d1b158f749521e5a55195702422b83b9cdd87ab
+  checksum: 1e918377e23704b1656aa5b9072ef8d8166198b14a4cdfd313745f7d4a3f826e3c14f4806e5b985fd67139a2a4cf30d65a0024cec16fbb6daa3ae99287951b76
   languageName: node
   linkType: hard
 
@@ -6299,10 +6299,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.10, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
-  version: 4.2.9
-  resolution: "graceful-fs@npm:4.2.9"
-  checksum: 68ea4e07ff2c041ada184f9278b830375f8e0b75154e3f080af6b70f66172fabb4108d19b3863a96b53fc068a310b9b6493d86d1291acc5f3861eb4b79d26ad6
+"graceful-fs@npm:^4.1.10, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.10, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
+  version: 4.2.10
+  resolution: "graceful-fs@npm:4.2.10"
+  checksum: 3f109d70ae123951905d85032ebeae3c2a5a7a997430df00ea30df0e3a6c60cf6689b109654d6fdacd28810a053348c4d14642da1d075049e6be1ba5216218da
   languageName: node
   linkType: hard
 
@@ -7894,15 +7894,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jszip@npm:^3.7.1":
-  version: 3.7.1
-  resolution: "jszip@npm:3.7.1"
+"jszip@npm:^3.7.1, jszip@npm:^3.8.0":
+  version: 3.9.1
+  resolution: "jszip@npm:3.9.1"
   dependencies:
     lie: ~3.3.0
     pako: ~1.0.2
     readable-stream: ~2.3.6
     set-immediate-shim: ~1.0.1
-  checksum: 67d737a82b294cc102e7451e32d5acbbab29860399be460cae598084327e6f2ea0c9bca2d3dad701da6a75ddf77f34c6a1dd7db0c3d5c0fec5998b7e56d6d59d
+  checksum: 8c4c3e99beea3dad8a0f965f2f84d3d0f68aa7d936e069f64982fe393745d27ea6aa82c5dbd7376c73f94cfad1a0ecbf240c7a380419d3d1192148c4ef8a381d
   languageName: node
   linkType: hard
 
@@ -10304,17 +10304,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.10.2":
-  version: 3.10.2
-  resolution: "serverless@npm:3.10.2"
+"serverless@npm:^3.12.0":
+  version: 3.12.0
+  resolution: "serverless@npm:3.12.0"
   dependencies:
-    "@serverless/dashboard-plugin": ^6.2.0
+    "@serverless/dashboard-plugin": ^6.2.1
     "@serverless/platform-client": ^4.3.2
     "@serverless/utils": ^6.0.3
     ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1104.0
+    aws-sdk: ^2.1109.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10334,7 +10334,7 @@ __metadata:
     get-stdin: ^8.0.0
     globby: ^11.1.0
     got: ^11.8.3
-    graceful-fs: ^4.2.9
+    graceful-fs: ^4.2.10
     https-proxy-agent: ^5.0.0
     is-docker: ^2.2.1
     js-yaml: ^4.1.0
@@ -10351,7 +10351,7 @@ __metadata:
     process-utils: ^4.0.0
     promise-queue: ^2.2.5
     require-from-string: ^2.0.2
-    semver: ^7.3.5
+    semver: ^7.3.6
     signal-exit: ^3.0.7
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
@@ -10364,7 +10364,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 5f4379029f26bbc21ff317a7608c9d043626540c1830e50d86648400cc0f939555d21d760d774ecaf0a5f80d2c1fdd5c8173ef0d1f63ab4a3cf8b456beee9962
+  checksum: 4989e549927ffa3d4dcbbab340f72ea423949d63ec3a46b3c8952c2d4217ab7d956f55b01509abd1de8efd03a943b969f0e0a8767899c04523632abfa096744e
   languageName: node
   linkType: hard
 
@@ -10439,14 +10439,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "simple-git@npm:3.4.0"
+"simple-git@npm:^3.5.0":
+  version: 3.6.0
+  resolution: "simple-git@npm:3.6.0"
   dependencies:
     "@kwsites/file-exists": ^1.1.1
     "@kwsites/promise-deferred": ^1.1.1
     debug: ^4.3.3
-  checksum: 9b05f05dcca69631317fdfa30288d342ac08b9822daea3a939c24fbbe24048ef768cae22e3e72b7a78c268635a63f72536e4530927c12d815a21be6e1e7a294e
+  checksum: a6bd4eaefe7ab9137deff7a2b29dd4f7dc02f4be00afce75b4ee5eec1b06a1b0253cf46cb326db84d960144358ddc7df75f9cefc18207ade7bdb3f2bc60bbbfd
   languageName: node
   linkType: hard
 
@@ -11902,7 +11902,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.10.2
+    serverless: ^3.12.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.5.0
     serverless-webpack: ^5.7.0
