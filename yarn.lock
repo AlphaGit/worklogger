@@ -852,9 +852,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.58.0":
-  version: 3.58.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.58.0"
+"@aws-sdk/signature-v4-crt@npm:^3.66.0":
+  version: 3.66.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.66.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.55.0
     "@aws-sdk/querystring-parser": 3.55.0
@@ -862,9 +862,9 @@ __metadata:
     "@aws-sdk/util-hex-encoding": 3.58.0
     "@aws-sdk/util-middleware": 3.55.0
     "@aws-sdk/util-uri-escape": 3.55.0
-    aws-crt: ^1.11.3
+    aws-crt: ^1.12.1
     tslib: ^2.3.1
-  checksum: a52a1c132b730c41aab03ce93f261780b2a5d562d181d05f93c5241c104c9f5e7a0cf822efbab15f265dbd86d603060976648bcb712de44266925c215e465c14
+  checksum: c2cdf77eb96b470a112f5499408760aee30fc2cc4f92e2baf72eb373560f7899237054ac50658efee827cc606827a87deb7e546e5d5b684bd572373ac64b90d7
   languageName: node
   linkType: hard
 
@@ -3379,9 +3379,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-crt@npm:^1.11.3":
-  version: 1.11.3
-  resolution: "aws-crt@npm:1.11.3"
+"aws-crt@npm:^1.12.1":
+  version: 1.12.1
+  resolution: "aws-crt@npm:1.12.1"
   dependencies:
     "@httptoolkit/websocket-stream": ^6.0.0
     axios: ^0.24.0
@@ -3391,7 +3391,7 @@ __metadata:
     mqtt: ^4.3.4
     tar: ^6.1.11
     ws: ^7.5.5
-  checksum: da3d7bfe97c907d0114efdbdf91b1173fe9e6345ae6be64f02b4b02977dcfaab9b3029c32ed13e5cd68d4587a5c2f0b57d148c8be32c8f50d97850c8ebcaf06a
+  checksum: b9e04652adf456c13de75532a334fd35031cd1d9064aa3988ac92719d89d52a4d5565274033236cca64d758523d787ec68100b878f480d5a09d576b9ccca0453
   languageName: node
   linkType: hard
 
@@ -11874,7 +11874,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.58.0
     "@aws-sdk/client-sesv2": ^3.58.0
-    "@aws-sdk/signature-v4-crt": ^3.58.0
+    "@aws-sdk/signature-v4-crt": ^3.66.0
     "@types/aws-lambda": ^8.10.92
     "@types/jest": ^27.4.1
     "@types/log4js": ^2.3.5
