@@ -3587,9 +3587,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1106.0, aws-sdk@npm:^2.1109.0, aws-sdk@npm:^2.814.0":
-  version: 2.1111.0
-  resolution: "aws-sdk@npm:2.1111.0"
+"aws-sdk@npm:^2.1076.0, aws-sdk@npm:^2.1106.0, aws-sdk@npm:^2.1114.0, aws-sdk@npm:^2.814.0":
+  version: 2.1116.0
+  resolution: "aws-sdk@npm:2.1116.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3600,7 +3600,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 1e918377e23704b1656aa5b9072ef8d8166198b14a4cdfd313745f7d4a3f826e3c14f4806e5b985fd67139a2a4cf30d65a0024cec16fbb6daa3ae99287951b76
+  checksum: 9042676e51c7bf52b30924daac864637e712e9d6cac7616b98e2adb3fea0f9c87005eea86f98ec4b167edd65716cf78f018cd9666d03080c76ae990b02132e09
   languageName: node
   linkType: hard
 
@@ -8487,7 +8487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^7.4.0, lru-cache@npm:^7.4.1, lru-cache@npm:^7.5.1":
+"lru-cache@npm:^7.4.1, lru-cache@npm:^7.5.1":
   version: 7.8.1
   resolution: "lru-cache@npm:7.8.1"
   checksum: 31ea67388c9774300331d70f4affd5a433869bcf0fae5405f967d19d7b447930b713b0566a2e95362c9082034a8b496f3671ccf8f0c061d8e8048412663f9432
@@ -10376,14 +10376,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.x, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.6":
-  version: 7.3.6
-  resolution: "semver@npm:7.3.6"
+"semver@npm:7.x, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.6, semver@npm:^7.3.7":
+  version: 7.3.7
+  resolution: "semver@npm:7.3.7"
   dependencies:
-    lru-cache: ^7.4.0
+    lru-cache: ^6.0.0
   bin:
     semver: bin/semver.js
-  checksum: 9845f96b22268190b30025e02feca391451f2bd49b2c51920c27cc56744f64cbe397df089018fdb347d4b4fd800eabbd85661870eb63eb28055d2b72e457f759
+  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
   languageName: node
   linkType: hard
 
@@ -10482,9 +10482,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.12.0":
-  version: 3.12.0
-  resolution: "serverless@npm:3.12.0"
+"serverless@npm:^3.14.0":
+  version: 3.14.0
+  resolution: "serverless@npm:3.14.0"
   dependencies:
     "@serverless/dashboard-plugin": ^6.2.1
     "@serverless/platform-client": ^4.3.2
@@ -10492,7 +10492,7 @@ __metadata:
     ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.0
-    aws-sdk: ^2.1109.0
+    aws-sdk: ^2.1114.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10529,7 +10529,7 @@ __metadata:
     process-utils: ^4.0.0
     promise-queue: ^2.2.5
     require-from-string: ^2.0.2
-    semver: ^7.3.6
+    semver: ^7.3.7
     signal-exit: ^3.0.7
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
@@ -10542,7 +10542,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 4989e549927ffa3d4dcbbab340f72ea423949d63ec3a46b3c8952c2d4217ab7d956f55b01509abd1de8efd03a943b969f0e0a8767899c04523632abfa096744e
+  checksum: 3beb21f16afb724a4ff458cf7ba962f15d005bf16a0310ce83b879c15f17fc6a67387c46294cf0dc7dbdc5b1740559ddc7bef470b5be093673f0b677b1015558
   languageName: node
   linkType: hard
 
@@ -12080,7 +12080,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.12.0
+    serverless: ^3.14.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.5.0
     serverless-webpack: ^5.7.0
