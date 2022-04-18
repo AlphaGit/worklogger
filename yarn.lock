@@ -4735,10 +4735,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-format@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "date-format@npm:4.0.6"
-  checksum: 167cf41f22ee0075a7a134c4a8f7179dcfdd818c55c90a29f369173e8230bd06eb2feef9d0efe18eba4a2ca7eb82e1a4e13140c67328f1a08d05608e020d2b82
+"date-format@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "date-format@npm:4.0.7"
+  checksum: d73f535d9ec4f2d6ee09c4ebf217dc9fd3d84d1ba25dbba5a01168960d4e657e79dc844e8e1c51872ff1540338c78f31af2a19c29d16f92a7596e41d25b5d0ff
   languageName: node
   linkType: hard
 
@@ -8429,16 +8429,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log4js@npm:*, log4js@npm:^6.4.4":
-  version: 6.4.4
-  resolution: "log4js@npm:6.4.4"
+"log4js@npm:*, log4js@npm:^6.4.5":
+  version: 6.4.5
+  resolution: "log4js@npm:6.4.5"
   dependencies:
-    date-format: ^4.0.6
+    date-format: ^4.0.7
     debug: ^4.3.4
     flatted: ^3.2.5
     rfdc: ^1.3.0
-    streamroller: ^3.0.6
-  checksum: 3c0d383f40b24d2e99222a4f4c75f1ee293baf2bed0a147d726e1a5d7bc7f759e6a824d65cb570461d07c6c160613d09847bdc3d19ad9250b97b686cb2d2d359
+    streamroller: ^3.0.7
+  checksum: 4261877c1c1275d698e00b350a7c49ad0f2b170460e003b6f710a6af0b8c9858b2311f06270aa6b944207789e0e54e2e0fd522013432c620011132fc588632e9
   languageName: node
   linkType: hard
 
@@ -10819,14 +10819,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamroller@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "streamroller@npm:3.0.6"
+"streamroller@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "streamroller@npm:3.0.7"
   dependencies:
-    date-format: ^4.0.6
+    date-format: ^4.0.7
     debug: ^4.3.4
     fs-extra: ^10.0.1
-  checksum: 80728554978ca01f30a10adef2029aedd8aff936f6b709748dadf44f34becc4aa582223bfb97a1159a479f12668b3156377fa081e76ae4fc02e7a283491f706b
+  checksum: 3df190f455eeedb16dd08e330854400005d9ee76817b73ad8a36df703534352de1c042ce761c6fc4d85ce282b74fd9cf2c2bb864e0375c5838bce9111c93ee00
   languageName: node
   linkType: hard
 
@@ -12074,7 +12074,7 @@ __metadata:
     inquirer: ^8.2.2
     jest: ^27.5.1
     jest-fetch-mock: ^3.0.3
-    log4js: ^6.4.4
+    log4js: ^6.4.5
     minimist: ^1.2.6
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
