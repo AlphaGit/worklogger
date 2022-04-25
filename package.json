@@ -48,7 +48,7 @@
     "ts-node": "^10.5.0"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.92",
+    "@types/aws-lambda": "^8.10.95",
     "@types/jest": "^27.4.1",
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.2",
