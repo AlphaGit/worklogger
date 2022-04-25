@@ -4845,10 +4845,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-format@npm:^4.0.7":
-  version: 4.0.7
-  resolution: "date-format@npm:4.0.7"
-  checksum: d73f535d9ec4f2d6ee09c4ebf217dc9fd3d84d1ba25dbba5a01168960d4e657e79dc844e8e1c51872ff1540338c78f31af2a19c29d16f92a7596e41d25b5d0ff
+"date-format@npm:^4.0.9":
+  version: 4.0.9
+  resolution: "date-format@npm:4.0.9"
+  checksum: c9cdc5123a9b99de5b7d6bc35197bf6bc01581c795b1cd4e24d72e29d7a535d3a6cbd6f993d90b1ff6d5d51d51a9c969730a8fb8cc8977eee3430c5320e2418a
   languageName: node
   linkType: hard
 
@@ -6164,14 +6164,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "fs-extra@npm:10.0.1"
+"fs-extra@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "fs-extra@npm:10.1.0"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: c1faaa5eb9e1c5c7c7ff09f966e93922ecb068ae1b04801cfc983ef05fcc1f66bfbb8d8d0b745c910014c7a2e7317fb6cf3bfe7390450c1157e3cc1a218f221d
+  checksum: dc94ab37096f813cc3ca12f0f1b5ad6744dfed9ed21e953d72530d103cea193c2f81584a39e9dee1bea36de5ee66805678c0dddc048e8af1427ac19c00fffc50
   languageName: node
   linkType: hard
 
@@ -8539,16 +8539,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log4js@npm:*, log4js@npm:^6.4.5":
-  version: 6.4.5
-  resolution: "log4js@npm:6.4.5"
+"log4js@npm:*, log4js@npm:^6.4.6":
+  version: 6.4.6
+  resolution: "log4js@npm:6.4.6"
   dependencies:
-    date-format: ^4.0.7
+    date-format: ^4.0.9
     debug: ^4.3.4
     flatted: ^3.2.5
     rfdc: ^1.3.0
-    streamroller: ^3.0.7
-  checksum: 4261877c1c1275d698e00b350a7c49ad0f2b170460e003b6f710a6af0b8c9858b2311f06270aa6b944207789e0e54e2e0fd522013432c620011132fc588632e9
+    streamroller: ^3.0.8
+  checksum: 22ce9738db32e19efffb9c7ec222ab151622afd45c1634bdc94487b1fb9be9de3ef45835eea3a728e52442d273d38eafa1b728f149aad1e76aac3b373dda09cf
   languageName: node
   linkType: hard
 
@@ -10917,14 +10917,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamroller@npm:^3.0.7":
-  version: 3.0.7
-  resolution: "streamroller@npm:3.0.7"
+"streamroller@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "streamroller@npm:3.0.8"
   dependencies:
-    date-format: ^4.0.7
+    date-format: ^4.0.9
     debug: ^4.3.4
-    fs-extra: ^10.0.1
-  checksum: 3df190f455eeedb16dd08e330854400005d9ee76817b73ad8a36df703534352de1c042ce761c6fc4d85ce282b74fd9cf2c2bb864e0375c5838bce9111c93ee00
+    fs-extra: ^10.1.0
+  checksum: 34dce4add3aec6efde41ac2dac1b9d3393e109628c49d56adb0093b8ef636ed907765113f5683ea64271f983fbfe775a7cf382d681dc3797d546d0065d7a3d27
   languageName: node
   linkType: hard
 
@@ -12172,7 +12172,7 @@ __metadata:
     inquirer: ^8.2.2
     jest: ^27.5.1
     jest-fetch-mock: ^3.0.3
-    log4js: ^6.4.5
+    log4js: ^6.4.6
     minimist: ^1.2.6
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
