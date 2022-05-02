@@ -3413,7 +3413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1097.0, aws-sdk@npm:^2.1119.0, aws-sdk@npm:^2.1125.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1097.0, aws-sdk@npm:^2.1124.0, aws-sdk@npm:^2.1125.0, aws-sdk@npm:^2.814.0":
   version: 2.1125.0
   resolution: "aws-sdk@npm:2.1125.0"
   dependencies:
@@ -10297,9 +10297,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.15.2":
-  version: 3.15.2
-  resolution: "serverless@npm:3.15.2"
+"serverless@npm:^3.16.0":
+  version: 3.16.0
+  resolution: "serverless@npm:3.16.0"
   dependencies:
     "@serverless/dashboard-plugin": ^6.2.2
     "@serverless/platform-client": ^4.3.2
@@ -10307,7 +10307,7 @@ __metadata:
     ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.1
-    aws-sdk: ^2.1119.0
+    aws-sdk: ^2.1124.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10357,7 +10357,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 9a2d439b8dccb7d1551b5a7b78c9272b76b744626843118ff447d014c15f0105379869adcdd6112aae61fe3f09fc333cbf2bbf045ef293e2214ce97ad445633d
+  checksum: 039a91e7e278ac3769f5bfda3e0dbebbec7c0714280d7e3f7b804ab963c69b4aa8e71ef62a41bd3a1e9b090598f5813991a71557ba40774ca874c67384b463d0
   languageName: node
   linkType: hard
 
@@ -11895,7 +11895,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.15.2
+    serverless: ^3.16.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.7.0
     serverless-webpack: ^5.7.0
