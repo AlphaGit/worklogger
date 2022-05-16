@@ -4622,10 +4622,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-format@npm:^4.0.9":
-  version: 4.0.9
-  resolution: "date-format@npm:4.0.9"
-  checksum: c9cdc5123a9b99de5b7d6bc35197bf6bc01581c795b1cd4e24d72e29d7a535d3a6cbd6f993d90b1ff6d5d51d51a9c969730a8fb8cc8977eee3430c5320e2418a
+"date-format@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "date-format@npm:4.0.10"
+  checksum: 677c8e022a5efcead2c869d18b3b1a3b61df6c2c464545ec91e68ea890088dae7704e5822009af420ea8bb26325ffce01be599cc9f087879ea4aefc70a964c7b
   languageName: node
   linkType: hard
 
@@ -8310,16 +8310,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log4js@npm:*, log4js@npm:^6.4.6":
-  version: 6.4.6
-  resolution: "log4js@npm:6.4.6"
+"log4js@npm:*, log4js@npm:^6.4.7":
+  version: 6.4.7
+  resolution: "log4js@npm:6.4.7"
   dependencies:
-    date-format: ^4.0.9
+    date-format: ^4.0.10
     debug: ^4.3.4
     flatted: ^3.2.5
     rfdc: ^1.3.0
-    streamroller: ^3.0.8
-  checksum: 22ce9738db32e19efffb9c7ec222ab151622afd45c1634bdc94487b1fb9be9de3ef45835eea3a728e52442d273d38eafa1b728f149aad1e76aac3b373dda09cf
+    streamroller: ^3.0.9
+  checksum: b6159bd38ba7bb7e87b21ca7ffad636637a3a93d7dd9e55861d736c285df6fe152f195bea2b93332e910c5a3f08729a91e2a6b009ae8a00be756112029331188
   languageName: node
   linkType: hard
 
@@ -10688,14 +10688,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamroller@npm:^3.0.8":
-  version: 3.0.8
-  resolution: "streamroller@npm:3.0.8"
+"streamroller@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "streamroller@npm:3.0.9"
   dependencies:
-    date-format: ^4.0.9
+    date-format: ^4.0.10
     debug: ^4.3.4
     fs-extra: ^10.1.0
-  checksum: 34dce4add3aec6efde41ac2dac1b9d3393e109628c49d56adb0093b8ef636ed907765113f5683ea64271f983fbfe775a7cf382d681dc3797d546d0065d7a3d27
+  checksum: 1c03e760c9b48277bf507050c8dd70aa40322f0de699fae9096421be145603acb931b0e0e49ca84ede39520f9e7231278b90641a688c7ef2d8b7a40e70f67e61
   languageName: node
   linkType: hard
 
@@ -11943,7 +11943,7 @@ __metadata:
     inquirer: ^8.2.4
     jest: ^27.5.1
     jest-fetch-mock: ^3.0.3
-    log4js: ^6.4.6
+    log4js: ^6.4.7
     minimist: ^1.2.6
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
