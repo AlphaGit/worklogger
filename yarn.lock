@@ -2349,14 +2349,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@serverless/utils@npm:6.0.3"
+"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.3.0":
+  version: 6.4.0
+  resolution: "@serverless/utils@npm:6.4.0"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
     ci-info: ^3.3.0
-    cli-progress-footer: ^2.3.0
+    cli-progress-footer: ^2.3.1
     content-disposition: ^0.5.4
     d: ^1.0.1
     decompress: ^4.2.1
@@ -2367,7 +2367,7 @@ __metadata:
     filenamify: ^4.3.0
     get-stream: ^6.0.1
     got: ^11.8.3
-    inquirer: ^8.2.0
+    inquirer: ^8.2.4
     js-yaml: ^4.1.0
     jwt-decode: ^3.1.2
     lodash: ^4.17.21
@@ -2376,13 +2376,16 @@ __metadata:
     make-dir: ^3.1.0
     memoizee: ^0.4.15
     ncjsm: ^4.3.0
+    node-fetch: ^2.6.7
+    open: ^7.4.2
     p-event: ^4.2.0
     supports-color: ^8.1.1
+    timers-ext: ^0.1.7
     type: ^2.6.0
     uni-global: ^1.0.0
     uuid: ^8.3.2
     write-file-atomic: ^4.0.1
-  checksum: 1f1e4e88174a37d9fb3f7577746ef6326f529f76c8f4963ba11490b59c06716f2504d4df3963274bbbabf278e2d86eb84b9eea7bc34f4bf7d5385000a433594d
+  checksum: 4dbac502fc4337dae1e162ccc40650a8e7923d01905e5d2cde7474160d9539f0374b2a55c6de7d90726d936e119e12c92589700b28d0af097deb36efb14f52fb
   languageName: node
   linkType: hard
 
@@ -3474,9 +3477,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1097.0, aws-sdk@npm:^2.1124.0, aws-sdk@npm:^2.1130.0, aws-sdk@npm:^2.814.0":
-  version: 2.1130.0
-  resolution: "aws-sdk@npm:2.1130.0"
+"aws-sdk@npm:^2.1097.0, aws-sdk@npm:^2.1130.0, aws-sdk@npm:^2.1131.0, aws-sdk@npm:^2.814.0":
+  version: 2.1135.0
+  resolution: "aws-sdk@npm:2.1135.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3487,7 +3490,7 @@ __metadata:
     url: 0.10.3
     uuid: 3.3.2
     xml2js: 0.4.19
-  checksum: 141a2f43a2391bf9f6a7dc69c288d97a71bcd41b467524958b16e0f4e62cea48703d764eff0694daeb99a8dda59754267c36cb62a364d643f78c2a2c38196ec2
+  checksum: 20a5bdd3dc68b59dc4275916c458987520e1b4fbcab4cce9d0de1222d30ac3e58b1eb21079859b9d150a52419f69fe7c5db8a3375591fd1464388ecc74ee5e19
   languageName: node
   linkType: hard
 
@@ -4156,7 +4159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-progress-footer@npm:^2.3.0, cli-progress-footer@npm:^2.3.1":
+"cli-progress-footer@npm:^2.3.1":
   version: 2.3.1
   resolution: "cli-progress-footer@npm:2.3.1"
   dependencies:
@@ -4629,10 +4632,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.1":
-  version: 1.11.1
-  resolution: "dayjs@npm:1.11.1"
-  checksum: d5fefd79935f64a3c262e67af7ebeca180bc402b3e99be4e12d20b6d438af3f86d507ba1cbaff95dc0b4e67f1067cea3eaf37b6b74f5494fdd4a6a2909514cd1
+"dayjs@npm:^1.11.2":
+  version: 1.11.2
+  resolution: "dayjs@npm:1.11.2"
+  checksum: 78f8bd04a9e5f5554aa06eacda65a7d59e162d39f621a46fd34fb3b51367c3662426d86b4e2f4ac535f81e0c4d5af3e8a83b37e672412eb556267d726c61f8f3
   languageName: node
   linkType: hard
 
@@ -6688,7 +6691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.2.0, inquirer@npm:^8.2.4":
+"inquirer@npm:^8.2.4":
   version: 8.2.4
   resolution: "inquirer@npm:8.2.4"
   dependencies:
@@ -10351,17 +10354,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.16.0":
-  version: 3.16.0
-  resolution: "serverless@npm:3.16.0"
+"serverless@npm:^3.17.0":
+  version: 3.17.0
+  resolution: "serverless@npm:3.17.0"
   dependencies:
     "@serverless/dashboard-plugin": ^6.2.2
     "@serverless/platform-client": ^4.3.2
-    "@serverless/utils": ^6.0.3
+    "@serverless/utils": ^6.3.0
     ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.1
-    aws-sdk: ^2.1124.0
+    aws-sdk: ^2.1131.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10369,7 +10372,7 @@ __metadata:
     ci-info: ^3.3.0
     cli-progress-footer: ^2.3.1
     d: ^1.0.1
-    dayjs: ^1.11.1
+    dayjs: ^1.11.2
     decompress: ^4.2.1
     dotenv: ^10.0.0
     dotenv-expand: ^5.1.0
@@ -10411,7 +10414,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 039a91e7e278ac3769f5bfda3e0dbebbec7c0714280d7e3f7b804ab963c69b4aa8e71ef62a41bd3a1e9b090598f5813991a71557ba40774ca874c67384b463d0
+  checksum: 9968a8e11d074713b693ea197af722521be307ff709b07ab1d6fc575757b9af8cc5e437bc5b7631dbadc3b9321f0dc3204bd01b50ddf17a2e1f83ad0ac61ab3e
   languageName: node
   linkType: hard
 
@@ -11949,7 +11952,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.16.0
+    serverless: ^3.17.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^8.7.0
     serverless-webpack: ^5.7.0
