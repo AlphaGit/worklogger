@@ -851,9 +851,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.110.0":
-  version: 3.110.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.110.0"
+"@aws-sdk/signature-v4-crt@npm:^3.118.0":
+  version: 3.118.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.118.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.55.0
     "@aws-sdk/querystring-parser": 3.110.0
@@ -861,9 +861,9 @@ __metadata:
     "@aws-sdk/util-hex-encoding": 3.109.0
     "@aws-sdk/util-middleware": 3.110.0
     "@aws-sdk/util-uri-escape": 3.55.0
-    aws-crt: ^1.12.2
+    aws-crt: ^1.12.5
     tslib: ^2.3.1
-  checksum: d4d77c1e42ddad6a51855f586d4cef4292d2e372aa03ef30b25f844cb760181ca90eb91c07fe18116e92a2f5fd6d1cb868107152d22d28119e1d05403b46d0cd
+  checksum: bd0e6203d40c44bd8ad7db03a1bfdeff83f760d1fedcfadbaec64ddbda2ef9fb20e7e5c23c4b914b0ce67754b7b596db377229104cd1098dd36ffc44a13fefd3
   languageName: node
   linkType: hard
 
@@ -3451,19 +3451,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-crt@npm:^1.12.2":
-  version: 1.12.2
-  resolution: "aws-crt@npm:1.12.2"
+"aws-crt@npm:^1.12.5":
+  version: 1.12.5
+  resolution: "aws-crt@npm:1.12.5"
   dependencies:
     "@httptoolkit/websocket-stream": ^6.0.0
     axios: ^0.24.0
     cmake-js: 6.3.0
     crypto-js: ^4.0.0
     fastestsmallesttextencoderdecoder: ^1.0.22
-    mqtt: ^4.3.4
+    mqtt: ^4.3.7
     tar: ^6.1.11
     ws: ^7.5.5
-  checksum: f018de992e28dc177bf4267e3a20113fa827ef569cdc50461a88bd6924bbe012dc6ce76a2a06b8a46f96cb33a097a326ea05c7ba48fb4c75fa8fc2145060667e
+  checksum: e5996cba960c008fecfe6a474c5d1005789869edcc02767412ef0d2fca0c8fb09b5361a8ad827f6b6f519d2f6780faf558549d0774417c229e34b8178994b6c1
   languageName: node
   linkType: hard
 
@@ -8868,9 +8868,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mqtt@npm:^4.3.4":
-  version: 4.3.6
-  resolution: "mqtt@npm:4.3.6"
+"mqtt@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "mqtt@npm:4.3.7"
   dependencies:
     commist: ^1.0.0
     concat-stream: ^2.0.0
@@ -8893,7 +8893,7 @@ __metadata:
     mqtt: bin/mqtt.js
     mqtt_pub: bin/pub.js
     mqtt_sub: bin/sub.js
-  checksum: e4fe581791b8f6d7a7a404d75f0aa4aeef0511b5ffe49abf3bca1a517cade7a536520a79369496af5e748f9a2f08425cf30fcd70aa793c1bd7f95136d7185aa5
+  checksum: 8d4b655d61c3259f6dee1d3b9d4b3bb99ca9006b497c927c14db64b2c6d9bfb59e73ee8b98d92c826ef6d7b75439b7810da7b65f5619054b554863b1f58e9a72
   languageName: node
   linkType: hard
 
@@ -12094,7 +12094,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.113.0
     "@aws-sdk/client-sesv2": ^3.112.0
-    "@aws-sdk/signature-v4-crt": ^3.110.0
+    "@aws-sdk/signature-v4-crt": ^3.118.0
     "@types/aws-lambda": ^8.10.100
     "@types/jest": ^27.5.0
     "@types/log4js": ^2.3.5
