@@ -156,9 +156,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.131.0":
-  version: 3.131.0
-  resolution: "@aws-sdk/client-s3@npm:3.131.0"
+"@aws-sdk/client-s3@npm:^3.135.0":
+  version: 3.135.0
+  resolution: "@aws-sdk/client-s3@npm:3.135.0"
   dependencies:
     "@aws-crypto/sha1-browser": 2.0.0
     "@aws-crypto/sha256-browser": 2.0.0
@@ -214,7 +214,7 @@ __metadata:
     entities: 2.2.0
     fast-xml-parser: 3.19.0
     tslib: ^2.3.1
-  checksum: c02a57f1afbea441c157e320b8125e8d8acbbd923406387f853baa998f6e1dfcb6cd53b87680333f3fc3d58099dd1ffafdb4c411e011b32d053bae945cec4d01
+  checksum: 75c70c00a5266e0925c85b96ad0aa15004e4eb84e36bc092669b7867f5c8ad346e762f1c0d98016ba96d3642c18e76bd6fffb8cd8cdde514091a0fbb1975987a
   languageName: node
   linkType: hard
 
@@ -11817,7 +11817,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.131.0
+    "@aws-sdk/client-s3": ^3.135.0
     "@aws-sdk/client-sesv2": ^3.131.0
     "@aws-sdk/signature-v4-crt": ^3.130.0
     "@types/aws-lambda": ^8.10.101
