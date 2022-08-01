@@ -4638,10 +4638,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-format@npm:^4.0.10, date-format@npm:^4.0.11":
-  version: 4.0.11
-  resolution: "date-format@npm:4.0.11"
-  checksum: 9e1265a557dc44a55d003a2bcb89012c605641f0bab26a0276eef308a4d491da9cae7001839b5d080a2e6ffadace49e8d8c62072164880cba721ec6d0a48c56d
+"date-format@npm:^4.0.13":
+  version: 4.0.13
+  resolution: "date-format@npm:4.0.13"
+  checksum: b4584fdd43d31e9c900da775cce4806903ba207e21f79d99959858141849d41ec919f941d1fb2e4efd2355ce1909ca1fe41a5184568c74cb540cf24c4f8bb39b
   languageName: node
   linkType: hard
 
@@ -5888,10 +5888,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flatted@npm:^3.1.0, flatted@npm:^3.2.5":
-  version: 3.2.5
-  resolution: "flatted@npm:3.2.5"
-  checksum: 3c436e9695ccca29620b4be5671dd72e5dd0a7500e0856611b7ca9bd8169f177f408c3b9abfa78dfe1493ee2d873e2c119080a8a9bee4e1a186a9e60ca6c89f1
+"flatted@npm:^3.1.0, flatted@npm:^3.2.6":
+  version: 3.2.6
+  resolution: "flatted@npm:3.2.6"
+  checksum: 33b87aa88dfa40ca6ee31d7df61712bbbad3d3c05c132c23e59b9b61d34631b337a18ff2b8dc5553acdc871ec72b741e485f78969cf006124a3f57174de29a0e
   languageName: node
   linkType: hard
 
@@ -5995,6 +5995,17 @@ __metadata:
     jsonfile: ^4.0.0
     universalify: ^0.1.0
   checksum: b3dcaf1d545097013c4fa649951c85cad1b845316ab473cc3440254a45e9b0b17d8ca9355af477e982c7d126f1a30417bcf78b1f744593ce77a0f43165f2d5e5
+  languageName: node
+  linkType: hard
+
+"fs-extra@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "fs-extra@npm:8.1.0"
+  dependencies:
+    graceful-fs: ^4.2.0
+    jsonfile: ^4.0.0
+    universalify: ^0.1.0
+  checksum: bf44f0e6cea59d5ce071bba4c43ca76d216f89e402dc6285c128abc0902e9b8525135aa808adad72c9d5d218e9f4bcc63962815529ff2f684ad532172a284880
   languageName: node
   linkType: hard
 
@@ -8351,16 +8362,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log4js@npm:*, log4js@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "log4js@npm:6.6.0"
+"log4js@npm:*, log4js@npm:^6.6.1":
+  version: 6.6.1
+  resolution: "log4js@npm:6.6.1"
   dependencies:
-    date-format: ^4.0.11
+    date-format: ^4.0.13
     debug: ^4.3.4
-    flatted: ^3.2.5
+    flatted: ^3.2.6
     rfdc: ^1.3.0
-    streamroller: ^3.1.1
-  checksum: b21704c677b557f1c14fda4e398cecba7975b1041d8247c293aa7b7a2ea3588894e87bcc93fc9bd85ce9b4a1b30021b3fb867f2e0060eec6760253a5faecc164
+    streamroller: ^3.1.2
+  checksum: 68f29e7b8b0efa2f987e65ee122fde0bc806dd7ad20f0a9f2da316696423e42381ba348bd6e2f6a2feba042a6ed33c14955210741f47ab897b3204aba8bcd84b
   languageName: node
   linkType: hard
 
@@ -10676,14 +10687,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamroller@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "streamroller@npm:3.1.1"
+"streamroller@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "streamroller@npm:3.1.2"
   dependencies:
-    date-format: ^4.0.10
+    date-format: ^4.0.13
     debug: ^4.3.4
-    fs-extra: ^10.1.0
-  checksum: 8a30f0940ffcd9eca3f0a06a938adb3a7ba08fc1d1e694570ce3a922054735badf27de4539fb5b26c90f44368ba044a00203a7540b6955a481c8de83e9c00bb4
+    fs-extra: ^8.1.0
+  checksum: 4215bf57fe80c583ba200075f9a62b9be9a3d7491201905bf7b5a09d7e87903a47f7c62b1ce0fd2161dbd497cac41068e8f48dda0f9bfceb084487de5798f043
   languageName: node
   linkType: hard
 
@@ -11941,7 +11952,7 @@ __metadata:
     inquirer: ^9.0.0
     jest: ^27.5.1
     jest-fetch-mock: ^3.0.3
-    log4js: ^6.6.0
+    log4js: ^6.6.1
     minimist: ^1.2.6
     moment-timezone: ^0.5.34
     mustache: ^4.2.0
