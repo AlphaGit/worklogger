@@ -3459,9 +3459,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1174.0, aws-sdk@npm:^2.1187.0, aws-sdk@npm:^2.1194.0, aws-sdk@npm:^2.814.0":
-  version: 2.1194.0
-  resolution: "aws-sdk@npm:2.1194.0"
+"aws-sdk@npm:^2.1187.0, aws-sdk@npm:^2.1194.0, aws-sdk@npm:^2.1195.0, aws-sdk@npm:^2.814.0":
+  version: 2.1199.0
+  resolution: "aws-sdk@npm:2.1199.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3473,7 +3473,7 @@ __metadata:
     util: ^0.12.4
     uuid: 8.0.0
     xml2js: 0.4.19
-  checksum: 793330b75cad4665b5d4f6617e85537990147190c927a0b6173b55a687f13e4b9bb0b4680d53a6afaed17701912bf8dc6dd4385d55c31acb83b798a16464ccd3
+  checksum: a101ac207369dc9b6f96424ac6ae5b38354741dc5cd6c885a82d53dbe203b011f8aa100b34e061b218ab9a3f74c6316f12ea3a2002c42c1e11ce69db497fa8a9
   languageName: node
   linkType: hard
 
@@ -4616,10 +4616,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.3":
-  version: 1.11.3
-  resolution: "dayjs@npm:1.11.3"
-  checksum: c87e06b562a51ae6568cc5b840c7579d82a0f8af7163128c858fe512d3d71d07bd8e8e464b8cc41b8698a9e26b80ab2c082d14a1cd4c33df5692d77ccdfc5a43
+"dayjs@npm:^1.11.5":
+  version: 1.11.5
+  resolution: "dayjs@npm:1.11.5"
+  checksum: e3bbaa7b4883b31be4bf75a181f1447fbb19800c29b332852125aab96baeff3ac232dcba8b88c4ea17d3b636c99dac5fb9d1af4bb6ae26615698bbc4a852dffb
   languageName: node
   linkType: hard
 
@@ -5639,10 +5639,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastest-levenshtein@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "fastest-levenshtein@npm:1.0.12"
-  checksum: e1a013698dd1d302c7a78150130c7d50bb678c2c2f8839842a796d66cc7cdf50ea6b3d7ca930b0c8e7e8c2cd84fea8ab831023b382f7aab6922c318c1451beab
+"fastest-levenshtein@npm:^1.0.16":
+  version: 1.0.16
+  resolution: "fastest-levenshtein@npm:1.0.16"
+  checksum: a78d44285c9e2ae2c25f3ef0f8a73f332c1247b7ea7fb4a191e6bb51aa6ee1ef0dfb3ed113616dcdc7023e18e35a8db41f61c8d88988e877cf510df8edafbc71
   languageName: node
   linkType: hard
 
@@ -10334,9 +10334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.21.0":
-  version: 3.21.0
-  resolution: "serverless@npm:3.21.0"
+"serverless@npm:^3.22.0":
+  version: 3.22.0
+  resolution: "serverless@npm:3.22.0"
   dependencies:
     "@serverless/dashboard-plugin": ^6.2.2
     "@serverless/platform-client": ^4.3.2
@@ -10344,7 +10344,7 @@ __metadata:
     ajv: ^8.11.0
     ajv-formats: ^2.1.1
     archiver: ^5.3.1
-    aws-sdk: ^2.1174.0
+    aws-sdk: ^2.1195.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10352,13 +10352,13 @@ __metadata:
     ci-info: ^3.3.2
     cli-progress-footer: ^2.3.2
     d: ^1.0.1
-    dayjs: ^1.11.3
+    dayjs: ^1.11.5
     decompress: ^4.2.1
     dotenv: ^10.0.0
     dotenv-expand: ^5.1.0
     essentials: ^1.2.0
     ext: ^1.6.0
-    fastest-levenshtein: ^1.0.12
+    fastest-levenshtein: ^1.0.16
     filesize: ^8.0.7
     fs-extra: ^9.1.0
     get-stdin: ^8.0.0
@@ -10387,14 +10387,14 @@ __metadata:
     supports-color: ^8.1.1
     tar: ^6.1.11
     timers-ext: ^0.1.7
-    type: ^2.6.0
+    type: ^2.7.2
     untildify: ^4.0.0
     uuid: ^8.3.2
     yaml-ast-parser: 0.0.43
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 78c8500c083baafe082bb965bf129b50d11fabc9e8ef6931d3e97c001448293367dead0e72545365b726f93020be1c2a8e771e57574bb97909916ecb8588cc73
+  checksum: 74d7a653dbf730c3a92b1f3dab8456d47b83ebd7132eccd22810df6a92e7db5b8b326b45502c227ef62912b48ba2e3f36bf146c9b8dc77d88f56659ac193a31b
   languageName: node
   linkType: hard
 
@@ -11395,10 +11395,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type@npm:^2.1.0, type@npm:^2.5.0, type@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "type@npm:2.6.0"
-  checksum: 80da01fcc0f6ed5a253dc326530e134000a8f66ea44b6d9687cde2f894f0d0b2486595b0cd040a64f7f79dc3120784236f8c9ef667a8aef03984e049b447cfb4
+"type@npm:^2.1.0, type@npm:^2.5.0, type@npm:^2.6.0, type@npm:^2.7.2":
+  version: 2.7.2
+  resolution: "type@npm:2.7.2"
+  checksum: 0f42379a8adb67fe529add238a3e3d16699d95b42d01adfe7b9a7c5da297f5c1ba93de39265ba30ffeb37dfd0afb3fb66ae09f58d6515da442219c086219f6f4
   languageName: node
   linkType: hard
 
@@ -11949,7 +11949,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.2.3
     nyc: ^15.1.0
-    serverless: ^3.21.0
+    serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^9.2.0
     serverless-webpack: ^5.8.0
