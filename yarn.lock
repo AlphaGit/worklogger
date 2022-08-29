@@ -4422,10 +4422,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"builtin-modules@npm:^3.0.0, builtin-modules@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "builtin-modules@npm:3.2.0"
-  checksum: 0265aa1ba78e1a16f4e18668d815cb43fb364e6a6b8aa9189c6f44c7b894a551a43b323c40206959d2d4b2568c1f2805607ad6c88adc306a776ce6904cca6715
+"builtin-modules@npm:^3.2.0, builtin-modules@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "builtin-modules@npm:3.3.0"
+  checksum: db021755d7ed8be048f25668fe2117620861ef6703ea2c65ed2779c9e3636d5c3b82325bd912244293959ff3ae303afa3471f6a15bf5060c103e4cc3a839749d
   languageName: node
   linkType: hard
 
@@ -7408,12 +7408,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-builtin-module@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "is-builtin-module@npm:3.1.0"
+"is-builtin-module@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "is-builtin-module@npm:3.2.0"
   dependencies:
-    builtin-modules: ^3.0.0
-  checksum: f1e5dd2cd5f252d4d799b20a0c8c4f7e9c399c4d141749af76ca0121058d4062c3015d026f1b1409dd3d2a4ddfb9b15cf6eb9c370fed53fea8652ce35b5e95cb
+    builtin-modules: ^3.3.0
+  checksum: 0315751b898feff0646511c896e88b608a755c5025d0ce9a3ad25783de50be870e47dafb838cebbb06fbb2a948b209ea55348eee267836c9dd40d3a11ec717d3
   languageName: node
   linkType: hard
 
@@ -10892,15 +10892,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-webpack@npm:^5.8.0":
-  version: 5.8.0
-  resolution: "serverless-webpack@npm:5.8.0"
+"serverless-webpack@npm:^5.9.0":
+  version: 5.9.0
+  resolution: "serverless-webpack@npm:5.9.0"
   dependencies:
     archiver: ^5.3.1
     bluebird: ^3.7.2
     fs-extra: ^9.1.0
     glob: ^7.2.3
-    is-builtin-module: ^3.1.0
+    is-builtin-module: ^3.2.0
     lodash: ^4.17.21
     semver: ^7.3.7
     ts-node: ">= 8.3.0"
@@ -10910,7 +10910,7 @@ __metadata:
   dependenciesMeta:
     ts-node:
       optional: true
-  checksum: 6265be2441a6c8005b5304bd82be609391b19ece36fc44f16d3bbe9dd5ea45f7ee67e28fcfc628573ee49299bf1f898e23a3116c88f40d57ec2ec2bcdaa10b29
+  checksum: 3f4bb515f1693e87bec8d5b761b92df7e4e91fad910538bd90d1b5bf64f0a7cd98bc42437bae0e1d9fa7109ebc5954818df84d6e427cc193c546e69e3c16eb65
   languageName: node
   linkType: hard
 
@@ -12532,7 +12532,7 @@ __metadata:
     serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^9.2.6
-    serverless-webpack: ^5.8.0
+    serverless-webpack: ^5.9.0
     ts-jest: ^27.1.4
     ts-loader: ^9.3.1
     ts-node: ^10.9.1
