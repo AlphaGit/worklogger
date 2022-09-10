@@ -1,5 +1,6 @@
 import { start } from './start';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { storeGoogleTokenFromCode, generateAuthUrl } from './app/services/authHandler';
 
 export const logTimesheets = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const { s3, c } = event as unknown as { s3: string, c: string };
@@ -10,5 +11,34 @@ export const logTimesheets = async (event: APIGatewayProxyEvent): Promise<APIGat
     return {
         statusCode: 200,
         body: 'Timesheets logged.'
+    };
+};
+
+export const storeToken = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    if (event.queryStringParameters.error) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                error: event.queryStringParameters.error
+            })
+        };
     }
+
+    await storeGoogleTokenFromCode(event.queryStringParameters.code);
+
+    return {
+        statusCode: 200,
+        body: 'Token stored. You can close this window.'
+    };
+};
+
+export const loginRedirect = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    const authUrl = await generateAuthUrl();
+    return {
+        statusCode: 302,
+        headers: {
+            Location: authUrl
+        },
+        body: 'Redirecting...'
+    };
 };

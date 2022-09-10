@@ -1,6 +1,6 @@
 {
   "name": "worklogger",
-  "version": "2.0.0-alpha2",
+  "version": "3.0.0",
   "description": "Reads worklogs from a variety of sources and consolidates them to several outputs.",
   "main": "index.js",
   "repository": {

@@ -34,6 +34,24 @@ export class S3FileLoader implements IFileLoader {
         }
     }
 
+    async saveFile(filePath: string, fileContents: string): Promise<void> {
+        const requestParams = {
+            Bucket: this.s3Bucket,
+            Key: filePath,
+            Body: fileContents
+        };
+
+        logger.info(`Saving to S3 bucket: ${requestParams.Bucket}/${requestParams.Key}`)
+
+        try {
+            const s3 = new S3({ });
+            await s3.putObject(requestParams);
+        } catch (err) {
+            logger.error(`Error while saving ${requestParams.Bucket}/${requestParams.Key}`, err);
+            throw err;
+        }
+    }
+
     private async streamToString(stream: Readable): Promise<string> {
         return new Promise((resolve, reject) => {
             const chunks: string[] = [];

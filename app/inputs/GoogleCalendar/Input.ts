@@ -2,15 +2,14 @@ import { getLogger, LoggerCategory } from '../../services/Logger';
 import { google, Auth } from 'googleapis';
 
 import { IAppConfiguration, IServiceRegistrations, Worklog } from '../../models';
-import { IFileLoader } from '../../services/FileLoader/IFileLoader';
+import { getUserAuthenticatedOAuthClient } from '../../services/authHandler';
 
-import { IGoogleCredentials, IApiResponse, ModelMapper, GoogleCalendarConfiguration, GoogleCalendarCalendarConfiguration } from '.';
+import { IApiResponse, ModelMapper, GoogleCalendarConfiguration, GoogleCalendarCalendarConfiguration } from '.';
 import { IInput } from '../IInput';
 
 export class Input implements IInput {
     private logger = getLogger(LoggerCategory.Inputs);
     private modelMapper: ModelMapper = new ModelMapper();
-    private fileLoader: IFileLoader;
     private inputConfiguration: GoogleCalendarConfiguration;
 
     constructor(
@@ -26,49 +25,15 @@ export class Input implements IInput {
 
         this.inputConfiguration = inputConfiguration;
         this.name = inputConfiguration.name;
-
-        this.fileLoader = serviceRegistrations.FileLoader;
     }
 
     name: string;
 
-    private getPath(filename: string): string {
-        const storagePath = this.inputConfiguration.storageRelativePath;
-        return (storagePath ? `${storagePath}/` : '') + filename;
-    }
-
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
-        this.logger.info('Retrieving worklogs from Google Calendar between', startDateTime, 'and', endDateTime);
-
-        const oauth2Client = await this.getAuthenticatedClient();
-
+        this.logger.info(`Retrieving worklogs from Google Calendar between ${startDateTime} and ${endDateTime}`);
+        const oauth2Client = await getUserAuthenticatedOAuthClient();
         const apiResponses = await this._getEventsFromApi(oauth2Client, startDateTime, endDateTime);
-
         return this.modelMapper.map(apiResponses);
-    }
-
-    private async getAuthenticatedClient() {
-        try {
-            const clientSecretPath = this.getPath('google_client_secret.json');
-            const credentials = await this.fileLoader.loadJson(clientSecretPath) as IGoogleCredentials;
-
-            const {
-                client_secret: clientSecret,
-                client_id: clientId,
-                redirect_uris: redirectUrls
-            } = credentials.installed;
-            const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUrls[0]);
-
-            const googleTokenPath = this.getPath('google_token.json');
-            const tokenInfo = await this.fileLoader.loadJson(googleTokenPath);
-            this.logger.trace('Google App token read:', tokenInfo);
-            oauth2Client.credentials = tokenInfo;
-
-            return oauth2Client;
-        } catch (err) {
-            this.logger.warn('Token could not be read -- maybe application is not authorized yet?', err);
-            throw err;
-        }
     }
 
     async _getEventsFromApi(auth: Auth.OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
@@ -104,7 +69,8 @@ export class Input implements IInput {
 
             return apiResponse;
         } catch (err) {
-            throw new Error(`The API returned an error: ${err}`);
+            this.logger.error('Error retrieving calendar events', err);
+            throw err;
         }
     }
 }

@@ -4,7 +4,10 @@ service: worklogger
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
+  httpApi:
+    disableDefaultEndpoint: true
+  endpointType: regional
 
   iam:
     role:
@@ -53,6 +56,37 @@ functions:
           input:
             s3: worklogger
             c: test_config.json
+
+  tokenLogger:
+    handler: lambdaHandler.storeToken
+    name: worklogger-storeToken-${opt:stage, 'dev'}
+    description: Stores the token from the OAuth flow
+    memorySize: 128
+    timeout: 30
+    package:
+      patterns:
+        - "*.js"
+        - "app/**/*.js" 
+    events:
+      - http:
+          path: /token
+          method: get
+          cors: true
+
+  login:
+    handler: lambdaHandler.loginRedirect
+    name: worklogger-loginRedirect-${opt:stage, 'dev'}
+    description: Redirects to the OAuth flow
+    memorySize: 128
+    timeout: 30
+    package:
+      patterns:
+        - "*.js"
+        - "app/**/*.js" 
+    events:
+      - http:
+          path: /login
+          method: get
 
 plugins:
   - serverless-offline
