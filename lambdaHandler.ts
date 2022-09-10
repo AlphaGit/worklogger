@@ -32,7 +32,7 @@ export const storeToken = async (event: APIGatewayProxyEvent): Promise<APIGatewa
     };
 };
 
-export const loginRedirect = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const loginRedirect = async (): Promise<APIGatewayProxyResult> => {
     const authUrl = await generateAuthUrl();
     return {
         statusCode: 302,
