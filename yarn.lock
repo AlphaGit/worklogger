@@ -2975,10 +2975,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aws-lambda@npm:^8.10.102":
-  version: 8.10.102
-  resolution: "@types/aws-lambda@npm:8.10.102"
-  checksum: 71095334a700f24c88918890d2f31782583511d61c0fe4bfe1adcc17b314d4fcbccdb76de47507fd1a6ece1676a3b0ddecb8816808a541a2bca6fface1879b8d
+"@types/aws-lambda@npm:^8.10.103":
+  version: 8.10.103
+  resolution: "@types/aws-lambda@npm:8.10.103"
+  checksum: fcca2db92ff7fea4291e2f015d7f5a5de259adac68df3db2b622c92dd48212fd7f60af832c70917448dcc076619cb37bca8636b7bfaf58cd53fc82394a5cbe3d
   languageName: node
   linkType: hard
 
@@ -3103,13 +3103,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^27.5.0":
-  version: 27.5.0
-  resolution: "@types/jest@npm:27.5.0"
+"@types/jest@npm:^27.5.2":
+  version: 27.5.2
+  resolution: "@types/jest@npm:27.5.2"
   dependencies:
     jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
-  checksum: ca09ac3a17972e18683c57b681a6866c7a56c67f429810ece00425d948da62f207d271becb5cc759da3630f120596ec3c8e0ceb0eecefbe26daffba168b82879
+  checksum: 7e11c6826aa429ad990dc262e4e4b54aa36573287fddf15773e4137f07d11d3105f0dd9f1baff73252160a057df23f5529bb83b1bf83cd3f45f9460a5ca5c22e
   languageName: node
   linkType: hard
 
@@ -3175,10 +3175,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.13":
+"@types/node@npm:*":
   version: 18.7.13
   resolution: "@types/node@npm:18.7.13"
   checksum: 45431e7e89ecaf85c7d2c180d801c132a7c59e2f8ad578726b6d71cc74e3267c18f9ccdcad738bc0479790c078f0c79efb0e58da2c6be535c15995dbb19050c9
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.7.16":
+  version: 18.7.16
+  resolution: "@types/node@npm:18.7.16"
+  checksum: 01a3d35c764a3f0e7370b56e1ad4203731131883c65784e020009014171b3f53c4649cde6c7aa4f1026b907ee87ef6ae6ece2bc518151dc7b81100fe8b1db3ad
   languageName: node
   linkType: hard
 
@@ -4593,9 +4600,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001313":
-  version: 1.0.30001314
-  resolution: "caniuse-lite@npm:1.0.30001314"
-  checksum: d82e1b8b287b1b2d2ed25c4495fe293276853dd9c77553c722929a6142fc49b3dd5ea21a95f6410d93319434a5bd071c304ea92e93debbcf292a9156cf08b35d
+  version: 1.0.30001393
+  resolution: "caniuse-lite@npm:1.0.30001393"
+  checksum: 72b7cd81c51f41965f2fbdbb20729d71f2bd5e376d9b4effa22616dd2707640b8676862e8db3db83b76c3bcf2aaefc9ebd5991a10eeb483b460322de5548b98e
   languageName: node
   linkType: hard
 
@@ -9328,7 +9335,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.35":
+"moment-timezone@npm:^0.5.37":
   version: 0.5.37
   resolution: "moment-timezone@npm:0.5.37"
   dependencies:
@@ -9502,7 +9509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:*, node-fetch@npm:^3.2.10, node-fetch@npm:^3.2.3":
+"node-fetch@npm:*, node-fetch@npm:^3.2.10":
   version: 3.2.10
   resolution: "node-fetch@npm:3.2.10"
   dependencies:
@@ -11803,9 +11810,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^27.1.4":
-  version: 27.1.4
-  resolution: "ts-jest@npm:27.1.4"
+"ts-jest@npm:^27.1.5":
+  version: 27.1.5
+  resolution: "ts-jest@npm:27.1.5"
   dependencies:
     bs-logger: 0.x
     fast-json-stable-stringify: 2.x
@@ -11832,7 +11839,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: d2cc2719ed2884a880ab50d2c14c311834be9c88bc79d0064fa0189afce5c296d7676314d26cc3f7e82ddd52df272c2d4137a832c89616f30cbe8f43e30f9a29
+  checksum: 3ef51c538b82f49b3f529331c1a017871a2f90e7a9a6e69333304755036d121818c6b120e2ce32dd161ff8bb2487efec0c790753ecd39b46a9ed1ce0d241464c
   languageName: node
   linkType: hard
 
@@ -12016,23 +12023,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.8.2":
-  version: 4.8.2
-  resolution: "typescript@npm:4.8.2"
+"typescript@npm:^4.8.3":
+  version: 4.8.3
+  resolution: "typescript@npm:4.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 7f5b81d0d558c9067f952c7af52ab7f19c2e70a916817929e4a5b256c93990bf3178eccb1ac8a850bc75df35f6781b6f4cb3370ce20d8b1ded92ed462348f628
+  checksum: 8286a5edcaf3d68e65c451aa1e7150ad1cf53ee0813c07ec35b7abdfdb10f355ecaa13c6a226a694ae7a67785fd7eeebf89f845da0b4f7e4a35561ddc459aba0
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.8.2#~builtin<compat/typescript>":
-  version: 4.8.2
-  resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=ddd1e8"
+"typescript@patch:typescript@^4.8.3#~builtin<compat/typescript>":
+  version: 4.8.3
+  resolution: "typescript@patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=ddd1e8"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 6f49363af8af2fe480da1d5fa68712644438785208b06690a3cbe5e7365fd652c3a0f1e587bc8684d78fb69de3dde4de185c0bad7bb4f3664ddfc813ce8caad6
+  checksum: 0404a09c625df01934ef774b45ce1ca57ccae41cd625fcdbb82056715320d9329e70d9d75c2c732ec6ef947444ca978c189a332b71fa21f5c1437d5a83e24906
   languageName: node
   linkType: hard
 
@@ -12520,12 +12527,12 @@ __metadata:
     "@aws-sdk/client-s3": ^3.154.0
     "@aws-sdk/client-sesv2": ^3.159.0
     "@aws-sdk/signature-v4-crt": ^3.159.0
-    "@types/aws-lambda": ^8.10.102
-    "@types/jest": ^27.5.0
+    "@types/aws-lambda": ^8.10.103
+    "@types/jest": ^27.5.2
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.2
     "@types/mustache": ^4.2.1
-    "@types/node": ^18.7.13
+    "@types/node": ^18.7.16
     "@types/node-fetch": ^3.0.3
     "@typescript-eslint/eslint-plugin": 5.33.1
     "@typescript-eslint/parser": 5.35.1
@@ -12543,18 +12550,18 @@ __metadata:
     jest-fetch-mock: ^3.0.3
     log4js: ^6.6.1
     minimist: ^1.2.6
-    moment-timezone: ^0.5.35
+    moment-timezone: ^0.5.37
     mustache: ^4.2.0
-    node-fetch: ^3.2.3
+    node-fetch: ^3.2.10
     nyc: ^15.1.0
     serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^10.0.1
     serverless-webpack: ^5.9.1
-    ts-jest: ^27.1.4
+    ts-jest: ^27.1.5
     ts-loader: ^9.3.1
     ts-node: ^10.9.1
-    typescript: ^4.8.2
+    typescript: ^4.8.3
     webpack: ^5.74.0
     webpack-bundle-analyzer: ^4.6.1
   languageName: unknown
