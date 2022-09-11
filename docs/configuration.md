@@ -128,6 +128,10 @@
                 // if multiple tags are in a sub-array, it will nest tag2 under tag1
                 ["tag1", "tag2"],
             ]
+
+            // Type: SummaryHtmlFormatter
+            // same properties as SummaryTextFormatter
+            // can also have the configurations specified by showndown: https://github.com/showdownjs/showdown#valid-options
         },
         // other properties specific to the output type
 
@@ -156,7 +160,7 @@
         "fromEmailAddress": "exampleSender@example.com",
         "toAddresses": ["email1@example.com", "email2@example.com"],
         "subjectTemplate": "Info for {{startDateTime}} to {{endDateTime}}", // info from models/WorklogSet.js
-        "bodyTemplate": " {{contents}} ", // info from models/WorklogSet.js and "contents" for formatted WorklogSet
+        "bodyTemplate": " {{{contents}}} ", // info from models/WorklogSet.js and "contents" for formatted WorklogSet
     }]
 }
 ```

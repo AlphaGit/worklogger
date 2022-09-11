@@ -38,13 +38,9 @@ export class AwsSesOutput extends OutputBase {
             Content: {
                 Simple: {
                     Body: {
-                        Text: {
-                            Charset: 'UTF-8',
-                            Data: body
-                        },
                         Html: {
                             Charset: 'UTF-8',
-                            Data: '<html><body>' + body.replace(/\n/g, '<br/>') + '</body></html>'
+                            Data: '<html><body>' + body + '</body></html>'
                         }
                     },
                     Subject: {
@@ -55,7 +51,7 @@ export class AwsSesOutput extends OutputBase {
             }
         };
 
-        this.logger.debug('Email params:', email);
+        this.logger.debug('Email params:', email, 'body:', body);
         const command = new SendEmailCommand(email);
         await this.SES.send(command);
         this.logger.info('Successfully sent worklogSet to SES.');

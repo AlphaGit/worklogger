@@ -15,7 +15,10 @@ export class SummaryHtmlFormatter extends SummaryTextFormatter {
         const markdownConverter = new Converter(configuration);
 
         logger.debug('Converting summary to html');
-        return markdownConverter.makeHtml(summaryText);
+        const output = markdownConverter.makeHtml(summaryText);
+
+        logger.debug('SummaryHtmlFormatter output:', output);
+        return output;
     }
 }
 

@@ -53,7 +53,7 @@ describe('outputWorklogSet', () => {
         worklogSet.endDateTime = new Date('2021-06-14T00:00:00-0700');
 
         exampleSesConfiguration.subjectTemplate = 'Worklogs until {{endDateTime}}';
-        exampleSesConfiguration.bodyTemplate = 'From {{startDateTime}}: {{worklogs.0.name}} {{contents}}';
+        exampleSesConfiguration.bodyTemplate = 'From {{startDateTime}}: {{worklogs.0.name}} {{{contents}}}';
 
         const output = new AwsSesOutput(formatter, exampleSesConfiguration, AppConfigurations.normal());
         await output.outputWorklogSet(worklogSet);
@@ -65,9 +65,9 @@ describe('outputWorklogSet', () => {
 
         expect(input.FromEmailAddress).toBe('from@example.com');
         expect(input.Destination.ToAddresses).toBe(exampleSesConfiguration.toAddresses);
-        expect(input.Content.Simple.Body.Text.Charset).toBe('UTF-8');
-        expect(input.Content.Simple.Body.Text.Data).toBe('From Sun Jun 13 2021 00:00:00 GMT-0700 (Pacific Daylight Time): Planning meeting &lt;worklogSet contents&gt;');
         expect(input.Content.Simple.Subject.Charset).toBe('UTF-8');
         expect(input.Content.Simple.Subject.Data).toBe('Worklogs until Mon Jun 14 2021 00:00:00 GMT-0700 (Pacific Daylight Time)');
+        expect(input.Content.Simple.Body.Html.Charset).toBe('UTF-8');
+        expect(input.Content.Simple.Body.Html.Data).toBe('<html><body>From Sun Jun 13 2021 00:00:00 GMT-0700 (Pacific Daylight Time): Planning meeting <worklogSet contents></body></html>');
     });
 });
