@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.103",
-    "@types/jest": "^29.0.0",
+    "@types/jest": "^29.0.1",
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.2",
     "@types/mustache": "^4.2.1",
