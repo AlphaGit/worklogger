@@ -3520,9 +3520,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1195.0, aws-sdk@npm:^2.1213.0, aws-sdk@npm:^2.1215.0, aws-sdk@npm:^2.814.0":
-  version: 2.1218.0
-  resolution: "aws-sdk@npm:2.1218.0"
+"aws-sdk@npm:^2.1195.0, aws-sdk@npm:^2.1213.0, aws-sdk@npm:^2.1223.0, aws-sdk@npm:^2.814.0":
+  version: 2.1223.0
+  resolution: "aws-sdk@npm:2.1223.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -3534,7 +3534,7 @@ __metadata:
     util: ^0.12.4
     uuid: 8.0.0
     xml2js: 0.4.19
-  checksum: e1bb41bf8b647e5f6e64f5955beb3972473916af31187d87d20f0a3ed6dab23dff47d490c0d351bb500f331823ec72956c8b510cf232be4bf25386b98652be41
+  checksum: 78501bacd7ff0ab0bfba8cd4d0bc8b32c3604ceb19bdec17b287dfa3c5601daa6849356ba9b6c59b3ef4bec250c419029408359a15dd3f0555bf4ad66e1a0654
   languageName: node
   linkType: hard
 
@@ -7706,6 +7706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:^4.9.3":
+  version: 4.9.3
+  resolution: "jose@npm:4.9.3"
+  checksum: 95865830768dcf82774d19e92dc854c5bc9dc5d9c9626a65a2974272e3aca5d2f56678611943f85802431d2d6d6f8bff9548b7cdb7578e6fe61529bd9c82e1d3
+  languageName: node
+  linkType: hard
+
 "js-sdsl@npm:^2.1.2":
   version: 2.1.4
   resolution: "js-sdsl@npm:2.1.4"
@@ -7894,24 +7901,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.5.1":
-  version: 8.5.1
-  resolution: "jsonwebtoken@npm:8.5.1"
-  dependencies:
-    jws: ^3.2.2
-    lodash.includes: ^4.3.0
-    lodash.isboolean: ^3.0.3
-    lodash.isinteger: ^4.0.4
-    lodash.isnumber: ^3.0.3
-    lodash.isplainobject: ^4.0.6
-    lodash.isstring: ^4.0.1
-    lodash.once: ^4.0.0
-    ms: ^2.1.1
-    semver: ^5.6.0
-  checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
-  languageName: node
-  linkType: hard
-
 "jszip@npm:^3.10.1, jszip@npm:^3.9.1":
   version: 3.10.1
   resolution: "jszip@npm:3.10.1"
@@ -7924,17 +7913,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jwa@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "jwa@npm:1.4.1"
-  dependencies:
-    buffer-equal-constant-time: 1.0.1
-    ecdsa-sig-formatter: 1.0.11
-    safe-buffer: ^5.0.1
-  checksum: ff30ea7c2dcc61f3ed2098d868bf89d43701605090c5b21b5544b512843ec6fd9e028381a4dda466cbcdb885c2d1150f7c62e7168394ee07941b4098e1035e2f
-  languageName: node
-  linkType: hard
-
 "jwa@npm:^2.0.0":
   version: 2.0.0
   resolution: "jwa@npm:2.0.0"
@@ -7943,16 +7921,6 @@ __metadata:
     ecdsa-sig-formatter: 1.0.11
     safe-buffer: ^5.0.1
   checksum: 8f00b71ad5fe94cb55006d0d19202f8f56889109caada2f7eeb63ca81755769ce87f4f48101967f398462e3b8ae4faebfbd5a0269cb755dead5d63c77ba4d2f1
-  languageName: node
-  linkType: hard
-
-"jws@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "jws@npm:3.2.2"
-  dependencies:
-    jwa: ^1.4.1
-    safe-buffer: ^5.0.1
-  checksum: f0213fe5b79344c56cd443428d8f65c16bf842dc8cb8f5aed693e1e91d79c20741663ad6eff07a6d2c433d1831acc9814e8d7bada6a0471fbb91d09ceb2bf5c2
   languageName: node
   linkType: hard
 
@@ -8124,45 +8092,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.includes@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "lodash.includes@npm:4.3.0"
-  checksum: 71092c130515a67ab3bd928f57f6018434797c94def7f46aafa417771e455ce3a4834889f4267b17887d7f75297dfabd96231bf704fd2b8c5096dc4a913568b6
-  languageName: node
-  linkType: hard
-
-"lodash.isboolean@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "lodash.isboolean@npm:3.0.3"
-  checksum: b70068b4a8b8837912b54052557b21fc4774174e3512ed3c5b94621e5aff5eb6c68089d0a386b7e801d679cd105d2e35417978a5e99071750aa2ed90bffd0250
-  languageName: node
-  linkType: hard
-
-"lodash.isinteger@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "lodash.isinteger@npm:4.0.4"
-  checksum: 6034821b3fc61a2ffc34e7d5644bb50c5fd8f1c0121c554c21ac271911ee0c0502274852845005f8651d51e199ee2e0cfebfe40aaa49c7fe617f603a8a0b1691
-  languageName: node
-  linkType: hard
-
-"lodash.isnumber@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "lodash.isnumber@npm:3.0.3"
-  checksum: 913784275b565346255e6ae6a6e30b760a0da70abc29f3e1f409081585875105138cda4a429ff02577e1bc0a7ae2a90e0a3079a37f3a04c3d6c5aaa532f4cab2
-  languageName: node
-  linkType: hard
-
 "lodash.isplainobject@npm:^4.0.6":
   version: 4.0.6
   resolution: "lodash.isplainobject@npm:4.0.6"
   checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
-  languageName: node
-  linkType: hard
-
-"lodash.isstring@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "lodash.isstring@npm:4.0.1"
-  checksum: eaac87ae9636848af08021083d796e2eea3d02e80082ab8a9955309569cb3a463ce97fd281d7dc119e402b2e7d8c54a23914b15d2fc7fff56461511dc8937ba0
   languageName: node
   linkType: hard
 
@@ -8177,13 +8110,6 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
-  languageName: node
-  linkType: hard
-
-"lodash.once@npm:^4.0.0":
-  version: 4.1.1
-  resolution: "lodash.once@npm:4.1.1"
-  checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
   languageName: node
   linkType: hard
 
@@ -10106,7 +10032,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^5.0.3, semver@npm:^5.5.0, semver@npm:^5.6.0":
+"semver@npm:^5.0.3, semver@npm:^5.5.0":
   version: 5.7.1
   resolution: "semver@npm:5.7.1"
   bin:
@@ -10140,24 +10066,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "serverless-offline@npm:10.1.0"
+"serverless-offline@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "serverless-offline@npm:10.3.0"
   dependencies:
     "@hapi/boom": ^10.0.0
     "@hapi/h2o2": ^9.1.0
     "@hapi/hapi": ^20.2.2
     "@serverless/utils": ^6.7.0
-    aws-sdk: ^2.1215.0
+    aws-sdk: ^2.1223.0
     boxen: ^7.0.0
     chalk: ^5.0.1
     execa: ^6.1.0
     fs-extra: ^10.1.0
     java-invoke-local: 0.0.6
+    jose: ^4.9.3
     js-string-escape: ^1.0.1
     jsonpath-plus: ^7.2.0
     jsonschema: ^1.4.1
-    jsonwebtoken: ^8.5.1
     jszip: ^3.10.1
     luxon: ^3.0.3
     node-fetch: ^3.2.10
@@ -10166,10 +10092,10 @@ __metadata:
     p-memoize: ^7.1.0
     p-retry: ^5.1.1
     velocityjs: ^2.0.6
-    ws: ^8.8.1
+    ws: ^8.9.0
   peerDependencies:
     serverless: ^3.2.0
-  checksum: 85c23e89f6fc79ad880c81eef9bb0f101728900aff2565608441ec14b783811ef8316281b9a286abddf9d254e4d78bb3b2f926c4351a1187d109bb30e23f4936
+  checksum: 07999fba2e5e8288225ca57c88a7464efa0d2e5c2a9661ecbde3fc0c0e8e9af8516829a99ada2bd96f9c6b57110672115a5146b3222285cc84ba7d76117bc0df
   languageName: node
   linkType: hard
 
@@ -11758,7 +11684,7 @@ __metadata:
     nyc: ^15.1.0
     serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^10.1.0
+    serverless-offline: ^10.3.0
     serverless-webpack: ^5.9.1
     showdown: ^2.1.0
     ts-jest: ^29.0.1
@@ -11842,9 +11768,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:*, ws@npm:^8.8.1":
-  version: 8.8.1
-  resolution: "ws@npm:8.8.1"
+"ws@npm:*, ws@npm:^8.9.0":
+  version: 8.9.0
+  resolution: "ws@npm:8.9.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -11853,7 +11779,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 2152cf862cae0693f3775bc688a6afb2e989d19d626d215e70f5fcd8eb55b1c3b0d3a6a4052905ec320e2d7734e20aeedbf9744496d62f15a26ad79cf4cf7dae
+  checksum: 23aa0f021b2eb65c108ec4c3e08c0d81ba01f82b500432dfe327fd6be36079c1d81fdb0eac6464d2a0eb49904d34a9ab8c59619d673fa07b8346f83aeb0cbf12
   languageName: node
   linkType: hard
 
