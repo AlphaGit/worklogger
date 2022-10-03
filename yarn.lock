@@ -1017,19 +1017,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.171.0":
-  version: 3.171.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.171.0"
+"@aws-sdk/signature-v4-crt@npm:^3.180.0":
+  version: 3.180.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.180.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.170.0
-    "@aws-sdk/querystring-parser": 3.171.0
-    "@aws-sdk/signature-v4": 3.171.0
+    "@aws-sdk/querystring-parser": 3.178.0
+    "@aws-sdk/signature-v4": 3.178.0
     "@aws-sdk/util-hex-encoding": 3.170.0
-    "@aws-sdk/util-middleware": 3.171.0
+    "@aws-sdk/util-middleware": 3.178.0
     "@aws-sdk/util-uri-escape": 3.170.0
-    aws-crt: ^1.12.5
+    aws-crt: ^1.13.2
     tslib: ^2.3.1
-  checksum: 9af01fe1c2ca780948a21c2324299e80bf16225d8f6a04a338535c8e661ace9dd13305f4416fb677a50790be78b197cce7e8c5e1535b87e98156d7c1f3df56d8
+  checksum: 2cbab888964160373516bc4e68411633f8d529f5f897cc1bfd9843ef56e7883f19dc6659dc1232f6a181b6bd119e999883b655cc23c1de0e79b077b1245acc84
   languageName: node
   linkType: hard
 
@@ -1341,7 +1341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/util-utf8-browser@npm:3.170.0, @aws-sdk/util-utf8-browser@npm:^3.0.0":
+"@aws-sdk/util-utf8-browser@npm:3.170.0, @aws-sdk/util-utf8-browser@npm:^3.0.0, @aws-sdk/util-utf8-browser@npm:^3.109.0":
   version: 3.170.0
   resolution: "@aws-sdk/util-utf8-browser@npm:3.170.0"
   dependencies:
@@ -3806,19 +3806,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-crt@npm:^1.12.5":
-  version: 1.12.5
-  resolution: "aws-crt@npm:1.12.5"
+"aws-crt@npm:^1.13.2":
+  version: 1.14.4
+  resolution: "aws-crt@npm:1.14.4"
   dependencies:
+    "@aws-sdk/util-utf8-browser": ^3.109.0
     "@httptoolkit/websocket-stream": ^6.0.0
     axios: ^0.24.0
-    cmake-js: 6.3.0
+    cmake-js: ^6.3.2
     crypto-js: ^4.0.0
-    fastestsmallesttextencoderdecoder: ^1.0.22
     mqtt: ^4.3.7
     tar: ^6.1.11
-    ws: ^7.5.5
-  checksum: e5996cba960c008fecfe6a474c5d1005789869edcc02767412ef0d2fca0c8fb09b5361a8ad827f6b6f519d2f6780faf558549d0774417c229e34b8178994b6c1
+  checksum: 88bd049e24ad14e5a67ba7d1582d55b23e9a9b521a37dac316725711c33cac8df6b34f15d30b3f0a8edee1785e334db22e1024f7f4878a8d1b955bffe5515cf6
   languageName: node
   linkType: hard
 
@@ -4025,7 +4024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^3.7.2":
+"bluebird@npm:^3, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
   checksum: 869417503c722e7dc54ca46715f70e15f4d9c602a423a02c825570862d12935be59ed9c7ba34a9b31f186c017c23cac6b54e35446f8353059c101da73eac22ef
@@ -4638,11 +4637,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmake-js@npm:6.3.0":
-  version: 6.3.0
-  resolution: "cmake-js@npm:6.3.0"
+"cmake-js@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "cmake-js@npm:6.3.2"
   dependencies:
     axios: ^0.21.1
+    bluebird: ^3
     debug: ^4
     fs-extra: ^5.0.0
     is-iojs: ^1.0.1
@@ -4659,7 +4659,7 @@ __metadata:
     yargs: ^3.6.0
   bin:
     cmake-js: bin/cmake-js
-  checksum: 093bbc3f33c36a2f54e3b7ac0f645079c69c37816b3d2e79597d8d44f115d9478a3ef5655a1bed00a43dd4437d53c69a67e5f558a42599b8858ec60aecd34764
+  checksum: 450c2377d6f7dd5362e34542a5813d6fb8402fdbe13a4f67f5254d75a1d5c64ae9caa0c92933ff46b091e4f5a1fc5823c46bd721d2ff3a7120f8366c631cdc8f
   languageName: node
   linkType: hard
 
@@ -5959,13 +5959,6 @@ __metadata:
   version: 1.0.16
   resolution: "fastest-levenshtein@npm:1.0.16"
   checksum: a78d44285c9e2ae2c25f3ef0f8a73f332c1247b7ea7fb4a191e6bb51aa6ee1ef0dfb3ed113616dcdc7023e18e35a8db41f61c8d88988e877cf510df8edafbc71
-  languageName: node
-  linkType: hard
-
-"fastestsmallesttextencoderdecoder@npm:^1.0.22":
-  version: 1.0.22
-  resolution: "fastestsmallesttextencoderdecoder@npm:1.0.22"
-  checksum: cc5e6c3b4c13de41a24e1311af4d0726e85d9edd75af8a13282f9e5f2751805d869455352a0bf065ab59c9c240d078b7abd98d676da9257666402e56ce9395d0
   languageName: node
   linkType: hard
 
@@ -11965,7 +11958,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.181.0
     "@aws-sdk/client-sesv2": ^3.178.0
-    "@aws-sdk/signature-v4-crt": ^3.171.0
+    "@aws-sdk/signature-v4-crt": ^3.180.0
     "@types/aws-lambda": ^8.10.106
     "@types/jest": ^29.1.1
     "@types/log4js": ^2.3.5
