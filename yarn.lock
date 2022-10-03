@@ -3005,10 +3005,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.21":
-  version: 18.7.21
-  resolution: "@types/node@npm:18.7.21"
-  checksum: 9e0558dd44766fb3b1b26815e9877849d8f1188115e0d2bee540cee2c5a11f90e4c00ee059edae8ea018e7f66217e4bf53271536c9a6fd05e33f713b8daa4c66
+"@types/node@npm:*, @types/node@npm:^18.8.0":
+  version: 18.8.0
+  resolution: "@types/node@npm:18.8.0"
+  checksum: 3433cbc22e90fafb047f93b3ef05ba01a07f780a24ff1af393f435f807537b533fe9e8a816586825f4c5fd5336c3e80225571f44ec3b6479c463408c072773e7
   languageName: node
   linkType: hard
 
@@ -11924,7 +11924,7 @@ __metadata:
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.2
     "@types/mustache": ^4.2.1
-    "@types/node": ^18.7.21
+    "@types/node": ^18.8.0
     "@types/node-fetch": ^2.6.2
     "@typescript-eslint/eslint-plugin": 5.38.0
     "@typescript-eslint/parser": 5.38.0
