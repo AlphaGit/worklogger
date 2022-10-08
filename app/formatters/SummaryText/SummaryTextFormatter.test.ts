@@ -1,7 +1,6 @@
 import * as moment from "moment-timezone";
 import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/entities";
-import { Tag } from "../../models";
-import { IAppConfiguration } from "../../models/AppConfiguration";
+import { Tag, IAppConfiguration } from "../../models";
 import { SummaryTextFormatter } from "./Formatter";
 import { SummaryTextFormatterConfiguration } from "./SummaryTextFormatterConfiguration";
 
@@ -84,7 +83,6 @@ describe('format', () => {
         expect(formatted).not.toMatch('project');
     });
 
-
     test('shows total by tag selection', () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
@@ -102,6 +100,24 @@ describe('format', () => {
 
         expect(formatted).toMatch('Total time by project');
         expect(formatted).toMatch('- [project] Project1: 2hs 0m');
+    });
+
+    test('calculates proper sums', () => {
+        const worklogSet = WorklogSets.double();
+        worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
+        worklogSet.worklogs[0].endDateTime = Dates.pastOneHour();
+        worklogSet.worklogs[0].addTag(Tags.client.ProCorp());
+
+        worklogSet.worklogs[1].startDateTime = Dates.pastHalfHour();
+        worklogSet.worklogs[1].endDateTime = Dates.now();
+        worklogSet.worklogs[1].addTag(Tags.client.ProCorp());
+
+        const configuration = new SummaryTextFormatterConfiguration([['client']]);
+        formatter = new SummaryTextFormatter(configuration, appConfiguration);
+
+        const formatted = formatter.format(worklogSet);
+
+        expect(formatted).toMatch('- [client] ProCorp: 1hs 30m');
     });
 
     test('aggregates on multiple criteria', () => {

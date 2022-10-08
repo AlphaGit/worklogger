@@ -7,6 +7,7 @@ import { FromNow, Unit } from '../app/models/RelativeTime';
 
 export const Dates = {
     today: (): Date => moment().startOf('day').toDate(),
+    pastHalfHour: (): Date => moment().subtract(30, 'minutes').toDate(),
     pastTwoHours: (): Date => moment().subtract(2, 'hours').toDate(),
     pastOneHour: (): Date => moment().subtract(1, 'hour').toDate(),
     now: (): Date => moment().toDate(),
