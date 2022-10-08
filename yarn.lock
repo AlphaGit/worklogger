@@ -981,16 +981,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.171.0":
-  version: 3.171.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.171.0"
-  dependencies:
-    "@aws-sdk/types": 3.171.0
-    tslib: ^2.3.1
-  checksum: 2ba5a16b2ea743b0a7772d7b9a9dd93e8c3f215f9e1e12ad5dc8c3c0616ff336dcbeb8ef0b8ee334b5f691dd93a3faa98bef4af121e63932914dcc85625ecb76
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.178.0":
   version: 3.178.0
   resolution: "@aws-sdk/querystring-parser@npm:3.178.0"
@@ -1051,20 +1041,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4@npm:3.171.0":
-  version: 3.171.0
-  resolution: "@aws-sdk/signature-v4@npm:3.171.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.170.0
-    "@aws-sdk/types": 3.171.0
-    "@aws-sdk/util-hex-encoding": 3.170.0
-    "@aws-sdk/util-middleware": 3.171.0
-    "@aws-sdk/util-uri-escape": 3.170.0
-    tslib: ^2.3.1
-  checksum: bc1fd2b82b8f3ed41fbcc147608bb36b2fc1e33398be714bffd38dd809da9446cb2c67b64486ce89bfa27cf8500cb74b5e722fb1f315bae38e6202dd81869dce
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4@npm:3.178.0":
   version: 3.178.0
   resolution: "@aws-sdk/signature-v4@npm:3.178.0"
@@ -1098,13 +1074,6 @@ __metadata:
     "@aws-sdk/types": 3.178.0
     tslib: ^2.3.1
   checksum: e0ee40a496812829ce53e4624661443107c0449ed8e1c85efeace44b5d54afbe381bb2488f8b96058f0c26519c24643e9645e1e3735a4b35a9e2c4289be7fd17
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.171.0":
-  version: 3.171.0
-  resolution: "@aws-sdk/types@npm:3.171.0"
-  checksum: c962f01e8d41ac623894d1041071442a3ffe4199db370df052512dda1bcdc6a63fa0f42e1e1350d4295fc324dc13f5989928d8e688fba4261f4c08d7ee8966bd
   languageName: node
   linkType: hard
 
@@ -1258,15 +1227,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: fd1d0986a3cb8d99093e6949fda7dade3a0364a9eb72dd004f75335b5f85f67f5afbed100519e1d0ff5c6d0dd7168c6d1cb3f575e1f23134d3c3a7c61cc744ac
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-middleware@npm:3.171.0":
-  version: 3.171.0
-  resolution: "@aws-sdk/util-middleware@npm:3.171.0"
-  dependencies:
-    tslib: ^2.3.1
-  checksum: 1cd26216983c1ea0975e603a3da40ad074d8a07332ee66e9940fc1313c6a5c1beff9b19d3375be767d76911a8eae5ed079ffe8bdf617ad63af3069f762ab0516
   languageName: node
   linkType: hard
 

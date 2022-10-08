@@ -3,7 +3,6 @@ import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/enti
 import { Tag } from "../../models";
 import { IAppConfiguration } from "../../models/AppConfiguration";
 import { SummaryHtmlFormatter, SummaryHtmlFormatterConfiguration } from ".";
-import { isExpressionWithTypeArguments } from "typescript";
 
 describe('format', () => {
     let formatter: SummaryHtmlFormatter;
