@@ -127,7 +127,7 @@
                 ["tag1"],
                 // if multiple tags are in a sub-array, it will nest tag2 under tag1
                 ["tag1", "tag2"],
-            ]
+            ],
 
             // Type: SummaryHtmlFormatter
             // same properties as SummaryTextFormatter
@@ -135,6 +135,12 @@
 
             // Type: TableList
             // no configurations available currently
+
+            // Type: FormatterAggregator
+            "formatters": [
+                // array of formatters to aggregate
+                // each object with same configuration as the formatter property of the outputs
+            ]
         },
         // other properties specific to the output type
 

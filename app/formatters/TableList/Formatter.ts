@@ -6,7 +6,7 @@ import { FormatterBase } from "../FormatterBase";
 const logger = getLogger(LoggerCategory.Formatters);
 
 export class TableListFormatter extends FormatterBase {
-    format(worklogSet: WorklogSet): string {
+    async format(worklogSet: WorklogSet): Promise<string> {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 
         const uniqueTagList = this._getUniqueTagList(worklogSet);

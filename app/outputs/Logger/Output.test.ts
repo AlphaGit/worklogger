@@ -19,11 +19,11 @@ describe('outputWorklogSet', () => {
     const fakeFormatter = Formatters.fake();
     const output = new LoggerOutput(fakeFormatter, outputConfiguration, AppConfigurations.normal());
 
-    test('validates worklogSet', () => {
+    test('validates worklogSet', async () => {
         const worklogSet = WorklogSets.single();
-        output.outputWorklogSet(worklogSet);
+        await output.outputWorklogSet(worklogSet);
 
-        const expectedOutput = fakeFormatter.format(worklogSet);
+        const expectedOutput = await fakeFormatter.format(worklogSet);
         expect(loggerMock.info).toHaveBeenCalledWith(expectedOutput);
     });
 });

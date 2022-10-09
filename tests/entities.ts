@@ -114,7 +114,7 @@ class FakeFormatter extends FormatterBase {
     public formatFunction: (worklogSet: WorklogSet) => string =
         (worklogSet) => worklogSet.toString();
 
-    format(worklogSet: WorklogSet): string {
+    async format(worklogSet: WorklogSet): Promise<string> {
         return this.formatFunction(worklogSet);
     }
 }

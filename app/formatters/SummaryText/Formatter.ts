@@ -8,7 +8,7 @@ import { getLogger, LoggerCategory } from '../../services/Logger';
 const logger = getLogger(LoggerCategory.Formatters);
 
 export class SummaryTextFormatter extends FormatterBase {
-    format(worklogSet: WorklogSet): string {
+    async format(worklogSet: WorklogSet): Promise<string> {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 
         let outputLines: string[] = [];

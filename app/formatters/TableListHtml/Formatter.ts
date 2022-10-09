@@ -7,8 +7,8 @@ import { TableListHtmlFormatterConfiguration } from '.';
 const logger = getLogger(LoggerCategory.Formatters);
 
 export class TableListHtmlFormatter extends TableListFormatter {
-    format(worklogSet: WorklogSet): string {
-        const summaryText = super.format(worklogSet);
+    async format(worklogSet: WorklogSet): Promise<string> {
+        const summaryText = await super.format(worklogSet);
 
         logger.debug('Initializing markdown converter');
         const configuration = this._configuration as TableListHtmlFormatterConfiguration;

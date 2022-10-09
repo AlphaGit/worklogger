@@ -12,5 +12,5 @@ export abstract class FormatterBase {
         this._appConfiguration = appConfiguration;
     }
 
-    abstract format(worklogSet: WorklogSet): string;
+    abstract format(worklogSet: WorklogSet): Promise<string>;
 }

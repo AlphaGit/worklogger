@@ -13,15 +13,15 @@ describe('format', () => {
         formatter = new TableListHtmlFormatter(configuration, appConfiguration);
     });
 
-    test('rejects invalid worklogSets', () => {
-        expect(() => formatter.format(null)).toThrow('Missing WorklogSet.');
-        expect(() => formatter.format(undefined)).toThrow('Missing WorklogSet.');
+    test('rejects invalid worklogSets', async () => {
+        await expect(async () => await formatter.format(null)).rejects.toThrow('Missing WorklogSet.');
+        await expect(async () => await formatter.format(undefined)).rejects.toThrow('Missing WorklogSet.');
     });
 
-    test('includes a header with set columns', () => {
+    test('includes a header with set columns', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('<th>Date</th>')
         expect(formatted).toMatch('<th>Start Time</th>')
         expect(formatted).toMatch('<th>End Time</th>')
@@ -29,18 +29,18 @@ describe('format', () => {
         expect(formatted).toMatch('<th>Title</th>')
     });
 
-    test('includes a header with tag columns', () => {
+    test('includes a header with tag columns', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('<th>Tag: client</th>')
         expect(formatted).toMatch('<th>Tag: project</th>')
     });
 
-    test('includes worklog lines', () => {
+    test('includes worklog lines', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         const worklog = worklogSet.worklogs[0];
         const timeZone = appConfiguration.options.timeZone;
@@ -61,10 +61,10 @@ describe('format', () => {
         expect(formatted).toMatch(`<td>${project}</td>`);
     });
 
-    test('includes a timezone note', () => {
+    test('includes a timezone note', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('<p>All times are in PDT time.</p>');
     });
 });

@@ -19,7 +19,7 @@ export class TextFileOutput extends OutputBase {
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
-        const formattedOutput = this._formatter.format(worklogSet);
+        const formattedOutput = await this._formatter.format(worklogSet);
 
         try {
             const filename = this._configuration.filePath;

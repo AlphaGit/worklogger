@@ -23,7 +23,7 @@ export class AwsSesOutput extends OutputBase {
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
-        const formattedOutput = this._formatter.format(worklogSet);
+        const formattedOutput = await this._formatter.format(worklogSet);
 
         const subject = render(this._configuration.subjectTemplate, worklogSet);
         const body = render(this._configuration.bodyTemplate, { contents: formattedOutput, ...worklogSet });

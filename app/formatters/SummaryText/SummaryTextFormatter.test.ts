@@ -14,23 +14,23 @@ describe('format', () => {
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
     });
 
-    test('rejects invalid worklogSets', () => {
-        expect(() => formatter.format(null)).toThrow('Missing WorklogSet.');
-        expect(() => formatter.format(undefined)).toThrow('Missing WorklogSet.');
+    test('rejects invalid worklogSets', async () => {
+        await expect(async () => await formatter.format(null)).rejects.toThrow('Missing WorklogSet.');
+        await expect(async () => await formatter.format(undefined)).rejects.toThrow('Missing WorklogSet.');
     });
 
-    test('includes a header with dates', () => {
+    test('includes a header with dates', async () => {
         const worklogSet = WorklogSets.mixed();
         const timeZone = appConfiguration.options.timeZone;
         const start = moment.tz(worklogSet.startDateTime, timeZone).format();
         const end = moment.tz(worklogSet.endDateTime, timeZone).format();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch(`from ${start}`);
         expect(formatted).toMatch(`to ${end}`);
     });
 
-    test('includes a total with the durations recorded', () => {
+    test('includes a total with the durations recorded', async () => {
         const worklogSet = WorklogSets.double();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -38,10 +38,10 @@ describe('format', () => {
         worklogSet.worklogs[1].startDateTime = Dates.pastOneHour();
         worklogSet.worklogs[1].endDateTime = Dates.now();
 
-        expect(formatter.format(worklogSet)).toMatch('3hs');
+        expect(await formatter.format(worklogSet)).toMatch('3hs');
     });
 
-    test('does not show tags if there are no aggregations (empty array)', () => {
+    test('does not show tags if there are no aggregations (empty array)', async () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -49,13 +49,13 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration([]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).not.toMatch('client');
         expect(formatted).not.toMatch('project');
     });
 
-    test('does not show tags if there are no aggregations (null)', () => {
+    test('does not show tags if there are no aggregations (null)', async () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -63,13 +63,13 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration(null);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).not.toMatch('client');
         expect(formatted).not.toMatch('project');
     });
 
-    test('does not show tags if there are no aggregations (undefined)', () => {
+    test('does not show tags if there are no aggregations (undefined)', async () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -77,13 +77,13 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration(undefined);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).not.toMatch('client');
         expect(formatted).not.toMatch('project');
     });
 
-    test('shows total by tag selection', () => {
+    test('shows total by tag selection', async () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -93,7 +93,7 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration([['client'], ['project']]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).toMatch('Total time by client');
         expect(formatted).toMatch('- [client] ProCorp: 2hs 0m');
@@ -102,7 +102,7 @@ describe('format', () => {
         expect(formatted).toMatch('- [project] Project1: 2hs 0m');
     });
 
-    test('calculates proper sums', () => {
+    test('calculates proper sums', async () => {
         const worklogSet = WorklogSets.double();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.pastOneHour();
@@ -115,12 +115,12 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration([['client']]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).toMatch('- [client] ProCorp: 1hs 30m');
     });
 
-    test('aggregates on multiple criteria', () => {
+    test('aggregates on multiple criteria', async () => {
         const worklogSet = WorklogSets.double();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -134,7 +134,7 @@ describe('format', () => {
         const configuration = new SummaryTextFormatterConfiguration([['client', 'project']]);
         formatter = new SummaryTextFormatter(configuration, appConfiguration);
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         expect(formatted).toMatch('Total time by client / project');
         expect(formatted).toMatch('- [client] ProCorp: 3hs 0m');

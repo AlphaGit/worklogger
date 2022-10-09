@@ -29,7 +29,7 @@ async function loadOuput(outputConfiguration: IOutputConfiguration, appConfigura
     return new outputModule.default(formatter, outputConfiguration, appConfiguration);
 }
 
-async function loadFormatter(formatterConfiguration: IFormatterConfig | undefined, appConfiguration: IAppConfiguration): Promise<FormatterBase> {
+export async function loadFormatter(formatterConfiguration: IFormatterConfig | undefined, appConfiguration: IAppConfiguration): Promise<FormatterBase> {
     if (!formatterConfiguration)
         formatterConfiguration = { type: 'NoFormat' };
 

@@ -6,7 +6,7 @@ import { IAppConfiguration } from '../models/AppConfiguration';
 export abstract class OutputBase {
     protected _formatter: FormatterBase;
     protected _appConfiguration: IAppConfiguration;
-    
+
     constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
         if (!(formatter instanceof FormatterBase)) throw new Error('Formatter is required.');
 
@@ -14,7 +14,7 @@ export abstract class OutputBase {
         this._appConfiguration = appConfiguration;
     }
 
-    abstract outputWorklogSet(worklogSet: WorklogSet): void;
+    abstract outputWorklogSet(worklogSet: WorklogSet): Promise<void>;
 
     protected _outputWorklogSetValidation(worklogSet: WorklogSet): void {
         if (!worklogSet) throw new Error('Required parameter: worklogSet.');

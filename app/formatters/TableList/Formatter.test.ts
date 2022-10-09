@@ -13,36 +13,36 @@ describe('format', () => {
         formatter = new TableListFormatter(configuration, appConfiguration);
     });
 
-    test('rejects invalid worklogSets', () => {
-        expect(() => formatter.format(null)).toThrow('Missing WorklogSet.');
-        expect(() => formatter.format(undefined)).toThrow('Missing WorklogSet.');
+    test('rejects invalid worklogSets', async () => {
+        await expect(async () => await formatter.format(null)).rejects.toThrow('Missing WorklogSet.');
+        await expect(async () => await formatter.format(undefined)).rejects.toThrow('Missing WorklogSet.');
     });
 
-    test('includes a header with set columns', () => {
+    test('includes a header with set columns', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('Date | Start Time | End Time | Duration | Title');
     });
 
-    test('includes a header with tag columns', () => {
+    test('includes a header with tag columns', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('| Tag: client | Tag: project');
     });
 
-    test('includes a separator line', () => {
+    test('includes a separator line', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('--- | --- | --- | --- | --- | --- | ---');
     });
 
-    test('includes worklog lines', () => {
+    test('includes worklog lines', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
 
         const worklog = worklogSet.worklogs[0];
         const timeZone = appConfiguration.options.timeZone;
@@ -57,10 +57,10 @@ describe('format', () => {
         expect(formatted).toMatch(`${startDate} | ${startTime} | ${endTime} | ${duration} | ${title} | ${client} | ${project}`);
     });
 
-    test('includes a timezone note', () => {
+    test('includes a timezone note', async () => {
         const worklogSet = WorklogSets.single();
 
-        const formatted = formatter.format(worklogSet);
+        const formatted = await formatter.format(worklogSet);
         expect(formatted).toMatch('All times are in PDT time.');
     });
 });
