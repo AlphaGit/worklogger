@@ -132,6 +132,9 @@
             // Type: SummaryHtmlFormatter
             // same properties as SummaryTextFormatter
             // can also have the configurations specified by showndown: https://github.com/showdownjs/showdown#valid-options
+
+            // Type: TableList
+            // no configurations available currently
         },
         // other properties specific to the output type
 

@@ -49,4 +49,8 @@ export class Worklog {
     getTagValue(name: string): string {
         return this.tags[name]?.value;
     }
+
+    getTagKeys(): string[] {
+        return Object.keys(this.tags);
+    }
 }
