@@ -66,8 +66,8 @@ describe('outputWorklogSet', () => {
         expect(input.FromEmailAddress).toBe('from@example.com');
         expect(input.Destination.ToAddresses).toBe(exampleSesConfiguration.toAddresses);
         expect(input.Content.Simple.Subject.Charset).toBe('UTF-8');
-        expect(input.Content.Simple.Subject.Data).toBe('Worklogs until Mon Jun 14 2021 00:00:00 GMT-0700 (Pacific Daylight Saving Time)');
+        expect(input.Content.Simple.Subject.Data).toBe(`Worklogs until ${worklogSet.endDateTime}`);
         expect(input.Content.Simple.Body.Html.Charset).toBe('UTF-8');
-        expect(input.Content.Simple.Body.Html.Data).toBe('<html><body>From Sun Jun 13 2021 00:00:00 GMT-0700 (Pacific Daylight Saving Time): Planning meeting <worklogSet contents></body></html>');
+        expect(input.Content.Simple.Body.Html.Data).toBe(`<html><body>From ${worklogSet.startDateTime}: Planning meeting <worklogSet contents></body></html>`);
     });
 });
