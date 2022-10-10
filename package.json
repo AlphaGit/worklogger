@@ -14,7 +14,7 @@
     "test": "TZ=America/Vancouver jest",
     "test:coverage": "TZ=America/Vancouver jest --coverage",
     "test:all": "yarn lint && yarn test:coverage",
-    "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:$npm_package_version && docker push alphadock/worklogger:latest"
+    "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:v$npm_package_version && docker push alphadock/worklogger:latest"
   },
   "keywords": [
     "work",
