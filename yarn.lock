@@ -10808,9 +10808,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-webpack@npm:^5.9.1":
-  version: 5.9.1
-  resolution: "serverless-webpack@npm:5.9.1"
+"serverless-webpack@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "serverless-webpack@npm:5.10.0"
   dependencies:
     archiver: ^5.3.1
     bluebird: ^3.7.2
@@ -10826,7 +10826,7 @@ __metadata:
   dependenciesMeta:
     ts-node:
       optional: true
-  checksum: 20d0bcdb990b4277f71bbed4fead8f9b5872f91410262adcec75dd5f928fca9ebb83ef702909f3461fd9acf6fde254b4ac2d4194aa921ce7a173f5a2738e4415
+  checksum: 837c6da360c7a56b2db6642e42e97c3c5152398a5bbed032593713c5ddf857dd51a02c8ab87c10ba896ca3f6bcd8957de92e32d728416275df3735c0da5c5726
   languageName: node
   linkType: hard
 
@@ -12394,7 +12394,7 @@ __metadata:
     serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^11.0.1
-    serverless-webpack: ^5.9.1
+    serverless-webpack: ^5.10.0
     showdown: ^2.1.0
     ts-jest: ^29.0.1
     ts-loader: ^9.4.1
