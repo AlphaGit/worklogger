@@ -2441,21 +2441,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.7.0":
-  version: 6.7.0
-  resolution: "@serverless/utils@npm:6.7.0"
+"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.7.0, @serverless/utils@npm:^6.8.0":
+  version: 6.8.0
+  resolution: "@serverless/utils@npm:6.8.0"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
-    ci-info: ^3.3.2
+    ci-info: ^3.5.0
     cli-progress-footer: ^2.3.2
     content-disposition: ^0.5.4
     d: ^1.0.1
     decompress: ^4.2.1
     event-emitter: ^0.3.5
-    ext: ^1.6.0
+    ext: ^1.7.0
     ext-name: ^5.0.0
-    file-type: ^16.5.3
+    file-type: ^16.5.4
     filenamify: ^4.3.0
     get-stream: ^6.0.1
     got: ^11.8.5
@@ -2467,17 +2467,17 @@ __metadata:
     log-node: ^8.0.3
     make-dir: ^3.1.0
     memoizee: ^0.4.15
-    ncjsm: ^4.3.0
+    ncjsm: ^4.3.1
     node-fetch: ^2.6.7
-    open: ^7.4.2
+    open: ^8.4.0
     p-event: ^4.2.0
     supports-color: ^8.1.1
     timers-ext: ^0.1.7
-    type: ^2.6.0
+    type: ^2.7.2
     uni-global: ^1.0.0
     uuid: ^8.3.2
-    write-file-atomic: ^4.0.1
-  checksum: a1c117f0052112f9f99cf9f30f3c9ae2015631879ee476ab94512731729cd39850360696a4ef66acdca384dfb5100787c410d0415f8cd3b95bd59a6e582d5adb
+    write-file-atomic: ^4.0.2
+  checksum: bcad1e65fea26ef46977b7d4209638fd40c77d4b9edf46ff281104de543c4c4d1b507ae6a933920794d71c52afa077bd7c487bd2da3e265dd1330849385800b6
   languageName: node
   linkType: hard
 
@@ -3933,7 +3933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"builtin-modules@npm:^3.2.0, builtin-modules@npm:^3.3.0":
+"builtin-modules@npm:^3.3.0":
   version: 3.3.0
   resolution: "builtin-modules@npm:3.3.0"
   checksum: db021755d7ed8be048f25668fe2117620861ef6703ea2c65ed2779c9e3636d5c3b82325bd912244293959ff3ae303afa3471f6a15bf5060c103e4cc3a839749d
@@ -4122,10 +4122,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^5.0.0, chalk@npm:^5.0.1, chalk@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "chalk@npm:5.1.0"
-  checksum: c1aa0bf0064a5a59bc06e3e385685fdcc5bb122159152bb57755fc48f9ef93c30cb3a36c9a2c39ead23e5261d787c87c4c097e1a889e1370478102a0112fe0e0
+"chalk@npm:^5.0.0, chalk@npm:^5.0.1, chalk@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "chalk@npm:5.1.2"
+  checksum: 804d7485e33531abe45b14e91026ceb5615974a8c04259ab0806f214a7666f6ea03e39ab124f7d5a0c78a83fda89005f236db3c5f10c2abe9ae875f7aa56bcb5
   languageName: node
   linkType: hard
 
@@ -4196,10 +4196,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.2.0, ci-info@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "ci-info@npm:3.3.2"
-  checksum: fd81f1edd2d3b0f6cb077b2e84365136d87b9db8c055928c1ad69da8a76c2c2f19cba8ea51b90238302157ca927f91f92b653e933f2398dde4867500f08d6e62
+"ci-info@npm:^3.2.0, ci-info@npm:^3.3.2, ci-info@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "ci-info@npm:3.5.0"
+  checksum: 7def3789706ec18db3dc371dc699bd0df12057d54b796201f50ba87200e0849d3d83c68da00ab2ab8cdd738d91b25ab9e31620588f8d7e64ffaa1f760fd121cf
   languageName: node
   linkType: hard
 
@@ -4860,6 +4860,13 @@ __metadata:
     next-tick: ^1.0.0
     timers-ext: ^0.1.7
   checksum: 0e7506291557eab9eee73427b007ffc396c016d372e4d47906af1a4783115ac08708dd806ad333b16debf9e2e5d5fbd1e7455e29f13db69cc09b350171e06de6
+  languageName: node
+  linkType: hard
+
+"define-lazy-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "define-lazy-prop@npm:2.0.0"
+  checksum: 0115fdb065e0490918ba271d7339c42453d209d4cb619dfe635870d906731eff3e1ade8028bb461ea27ce8264ec5e22c6980612d332895977e89c1bbc80fcee2
   languageName: node
   linkType: hard
 
@@ -5592,12 +5599,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ext@npm:^1.1.2, ext@npm:^1.4.0, ext@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "ext@npm:1.6.0"
+"ext@npm:^1.1.2, ext@npm:^1.4.0, ext@npm:^1.6.0, ext@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "ext@npm:1.7.0"
   dependencies:
-    type: ^2.5.0
-  checksum: ca3ef4619e838f441a92238a98b77ac873da2175ace746c64303ffe2c3208e79a3acf3bf7004e40b720f3c2a83bf0143e6dd4a7cdfae6e73f54a3bfc7a14b5c2
+    type: ^2.7.2
+  checksum: ef481f9ef45434d8c867cfd09d0393b60945b7c8a1798bedc4514cb35aac342ccb8d8ecb66a513e6a2b4ec1e294a338e3124c49b29736f8e7c735721af352c31
   languageName: node
   linkType: hard
 
@@ -5748,14 +5755,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:^16.5.3":
-  version: 16.5.3
-  resolution: "file-type@npm:16.5.3"
+"file-type@npm:^16.5.4":
+  version: 16.5.4
+  resolution: "file-type@npm:16.5.4"
   dependencies:
     readable-web-to-node-stream: ^3.0.0
     strtok3: ^6.2.4
     token-types: ^4.1.1
-  checksum: 38a4443d0f7b9b3de8a44a1d75d441f9ddb544a1adbf22ec7bc07d135452c3464000c64daa51220ffec6a38ceec7565a1290337bd81aab2e6273c79db5ed9ef3
+  checksum: d983c0f36491c57fcb6cc70fcb02c36d6b53f312a15053263e1924e28ca8314adf0db32170801ad777f09432c32155f31715ceaee66310947731588120d7ec27
   languageName: node
   linkType: hard
 
@@ -6871,7 +6878,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-docker@npm:^2.0.0, is-docker@npm:^2.2.1":
+"is-docker@npm:^2.0.0, is-docker@npm:^2.1.1, is-docker@npm:^2.2.1":
   version: 2.2.1
   resolution: "is-docker@npm:2.2.1"
   bin:
@@ -7118,7 +7125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^2.1.1":
+"is-wsl@npm:^2.1.1, is-wsl@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0"
   dependencies:
@@ -8700,19 +8707,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ncjsm@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "ncjsm@npm:4.3.0"
+"ncjsm@npm:^4.3.0, ncjsm@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "ncjsm@npm:4.3.1"
   dependencies:
-    builtin-modules: ^3.2.0
+    builtin-modules: ^3.3.0
     deferred: ^0.7.11
-    es5-ext: ^0.10.53
+    es5-ext: ^0.10.61
     es6-set: ^0.1.5
     ext: ^1.6.0
     find-requires: ^1.0.0
     fs2: ^0.3.9
-    type: ^2.5.0
-  checksum: ed9f872cf8738c445999d1c7a8f3dbd470c9d8235b91136d450abed439519fe985735e3a12312c61a43ebfd0e818658bffb1e46505bfd247360cb0bfbc103576
+    type: ^2.6.0
+  checksum: 77d111fbd0df315302f0210b3c58c1f3738c89cd6176a516da4825455122bed1c0e76d2e3db7fc39cc47c56d56e18ed26893078e7c9789797cf049537556db32
   languageName: node
   linkType: hard
 
@@ -9076,6 +9083,17 @@ __metadata:
     is-docker: ^2.0.0
     is-wsl: ^2.1.1
   checksum: 3333900ec0e420d64c23b831bc3467e57031461d843c801f569b2204a1acc3cd7b3ec3c7897afc9dde86491dfa289708eb92bba164093d8bd88fb2c231843c91
+  languageName: node
+  linkType: hard
+
+"open@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "open@npm:8.4.0"
+  dependencies:
+    define-lazy-prop: ^2.0.0
+    is-docker: ^2.1.1
+    is-wsl: ^2.2.0
+  checksum: e9545bec64cdbf30a0c35c1bdc310344adf8428a117f7d8df3c0af0a0a24c513b304916a6d9b11db0190ff7225c2d578885080b761ed46a3d5f6f1eebb98b63c
   languageName: node
   linkType: hard
 
@@ -10085,17 +10103,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^11.1.1":
-  version: 11.1.1
-  resolution: "serverless-offline@npm:11.1.1"
+"serverless-offline@npm:^11.1.2":
+  version: 11.1.2
+  resolution: "serverless-offline@npm:11.1.2"
   dependencies:
     "@hapi/boom": ^10.0.0
     "@hapi/h2o2": ^10.0.0
     "@hapi/hapi": ^20.2.2
-    "@serverless/utils": ^6.7.0
+    "@serverless/utils": ^6.8.0
     aws-sdk: ^2.1231.0
     boxen: ^7.0.0
-    chalk: ^5.1.0
+    chalk: ^5.1.2
     execa: ^6.1.0
     fs-extra: ^10.1.0
     java-invoke-local: 0.0.6
@@ -10114,7 +10132,7 @@ __metadata:
     ws: ^8.9.0
   peerDependencies:
     serverless: ^3.2.0
-  checksum: d2e8497e90720e0cc1be326b6dfc3185873f93574c5742f0692ce4373bfcd180e695c85f0cd4e5ef3f8fbd80c9a174973d55fb5fbf03db5dca38fca4307dd359
+  checksum: 8393d10394175fce81ae513c83d59223e5f4b396f212fe14b218e2a533afd38ac6d1559a3bf1c82f066bfc3348e9cecfe47e571ad9371439b56bfa584e204148
   languageName: node
   linkType: hard
 
@@ -11710,7 +11728,7 @@ __metadata:
     nyc: ^15.1.0
     serverless: ^3.22.0
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^11.1.1
+    serverless-offline: ^11.1.2
     serverless-webpack: ^5.10.0
     showdown: ^2.1.0
     ts-jest: ^29.0.3
@@ -11784,13 +11802,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "write-file-atomic@npm:4.0.1"
+"write-file-atomic@npm:^4.0.1, write-file-atomic@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "write-file-atomic@npm:4.0.2"
   dependencies:
     imurmurhash: ^0.1.4
     signal-exit: ^3.0.7
-  checksum: 8f780232533ca6223c63c9b9c01c4386ca8c625ebe5017a9ed17d037aec19462ae17109e0aa155bff5966ee4ae7a27b67a99f55caf3f32ffd84155e9da3929fc
+  checksum: 5da60bd4eeeb935eec97ead3df6e28e5917a6bd317478e4a85a5285e8480b8ed96032bbcc6ecd07b236142a24f3ca871c924ec4a6575e623ec1b11bf8c1c253c
   languageName: node
   linkType: hard
 
