@@ -4189,25 +4189,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1231.0, aws-sdk@npm:^2.814.0":
-  version: 2.1231.0
-  resolution: "aws-sdk@npm:2.1231.0"
-  dependencies:
-    buffer: 4.9.2
-    events: 1.1.1
-    ieee754: 1.1.13
-    jmespath: 0.16.0
-    querystring: 0.2.0
-    sax: 1.2.1
-    url: 0.10.3
-    util: ^0.12.4
-    uuid: 8.0.0
-    xml2js: 0.4.19
-  checksum: 34597bc47b8efa84f0c637f8aea92e01010f282eeb878097cd198f67b9d04110115d949c0e641a799cd9a06e4da57697f0b8a682dd7c2be78c717d21d5c4720a
-  languageName: node
-  linkType: hard
-
-"aws-sdk@npm:^2.1238.0":
+"aws-sdk@npm:^2.1231.0, aws-sdk@npm:^2.1238.0, aws-sdk@npm:^2.814.0":
   version: 2.1238.0
   resolution: "aws-sdk@npm:2.1238.0"
   dependencies:
