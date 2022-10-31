@@ -3605,6 +3605,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aws-sdk@npm:^2.1243.0":
+  version: 2.1243.0
+  resolution: "aws-sdk@npm:2.1243.0"
+  dependencies:
+    buffer: 4.9.2
+    events: 1.1.1
+    ieee754: 1.1.13
+    jmespath: 0.16.0
+    querystring: 0.2.0
+    sax: 1.2.1
+    url: 0.10.3
+    util: ^0.12.4
+    uuid: 8.0.0
+    xml2js: 0.4.19
+  checksum: bd5a32918aa0f06c79acc63db8271ce1447f77af76c700a15837c21b8407b0af894ecf139366b194820c69408f25dc1cc9db8b10ee59a0522788cdd2cddfcfd2
+  languageName: node
+  linkType: hard
+
 "axios@npm:^0.21.1":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
@@ -11735,7 +11753,7 @@ __metadata:
     "@typescript-eslint/parser": 5.40.1
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
-    aws-sdk: ^2.1231.0
+    aws-sdk: ^2.1243.0
     cacache: ^17.0.1
     eslint: ^8.26.0
     eslint-import-resolver-node: ^0.3.6
