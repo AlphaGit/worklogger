@@ -166,6 +166,51 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/client-lambda@npm:^3.198.0":
+  version: 3.199.0
+  resolution: "@aws-sdk/client-lambda@npm:3.199.0"
+  dependencies:
+    "@aws-crypto/sha256-browser": 2.0.0
+    "@aws-crypto/sha256-js": 2.0.0
+    "@aws-sdk/client-sts": 3.199.0
+    "@aws-sdk/config-resolver": 3.198.0
+    "@aws-sdk/credential-provider-node": 3.199.0
+    "@aws-sdk/fetch-http-handler": 3.199.0
+    "@aws-sdk/hash-node": 3.198.0
+    "@aws-sdk/invalid-dependency": 3.198.0
+    "@aws-sdk/middleware-content-length": 3.199.0
+    "@aws-sdk/middleware-endpoint": 3.198.0
+    "@aws-sdk/middleware-host-header": 3.198.0
+    "@aws-sdk/middleware-logger": 3.198.0
+    "@aws-sdk/middleware-recursion-detection": 3.198.0
+    "@aws-sdk/middleware-retry": 3.198.0
+    "@aws-sdk/middleware-serde": 3.198.0
+    "@aws-sdk/middleware-signing": 3.198.0
+    "@aws-sdk/middleware-stack": 3.198.0
+    "@aws-sdk/middleware-user-agent": 3.198.0
+    "@aws-sdk/node-config-provider": 3.198.0
+    "@aws-sdk/node-http-handler": 3.199.0
+    "@aws-sdk/protocol-http": 3.198.0
+    "@aws-sdk/smithy-client": 3.198.0
+    "@aws-sdk/types": 3.198.0
+    "@aws-sdk/url-parser": 3.198.0
+    "@aws-sdk/util-base64-browser": 3.188.0
+    "@aws-sdk/util-base64-node": 3.188.0
+    "@aws-sdk/util-body-length-browser": 3.188.0
+    "@aws-sdk/util-body-length-node": 3.188.0
+    "@aws-sdk/util-defaults-mode-browser": 3.198.0
+    "@aws-sdk/util-defaults-mode-node": 3.198.0
+    "@aws-sdk/util-endpoints": 3.198.0
+    "@aws-sdk/util-user-agent-browser": 3.198.0
+    "@aws-sdk/util-user-agent-node": 3.198.0
+    "@aws-sdk/util-utf8-browser": 3.188.0
+    "@aws-sdk/util-utf8-node": 3.199.0
+    "@aws-sdk/util-waiter": 3.198.0
+    tslib: ^2.3.1
+  checksum: 2b9a668712f7a12a4526c2ff8fc2998a3beef1cf6dd75939b2d8d49d02b5c8cbd41b385fe49654ebdc2097c15aac73827849cdea060add51f1c97b8356ec101b
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/client-s3@npm:^3.194.0":
   version: 3.194.0
   resolution: "@aws-sdk/client-s3@npm:3.194.0"
@@ -1744,6 +1789,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/util-waiter@npm:3.198.0":
+  version: 3.198.0
+  resolution: "@aws-sdk/util-waiter@npm:3.198.0"
+  dependencies:
+    "@aws-sdk/abort-controller": 3.198.0
+    "@aws-sdk/types": 3.198.0
+    tslib: ^2.3.1
+  checksum: 7d29e7aca2889c2eccab201613fb8e60f30a68005a27d31eda29c0b69646170420e967dce02c056e3c535be4cfee04e02e994ee4dd33f5eea002562e51b3f71b
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/xml-builder@npm:3.188.0":
   version: 3.188.0
   resolution: "@aws-sdk/xml-builder@npm:3.188.0"
@@ -3045,9 +3101,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.7.0, @serverless/utils@npm:^6.8.0":
-  version: 6.8.0
-  resolution: "@serverless/utils@npm:6.8.0"
+"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.7.0, @serverless/utils@npm:^6.8.1":
+  version: 6.8.1
+  resolution: "@serverless/utils@npm:6.8.1"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
@@ -3063,7 +3119,7 @@ __metadata:
     filenamify: ^4.3.0
     get-stream: ^6.0.1
     got: ^11.8.5
-    inquirer: ^8.2.4
+    inquirer: ^8.2.5
     js-yaml: ^4.1.0
     jwt-decode: ^3.1.2
     lodash: ^4.17.21
@@ -3081,7 +3137,7 @@ __metadata:
     uni-global: ^1.0.0
     uuid: ^8.3.2
     write-file-atomic: ^4.0.2
-  checksum: bcad1e65fea26ef46977b7d4209638fd40c77d4b9edf46ff281104de543c4c4d1b507ae6a933920794d71c52afa077bd7c487bd2da3e265dd1330849385800b6
+  checksum: 0b7d2515b148c56cf5f1fbb98cb4eba9d0c5f5c6c9c5b103bcc8418136061cbbd82080465c7835fd78f64233ae43c0138e58b010ca61e8a432a7d8922d8845e9
   languageName: node
   linkType: hard
 
@@ -4163,7 +4219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1231.0, aws-sdk@npm:^2.1233.0, aws-sdk@npm:^2.1243.0, aws-sdk@npm:^2.814.0":
+"aws-sdk@npm:^2.1231.0, aws-sdk@npm:^2.1243.0, aws-sdk@npm:^2.814.0":
   version: 2.1243.0
   resolution: "aws-sdk@npm:2.1243.0"
   dependencies:
@@ -7333,9 +7389,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.2.4":
-  version: 8.2.4
-  resolution: "inquirer@npm:8.2.4"
+"inquirer@npm:^8.2.5":
+  version: 8.2.5
+  resolution: "inquirer@npm:8.2.5"
   dependencies:
     ansi-escapes: ^4.2.1
     chalk: ^4.1.1
@@ -7352,7 +7408,7 @@ __metadata:
     strip-ansi: ^6.0.0
     through: ^2.3.6
     wrap-ansi: ^7.0.0
-  checksum: dfcb6529d3af443dfea2241cb471508091b51f5121a088fdb8728b23ec9b349ef0a5e13a0ef2c8e19457b0bed22f7cbbcd561f7a4529d084c562a58c605e2655
+  checksum: f13ee4c444187786fb393609dedf6b30870115a57b603f2e6424f29a99abc13446fd45ee22461c33c9c40a92a60a8df62d0d6b25d74fc6676fa4cb211de55b55
   languageName: node
   linkType: hard
 
@@ -8343,10 +8399,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^4.10.0":
-  version: 4.10.0
-  resolution: "jose@npm:4.10.0"
-  checksum: c575bf2519b758592b3037cac0da34ff2641e56a050b156fe6ab18c03cd6c22e5338d28d1fe3dd997c9b3c0cc7deda72faca4a93ff41274a587850c6519852d0
+"jose@npm:^4.10.3":
+  version: 4.10.4
+  resolution: "jose@npm:4.10.4"
+  checksum: 0e6caaae0b0303534c0ac23711d45eadfbdbff63d9aeed80965c668b5532c254ab25b48afddc3e1ecfcfd36b4275dee41174a097c5a47a25ce04268c78f3c130
   languageName: node
   linkType: hard
 
@@ -10715,21 +10771,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^11.1.3":
-  version: 11.1.3
-  resolution: "serverless-offline@npm:11.1.3"
+"serverless-offline@npm:^11.2.1":
+  version: 11.2.1
+  resolution: "serverless-offline@npm:11.2.1"
   dependencies:
+    "@aws-sdk/client-lambda": ^3.198.0
     "@hapi/boom": ^10.0.0
     "@hapi/h2o2": ^10.0.0
     "@hapi/hapi": ^20.2.2
-    "@serverless/utils": ^6.8.0
-    aws-sdk: ^2.1233.0
+    "@serverless/utils": ^6.8.1
     boxen: ^7.0.0
     chalk: ^5.1.2
     execa: ^6.1.0
     fs-extra: ^10.1.0
     java-invoke-local: 0.0.6
-    jose: ^4.10.0
+    jose: ^4.10.3
     js-string-escape: ^1.0.1
     jsonpath-plus: ^7.2.0
     jsonschema: ^1.4.1
@@ -10741,10 +10797,10 @@ __metadata:
     p-memoize: ^7.1.1
     p-retry: ^5.1.1
     velocityjs: ^2.0.6
-    ws: ^8.9.0
+    ws: ^8.10.0
   peerDependencies:
     serverless: ^3.2.0
-  checksum: 4a941fd4d36ecfe83a8b06bc1f18fa12310a916c9cb2ce6348aedae83c74e093da91c36cb5908c55859a0945209abadfe16427bcd17f66a129d73a7feb756153
+  checksum: 6fce68151145971e74896df8276ef9d1795f0c5a6d2c4ae4d53066eff2e2eb3213497b44ad41548a01030e93bc3f53c0f01ece4b1ec40a4f71d6e3a2adc4e19d
   languageName: node
   linkType: hard
 
@@ -12329,7 +12385,7 @@ __metadata:
     nyc: ^15.1.0
     serverless: ^3.23.0
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^11.1.3
+    serverless-offline: ^11.2.1
     serverless-webpack: ^5.10.0
     showdown: ^2.1.0
     ts-jest: ^29.0.3
@@ -12413,9 +12469,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:*, ws@npm:^8.9.0":
-  version: 8.9.0
-  resolution: "ws@npm:8.9.0"
+"ws@npm:*, ws@npm:^8.10.0":
+  version: 8.10.0
+  resolution: "ws@npm:8.10.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -12424,7 +12480,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 23aa0f021b2eb65c108ec4c3e08c0d81ba01f82b500432dfe327fd6be36079c1d81fdb0eac6464d2a0eb49904d34a9ab8c59619d673fa07b8346f83aeb0cbf12
+  checksum: 3a32e15dffe633dd5ce99659793dbcf1440ea25d2da1060c88cbd22efdfb7986a6933e68aaa4b098fc3f1f7870cb386afd378a1ceaca4b31748471576d5a8b52
   languageName: node
   linkType: hard
 
