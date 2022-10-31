@@ -39,7 +39,7 @@
     "aws-sdk": "^2.1243.0",
     "cacache": "^17.0.1",
     "fetch-event": "^1.0.0-alpha",
-    "googleapis": "^108.0.0",
+    "googleapis": "^109.0.0",
     "log4js": "^6.7.0",
     "minimist": "^1.2.7",
     "moment-timezone": "^0.5.38",
