@@ -1996,14 +1996,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/types@npm:3.201.0, @aws-sdk/types@npm:^3.1.0":
+"@aws-sdk/types@npm:3.201.0":
   version: 3.201.0
   resolution: "@aws-sdk/types@npm:3.201.0"
   checksum: faaf94dddf52f2effd693556473a9d95d7a63b2786e2688480068cc6fcc5f95d8ff85c2c1d7f46cfa6032063522ec41747c08a15c39346566c5649cf861e2b20
   languageName: node
   linkType: hard
 
-"@aws-sdk/types@npm:3.212.0":
+"@aws-sdk/types@npm:3.212.0, @aws-sdk/types@npm:^3.1.0":
   version: 3.212.0
   resolution: "@aws-sdk/types@npm:3.212.0"
   checksum: ba085aa2f70930adc250b4d142563cf886b9cbd98c011abe9d1d8dbad8b9cc8558a54d34bbeabed62a1a958a871c8d9d6cdaf43d57c31af8fc03a35a93ae5fb4
