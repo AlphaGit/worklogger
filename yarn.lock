@@ -3168,47 +3168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.8.1":
-  version: 6.8.1
-  resolution: "@serverless/utils@npm:6.8.1"
-  dependencies:
-    archive-type: ^4.0.0
-    chalk: ^4.1.2
-    ci-info: ^3.5.0
-    cli-progress-footer: ^2.3.2
-    content-disposition: ^0.5.4
-    d: ^1.0.1
-    decompress: ^4.2.1
-    event-emitter: ^0.3.5
-    ext: ^1.7.0
-    ext-name: ^5.0.0
-    file-type: ^16.5.4
-    filenamify: ^4.3.0
-    get-stream: ^6.0.1
-    got: ^11.8.5
-    inquirer: ^8.2.5
-    js-yaml: ^4.1.0
-    jwt-decode: ^3.1.2
-    lodash: ^4.17.21
-    log: ^6.3.1
-    log-node: ^8.0.3
-    make-dir: ^3.1.0
-    memoizee: ^0.4.15
-    ncjsm: ^4.3.1
-    node-fetch: ^2.6.7
-    open: ^8.4.0
-    p-event: ^4.2.0
-    supports-color: ^8.1.1
-    timers-ext: ^0.1.7
-    type: ^2.7.2
-    uni-global: ^1.0.0
-    uuid: ^8.3.2
-    write-file-atomic: ^4.0.2
-  checksum: 0b7d2515b148c56cf5f1fbb98cb4eba9d0c5f5c6c9c5b103bcc8418136061cbbd82080465c7835fd78f64233ae43c0138e58b010ca61e8a432a7d8922d8845e9
-  languageName: node
-  linkType: hard
-
-"@serverless/utils@npm:^6.8.2":
+"@serverless/utils@npm:^6.0.3, @serverless/utils@npm:^6.8.1, @serverless/utils@npm:^6.8.2":
   version: 6.8.2
   resolution: "@serverless/utils@npm:6.8.2"
   dependencies:
@@ -4008,19 +3968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0":
-  version: 8.11.0
-  resolution: "ajv@npm:8.11.0"
-  dependencies:
-    fast-deep-equal: ^3.1.1
-    json-schema-traverse: ^1.0.0
-    require-from-string: ^2.0.2
-    uri-js: ^4.2.2
-  checksum: 5e0ff226806763be73e93dd7805b634f6f5921e3e90ca04acdf8db81eed9d8d3f0d4c5f1213047f45ebbf8047ffe0c840fa1ef2ec42c3a644899f69aa72b5bef
-  languageName: node
-  linkType: hard
-
-"ajv@npm:^8.11.2":
+"ajv@npm:^8.0.0, ajv@npm:^8.11.2":
   version: 8.11.2
   resolution: "ajv@npm:8.11.2"
   dependencies:
@@ -4339,25 +4287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1243.0, aws-sdk@npm:^2.814.0":
-  version: 2.1243.0
-  resolution: "aws-sdk@npm:2.1243.0"
-  dependencies:
-    buffer: 4.9.2
-    events: 1.1.1
-    ieee754: 1.1.13
-    jmespath: 0.16.0
-    querystring: 0.2.0
-    sax: 1.2.1
-    url: 0.10.3
-    util: ^0.12.4
-    uuid: 8.0.0
-    xml2js: 0.4.19
-  checksum: bd5a32918aa0f06c79acc63db8271ce1447f77af76c700a15837c21b8407b0af894ecf139366b194820c69408f25dc1cc9db8b10ee59a0522788cdd2cddfcfd2
-  languageName: node
-  linkType: hard
-
-"aws-sdk@npm:^2.1258.0":
+"aws-sdk@npm:^2.1243.0, aws-sdk@npm:^2.1258.0, aws-sdk@npm:^2.814.0":
   version: 2.1262.0
   resolution: "aws-sdk@npm:2.1262.0"
   dependencies:
@@ -4999,14 +4929,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.2.0, ci-info@npm:^3.5.0":
-  version: 3.5.0
-  resolution: "ci-info@npm:3.5.0"
-  checksum: 7def3789706ec18db3dc371dc699bd0df12057d54b796201f50ba87200e0849d3d83c68da00ab2ab8cdd738d91b25ab9e31620588f8d7e64ffaa1f760fd121cf
-  languageName: node
-  linkType: hard
-
-"ci-info@npm:^3.6.1":
+"ci-info@npm:^3.2.0, ci-info@npm:^3.5.0, ci-info@npm:^3.6.1":
   version: 3.7.0
   resolution: "ci-info@npm:3.7.0"
   checksum: 6e5df0250382ff3732703b36b958d2d892dd3c481f9671666f96c2ab7888be744bc4dca81395be958dcb828502d94f18fa9aa8901c5a3c9923cda212df02724c
@@ -11647,21 +11570,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.2, tar@npm:^6.1.11, tar@npm:^6.1.2":
-  version: 6.1.11
-  resolution: "tar@npm:6.1.11"
-  dependencies:
-    chownr: ^2.0.0
-    fs-minipass: ^2.0.0
-    minipass: ^3.0.0
-    minizlib: ^2.1.1
-    mkdirp: ^1.0.3
-    yallist: ^4.0.0
-  checksum: a04c07bb9e2d8f46776517d4618f2406fb977a74d914ad98b264fc3db0fe8224da5bec11e5f8902c5b9bcb8ace22d95fbe3c7b36b8593b7dfc8391a25898f32f
-  languageName: node
-  linkType: hard
-
-"tar@npm:^6.1.12":
+"tar@npm:^6.0.2, tar@npm:^6.1.11, tar@npm:^6.1.12, tar@npm:^6.1.2":
   version: 6.1.12
   resolution: "tar@npm:6.1.12"
   dependencies:
