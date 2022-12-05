@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.108",
-    "@types/jest": "^29.2.0",
+    "@types/jest": "^29.2.3",
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.2",
     "@types/mustache": "^4.2.1",
@@ -62,7 +62,7 @@
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-import": "^2.26.0",
     "inquirer": "^9.1.4",
-    "jest": "^29.2.2",
+    "jest": "^29.3.1",
     "jest-fetch-mock": "^3.0.3",
     "nyc": "^15.1.0",
     "serverless": "^3.23.0",
