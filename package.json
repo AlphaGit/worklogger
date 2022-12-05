@@ -37,7 +37,7 @@
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1267.0",
-    "cacache": "^17.0.1",
+    "cacache": "^17.0.2",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^109.0.1",
     "log4js": "^6.7.0",
