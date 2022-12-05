@@ -927,16 +927,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.201.0":
-  version: 3.201.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.201.0"
-  dependencies:
-    "@aws-sdk/types": 3.201.0
-    tslib: ^2.3.1
-  checksum: 40c4158b45992fd97939a329f7e24aac746ab43d348da3a7bbc3c640e7a7a80c881ef84f6bcc95ffac53d704cb5787638fbec56f3a54424983c2f7f323b5b21a
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.222.0":
   version: 3.222.0
   resolution: "@aws-sdk/querystring-parser@npm:3.222.0"
@@ -964,19 +954,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.201.0":
-  version: 3.201.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.201.0"
+"@aws-sdk/signature-v4-crt@npm:^3.222.0":
+  version: 3.222.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.222.0"
   dependencies:
     "@aws-sdk/is-array-buffer": 3.201.0
-    "@aws-sdk/querystring-parser": 3.201.0
-    "@aws-sdk/signature-v4": 3.201.0
+    "@aws-sdk/querystring-parser": 3.222.0
+    "@aws-sdk/signature-v4": 3.222.0
     "@aws-sdk/util-hex-encoding": 3.201.0
-    "@aws-sdk/util-middleware": 3.201.0
+    "@aws-sdk/util-middleware": 3.222.0
     "@aws-sdk/util-uri-escape": 3.201.0
     aws-crt: ^1.13.2
     tslib: ^2.3.1
-  checksum: 34a3a029836484a2f541a2574d2e1426e4bd3bbf517a67d5a076b68214d69202452ddf7e41490478bc6ff13b4755fc5e5838b1115fd521a9dbc0e82d35bdbd22
+  checksum: 5e8b81cc8d6566733bd582f7784aed6c46e1c391e3f0ae0158ef0988ce234960bdae3a48e89eca459e646a48294145fa92aa1a77a071eddf57c4679c0922da22
   languageName: node
   linkType: hard
 
@@ -995,20 +985,6 @@ __metadata:
     "@aws-sdk/signature-v4-crt":
       optional: true
   checksum: 6ab68c8001c85c79974f5bd272e6caeebe486d40665be1658aba4bce11e518873fc3bc72c9731fbfa399fa5d09b980f878aaa1c01330ebc0b026520c8d3f3fed
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/signature-v4@npm:3.201.0":
-  version: 3.201.0
-  resolution: "@aws-sdk/signature-v4@npm:3.201.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.201.0
-    "@aws-sdk/types": 3.201.0
-    "@aws-sdk/util-hex-encoding": 3.201.0
-    "@aws-sdk/util-middleware": 3.201.0
-    "@aws-sdk/util-uri-escape": 3.201.0
-    tslib: ^2.3.1
-  checksum: cd0abe1af0a0f4b987a81165518161285f15594113c575180f533c9d9d8384a26f0ad721000ae46da4065162bbedbe2a0382400dc7fa862e46e0dac8d6eefb2f
   languageName: node
   linkType: hard
 
@@ -1050,17 +1026,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/types@npm:3.201.0, @aws-sdk/types@npm:^3.1.0":
-  version: 3.201.0
-  resolution: "@aws-sdk/types@npm:3.201.0"
-  checksum: faaf94dddf52f2effd693556473a9d95d7a63b2786e2688480068cc6fcc5f95d8ff85c2c1d7f46cfa6032063522ec41747c08a15c39346566c5649cf861e2b20
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/types@npm:3.222.0":
   version: 3.222.0
   resolution: "@aws-sdk/types@npm:3.222.0"
   checksum: 41d70038c69b1e9b9dbf0489a8aa416da1c96c4ff84e8d5db01ea4877efceb4c0fdd0ce27bdeea8c67afc4d168151dc63938302a3f945922143f37472c4fd9da
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/types@npm:^3.1.0":
+  version: 3.201.0
+  resolution: "@aws-sdk/types@npm:3.201.0"
+  checksum: faaf94dddf52f2effd693556473a9d95d7a63b2786e2688480068cc6fcc5f95d8ff85c2c1d7f46cfa6032063522ec41747c08a15c39346566c5649cf861e2b20
   languageName: node
   linkType: hard
 
@@ -1182,15 +1158,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: fd1d0986a3cb8d99093e6949fda7dade3a0364a9eb72dd004f75335b5f85f67f5afbed100519e1d0ff5c6d0dd7168c6d1cb3f575e1f23134d3c3a7c61cc744ac
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-middleware@npm:3.201.0":
-  version: 3.201.0
-  resolution: "@aws-sdk/util-middleware@npm:3.201.0"
-  dependencies:
-    tslib: ^2.3.1
-  checksum: dda00e0e697fe247a034ddcd805109e6c657ab56184fe3e192ed3a6839e1be686eec0ac02b096494f9a541799d26edff0728212fc19f946bf93a54f70be80102
   languageName: node
   linkType: hard
 
@@ -12148,7 +12115,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.223.0
     "@aws-sdk/client-sesv2": ^3.223.0
-    "@aws-sdk/signature-v4-crt": ^3.201.0
+    "@aws-sdk/signature-v4-crt": ^3.222.0
     "@types/aws-lambda": ^8.10.109
     "@types/jest": ^29.2.4
     "@types/log4js": ^2.3.5
