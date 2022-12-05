@@ -61,6 +61,6 @@ describe('format', () => {
         const worklogSet = WorklogSets.single();
 
         const formatted = await formatter.format(worklogSet);
-        expect(formatted).toMatch('All times are in PDT time.');
+        expect(formatted).toMatch(/All times are in P[DS]T time\./);
     });
 });
