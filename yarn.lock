@@ -4167,15 +4167,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacache@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "cacache@npm:17.0.2"
+"cacache@npm:^17.0.3":
+  version: 17.0.3
+  resolution: "cacache@npm:17.0.3"
   dependencies:
     "@npmcli/fs": ^3.1.0
     fs-minipass: ^2.1.0
     glob: ^8.0.1
     lru-cache: ^7.7.1
-    minipass: ^3.1.6
+    minipass: ^4.0.0
     minipass-collect: ^1.0.2
     minipass-flush: ^1.0.5
     minipass-pipeline: ^1.2.4
@@ -4184,7 +4184,7 @@ __metadata:
     ssri: ^10.0.0
     tar: ^6.1.11
     unique-filename: ^3.0.0
-  checksum: 75a41961b7f49901a8b24b5e30a6ecce9cbf2c7af6c872b0436b0d4dc1ebf7afbb41ba1e5309f943f2c3e8823ea49fbd8ce3cd832beea4f23d5da07595752c85
+  checksum: de86ac4a07c4aefdbd7f20cbba74461bd0816355fedc36f75a10336cef70efc84ae08a6f8f206e686bc32f46941a5a81a1fb7b0b189ad7858011b83caee3dfdb
   languageName: node
   linkType: hard
 
@@ -8918,6 +8918,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minipass@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "minipass@npm:4.0.0"
+  dependencies:
+    yallist: ^4.0.0
+  checksum: 7a609afbf394abfcf9c48e6c90226f471676c8f2a67f07f6838871afb03215ede431d1433feffe1b855455bcb13ef0eb89162841b9796109d6fed8d89790f381
+  languageName: node
+  linkType: hard
+
 "minizlib@npm:^1.3.3":
   version: 1.3.3
   resolution: "minizlib@npm:1.3.3"
@@ -12128,7 +12137,7 @@ __metadata:
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
     aws-sdk: ^2.1267.0
-    cacache: ^17.0.2
+    cacache: ^17.0.3
     eslint: ^8.29.0
     eslint-import-resolver-node: ^0.3.6
     eslint-plugin-import: ^2.26.0
