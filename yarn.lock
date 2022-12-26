@@ -3777,24 +3777,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:2.1259.0":
-  version: 2.1259.0
-  resolution: "aws-sdk@npm:2.1259.0"
-  dependencies:
-    buffer: 4.9.2
-    events: 1.1.1
-    ieee754: 1.1.13
-    jmespath: 0.16.0
-    querystring: 0.2.0
-    sax: 1.2.1
-    url: 0.10.3
-    util: ^0.12.4
-    uuid: 8.0.0
-    xml2js: 0.4.19
-  checksum: 31a5344dabfb68ad539e5dff274673d520a025c20c6dc54e5bedbdcaa252d3153a0e75d3ee81ee0fae95ed6b3ec53666278b8d22624f619853a19b1bbc713d42
-  languageName: node
-  linkType: hard
-
 "aws-sdk@npm:^2.1277.0":
   version: 2.1277.0
   resolution: "aws-sdk@npm:2.1277.0"
@@ -3810,6 +3792,24 @@ __metadata:
     uuid: 8.0.0
     xml2js: 0.4.19
   checksum: a6fd08d71d030de39ca181187f3e20c8534ccd1c79b52604e95fb09f50994384b5de31435aa29677ebafbd41d9cee0cae885408a056b970e6ac29ca27812ddd0
+  languageName: node
+  linkType: hard
+
+"aws-sdk@npm:^2.1280.0":
+  version: 2.1282.0
+  resolution: "aws-sdk@npm:2.1282.0"
+  dependencies:
+    buffer: 4.9.2
+    events: 1.1.1
+    ieee754: 1.1.13
+    jmespath: 0.16.0
+    querystring: 0.2.0
+    sax: 1.2.1
+    url: 0.10.3
+    util: ^0.12.4
+    uuid: 8.0.0
+    xml2js: 0.4.19
+  checksum: 2137a139bd1c7af9e7a3667bedc94df7f00da72af7a4e32e6c0af1cb9e658fe1860df6140798680e7b973c503c99f5180a83f8caf55cda129fa2014262dd7f14
   languageName: node
   linkType: hard
 
@@ -4960,10 +4960,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.6":
-  version: 1.11.6
-  resolution: "dayjs@npm:1.11.6"
-  checksum: 18bdfd927009b68eab08dca578e421d4a581cefcbe9337f54c5d9e0d941ffb6b221c4b2c1cab15cdd9d419940e768ac4c984531461a90bbe1c158b75fe160580
+"dayjs@npm:^1.11.7":
+  version: 1.11.7
+  resolution: "dayjs@npm:1.11.7"
+  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
   languageName: node
   linkType: hard
 
@@ -6139,10 +6139,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filesize@npm:^10.0.5":
-  version: 10.0.5
-  resolution: "filesize@npm:10.0.5"
-  checksum: b373ebd877566a49566564709c221943741a6e264649ae1f5d6c87c31cd87e94c5e51dae8ee16abbe414fda3fdb6855d8fe4f0ed8d1e33327563d2b59176eaa1
+"filesize@npm:^10.0.6":
+  version: 10.0.6
+  resolution: "filesize@npm:10.0.6"
+  checksum: ed420c3989581c4a56e4c86f49ef8d7f22d2c8e5b00892493c12589c23327b0b875936613782226b0a623f261560c8dff59730f5d08a6d8968533bd28d3dfbe5
   languageName: node
   linkType: hard
 
@@ -6786,6 +6786,25 @@ __metadata:
     p-cancelable: ^2.0.0
     responselike: ^2.0.0
   checksum: 2de8a1bbda4e9b6b2b72b2d2100bc055a59adc1740529e631f61feb44a8b9a1f9f8590941ed9da9df0090b6d6d0ed8ffee94cd9ac086ec3409b392b33440f7d2
+  languageName: node
+  linkType: hard
+
+"got@npm:^11.8.6":
+  version: 11.8.6
+  resolution: "got@npm:11.8.6"
+  dependencies:
+    "@sindresorhus/is": ^4.0.0
+    "@szmarczak/http-timer": ^4.0.5
+    "@types/cacheable-request": ^6.0.1
+    "@types/responselike": ^1.0.0
+    cacheable-lookup: ^5.0.3
+    cacheable-request: ^7.0.2
+    decompress-response: ^6.0.0
+    http2-wrapper: ^1.0.0-beta.5.2
+    lowercase-keys: ^2.0.0
+    p-cancelable: ^2.0.0
+    responselike: ^2.0.0
+  checksum: bbc783578a8d5030c8164ef7f57ce41b5ad7db2ed13371e1944bef157eeca5a7475530e07c0aaa71610d7085474d0d96222c9f4268d41db333a17e39b463f45d
   languageName: node
   linkType: hard
 
@@ -10667,9 +10686,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.25.1":
-  version: 3.25.1
-  resolution: "serverless@npm:3.25.1"
+"serverless@npm:^3.26.0":
+  version: 3.26.0
+  resolution: "serverless@npm:3.26.0"
   dependencies:
     "@serverless/dashboard-plugin": ^6.2.2
     "@serverless/platform-client": ^4.3.2
@@ -10677,7 +10696,7 @@ __metadata:
     ajv: ^8.11.2
     ajv-formats: ^2.1.1
     archiver: ^5.3.1
-    aws-sdk: 2.1259.0
+    aws-sdk: ^2.1280.0
     bluebird: ^3.7.2
     cachedir: ^2.3.0
     chalk: ^4.1.2
@@ -10685,18 +10704,18 @@ __metadata:
     ci-info: ^3.7.0
     cli-progress-footer: ^2.3.2
     d: ^1.0.1
-    dayjs: ^1.11.6
+    dayjs: ^1.11.7
     decompress: ^4.2.1
     dotenv: ^16.0.3
     dotenv-expand: ^9.0.0
     essentials: ^1.2.0
     ext: ^1.7.0
     fastest-levenshtein: ^1.0.16
-    filesize: ^10.0.5
+    filesize: ^10.0.6
     fs-extra: ^10.1.0
     get-stdin: ^8.0.0
     globby: ^11.1.0
-    got: ^11.8.5
+    got: ^11.8.6
     graceful-fs: ^4.2.10
     https-proxy-agent: ^5.0.1
     is-docker: ^2.2.1
@@ -10718,7 +10737,7 @@ __metadata:
     signal-exit: ^3.0.7
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
-    tar: ^6.1.12
+    tar: ^6.1.13
     timers-ext: ^0.1.7
     type: ^2.7.2
     untildify: ^4.0.0
@@ -10727,7 +10746,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: e7c747610e257ab2825ec3a12f6123ce259b57286e83873622261aa42b2c48a39d9bb80e0c55efab7d9b90a292d30dcf9806f2fd1109a5d1913b719d84e7ade4
+  checksum: 67fb1048290a9b91cf58275fa8566e3d645dea602f9d46b241396e96744dc4ee35b64c82a3cccadea34feeb9092fa9fbeba2d49c10b5c53f710e4fcde8a7d0b5
   languageName: node
   linkType: hard
 
@@ -11350,17 +11369,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.1.12":
-  version: 6.1.12
-  resolution: "tar@npm:6.1.12"
+"tar@npm:^6.1.13":
+  version: 6.1.13
+  resolution: "tar@npm:6.1.13"
   dependencies:
     chownr: ^2.0.0
     fs-minipass: ^2.0.0
-    minipass: ^3.0.0
+    minipass: ^4.0.0
     minizlib: ^2.1.1
     mkdirp: ^1.0.3
     yallist: ^4.0.0
-  checksum: 49d72e4420944e7ede2782d6b0826a6ede6cdab23c7de63470917e7a78166bc4d5b1a96279d3d79a85f1ba5a17cd37c0acbb3cbff19a07447691445b8b051c55
+  checksum: 8a278bed123aa9f53549b256a36b719e317c8b96fe86a63406f3c62887f78267cea9b22dc6f7007009738509800d4a4dccc444abd71d762287c90f35b002eb1c
   languageName: node
   linkType: hard
 
@@ -12238,7 +12257,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.3.0
     nyc: ^15.1.0
-    serverless: ^3.25.1
+    serverless: ^3.26.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^12.0.3
     serverless-webpack: ^5.11.0
