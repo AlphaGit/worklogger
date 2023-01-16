@@ -5616,16 +5616,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:^0.3.6":
-  version: 0.3.6
-  resolution: "eslint-import-resolver-node@npm:0.3.6"
-  dependencies:
-    debug: ^3.2.7
-    resolve: ^1.20.0
-  checksum: 6266733af1e112970e855a5bcc2d2058fb5ae16ad2a6d400705a86b29552b36131ffc5581b744c23d550de844206fb55e9193691619ee4dbf225c4bde526b1c8
-  languageName: node
-  linkType: hard
-
 "eslint-import-resolver-node@npm:^0.3.7":
   version: 0.3.7
   resolution: "eslint-import-resolver-node@npm:0.3.7"
@@ -12271,7 +12261,7 @@ __metadata:
     aws-sdk: ^2.1295.0
     cacache: ^17.0.4
     eslint: ^8.32.0
-    eslint-import-resolver-node: ^0.3.6
+    eslint-import-resolver-node: ^0.3.7
     eslint-plugin-import: ^2.27.4
     fetch-event: ^1.0.0-alpha
     googleapis: ^110.0.0
