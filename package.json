@@ -41,7 +41,7 @@
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^111.0.0",
     "log4js": "^6.7.1",
-    "minimist": "^1.2.7",
+    "minimist": "^1.2.8",
     "moment-timezone": "^0.5.40",
     "mustache": "^4.2.0",
     "node-fetch": "^3.3.0",
