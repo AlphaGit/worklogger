@@ -1466,16 +1466,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-parser@npm:3.267.0":
-  version: 3.267.0
-  resolution: "@aws-sdk/querystring-parser@npm:3.267.0"
-  dependencies:
-    "@aws-sdk/types": 3.267.0
-    tslib: ^2.3.1
-  checksum: 7d9cebf2f82b61ee1bb500f475f9418fda2ff66bb76938237f465d5df11d06e7fc327fef38ba3792f20f7882fda789908d1d0a0260137c69f8945551e9a96596
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/querystring-parser@npm:3.272.0":
   version: 3.272.0
   resolution: "@aws-sdk/querystring-parser@npm:3.272.0"
@@ -1568,21 +1558,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4@npm:3.267.0":
-  version: 3.267.0
-  resolution: "@aws-sdk/signature-v4@npm:3.267.0"
-  dependencies:
-    "@aws-sdk/is-array-buffer": 3.201.0
-    "@aws-sdk/types": 3.267.0
-    "@aws-sdk/util-hex-encoding": 3.201.0
-    "@aws-sdk/util-middleware": 3.267.0
-    "@aws-sdk/util-uri-escape": 3.201.0
-    "@aws-sdk/util-utf8": 3.254.0
-    tslib: ^2.3.1
-  checksum: 1a1beb9affa54cacde9b1b7f821bc09443745f6d32439a15d4d909defcf4243ae05b22bcf51ccbfeeb715856a422708e95fecaddf7e1d499444991ebc0dde7e6
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4@npm:3.272.0":
   version: 3.272.0
   resolution: "@aws-sdk/signature-v4@npm:3.272.0"
@@ -1652,15 +1627,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.1
   checksum: 0041a8c0924ec7ba4ff787ae329a80b3edb9ace43e38fe3656a1862ae5324427fb09836275c0962cbc80e3c34a6ee512a108a5c4e7997f29664e3e8930cffd80
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.267.0":
-  version: 3.267.0
-  resolution: "@aws-sdk/types@npm:3.267.0"
-  dependencies:
-    tslib: ^2.3.1
-  checksum: cf950105061f9317094ebbb89362a1bc7b65358bf9f2d50da657dc5b9e78f2df20977ae7a605492c01469d4796598bdc2790a6525983a406fc0e61b8abfdcb8a
   languageName: node
   linkType: hard
 
@@ -1863,15 +1829,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.1
   checksum: 51a4ba9a784943b723a2c57bbb889a4bc743f0f1219000ef73512e259069d63c3baa805aa375277c9d904da23301d0389bc0bd525b0b55274d7658fb62173e55
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-middleware@npm:3.267.0":
-  version: 3.267.0
-  resolution: "@aws-sdk/util-middleware@npm:3.267.0"
-  dependencies:
-    tslib: ^2.3.1
-  checksum: 400737c63ebfef066e4a8bb4b999534202bf9df607b89b29c0cd9be7884b6ae78cfac7bdd8507f3ab4174cb0735b49de9f105f01edd536e9325610c7adbc0369
   languageName: node
   linkType: hard
 
@@ -9847,16 +9804,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.40":
-  version: 0.5.40
-  resolution: "moment-timezone@npm:0.5.40"
+"moment-timezone@npm:^0.5.41":
+  version: 0.5.41
+  resolution: "moment-timezone@npm:0.5.41"
   dependencies:
-    moment: ">= 2.9.0"
-  checksum: 6f6be5412b37fd937bb143efe74bf65b2c3f115fd967a6dc13b717a126ed6dd198bff6db6e179d69a089e20ac03ce7622c6b5598dd585005195554487a91b528
+    moment: ^2.29.4
+  checksum: 30bf42265f749d4d17e78cf94f49d8354d9fbf2dea060a5b89895979642035734512a23cb7a90c0e93593bc11eb698b78b601b7dd5d9a708eb7c4f733a927a71
   languageName: node
   linkType: hard
 
-"moment@npm:>= 2.9.0":
+"moment@npm:^2.29.4":
   version: 2.29.4
   resolution: "moment@npm:2.29.4"
   checksum: 0ec3f9c2bcba38dc2451b1daed5daded747f17610b92427bebe1d08d48d8b7bdd8d9197500b072d14e326dd0ccf3e326b9e3d07c5895d3d49e39b6803b76e80e
@@ -13053,7 +13010,7 @@ __metadata:
     jest-fetch-mock: ^3.0.3
     log4js: ^6.8.0
     minimist: ^1.2.8
-    moment-timezone: ^0.5.40
+    moment-timezone: ^0.5.41
     mustache: ^4.2.0
     node-fetch: ^3.3.0
     nyc: ^15.1.0
