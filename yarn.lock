@@ -5238,9 +5238,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacache@npm:^17.1.0":
-  version: 17.1.0
-  resolution: "cacache@npm:17.1.0"
+"cacache@npm:^17.1.3":
+  version: 17.1.3
+  resolution: "cacache@npm:17.1.3"
   dependencies:
     "@npmcli/fs": ^3.1.0
     fs-minipass: ^3.0.0
@@ -5254,7 +5254,7 @@ __metadata:
     ssri: ^10.0.0
     tar: ^6.1.11
     unique-filename: ^3.0.0
-  checksum: ae1f072f84b9bf0a3a6cfb8516774386c22ea902b25ca6b5dec471d370a4947fdec40dee7de5edd6b97f66407a52d40afee9eaeac49700b24bb1e932359ba277
+  checksum: 385756781e1e21af089160d89d7462b7ed9883c978e848c7075b90b73cb823680e66092d61513050164588387d2ca87dd6d910e28d64bc13a9ac82cd8580c796
   languageName: node
   linkType: hard
 
@@ -13476,7 +13476,7 @@ __metadata:
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
     aws-sdk: ^2.1381.0
-    cacache: ^17.1.0
+    cacache: ^17.1.3
     eslint: ^8.41.0
     eslint-import-resolver-node: ^0.3.7
     eslint-plugin-import: ^2.27.5
