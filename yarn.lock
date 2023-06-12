@@ -3600,10 +3600,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aws-lambda@npm:^8.10.115":
-  version: 8.10.115
-  resolution: "@types/aws-lambda@npm:8.10.115"
-  checksum: 58c924812b0dac2e13118cbda05594f820033d2df572e0e264443cdfdb7ea07ed725614f0d5841b3f3bcf48bca7d3aa0da5b5ad3bf51ae74dadf9962037e23b5
+"@types/aws-lambda@npm:^8.10.117":
+  version: 8.10.117
+  resolution: "@types/aws-lambda@npm:8.10.117"
+  checksum: fb842831d14da399a8a7a8829fed3e7e77bae7443bfa0f59549994cd634b4f09b3aed656e4f4c0640dbe0f7ab57a6044ca05bfb7ca73297c50fab7f64bac4fb5
   languageName: node
   linkType: hard
 
@@ -13298,7 +13298,7 @@ __metadata:
     "@aws-sdk/client-s3": ^3.350.0
     "@aws-sdk/client-sesv2": ^3.350.0
     "@aws-sdk/signature-v4-crt": ^3.347.0
-    "@types/aws-lambda": ^8.10.115
+    "@types/aws-lambda": ^8.10.117
     "@types/jest": ^29.5.2
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.2
