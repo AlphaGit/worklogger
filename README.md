@@ -43,6 +43,11 @@ Also, here is information on how to setup the different input/output integration
 5. Formatters
     1. [SummaryText](docs/summary-text.md)
     2. [NoFormat](docs/no-format.md)
+    3. [FormatterAggregator](docs/formatter-aggregator.md)
+    4. [SummaryHtml](docs/summary-html.md)
+    5. [SummaryText](docs/summary-text.md)
+    6. [TableList](docs/table-list.md)
+    7. [TableHtml](docs/table-html.md)
 6. Outputs
     1. [Jira](docs/jira.md)
     2. [Harvest App](docs/harvest-app.md)
