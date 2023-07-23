@@ -9,8 +9,8 @@ import { getLogger, LoggerCategory } from '../../services/Logger';
 export class LoggerOutput extends OutputBase {
     private _logger = getLogger(LoggerCategory.Outputs);
 
-    constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
-        super(formatter, outputConfiguration, appConfiguration);
+    constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration, name: string) {
+        super(formatter, outputConfiguration, appConfiguration, name);
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
@@ -18,7 +18,7 @@ export class LoggerOutput extends OutputBase {
 
         const formattedOutput = await this._formatter.format(worklogSet);
 
-        this._logger.info(formattedOutput);
+        this._logger.info(`[${this._name}] ${formattedOutput}`);
     }
 }
 
