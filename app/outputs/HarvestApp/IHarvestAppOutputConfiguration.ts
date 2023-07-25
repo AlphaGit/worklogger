@@ -4,4 +4,5 @@ import { IHarvestConfiguration } from '../../services/HarvestClient/IHarvestConf
 export interface IHarvestAppOutputConfiguration extends IOutputConfiguration, IHarvestConfiguration {
     selectProjectFromTag: string;
     selectTaskFromTag: string;
+    name: string;
 }
