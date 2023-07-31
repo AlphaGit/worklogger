@@ -1515,16 +1515,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.370.0":
-  version: 3.370.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.370.0"
+"@aws-sdk/signature-v4-crt@npm:^3.378.0":
+  version: 3.378.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.378.0"
   dependencies:
-    "@smithy/querystring-parser": ^1.0.1
-    "@smithy/signature-v4": ^1.0.1
-    "@smithy/util-middleware": ^1.0.1
+    "@smithy/querystring-parser": ^2.0.0
+    "@smithy/signature-v4": ^2.0.0
+    "@smithy/util-middleware": ^2.0.0
     aws-crt: ^1.15.9
     tslib: ^2.5.0
-  checksum: 9b38cc6d64b9e5e6518dc27b3356ccedc0317d0e46bc940fe45267c04329d5f85c8cdcf7c7ce0fe8e2959bcc2bad42e0657e3876c729ed168baef01960fd0846
+  checksum: c0d5ee1a6fccdc1210615832015eb79c0bb358798b73fe3726704fe8f2f1f62f612b0b60a376d2b00a7420b9fb9245a7ca2d0144fe2eb16c4f25f1b7f570592f
   languageName: node
   linkType: hard
 
@@ -3984,7 +3984,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smithy/querystring-parser@npm:^2.0.1":
+"@smithy/querystring-parser@npm:^2.0.0, @smithy/querystring-parser@npm:^2.0.1":
   version: 2.0.1
   resolution: "@smithy/querystring-parser@npm:2.0.1"
   dependencies:
@@ -14289,7 +14289,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.374.0
     "@aws-sdk/client-sesv2": ^3.379.1
-    "@aws-sdk/signature-v4-crt": ^3.370.0
+    "@aws-sdk/signature-v4-crt": ^3.378.0
     "@types/aws-lambda": ^8.10.119
     "@types/jest": ^29.5.3
     "@types/log4js": ^2.3.5
