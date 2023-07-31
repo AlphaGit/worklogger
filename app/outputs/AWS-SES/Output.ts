@@ -54,7 +54,7 @@ export class AwsSesOutput extends OutputBase {
         this.logger.debug('Email params:', email, 'body:', body);
         const command = new SendEmailCommand(email);
         await this.SES.send(command);
-        this.logger.info(`[${this._appConfiguration.name}] Successfully sent worklogSet to SES.`);
+        this.logger.info(`[${this._configuration.name}] Successfully sent worklogSet to SES.`);
     }
 }
 
