@@ -16,7 +16,7 @@ interface IJiraTicketWithWorklog {
 }
 
 export class JiraWorklogOutput extends OutputBase {
-    private logger = getLogger(LoggerCategory.Outputs);
+    private logger = getLogger(LoggerCategory.Outputs, this._outputConfiguration.name);
     private _jiraClient: JiraClient;
 
     constructor(formatter: FormatterBase, outputConfiguration: IJiraWorklogOutputConfiguration, appConfiguration: IAppConfiguration) {
