@@ -7,7 +7,7 @@ import { IOutputConfiguration } from '../IOutputConfiguration';
 import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class LoggerOutput extends OutputBase {
-    private _logger = getLogger(LoggerCategory.Outputs);
+    private _logger = getLogger(LoggerCategory.Outputs, this._outputConfiguration.name);
 
     constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
