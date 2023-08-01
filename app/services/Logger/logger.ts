@@ -10,8 +10,9 @@ export enum LoggerCategory {
     Services = 'services',
 }
 
-export function getLogger(category: LoggerCategory): Logger {
-    return log4jsGetLogger(category.toString());
+export function getLogger(category: LoggerCategory, name?: string): Logger {
+    const prefix = name ? `${name}:` : '';
+    return log4jsGetLogger(`${prefix}${category.toString()}`);
 }
 
 export function configureLogger(configuration: Configuration): void {
