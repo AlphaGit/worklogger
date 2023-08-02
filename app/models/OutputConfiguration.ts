@@ -3,3 +3,8 @@ export type OutputConfiguration = {
     name: string;
     storageRelativePath: string;
 }
+export class OutputConfiguration {
+    constructor(outputConfiguration: OutputConfiguration) {
+        this.name = outputConfiguration.name;
+    }
+}
