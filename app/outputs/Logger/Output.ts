@@ -18,7 +18,7 @@ export class LoggerOutput extends OutputBase {
 
         const formattedOutput = await this._formatter.format(worklogSet);
 
-        this._logger.info(formattedOutput);
+        this._logger.info(`${this._outputConfiguration.name}: ${formattedOutput}`);
     }
 }
 
