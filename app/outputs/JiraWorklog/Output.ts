@@ -35,7 +35,7 @@ export class JiraWorklogOutput extends OutputBase {
         });
 
         return await Promise.all(sendingToJiraPromises).then(p => {
-            this.logger.info(`Sent ${p.length} worklogs to JIRA.`);
+            this.logger.info(`${this._outputConfiguration.name}: Sent ${p.length} worklogs to JIRA.`);
         });
     }
 
