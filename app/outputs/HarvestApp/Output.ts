@@ -19,7 +19,7 @@ export class HarvestAppOutput extends OutputBase {
 
         this.harvestClient = new HarvestClient(outputConfiguration);
         this.configuration = outputConfiguration;
-    this.name = this.outputConfiguration.name;
+        this.name = this.outputConfiguration.name;
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
