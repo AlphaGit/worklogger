@@ -5,4 +5,4 @@
 # If you use this be sure to frequently sync your default branch(main, master) to dev.
 branch: master
 gha_enabled: False
-description: AlphaGit/worklogger is a NodeJS/TypeScript project. Tests are coded with jest and most files are loaded dynamically as a plugin design, using interfaces to keep the contracts aligned.
+description: AlphaGit/worklogger is a NodeJS/TypeScript project. Tests are coded with jest and most files are loaded dynamically as a plugin design, using interfaces to keep the contracts aligned. If you modify business logic, modify the tests as well.
