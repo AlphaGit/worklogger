@@ -15,6 +15,7 @@ export class AwsSesOutput extends OutputBase {
     constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
+        this.name = outputConfiguration.name;
 
         const region = this._configuration.aws.region;
         this.SES = new SESv2Client({ region });
@@ -51,10 +52,10 @@ export class AwsSesOutput extends OutputBase {
             }
         };
 
-        this.logger.debug('Email params:', email, 'body:', body);
+        this.logger.debug(`[${this.name}] Email params:`, email, 'body:', body);
         const command = new SendEmailCommand(email);
         await this.SES.send(command);
-        this.logger.info('Successfully sent worklogSet to SES.');
+        this.logger.info(`[${this.name}] Successfully sent worklogSet to SES.`);
     }
 }
 
