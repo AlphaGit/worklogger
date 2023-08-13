@@ -38,7 +38,7 @@ export class HarvestAppOutput extends OutputBase {
 
         return await Promise.all(savingPromises).then(p => {
             const countText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
-        this.logger.info(`[${this.outputConfiguration.name}] Sent ${countText} time entries to Harvest.`);
+    this.logger.info(`[${this.name}] Sent ${countText} time entries to Harvest.`);
         });
     }
 
