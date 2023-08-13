@@ -73,4 +73,3 @@ export class Input {
 
         return mappedWorklogs;
     }
-}
