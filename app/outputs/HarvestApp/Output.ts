@@ -15,7 +15,6 @@ export class HarvestAppOutput extends OutputBase {
     private configuration: IHarvestAppOutputConfiguration;
     private name: string;
 
-    constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: IAppConfiguration) {
     constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: IAppConfiguration, name: string) {
         super(formatter, outputConfiguration, appConfiguration);
         this.harvestClient = new HarvestClient(outputConfiguration);
