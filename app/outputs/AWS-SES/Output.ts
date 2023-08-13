@@ -11,10 +11,12 @@ export class AwsSesOutput extends OutputBase {
     private SES: SESv2Client;
     private _configuration: IAwsSesOutputConfiguration;
     private logger = getLogger(LoggerCategory.Outputs);
+    private name: string;
 
-    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: IAppConfiguration) {
+    constructor(formatter: FormatterBase, outputConfiguration: IAwsSesOutputConfiguration, appConfiguration: IAppConfiguration, name: string) {
         super(formatter, outputConfiguration, appConfiguration);
         this._configuration = outputConfiguration;
+        this.name = name;
 
         const region = this._configuration.aws.region;
         this.SES = new SESv2Client({ region });
@@ -51,10 +53,10 @@ export class AwsSesOutput extends OutputBase {
             }
         };
 
-        this.logger.debug('Email params:', email, 'body:', body);
+        this.logger.debug(this.name + ': Email params:', email, 'body:', body);
         const command = new SendEmailCommand(email);
         await this.SES.send(command);
-        this.logger.info('Successfully sent worklogSet to SES.');
+        this.logger.info(this.name + ': Successfully sent worklogSet to SES.');
     }
 }
 
