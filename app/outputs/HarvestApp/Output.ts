@@ -91,7 +91,7 @@ export class HarvestAppOutput extends OutputBase {
         const task = project.tasks.find(t => t.taskName == taskTagValue);
 
         if (!task)
-            this.logger.warn(`[${this.outputConfiguration.name}] Harvest task "${taskTagValue}" not found.`);
+            this.logger.warn(`[${this.name}] Harvest task "${taskTagValue}" not found.`);
 
         return task;
     }
