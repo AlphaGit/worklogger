@@ -6,4 +6,6 @@ export interface IOutputConfiguration {
     excludeFromNonProcessedWarning: boolean;
     condition: IConditionConfig;
     formatter?: IFormatterConfig;
+    name: string;
+}
 }
