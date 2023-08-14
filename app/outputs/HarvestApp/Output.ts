@@ -1,5 +1,7 @@
 import { OutputBase } from '../../outputs/OutputBase';
 import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
+import { OutputBase } from '../../outputs/OutputBase';
+import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
 import { FormatterBase } from '../../formatters/FormatterBase';
 import { IAppConfiguration, WorklogSet, Worklog } from '../../models';
 import { HarvestProjectAndTasks, HarvestTask } from '../../services/HarvestClient';
@@ -13,12 +15,14 @@ export class HarvestAppOutput extends OutputBase {
     private logger = getLogger(LoggerCategory.Outputs);
     private harvestClient: HarvestClient;
     private configuration: IHarvestAppOutputConfiguration;
+    private name: string;
 
     constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this.harvestClient = new HarvestClient(outputConfiguration);
         this.configuration = outputConfiguration;
+        this.name = outputConfiguration.name;
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
