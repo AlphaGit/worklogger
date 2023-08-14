@@ -4,7 +4,7 @@ export class Input {
 
     constructor(
         private serviceRegistrations: IServiceRegistrations,
-        private appConfiguration: IAppConfiguration,
+    private appConfiguration: IAppConfiguration,
         private inputConfiguration: HarvestInputConfiguration
     ) {
         if (!appConfiguration)
@@ -16,6 +16,6 @@ export class Input {
         this.name = inputConfiguration.name;
     }
 
-    get name(): string {
-        return this.inputConfiguration.name;
-    }
+    // get name(): string {
+    //     return this.inputConfiguration.name;
+    // }
