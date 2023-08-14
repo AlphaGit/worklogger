@@ -1,4 +1,7 @@
 export class Input {
+    private logger = getLogger(LoggerCategory.Inputs);
+    private harvestClient: HarvestClient;
+
     constructor(
         private serviceRegistrations: IServiceRegistrations,
         private appConfiguration: IAppConfiguration,
@@ -16,4 +19,3 @@ export class Input {
     get name(): string {
         return this.inputConfiguration.name;
     }
-}
