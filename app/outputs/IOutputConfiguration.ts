@@ -8,4 +8,3 @@ export interface IOutputConfiguration {
     formatter?: IFormatterConfig;
     name: string;
 }
-}
