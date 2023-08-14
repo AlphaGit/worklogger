@@ -4251,6 +4251,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"agent-base@npm:^7.0.2":
+  version: 7.1.0
+  resolution: "agent-base@npm:7.1.0"
+  dependencies:
+    debug: ^4.3.4
+  checksum: f7828f991470a0cc22cb579c86a18cbae83d8a3cbed39992ab34fc7217c4d126017f1c74d0ab66be87f71455318a8ea3e757d6a37881b8d0f2a2c6aa55e5418f
+  languageName: node
+  linkType: hard
+
 "agentkeepalive@npm:^4.2.1":
   version: 4.2.1
   resolution: "agentkeepalive@npm:4.2.1"
@@ -4619,13 +4628,6 @@ __metadata:
     is-array-buffer: ^3.0.2
     is-shared-array-buffer: ^1.0.2
   checksum: e3e9b2a3e988ebfeddce4c7e8f69df730c9e48cb04b0d40ff0874ce3d86b3d1339dd520ffde5e39c02610bc172ecfbd4bc93324b1cabd9554c44a56b131ce0ce
-  languageName: node
-  linkType: hard
-
-"arrify@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "arrify@npm:2.0.1"
-  checksum: 067c4c1afd182806a82e4c1cb8acee16ab8b5284fbca1ce29408e6e91281c36bb5b612f6ddfbd40a0f7a7e0c75bf2696eb94c027f6e328d6e9c52465c98e4209
   languageName: node
   linkType: hard
 
@@ -7021,13 +7023,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-text-encoding@npm:^1.0.0":
-  version: 1.0.3
-  resolution: "fast-text-encoding@npm:1.0.3"
-  checksum: 3e51365896f06d0dcab128092d095a0037d274deec419fecbd2388bc236d7b387610e0c72f920c6126e00c885ab096fbfaa3645712f5b98f721bef6b064916a8
-  languageName: node
-  linkType: hard
-
 "fast-xml-parser@npm:4.0.11":
   version: 4.0.11
   resolution: "fast-xml-parser@npm:4.0.11"
@@ -7573,39 +7568,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gaxios@npm:^4.0.0":
-  version: 4.3.2
-  resolution: "gaxios@npm:4.3.2"
+"gaxios@npm:^6.0.0, gaxios@npm:^6.0.3":
+  version: 6.1.0
+  resolution: "gaxios@npm:6.1.0"
   dependencies:
-    abort-controller: ^3.0.0
     extend: ^3.0.2
-    https-proxy-agent: ^5.0.0
+    https-proxy-agent: ^7.0.1
     is-stream: ^2.0.0
-    node-fetch: ^2.6.1
-  checksum: 1305fc6a4b9f888a7424ed160084d1f253a54bec04b4986ecb7929d8aa52382e737fc65feb03f0b0b47c524575286d765806d829868ec49fd383a1be8a973870
+    node-fetch: ^2.6.9
+  checksum: 712f99d53e035ab3e7532a819c0170bb0db9fd08e887fd6e456afb08de65abaf80b0a5f56712cc9d43d439414ef6a0d9b3784400a45820d9eabca0e820974ba0
   languageName: node
   linkType: hard
 
-"gaxios@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "gaxios@npm:5.0.0"
+"gcp-metadata@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "gcp-metadata@npm:6.0.0"
   dependencies:
-    abort-controller: ^3.0.0
-    extend: ^3.0.2
-    https-proxy-agent: ^5.0.0
-    is-stream: ^2.0.0
-    node-fetch: ^2.6.7
-  checksum: d5f81e49db881a6d4fe78ba080a74b27c1be9128e806ff84c26dd6e44539a954551128d7c193d29a3a030510e504448810fa3c3c69af7f21d46572476f1fdef2
-  languageName: node
-  linkType: hard
-
-"gcp-metadata@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "gcp-metadata@npm:5.0.0"
-  dependencies:
-    gaxios: ^5.0.0
+    gaxios: ^6.0.0
     json-bigint: ^1.0.0
-  checksum: b75635e564a39ef0a6ebbff0daa97cea37382c3d6f0d7a6a0406e03a275de804a74e3f3d410d5313a6c9dd3496023e96bc81474917fa8369974398eb069d9645
+  checksum: c86a362819cee8d29cce02d9ce7e4e11687bfc6a91cb015f19a14f5015f66ef9cf2c93aa59f66e10915e4b0b8ed9ea90f0ac473594ad1dec5402f2e984a5662b
   languageName: node
   linkType: hard
 
@@ -7813,55 +7794,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"google-auth-library@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "google-auth-library@npm:8.0.2"
+"google-auth-library@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "google-auth-library@npm:9.0.0"
   dependencies:
-    arrify: ^2.0.0
     base64-js: ^1.3.0
     ecdsa-sig-formatter: ^1.0.11
-    fast-text-encoding: ^1.0.0
-    gaxios: ^5.0.0
-    gcp-metadata: ^5.0.0
-    gtoken: ^5.3.2
+    gaxios: ^6.0.0
+    gcp-metadata: ^6.0.0
+    gtoken: ^7.0.0
     jws: ^4.0.0
     lru-cache: ^6.0.0
-  checksum: 696238dba187de6523e81c500e56deae7e899c0090ec488b71fde54c17f95dabe085108b3aab5073e05dab1eb4aafe6bb8df0d1d6c5bd9d6bd9c2fc4fc0613d7
+  checksum: a798e738aac59bb5dde354fb32d1cab509c8b95095f3e15ae5868607af0f9aae619fdaa5665447d98e97cf8e90fa0645a05f23cfdaee4734c6807960df1e303b
   languageName: node
   linkType: hard
 
-"google-p12-pem@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "google-p12-pem@npm:3.1.3"
-  dependencies:
-    node-forge: ^1.0.0
-  bin:
-    gp12-pem: build/src/bin/gp12-pem.js
-  checksum: 8628f2bf9b4c9b3bfc7220906c15af2b306e2ef30c7c398327a9cff9d4a12285f104545f00c46b716dd23966615f446d7e5efde44d590f9483d345be78ea115e
-  languageName: node
-  linkType: hard
-
-"googleapis-common@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "googleapis-common@npm:6.0.0"
+"googleapis-common@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "googleapis-common@npm:7.0.0"
   dependencies:
     extend: ^3.0.2
-    gaxios: ^4.0.0
-    google-auth-library: ^8.0.2
+    gaxios: ^6.0.3
+    google-auth-library: ^9.0.0
     qs: ^6.7.0
     url-template: ^2.0.8
-    uuid: ^8.0.0
-  checksum: a6c697ac0c829f7bdfcfe32f5fb16fbf7b864cc173257c09eff6e4893f3bd56064904f7b6843d4c8ff074b128609c6cc2ac7490aaf9ed70cab417dc2fb54236b
+    uuid: ^9.0.0
+  checksum: 16442a557fb2bef67f5f38a84287c2bc262c07f7303aa87541449d8c9c4295ba5e456c956decec83b28f8e375311706acdca8a7442f66d0a1b74bb0c064c1131
   languageName: node
   linkType: hard
 
-"googleapis@npm:^123.0.0":
-  version: 123.0.0
-  resolution: "googleapis@npm:123.0.0"
+"googleapis@npm:^124.0.0":
+  version: 124.0.0
+  resolution: "googleapis@npm:124.0.0"
   dependencies:
-    google-auth-library: ^8.0.2
-    googleapis-common: ^6.0.0
-  checksum: f847e4e278e36399e5a87e1eecd3ac6b428c87c1dc97ea4430dae29ab1ba2bb4bfd32c9ad74f146bcb88dd10a313dd71108e40446993e3840d0be666ce360010
+    google-auth-library: ^9.0.0
+    googleapis-common: ^7.0.0
+  checksum: c1e5c75eac2c27ad526975e3348f992ed1e39e269c7b6480cd2409429925aa01c325a2ba8073797fad206be4753e15f8abf4a097aa13696be2b5c8e6ef9d456c
   languageName: node
   linkType: hard
 
@@ -7942,14 +7910,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gtoken@npm:^5.3.2":
-  version: 5.3.2
-  resolution: "gtoken@npm:5.3.2"
+"gtoken@npm:^7.0.0":
+  version: 7.0.1
+  resolution: "gtoken@npm:7.0.1"
   dependencies:
-    gaxios: ^4.0.0
-    google-p12-pem: ^3.1.3
+    gaxios: ^6.0.0
     jws: ^4.0.0
-  checksum: 1fd640e98afcb3d5c77026fd4ff0671dce724acad11169e5b63701a853e1f5a03f4c76fe6eb95500db80f8444753ce212701d396186ef006088d08be4174f2d7
+  checksum: de1f65ebe77deb90931c29c76408e6bd097ac6f8d0b520164ac13449b39012ea8d710596d5a63ae508b2c9e49ef9f92cd7817d6fc97140668ba2e1ff30e2d418
   languageName: node
   linkType: hard
 
@@ -8093,6 +8060,16 @@ __metadata:
     agent-base: 6
     debug: 4
   checksum: 571fccdf38184f05943e12d37d6ce38197becdd69e58d03f43637f7fa1269cf303a7d228aa27e5b27bbd3af8f09fd938e1c91dcfefff2df7ba77c20ed8dfc765
+  languageName: node
+  linkType: hard
+
+"https-proxy-agent@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "https-proxy-agent@npm:7.0.1"
+  dependencies:
+    agent-base: ^7.0.2
+    debug: 4
+  checksum: 2d765c31865071373771f53abdd72912567b76015a4eff61094f586194192950cd89257d50f0e621807a16c083bc8cad5852e3885c6ba154d2ce721a18fac248
   languageName: node
   linkType: hard
 
@@ -10496,7 +10473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
@@ -10571,13 +10548,6 @@ __metadata:
     fetch-blob: ^3.1.4
     formdata-polyfill: ^4.0.10
   checksum: 06a04095a2ddf05b0830a0d5302699704d59bda3102894ea64c7b9d4c865ecdff2d90fd042df7f5bc40337266961cb6183dcc808ea4f3000d024f422b462da92
-  languageName: node
-  linkType: hard
-
-"node-forge@npm:^1.0.0":
-  version: 1.3.1
-  resolution: "node-forge@npm:1.3.1"
-  checksum: 08fb072d3d670599c89a1704b3e9c649ff1b998256737f0e06fbd1a5bf41cae4457ccaee32d95052d80bbafd9ffe01284e078c8071f0267dc9744e51c5ed42a9
   languageName: node
   linkType: hard
 
@@ -13507,7 +13477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.0.0, uuid@npm:^8.3.2":
+"uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
@@ -13799,7 +13769,7 @@ __metadata:
     eslint-import-resolver-node: ^0.3.8
     eslint-plugin-import: ^2.28.0
     fetch-event: ^1.0.0-alpha
-    googleapis: ^123.0.0
+    googleapis: ^124.0.0
     inquirer: ^9.2.10
     jest: ^29.6.2
     jest-fetch-mock: ^3.0.3
