@@ -8,6 +8,7 @@ import { getLogger, LoggerCategory } from '../../services/Logger';
 export class Input {
     private logger = getLogger(LoggerCategory.Inputs);
     private harvestClient: HarvestClient;
+    private name: string;
 
     constructor(
         private serviceRegistrations: IServiceRegistrations,
@@ -21,14 +22,15 @@ export class Input {
             throw new Error('Input configuration for Harvest App input is required.');
         
         this.harvestClient = new HarvestClient(inputConfiguration);
+        this.name = inputConfiguration.name;
     }
 
     get name(): string {
-        return this.inputConfiguration.name;
+        return this.name;
     }
 
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
-        this.logger.info('Retrieving worklogs from Harvest between', startDateTime, 'and', endDateTime);
+        this.logger.info(`[${this.name}] Retrieving worklogs from Harvest between`, startDateTime, 'and', endDateTime);
 
         const parameters = { from: startDateTime, to: endDateTime };
         const timeEntries = await this.harvestClient.getTimeEntries(parameters);
@@ -52,7 +54,7 @@ export class Input {
                 startTime = tz(te.spent_date, timeZone).toDate();
                 endTime = tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
             } else {
-                this.logger.warn('Cannot detect worklog duration from time_entry', te);
+                this.logger.warn(`[${this.name}] Cannot detect worklog duration from time_entry`, te);
                 return null;
             }
 
@@ -66,9 +68,9 @@ export class Input {
             .filter(worklog => !!worklog);
 
         if (mappedWorklogs.length === timeEntries.length)
-            this.logger.info(`Retrieved ${mappedWorklogs.length} worklogs from Harvest time entries.`);
+            this.logger.info(`[${this.name}] Retrieved ${mappedWorklogs.length} worklogs from Harvest time entries.`);
         else 
-            this.logger.warn(`Retrieved ${mappedWorklogs.length} worklogs from ${timeEntries.length} Harvest time entries.`);
+            this.logger.warn(`[${this.name}] Retrieved ${mappedWorklogs.length} worklogs from ${timeEntries.length} Harvest time entries.`);
 
         return mappedWorklogs;
     }
