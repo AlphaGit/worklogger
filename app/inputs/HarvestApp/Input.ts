@@ -22,7 +22,7 @@ export class Input {
             throw new Error('Input configuration for Harvest App input is required.');
         
         this.harvestClient = new HarvestClient(inputConfiguration);
-        this.name = inputConfiguration.name;
+    // Removed the line this.name = inputConfiguration.name;
     }
 
     get name(): string {
