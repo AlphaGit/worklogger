@@ -13,12 +13,14 @@ export class HarvestAppOutput extends OutputBase {
     private logger = getLogger(LoggerCategory.Outputs);
     private harvestClient: HarvestClient;
     private configuration: IHarvestAppOutputConfiguration;
+    private name: string;
 
     constructor(formatter: FormatterBase, outputConfiguration: IHarvestAppOutputConfiguration, appConfiguration: IAppConfiguration) {
         super(formatter, outputConfiguration, appConfiguration);
 
         this.harvestClient = new HarvestClient(outputConfiguration);
         this.configuration = outputConfiguration;
+        this.name = outputConfiguration.name;
     }
 
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
@@ -37,7 +39,7 @@ export class HarvestAppOutput extends OutputBase {
 
         return await Promise.all(savingPromises).then(p => {
             const countText = `${p.length}` + (timeEntries.length != worklogs.length ? ` (out of ${worklogs.length})` : '');
-            this.logger.info(`Sent ${countText} time entries to Harvest.`);
+            this.logger.info(`[${this.name}] Sent ${countText} time entries to Harvest.`);
         });
     }
 
@@ -79,7 +81,7 @@ export class HarvestAppOutput extends OutputBase {
         const project = projects.find(p => p.projectName == projectTagValue);
 
         if (!project)
-            this.logger.warn(`Harvest project "${projectTagValue}" not found (processing worklog ${worklog.toOneLinerString()}.`);
+            this.logger.warn(`[${this.name}] Harvest project "${projectTagValue}" not found (processing worklog ${worklog.toOneLinerString()}.`);
 
         return project;
     }
@@ -90,7 +92,7 @@ export class HarvestAppOutput extends OutputBase {
         const task = project.tasks.find(t => t.taskName == taskTagValue);
 
         if (!task)
-            this.logger.warn(`Harvest task "${taskTagValue}" not found.`);
+            this.logger.warn(`[${this.name}] Harvest task "${taskTagValue}" not found.`);
 
         return task;
     }
