@@ -25,9 +25,7 @@ export class Input {
         this.name = inputConfiguration.name;
     }
 
-    get name(): string {
-        return this.name;
-    }
+    
 
     async getWorkLogs(startDateTime: Date, endDateTime: Date): Promise<Worklog[]> {
         this.logger.info(`[${this.name}] Retrieving worklogs from Harvest between`, startDateTime, 'and', endDateTime);
