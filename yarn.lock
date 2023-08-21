@@ -8595,13 +8595,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"googleapis@npm:^124.0.0":
-  version: 124.0.0
-  resolution: "googleapis@npm:124.0.0"
+"googleapis@npm:^126.0.0":
+  version: 126.0.0
+  resolution: "googleapis@npm:126.0.0"
   dependencies:
     google-auth-library: ^9.0.0
     googleapis-common: ^7.0.0
-  checksum: c1e5c75eac2c27ad526975e3348f992ed1e39e269c7b6480cd2409429925aa01c325a2ba8073797fad206be4753e15f8abf4a097aa13696be2b5c8e6ef9d456c
+  checksum: 4dacfacf045c72b6d480668be1534b38f8a8152267a9b59fb7879e169436033e8fa7a183ba71de3b31c15cd611d5d6c4a692fe0ec0bfc603c7634121d2b94604
   languageName: node
   linkType: hard
 
@@ -14506,7 +14506,7 @@ __metadata:
     eslint-import-resolver-node: ^0.3.9
     eslint-plugin-import: ^2.28.1
     fetch-event: ^1.0.0-alpha
-    googleapis: ^124.0.0
+    googleapis: ^126.0.0
     inquirer: ^9.2.10
     jest: ^29.6.2
     jest-fetch-mock: ^3.0.3
