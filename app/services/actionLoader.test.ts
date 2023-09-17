@@ -1,51 +1,30 @@
+import { AddTagAction } from '../actions/AddTag';
+import { SummaryMatchesCondition } from '../conditions/SummaryMatches';
+import { TrueCondition } from '../conditions/True';
 import { loadActionsAndConditions } from './actionLoader';
-
-const conditionLoaderMock = jest.fn().mockResolvedValue('condition');
-
-jest.mock('./conditionLoader', () => ({
-    loadCondition: (...args) => {
-        return conditionLoaderMock(...args);
-    }
-}));
 
 describe('loadActionsAndConditions', () => {
     test('loads specified actions', async () => {
-        const actionsMock = jest.fn(() => ({ action: 'action' }));
-        const moduleMock = jest.fn(() => actionsMock);
-        jest.doMock('../actions/action1', moduleMock, { virtual: true });
-        jest.doMock('../actions/action2', moduleMock, { virtual: true });
         const actionsToLoad = [{
             action: {
-                type: 'action1'
+                type: 'AddTag',
+                tagsToAdd: ['tag1']
             },
             condition: {
-                type: 'condition1'
+                type: 'SummaryMatches'
             }
         }, {
             action: {
-                type: 'action2'
-            },
-            condition: {
-                type: 'condition2'
+                type: 'AddTag',
+                tagsToAdd: ['tag2']
             }
         }];
-        const result = await loadActionsAndConditions(actionsToLoad);
+        const [action1, action2] = await loadActionsAndConditions(actionsToLoad);
 
-        expect(result).toStrictEqual([{
-            action: { action: 'action' },
-            condition: 'condition'
-        }, {
-            action: { action: 'action' },
-            condition: 'condition'
-        }]);
+        expect(action1.action).toBeInstanceOf(AddTagAction);
+        expect(action1.condition).toBeInstanceOf(SummaryMatchesCondition);
 
-        expect(moduleMock).toBeCalledTimes(2);
-        expect(actionsMock).toBeCalledTimes(2);
-        expect(actionsMock).toBeCalledWith(actionsToLoad[0].action);
-        expect(actionsMock).toBeCalledWith(actionsToLoad[1].action);
-
-        expect(conditionLoaderMock).toBeCalledTimes(2);
-        expect(conditionLoaderMock).toBeCalledWith(actionsToLoad[0].condition);
-        expect(conditionLoaderMock).toBeCalledWith(actionsToLoad[1].condition);
+        expect(action2.action).toBeInstanceOf(AddTagAction);
+        expect(action2.condition).toBeInstanceOf(TrueCondition)
     });
 });

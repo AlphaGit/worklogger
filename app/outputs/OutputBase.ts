@@ -4,13 +4,13 @@ import { IOutputConfiguration } from '../outputs/IOutputConfiguration';
 import { IAppConfiguration } from '../models/AppConfiguration';
 
 export abstract class OutputBase {
-    protected _formatter: FormatterBase;
+    public formatter: FormatterBase;
     protected _appConfiguration: IAppConfiguration;
 
     constructor(formatter: FormatterBase, outputConfiguration: IOutputConfiguration, appConfiguration: IAppConfiguration) {
         if (!(formatter instanceof FormatterBase)) throw new Error('Formatter is required.');
 
-        this._formatter = formatter;
+        this.formatter = formatter;
         this._appConfiguration = appConfiguration;
     }
 

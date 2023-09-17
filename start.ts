@@ -40,6 +40,7 @@ export async function start(receivedArguments: string[] | Arguments): Promise<vo
         logger.info('Done.');
     } catch (e) {
         logger.error(e);
+        throw e;
     }
 
     async function transformWorklogs(actions: IActionWithCondition[], worklogSet: WorklogSet): Promise<void> {

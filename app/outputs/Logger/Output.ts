@@ -16,7 +16,7 @@ export class LoggerOutput extends OutputBase {
     async outputWorklogSet(worklogSet: WorklogSet): Promise<void> {
         super._outputWorklogSetValidation(worklogSet);
 
-        const formattedOutput = await this._formatter.format(worklogSet);
+        const formattedOutput = await this.formatter.format(worklogSet);
 
         this._logger.info(formattedOutput);
     }

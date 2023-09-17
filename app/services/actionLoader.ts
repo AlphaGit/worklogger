@@ -5,6 +5,13 @@ import { IConditionConfig } from '../conditions/IConditionConfig';
 
 import { getLogger, LoggerCategory } from '../services/Logger';
 
+// Loading these eagerly because dynamic imports mess up with the webpack build.
+import { AddTagAction } from '../actions/AddTag';
+
+const actionClasses = {
+    "AddTag": AddTagAction
+}
+
 const logger = getLogger(LoggerCategory.Services);
 
 export async function loadActionsAndConditions(actionConfigs: ITransformation[]): Promise<IActionWithCondition[]> {
@@ -17,17 +24,18 @@ export async function loadActionsAndConditions(actionConfigs: ITransformation[])
 }
 
 async function loadAction(actionConfig: { type: string }) {
-    const actionClass = await import(`../actions/${actionConfig.type}`);
-    if (!actionClass.default)
-        throw new Error(`Action ${actionConfig.type} does not have a default export.`);
-    return new actionClass.default(actionConfig);
+    const actionClass = actionClasses[actionConfig.type];
+    if (!actionClass)
+        throw new Error(`Action ${actionConfig.type} not recognized.`);
+
+    return new actionClass(actionConfig);
 }
 
 export interface ITransformation {
     action: {
         type: string
     };
-    condition: IConditionConfig;
+    condition: IConditionConfig | undefined;
 }
 
 export interface IActionWithCondition {

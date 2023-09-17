@@ -1,14 +1,23 @@
 import { AppConfigurations } from "../../tests/entities";
-import { IOutputConfiguration } from "../outputs/IOutputConfiguration";
 import { loadOutputs } from './outputLoader';
+
 import { TrueCondition } from '../conditions/True';
+import { HasTagCondition } from "../conditions/HasTag";
+import { SummaryMatchesCondition } from "../conditions/SummaryMatches";
+
+import { SummaryTextFormatter } from "../formatters/SummaryText";
+import { NoFormatFormatter } from "../formatters/NoFormat";
+
+import { LoggerOutput } from "../outputs/Logger";
+import { JiraWorklogOutput } from "../outputs/JiraWorklog";
 
 describe('loadOutputs', () => {
     const appConfiguration = AppConfigurations.normal();
 
     test('loads specified outputs, conditions and formatters', async () => {
-        const outputConfigs: IOutputConfiguration[] = [{
-            type: 'output1',
+        const outputConfigs = [{
+            type: 'Logger',
+            name: 'output1',
             excludeFromNonProcessedWarning: false,
             condition: {
                 type: ''
@@ -17,41 +26,29 @@ describe('loadOutputs', () => {
                 type: ''
             }
         }, {
-            type: 'output2',
+            type: 'JiraWorklog',
+            name: 'output2',
             excludeFromNonProcessedWarning: false,
             condition: {
-                type: 'condition2'
+                type: 'HasTag'
             },
             formatter: {
-                type: 'formatter2'
-            }
+                type: 'SummaryText'
+            },
+            JiraUrl: 'https://example.com',
+            JiraUsername: 'username',
+            JiraPassword: 'password'
         }, {
-            type: 'output2',
+            type: 'JiraWorklog',
+            name: 'output3',
             excludeFromNonProcessedWarning: false,
             condition: {
-                type: 'condition2'
-            }
+                type: 'SummaryMatches'
+            },
+            JiraUrl: 'https://example.com',
+            JiraUsername: 'username',
+            JiraPassword: 'password'
         }];
-
-        const output1ClassMock = jest.fn((formatter, outputConfig, appConfig) => ({ output: 'output1', formatter, outputConfig, appConfig }));
-        const output1ModuleMock = jest.fn(() => output1ClassMock);
-        jest.doMock('../outputs/output1/Output', output1ModuleMock, { virtual: true });
-
-        const output2ClassMock = jest.fn((formatter, outputConfig, appConfig) => ({ output: 'output2', formatter, outputConfig, appConfig }));
-        const output2ModuleMock = jest.fn(() => output2ClassMock);
-        jest.doMock('../outputs/output2/Output', output2ModuleMock, { virtual: true });
-
-        const condition2ClassMock = jest.fn(() => ({ condition: 'condition2' }));
-        const condition2ModuleMock = jest.fn(() => condition2ClassMock);
-        jest.doMock('../conditions/condition2', condition2ModuleMock, { virtual: true });
-
-        const noFormatFormatterClassMock = jest.fn(() => ({ formatter: 'NoFormat' }));
-        const noFormatFormatterModuleMock = jest.fn(() => noFormatFormatterClassMock);
-        jest.doMock('../formatters/NoFormat/Formatter', noFormatFormatterModuleMock, { virtual: true });
-
-        const formatter2ClassMock = jest.fn(() => ({ formatter: 'formatter2' }));
-        const formatter2ModuleMock = jest.fn(() => formatter2ClassMock);
-        jest.doMock('../formatters/formatter2/Formatter', formatter2ModuleMock, { virtual: true });
 
         const outputs = await loadOutputs(outputConfigs, appConfiguration);
 
@@ -60,35 +57,17 @@ describe('loadOutputs', () => {
 
         expect(output1.condition).toBeInstanceOf(TrueCondition);
         expect(output1.excludeFromNonProcessedWarning).toBe(false);
-        expect(output1.output).toStrictEqual({
-            output: 'output1',
-            appConfig: appConfiguration,
-            outputConfig: outputConfigs[0],
-            formatter: {
-                formatter: 'NoFormat'
-            }
-        });
+        expect(output1.output).toBeInstanceOf(LoggerOutput);
+        expect(output1.output.formatter).toBeInstanceOf(NoFormatFormatter);
 
-        expect(output2.condition).toStrictEqual({ condition: 'condition2' });
+        expect(output2.condition).toBeInstanceOf(HasTagCondition);
         expect(output2.excludeFromNonProcessedWarning).toBe(false);
-        expect(output2.output).toStrictEqual({
-            output: 'output2',
-            appConfig: appConfiguration,
-            outputConfig: outputConfigs[1],
-            formatter: {
-                formatter: 'formatter2'
-            }
-        });
+        expect(output2.output).toBeInstanceOf(JiraWorklogOutput);
+        expect(output2.output.formatter).toBeInstanceOf(SummaryTextFormatter);
 
-        expect(output3.condition).toStrictEqual({ condition: 'condition2' });
+        expect(output3.condition).toBeInstanceOf(SummaryMatchesCondition);
         expect(output3.excludeFromNonProcessedWarning).toBe(false);
-        expect(output3.output).toStrictEqual({
-            output: 'output2',
-            appConfig: appConfiguration,
-            outputConfig: outputConfigs[2],
-            formatter: {
-                formatter: 'NoFormat'
-            }
-        });
+        expect(output3.output).toBeInstanceOf(JiraWorklogOutput);
+        expect(output3.output.formatter).toBeInstanceOf(NoFormatFormatter);
     });
 });

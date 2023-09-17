@@ -5,20 +5,27 @@ import { getLogger, LoggerCategory } from '../services/Logger';
 
 const logger = getLogger(LoggerCategory.Services);
 
+// Loading these eagerly because dynamic imports mess up with the webpack build.
+import { Input as GoogleCalendarInput } from '../inputs/GoogleCalendar';
+import { Input as HarvestAppInput } from '../inputs/HarvestApp';
+
+const inputClasses = {
+    "GoogleCalendar": GoogleCalendarInput,
+    "HarvestApp": HarvestAppInput,
+}
+
 export async function loadInputs(serviceRegistrations: IServiceRegistrations, appConfiguration: IAppConfiguration): Promise<IInput[]> {
     const loadedInputs: IInput[] = [];
 
     for (const input of appConfiguration.inputs) {
         logger.debug('Loading', input.type);
 
-        const inputModule = await import(`../inputs/${input.type}/Input`);
-        if (!inputModule.default) {
-            throw new Error(`${input.type} does not declare a default export.`);
-        }
+        const inputClass = inputClasses[input.type];
+        if (!inputClass)
+            throw new Error(`Input ${input.type} not recognized.`);
 
-        const inputSystem = new inputModule.default(serviceRegistrations, appConfiguration, input);
-
-        loadedInputs.push(inputSystem);
+        const inputInstance = new inputClass(serviceRegistrations, appConfiguration, input);
+        loadedInputs.push(inputInstance);
     }
 
     return loadedInputs;
