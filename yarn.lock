@@ -201,6 +201,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/client-cloudformation@npm:^3.410.0":
+  version: 3.414.0
+  resolution: "@aws-sdk/client-cloudformation@npm:3.414.0"
+  dependencies:
+    "@aws-crypto/sha256-browser": 3.0.0
+    "@aws-crypto/sha256-js": 3.0.0
+    "@aws-sdk/client-sts": 3.414.0
+    "@aws-sdk/credential-provider-node": 3.414.0
+    "@aws-sdk/middleware-host-header": 3.413.0
+    "@aws-sdk/middleware-logger": 3.413.0
+    "@aws-sdk/middleware-recursion-detection": 3.413.0
+    "@aws-sdk/middleware-signing": 3.413.0
+    "@aws-sdk/middleware-user-agent": 3.413.0
+    "@aws-sdk/region-config-resolver": 3.413.0
+    "@aws-sdk/types": 3.413.0
+    "@aws-sdk/util-endpoints": 3.413.0
+    "@aws-sdk/util-user-agent-browser": 3.413.0
+    "@aws-sdk/util-user-agent-node": 3.413.0
+    "@smithy/config-resolver": ^2.0.8
+    "@smithy/fetch-http-handler": ^2.1.3
+    "@smithy/hash-node": ^2.0.7
+    "@smithy/invalid-dependency": ^2.0.7
+    "@smithy/middleware-content-length": ^2.0.9
+    "@smithy/middleware-endpoint": ^2.0.7
+    "@smithy/middleware-retry": ^2.0.10
+    "@smithy/middleware-serde": ^2.0.7
+    "@smithy/middleware-stack": ^2.0.0
+    "@smithy/node-config-provider": ^2.0.10
+    "@smithy/node-http-handler": ^2.1.3
+    "@smithy/protocol-http": ^3.0.3
+    "@smithy/smithy-client": ^2.1.4
+    "@smithy/types": ^2.3.1
+    "@smithy/url-parser": ^2.0.7
+    "@smithy/util-base64": ^2.0.0
+    "@smithy/util-body-length-browser": ^2.0.0
+    "@smithy/util-body-length-node": ^2.1.0
+    "@smithy/util-defaults-mode-browser": ^2.0.8
+    "@smithy/util-defaults-mode-node": ^2.0.10
+    "@smithy/util-retry": ^2.0.0
+    "@smithy/util-utf8": ^2.0.0
+    "@smithy/util-waiter": ^2.0.7
+    fast-xml-parser: 4.2.5
+    tslib: ^2.5.0
+    uuid: ^8.3.2
+  checksum: 966b3d09011b7681a146c2249c5b167d80e8d3de5b981d7242955ab1ac4534dd14ba1f0b0ced5830b15508c6d88a942dcc61b7028b16773ca7932879674daf13
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/client-lambda@npm:^3.241.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-lambda@npm:3.245.0"
@@ -523,7 +571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-sts@npm:3.414.0":
+"@aws-sdk/client-sts@npm:3.414.0, @aws-sdk/client-sts@npm:^3.410.0":
   version: 3.414.0
   resolution: "@aws-sdk/client-sts@npm:3.414.0"
   dependencies:
@@ -2894,14 +2942,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/dashboard-plugin@npm:^6.2.3":
-  version: 6.2.3
-  resolution: "@serverless/dashboard-plugin@npm:6.2.3"
+"@serverless/dashboard-plugin@npm:^7.0.2":
+  version: 7.0.3
+  resolution: "@serverless/dashboard-plugin@npm:7.0.3"
   dependencies:
+    "@aws-sdk/client-cloudformation": ^3.410.0
+    "@aws-sdk/client-sts": ^3.410.0
     "@serverless/event-mocks": ^1.1.1
-    "@serverless/platform-client": ^4.3.2
-    "@serverless/utils": ^6.8.2
-    child-process-ext: ^2.1.1
+    "@serverless/platform-client": ^4.4.0
+    "@serverless/utils": ^6.14.0
+    child-process-ext: ^3.0.1
     chokidar: ^3.5.3
     flat: ^5.0.2
     fs-extra: ^9.1.0
@@ -2915,10 +2965,11 @@ __metadata:
     open: ^7.4.2
     semver: ^7.3.8
     simple-git: ^3.16.0
+    timers-ext: ^0.1.7
     type: ^2.7.2
     uuid: ^8.3.2
     yamljs: ^0.3.0
-  checksum: ec00b346575ea3f350573e226474f03245275c337f014f87494e61ec3d80fa214b8e0b45a92a0d230be0847ac7e61b853b5ca068fb8609b6fc175325fef39a31
+  checksum: 827e62b023be9c10cd1d55fb5ad176d3ef71dbf51a9320a7993ae846ad1f68b76a17644397180a5e08adc80b788a0957a8b003b79947585dc40d2792fc42ec12
   languageName: node
   linkType: hard
 
@@ -2932,9 +2983,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serverless/platform-client@npm:^4.3.2":
-  version: 4.3.2
-  resolution: "@serverless/platform-client@npm:4.3.2"
+"@serverless/platform-client@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "@serverless/platform-client@npm:4.4.0"
   dependencies:
     adm-zip: ^0.5.5
     archiver: ^5.3.0
@@ -2951,13 +3002,13 @@ __metadata:
     throat: ^5.0.0
     traverse: ^0.6.6
     ws: ^7.5.3
-  checksum: a038012473ff86dc898603ff8cd1a9ba15c17c64b3ead4f923a9563b67903f01a4f6786b5f847ba47b6a8ec6c3e42e161fbcf8de4fcf92a72d6239050f703910
+  checksum: df56111b6489c367c314fe74e40416f8bf89aa1b049b09e4fd67573c3d3282fe20df136a5b43266cc0a3614ee28336b1300389e2fce629a3178d2c3ad1d1c495
   languageName: node
   linkType: hard
 
-"@serverless/utils@npm:^6.11.1":
-  version: 6.11.1
-  resolution: "@serverless/utils@npm:6.11.1"
+"@serverless/utils@npm:^6.13.1, @serverless/utils@npm:^6.14.0":
+  version: 6.14.0
+  resolution: "@serverless/utils@npm:6.14.0"
   dependencies:
     archive-type: ^4.0.0
     chalk: ^4.1.2
@@ -2979,11 +3030,11 @@ __metadata:
     lodash: ^4.17.21
     log: ^6.3.1
     log-node: ^8.0.3
-    make-dir: ^3.1.0
+    make-dir: ^4.0.0
     memoizee: ^0.4.15
     ms: ^2.1.3
     ncjsm: ^4.3.2
-    node-fetch: ^2.6.9
+    node-fetch: ^2.6.11
     open: ^8.4.2
     p-event: ^4.2.0
     supports-color: ^8.1.1
@@ -2992,7 +3043,7 @@ __metadata:
     uni-global: ^1.0.0
     uuid: ^8.3.2
     write-file-atomic: ^4.0.2
-  checksum: c1eefeab96ef6a9e37f5978c5e3fa2e71d524ae29ee745d3556be00df4ce7af5d2878b9a5ee286951bd150e93581c1875f9a587bf3e1b719d314a5deb0410bfd
+  checksum: 589f62b886ec9270e01317e1f45170b6a77a991f36525b66a82894d41382a4b56b7c21356da94ef19a6ce94c8179b49d1b0c6d1f44d3307c2978d7d03929fea7
   languageName: node
   linkType: hard
 
@@ -5553,6 +5604,19 @@ __metadata:
     split2: ^3.1.1
     stream-promise: ^3.2.0
   checksum: 877504ed473b9eb622f008bc7a87d586c6052d34b718c531e61da1285916f1b9f113315c577a0d256a0ffb4952ba59e1495ce805df530498f0e62c5157caeb1e
+  languageName: node
+  linkType: hard
+
+"child-process-ext@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "child-process-ext@npm:3.0.2"
+  dependencies:
+    cross-spawn: ^7.0.3
+    es5-ext: ^0.10.62
+    log: ^6.3.1
+    split2: ^3.2.2
+    stream-promise: ^3.2.0
+  checksum: eb815a1aef2005a70fe80be66372514cf2e0bee9e2e361c3c25d85a468c74d84a530b98971da63b6120d84353d7abaa43a3ea4c38a8f0a55c1aaf7ab3962cfee
   languageName: node
   linkType: hard
 
@@ -10268,6 +10332,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"make-dir@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "make-dir@npm:4.0.0"
+  dependencies:
+    semver: ^7.5.3
+  checksum: bf0731a2dd3aab4db6f3de1585cea0b746bb73eb5a02e3d8d72757e376e64e6ada190b1eddcde5b2f24a81b688a9897efd5018737d05e02e2a671dda9cff8a8a
+  languageName: node
+  linkType: hard
+
 "make-error@npm:1.x, make-error@npm:^1.1.1":
   version: 1.3.6
   resolution: "make-error@npm:1.3.6"
@@ -12376,13 +12449,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^3.34.0":
-  version: 3.34.0
-  resolution: "serverless@npm:3.34.0"
+"serverless@npm:^3.35.2":
+  version: 3.35.2
+  resolution: "serverless@npm:3.35.2"
   dependencies:
-    "@serverless/dashboard-plugin": ^6.2.3
-    "@serverless/platform-client": ^4.3.2
-    "@serverless/utils": ^6.11.1
+    "@serverless/dashboard-plugin": ^7.0.2
+    "@serverless/platform-client": ^4.4.0
+    "@serverless/utils": ^6.13.1
     abort-controller: ^3.0.0
     ajv: ^8.12.0
     ajv-formats: ^2.1.1
@@ -12439,7 +12512,7 @@ __metadata:
   bin:
     serverless: bin/serverless.js
     sls: bin/serverless.js
-  checksum: 890f558bd88378ee9ee0c854496acacadea242443177687965f74b44f8453a94e489c239bb7ae68cf79b59fbf1eaad4849a90e88fbd35ac001b71d9205340a37
+  checksum: c783b709b91941c3bb70fba51668a759aeba831bc4c829ff8329d5fe33823f322ce877750caf485aa52f6e4ab1c9204b23ef42cd06997a760a8db65ed0e5b641
   languageName: node
   linkType: hard
 
@@ -12655,7 +12728,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"split2@npm:^3.1.0, split2@npm:^3.1.1":
+"split2@npm:^3.1.0, split2@npm:^3.1.1, split2@npm:^3.2.2":
   version: 3.2.2
   resolution: "split2@npm:3.2.2"
   dependencies:
@@ -14067,7 +14140,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.3.2
     nyc: ^15.1.0
-    serverless: ^3.34.0
+    serverless: ^3.35.2
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^12.0.4
     serverless-webpack: ^5.13.0
