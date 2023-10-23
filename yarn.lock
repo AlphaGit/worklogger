@@ -4811,13 +4811,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:^2.6.6":
-  version: 2.6.6
-  resolution: "@types/node-fetch@npm:2.6.6"
+"@types/node-fetch@npm:^2.6.7":
+  version: 2.6.7
+  resolution: "@types/node-fetch@npm:2.6.7"
   dependencies:
     "@types/node": "*"
     form-data: ^4.0.0
-  checksum: ac66389d9d597ab91f5e5d3724e594965b9f80ae5841ab5da9f0c3bd54ceac084591cfe69b1c413f18bb7efdd97002d05bd7651d58ba0c6c10f804f4fd85e598
+  checksum: 543a540186941e81ca4dda283b5f7bce1d7a93af3ee2c8161fc48d078789e9ce976332ce70f22644293414f680e3f9627d3ef8f59105cf2ea901d5e4acf58d3f
   languageName: node
   linkType: hard
 
@@ -14374,7 +14374,7 @@ __metadata:
     "@types/minimist": ^1.2.4
     "@types/mustache": ^4.2.4
     "@types/node": ^20.8.7
-    "@types/node-fetch": ^2.6.6
+    "@types/node-fetch": ^2.6.7
     "@typescript-eslint/eslint-plugin": 6.8.0
     "@typescript-eslint/parser": 6.7.5
     app-module-path: ^2.2.0
