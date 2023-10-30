@@ -1221,18 +1221,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.433.0":
-  version: 3.433.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.433.0"
+"@aws-sdk/signature-v4-crt@npm:^3.438.0":
+  version: 3.438.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.438.0"
   dependencies:
-    "@aws-sdk/signature-v4-multi-region": 3.433.0
+    "@aws-sdk/signature-v4-multi-region": 3.437.0
+    "@aws-sdk/util-user-agent-node": 3.437.0
     "@smithy/querystring-parser": ^2.0.0
     "@smithy/signature-v4": ^2.0.0
     "@smithy/types": ^2.4.0
     "@smithy/util-middleware": ^2.0.5
-    aws-crt: ^1.18.1
+    aws-crt: ^1.18.3
     tslib: ^2.5.0
-  checksum: e880637fad9ac1b384e94d8c978d8fcee7285e741c769dbcc1e76496508daa175fc9921596b1f2c7b7fc7534cc1e56fb30b3f83f7f8d23472e0b10611f35eafa
+  checksum: e90fd8c1678e93e9a43f5fadcf8377fdc741db8cb78cd36187b29772fe1ffd7ab9ae2cbe03dd11761f0776676430cda54af97fb4e0a12e89abcaf191909de97a
   languageName: node
   linkType: hard
 
@@ -5735,9 +5736,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-crt@npm:^1.18.1":
-  version: 1.18.1
-  resolution: "aws-crt@npm:1.18.1"
+"aws-crt@npm:^1.18.3":
+  version: 1.18.3
+  resolution: "aws-crt@npm:1.18.3"
   dependencies:
     "@aws-sdk/util-utf8-browser": ^3.109.0
     "@httptoolkit/websocket-stream": ^6.0.0
@@ -5746,7 +5747,7 @@ __metadata:
     crypto-js: ^4.0.0
     mqtt: ^4.3.7
     process: ^0.11.10
-  checksum: 51025adc7bd691f45b7f97f63456c86ef90af5cd9d52d67ad33908257a2da059d4444c9915fd58fddbceddab249f564a34abeb8dfa3a0c80ce1210ac36f38c5b
+  checksum: d3e0da1a7a8d2d138107db6a5a2eb7c334d804622badfbf1028e354adb3ad0c21818b807b3722d790b5a5e7ba74eac4870cb6300ae3f38dd3fa118eaa7ddeceb
   languageName: node
   linkType: hard
 
@@ -14411,7 +14412,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.438.0
     "@aws-sdk/client-sesv2": ^3.438.0
-    "@aws-sdk/signature-v4-crt": ^3.433.0
+    "@aws-sdk/signature-v4-crt": ^3.438.0
     "@types/aws-lambda": ^8.10.125
     "@types/jest": ^29.5.6
     "@types/log4js": ^2.3.5
