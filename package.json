@@ -54,7 +54,7 @@
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.4",
     "@types/mustache": "^4.2.4",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.8.9",
     "@types/node-fetch": "^2.6.7",
     "@typescript-eslint/eslint-plugin": "6.8.0",
     "@typescript-eslint/parser": "6.8.0",
