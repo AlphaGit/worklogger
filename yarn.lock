@@ -1237,19 +1237,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-multi-region@npm:3.433.0":
-  version: 3.433.0
-  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.433.0"
-  dependencies:
-    "@aws-sdk/types": 3.433.0
-    "@smithy/protocol-http": ^3.0.8
-    "@smithy/signature-v4": ^2.0.0
-    "@smithy/types": ^2.4.0
-    tslib: ^2.5.0
-  checksum: 7bd0d911d16385dd47792421b2a1a19284f121faf6b3fa3b400d6959d11888dbefab6994d3fb2efca85d4cae257a80142579352e7d2a0ae6f487c98c0369efc3
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4-multi-region@npm:3.437.0":
   version: 3.437.0
   resolution: "@aws-sdk/signature-v4-multi-region@npm:3.437.0"
@@ -4856,13 +4843,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:^2.6.7":
-  version: 2.6.7
-  resolution: "@types/node-fetch@npm:2.6.7"
+"@types/node-fetch@npm:^2.6.8":
+  version: 2.6.8
+  resolution: "@types/node-fetch@npm:2.6.8"
   dependencies:
     "@types/node": "*"
     form-data: ^4.0.0
-  checksum: 543a540186941e81ca4dda283b5f7bce1d7a93af3ee2c8161fc48d078789e9ce976332ce70f22644293414f680e3f9627d3ef8f59105cf2ea901d5e4acf58d3f
+  checksum: f40e5e2fa3ca05a45453397e891776619739f093f913199c00c141735f8098e4f2ffdea04b9d608182aede2df9607605c71e0fdb97d2614899545ce81bac7005
   languageName: node
   linkType: hard
 
@@ -14374,7 +14361,7 @@ __metadata:
     "@types/minimist": ^1.2.4
     "@types/mustache": ^4.2.4
     "@types/node": ^20.8.9
-    "@types/node-fetch": ^2.6.7
+    "@types/node-fetch": ^2.6.8
     "@typescript-eslint/eslint-plugin": 6.9.0
     "@typescript-eslint/parser": 6.9.0
     app-module-path: ^2.2.0
