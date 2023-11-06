@@ -1237,19 +1237,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-multi-region@npm:3.433.0":
-  version: 3.433.0
-  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.433.0"
-  dependencies:
-    "@aws-sdk/types": 3.433.0
-    "@smithy/protocol-http": ^3.0.8
-    "@smithy/signature-v4": ^2.0.0
-    "@smithy/types": ^2.4.0
-    tslib: ^2.5.0
-  checksum: 7bd0d911d16385dd47792421b2a1a19284f121faf6b3fa3b400d6959d11888dbefab6994d3fb2efca85d4cae257a80142579352e7d2a0ae6f487c98c0369efc3
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/signature-v4-multi-region@npm:3.437.0":
   version: 3.437.0
   resolution: "@aws-sdk/signature-v4-multi-region@npm:3.437.0"
@@ -4786,13 +4773,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.6":
-  version: 29.5.6
-  resolution: "@types/jest@npm:29.5.6"
+"@types/jest@npm:^29.5.7":
+  version: 29.5.7
+  resolution: "@types/jest@npm:29.5.7"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: fa13a27bd1c8efd0381a419478769d0d6d3a8e93e1952d7ac3a16274e8440af6f73ed6f96ac1ff00761198badf2ee226b5ab5583a5d87a78d609ea78da5c5a24
+  checksum: e28624ccb0ef1255a03fbbb4b5bc3e5cbcdc450d39e0739985ff679b124198f808c38c8c3e67859c6efc0e848196deeb8cfed028e12a821c511dfc1112a2d6e9
   languageName: node
   linkType: hard
 
@@ -14369,7 +14356,7 @@ __metadata:
     "@aws-sdk/client-sesv2": ^3.438.0
     "@aws-sdk/signature-v4-crt": ^3.438.0
     "@types/aws-lambda": ^8.10.125
-    "@types/jest": ^29.5.6
+    "@types/jest": ^29.5.7
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.4
     "@types/mustache": ^4.2.4
