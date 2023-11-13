@@ -1487,19 +1487,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.438.0":
-  version: 3.438.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.438.0"
+"@aws-sdk/signature-v4-crt@npm:^3.449.0":
+  version: 3.449.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.449.0"
   dependencies:
-    "@aws-sdk/signature-v4-multi-region": 3.437.0
-    "@aws-sdk/util-user-agent-node": 3.437.0
+    "@aws-sdk/signature-v4-multi-region": 3.449.0
+    "@aws-sdk/util-user-agent-node": 3.449.0
     "@smithy/querystring-parser": ^2.0.0
     "@smithy/signature-v4": ^2.0.0
     "@smithy/types": ^2.4.0
     "@smithy/util-middleware": ^2.0.5
     aws-crt: ^1.18.3
     tslib: ^2.5.0
-  checksum: e90fd8c1678e93e9a43f5fadcf8377fdc741db8cb78cd36187b29772fe1ffd7ab9ae2cbe03dd11761f0776676430cda54af97fb4e0a12e89abcaf191909de97a
+  checksum: f5885f1039af11bb6c9be7a17bfb56ba4b15a6a7cbf26be0b533399ca9558a522bb77801d89c8d19ed8de532f702135ee414fc2c83ffd87935158d19e5d54e60
   languageName: node
   linkType: hard
 
@@ -1513,6 +1513,19 @@ __metadata:
     "@smithy/types": ^2.4.0
     tslib: ^2.5.0
   checksum: 94a442ccaad2c58b5a05eb7573a49da3110c7836a4e56e3790a37c3a124981b625b1df79ec6f806e71d72e0e26347c4c1800136417c121ce3130bc573cd86c7a
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/signature-v4-multi-region@npm:3.449.0":
+  version: 3.449.0
+  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.449.0"
+  dependencies:
+    "@aws-sdk/types": 3.449.0
+    "@smithy/protocol-http": ^3.0.8
+    "@smithy/signature-v4": ^2.0.0
+    "@smithy/types": ^2.4.0
+    tslib: ^2.5.0
+  checksum: 0104e7cbbb4a170445c906d706fe5335d5e25940267ff228b0a2029f25825dd8cf406d86e592bd2fc02862c7e32926768c958dd25f5f4d92feb0eb26a975efb2
   languageName: node
   linkType: hard
 
@@ -14762,7 +14775,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.441.0
     "@aws-sdk/client-sesv2": ^3.449.0
-    "@aws-sdk/signature-v4-crt": ^3.438.0
+    "@aws-sdk/signature-v4-crt": ^3.449.0
     "@types/aws-lambda": ^8.10.126
     "@types/jest": ^29.5.8
     "@types/log4js": ^2.3.5

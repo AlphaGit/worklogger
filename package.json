@@ -33,7 +33,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.441.0",
     "@aws-sdk/client-sesv2": "^3.449.0",
-    "@aws-sdk/signature-v4-crt": "^3.438.0",
+    "@aws-sdk/signature-v4-crt": "^3.449.0",
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1494.0",
