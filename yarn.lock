@@ -5212,10 +5212,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mustache@npm:^4.2.4":
-  version: 4.2.4
-  resolution: "@types/mustache@npm:4.2.4"
-  checksum: ed6ad7a5a6178bf93cc7b6febd7245b6d69f539b278a4203fd5edc2075ef1e605d81574ea5ccadd9f29340afd9afbdae4cae27bf2da8752f5d67066372525f67
+"@types/mustache@npm:^4.2.5":
+  version: 4.2.5
+  resolution: "@types/mustache@npm:4.2.5"
+  checksum: 0ff1d52022fd3ab0db1c97964ca0c24b45ad74e81ec62e05d27eab5b66ef1d78ff257f4cfb481c72b8b511f15520ca48717e000dc5fa8c3fdf732790b28f05cb
   languageName: node
   linkType: hard
 
@@ -14780,7 +14780,7 @@ __metadata:
     "@types/jest": ^29.5.8
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
-    "@types/mustache": ^4.2.4
+    "@types/mustache": ^4.2.5
     "@types/node": ^20.9.0
     "@types/node-fetch": ^2.6.8
     "@typescript-eslint/eslint-plugin": 6.9.1
