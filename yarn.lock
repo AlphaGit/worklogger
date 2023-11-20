@@ -1238,19 +1238,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.449.0":
-  version: 3.449.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.449.0"
+"@aws-sdk/signature-v4-crt@npm:^3.451.0":
+  version: 3.451.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.451.0"
   dependencies:
-    "@aws-sdk/signature-v4-multi-region": 3.449.0
-    "@aws-sdk/util-user-agent-node": 3.449.0
+    "@aws-sdk/signature-v4-multi-region": 3.451.0
+    "@aws-sdk/util-user-agent-node": 3.451.0
     "@smithy/querystring-parser": ^2.0.0
     "@smithy/signature-v4": ^2.0.0
-    "@smithy/types": ^2.4.0
-    "@smithy/util-middleware": ^2.0.5
+    "@smithy/types": ^2.5.0
+    "@smithy/util-middleware": ^2.0.6
     aws-crt: ^1.18.3
     tslib: ^2.5.0
-  checksum: f5885f1039af11bb6c9be7a17bfb56ba4b15a6a7cbf26be0b533399ca9558a522bb77801d89c8d19ed8de532f702135ee414fc2c83ffd87935158d19e5d54e60
+  checksum: 7fb91e6eb9fb2aa919a4cf8ed40f30219e88f9824409a3b8044555fdc2eb73f3a7380b25b00e0f51608971f8185fe4cbfd03438addf50eceaee9b3d9e9c63181
   languageName: node
   linkType: hard
 
@@ -1264,6 +1264,19 @@ __metadata:
     "@smithy/types": ^2.4.0
     tslib: ^2.5.0
   checksum: 0104e7cbbb4a170445c906d706fe5335d5e25940267ff228b0a2029f25825dd8cf406d86e592bd2fc02862c7e32926768c958dd25f5f4d92feb0eb26a975efb2
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/signature-v4-multi-region@npm:3.451.0":
+  version: 3.451.0
+  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.451.0"
+  dependencies:
+    "@aws-sdk/types": 3.451.0
+    "@smithy/protocol-http": ^3.0.9
+    "@smithy/signature-v4": ^2.0.0
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: d0c9e434e28c4c06a78d6d12ebe0067bf4d299b73e106ef336dd730a63941dcdb443147a998603c0f64ec8a1a9f53c0b8ad7f0e67fe36959c154c1dcf664a485
   languageName: node
   linkType: hard
 
@@ -14440,7 +14453,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.449.0
     "@aws-sdk/client-sesv2": ^3.454.0
-    "@aws-sdk/signature-v4-crt": ^3.449.0
+    "@aws-sdk/signature-v4-crt": ^3.451.0
     "@types/aws-lambda": ^8.10.126
     "@types/jest": ^29.5.8
     "@types/log4js": ^2.3.5
