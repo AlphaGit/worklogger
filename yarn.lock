@@ -172,55 +172,55 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-lambda@npm:^3.441.0":
-  version: 3.449.0
-  resolution: "@aws-sdk/client-lambda@npm:3.449.0"
+"@aws-sdk/client-lambda@npm:^3.452.0":
+  version: 3.454.0
+  resolution: "@aws-sdk/client-lambda@npm:3.454.0"
   dependencies:
     "@aws-crypto/sha256-browser": 3.0.0
     "@aws-crypto/sha256-js": 3.0.0
-    "@aws-sdk/client-sts": 3.449.0
-    "@aws-sdk/core": 3.445.0
-    "@aws-sdk/credential-provider-node": 3.449.0
-    "@aws-sdk/middleware-host-header": 3.449.0
-    "@aws-sdk/middleware-logger": 3.449.0
-    "@aws-sdk/middleware-recursion-detection": 3.449.0
-    "@aws-sdk/middleware-signing": 3.449.0
-    "@aws-sdk/middleware-user-agent": 3.449.0
-    "@aws-sdk/region-config-resolver": 3.433.0
-    "@aws-sdk/types": 3.449.0
-    "@aws-sdk/util-endpoints": 3.449.0
-    "@aws-sdk/util-user-agent-browser": 3.449.0
-    "@aws-sdk/util-user-agent-node": 3.449.0
-    "@smithy/config-resolver": ^2.0.16
-    "@smithy/eventstream-serde-browser": ^2.0.12
-    "@smithy/eventstream-serde-config-resolver": ^2.0.12
-    "@smithy/eventstream-serde-node": ^2.0.12
-    "@smithy/fetch-http-handler": ^2.2.4
-    "@smithy/hash-node": ^2.0.12
-    "@smithy/invalid-dependency": ^2.0.12
-    "@smithy/middleware-content-length": ^2.0.14
-    "@smithy/middleware-endpoint": ^2.1.3
-    "@smithy/middleware-retry": ^2.0.18
-    "@smithy/middleware-serde": ^2.0.12
-    "@smithy/middleware-stack": ^2.0.6
-    "@smithy/node-config-provider": ^2.1.3
-    "@smithy/node-http-handler": ^2.1.8
-    "@smithy/protocol-http": ^3.0.8
-    "@smithy/smithy-client": ^2.1.12
-    "@smithy/types": ^2.4.0
-    "@smithy/url-parser": ^2.0.12
-    "@smithy/util-base64": ^2.0.0
+    "@aws-sdk/client-sts": 3.454.0
+    "@aws-sdk/core": 3.451.0
+    "@aws-sdk/credential-provider-node": 3.451.0
+    "@aws-sdk/middleware-host-header": 3.451.0
+    "@aws-sdk/middleware-logger": 3.451.0
+    "@aws-sdk/middleware-recursion-detection": 3.451.0
+    "@aws-sdk/middleware-signing": 3.451.0
+    "@aws-sdk/middleware-user-agent": 3.451.0
+    "@aws-sdk/region-config-resolver": 3.451.0
+    "@aws-sdk/types": 3.451.0
+    "@aws-sdk/util-endpoints": 3.451.0
+    "@aws-sdk/util-user-agent-browser": 3.451.0
+    "@aws-sdk/util-user-agent-node": 3.451.0
+    "@smithy/config-resolver": ^2.0.18
+    "@smithy/eventstream-serde-browser": ^2.0.13
+    "@smithy/eventstream-serde-config-resolver": ^2.0.13
+    "@smithy/eventstream-serde-node": ^2.0.13
+    "@smithy/fetch-http-handler": ^2.2.6
+    "@smithy/hash-node": ^2.0.15
+    "@smithy/invalid-dependency": ^2.0.13
+    "@smithy/middleware-content-length": ^2.0.15
+    "@smithy/middleware-endpoint": ^2.2.0
+    "@smithy/middleware-retry": ^2.0.20
+    "@smithy/middleware-serde": ^2.0.13
+    "@smithy/middleware-stack": ^2.0.7
+    "@smithy/node-config-provider": ^2.1.5
+    "@smithy/node-http-handler": ^2.1.9
+    "@smithy/protocol-http": ^3.0.9
+    "@smithy/smithy-client": ^2.1.15
+    "@smithy/types": ^2.5.0
+    "@smithy/url-parser": ^2.0.13
+    "@smithy/util-base64": ^2.0.1
     "@smithy/util-body-length-browser": ^2.0.0
     "@smithy/util-body-length-node": ^2.1.0
-    "@smithy/util-defaults-mode-browser": ^2.0.16
-    "@smithy/util-defaults-mode-node": ^2.0.21
-    "@smithy/util-endpoints": ^1.0.2
-    "@smithy/util-retry": ^2.0.5
-    "@smithy/util-stream": ^2.0.17
-    "@smithy/util-utf8": ^2.0.0
-    "@smithy/util-waiter": ^2.0.12
+    "@smithy/util-defaults-mode-browser": ^2.0.19
+    "@smithy/util-defaults-mode-node": ^2.0.25
+    "@smithy/util-endpoints": ^1.0.4
+    "@smithy/util-retry": ^2.0.6
+    "@smithy/util-stream": ^2.0.20
+    "@smithy/util-utf8": ^2.0.2
+    "@smithy/util-waiter": ^2.0.13
     tslib: ^2.5.0
-  checksum: 244ba6c7cea7aec51440e641e50b9e149e25476df8fe03b82aece26bf6238d928e745146053262ea194ffeb9f33af7b293e8269d845d0c91b6ef5e1cff0ab8ed
+  checksum: 0a22b7f818e3c5fd7c3dd638d3d91fea94236fcb5efcefc69474a45466aac96b866aefd3c2d6de75368f64fe2dc348c76621db09b928a650132461684abf106d
   languageName: node
   linkType: hard
 
@@ -3383,6 +3383,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@smithy/eventstream-codec@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/eventstream-codec@npm:2.0.13"
+  dependencies:
+    "@aws-crypto/crc32": 3.0.0
+    "@smithy/types": ^2.5.0
+    "@smithy/util-hex-encoding": ^2.0.0
+    tslib: ^2.5.0
+  checksum: fdae10c869061e6335903d9f0d80dbd0bb9fb5af484c97e5c9490a59ce3d27ca0bba8683149ee2dee7045c84c4d8c014b411611164535bb53936e1fef21ed8bc
+  languageName: node
+  linkType: hard
+
 "@smithy/eventstream-serde-browser@npm:^2.0.12":
   version: 2.0.12
   resolution: "@smithy/eventstream-serde-browser@npm:2.0.12"
@@ -3394,6 +3406,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@smithy/eventstream-serde-browser@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/eventstream-serde-browser@npm:2.0.13"
+  dependencies:
+    "@smithy/eventstream-serde-universal": ^2.0.13
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: 1107de0ed525cd7cc1315693d8b1601da09c66131b808496f0869324e87e9bced2efc06425dc8761756f4ceca24b6ae9ba7d4fca239fcf49d4fcc5aed93f4421
+  languageName: node
+  linkType: hard
+
 "@smithy/eventstream-serde-config-resolver@npm:^2.0.12":
   version: 2.0.12
   resolution: "@smithy/eventstream-serde-config-resolver@npm:2.0.12"
@@ -3401,6 +3424,16 @@ __metadata:
     "@smithy/types": ^2.4.0
     tslib: ^2.5.0
   checksum: 1fbed5f1b1c5fb8830d9940e2d8d56e1c33dd3ce5e5a79f259f0dacaa8ec6dfa4203163b63e707769e4153d1d17680cbf195690b596a44da6f43a62f66bad1aa
+  languageName: node
+  linkType: hard
+
+"@smithy/eventstream-serde-config-resolver@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/eventstream-serde-config-resolver@npm:2.0.13"
+  dependencies:
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: 29de012f1224ec5b9079088d55f06315be60729a6455aa1b340f6eac05fe53fd07c785d8f1908bdf8a97aa7fb4142a6ebf6715f479bf09c021680b55050c83bc
   languageName: node
   linkType: hard
 
@@ -3415,6 +3448,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@smithy/eventstream-serde-node@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/eventstream-serde-node@npm:2.0.13"
+  dependencies:
+    "@smithy/eventstream-serde-universal": ^2.0.13
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: c83fdaf2ccc42a4f5f0d153adb37dd409cc78c15c1c73608a39af42219a714e30d9e47c3d80f2da1b810643c1964649b8d115e3a706f43b6401c3aab3b8f322f
+  languageName: node
+  linkType: hard
+
 "@smithy/eventstream-serde-universal@npm:^2.0.12":
   version: 2.0.12
   resolution: "@smithy/eventstream-serde-universal@npm:2.0.12"
@@ -3423,6 +3467,17 @@ __metadata:
     "@smithy/types": ^2.4.0
     tslib: ^2.5.0
   checksum: fea8ad03da25f92b0f3a0b20398a410bbf264aad6318b2cea9c8740cd86b1b130f3b52a07fb2b25e82b19eb44d60ec3770b17667a6842d404548e200a085ead9
+  languageName: node
+  linkType: hard
+
+"@smithy/eventstream-serde-universal@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/eventstream-serde-universal@npm:2.0.13"
+  dependencies:
+    "@smithy/eventstream-codec": ^2.0.13
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: 138fa619e3ae588438fd962a1a12988c8ec22b330d7cc787be75b5ec7650aa5cabec047c8ef0601545d0614d13803f1ec1f2d185f68bface54ccf643c5055075
   languageName: node
   linkType: hard
 
@@ -4561,6 +4616,17 @@ __metadata:
     "@smithy/types": ^2.4.0
     tslib: ^2.5.0
   checksum: af35c36a58585472aae9e06ea000a113110f22bed179687213336a014b002deb867cb094f9cb01bc43856235df05517baf08009b3b929a48b48f964c426c1ffc
+  languageName: node
+  linkType: hard
+
+"@smithy/util-waiter@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@smithy/util-waiter@npm:2.0.13"
+  dependencies:
+    "@smithy/abort-controller": ^2.0.13
+    "@smithy/types": ^2.5.0
+    tslib: ^2.5.0
+  checksum: 1325887f9002b9f08c5cfcabcf35ce4488b4c2d009333955a166b27aa40b149a19f8359fdd8b265995409f64686bfb3aa02eb7bc18aea15aaa8d309d640107a5
   languageName: node
   linkType: hard
 
@@ -10235,10 +10301,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "jose@npm:5.1.0"
-  checksum: 62e907e953fd83f869cf4ce2e08359f5678bf99a6a4cc50faf7997b4694bc5cd32f43b79c3ff86f0e5385346b465a408166ccd1bf4237ae8c705ee82c733acc0
+"jose@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "jose@npm:5.1.1"
+  checksum: 3a18d85dd1ed0e7746c67cba65a95ee972f20b363ceb99a9d75b870beb34942089cfca6249c4a50a79bc854c5a052f1be39e814c42b0f00f9358e902ce706e8d
   languageName: node
   linkType: hard
 
@@ -10806,17 +10872,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:^3.2.0":
-  version: 3.2.1
-  resolution: "luxon@npm:3.2.1"
-  checksum: 3fa3def2c5f5d3032b4c46220c4da8aeb467ac979888fc9d2557adcd22195f93516b4ad5909a75862bec8dc6ddc0953b0f38e6d2f4a8ab8450ddc531a83cf20d
-  languageName: node
-  linkType: hard
-
 "luxon@npm:^3.2.1":
   version: 3.4.3
   resolution: "luxon@npm:3.4.3"
   checksum: 3eade81506224d038ed24035a0cd0dd4887848d7eba9361dce9ad8ef81380596a68153240be3988721f9690c624fb449fcf8fd8c3fc0681a6a8496faf48e92a3
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^3.4.4":
+  version: 3.4.4
+  resolution: "luxon@npm:3.4.4"
+  checksum: 36c1f99c4796ee4bfddf7dc94fa87815add43ebc44c8934c924946260a58512f0fd2743a629302885df7f35ccbd2d13f178c15df046d0e3b6eb71db178f1c60c
   languageName: node
   linkType: hard
 
@@ -12698,11 +12764,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^13.2.1":
-  version: 13.2.1
-  resolution: "serverless-offline@npm:13.2.1"
+"serverless-offline@npm:^13.3.0":
+  version: 13.3.0
+  resolution: "serverless-offline@npm:13.3.0"
   dependencies:
-    "@aws-sdk/client-lambda": ^3.441.0
+    "@aws-sdk/client-lambda": ^3.452.0
     "@hapi/boom": ^10.0.1
     "@hapi/h2o2": ^10.0.4
     "@hapi/hapi": ^21.3.2
@@ -12715,12 +12781,12 @@ __metadata:
     fs-extra: ^11.1.1
     is-wsl: ^3.1.0
     java-invoke-local: 0.0.6
-    jose: ^5.1.0
+    jose: ^5.1.1
     js-string-escape: ^1.0.1
     jsonpath-plus: ^7.2.0
     jsonschema: ^1.4.1
     jszip: ^3.10.1
-    luxon: ^3.2.0
+    luxon: ^3.4.4
     node-schedule: ^2.1.1
     p-memoize: ^7.1.1
     p-retry: ^6.1.0
@@ -12728,7 +12794,7 @@ __metadata:
     ws: ^8.14.2
   peerDependencies:
     serverless: ^3.2.0
-  checksum: 7cf56cda12e1d0409e8c88cbb8fbb769ec144fcb5608c746ac6bcb46d6a599c38f8c86ad64f41ebcdffc09caef30c4e1c0641a43186f9506e9cc7a3cc9f7d4e1
+  checksum: 1a840c31a2c973da638be48192efbc9a01ed4d120e9f2db16be23361448d3a9eb8d9f9a77155290d1ac2862d505e98bf41aa4fbd5743620aa6ad53bd33b6126a
   languageName: node
   linkType: hard
 
@@ -14417,7 +14483,7 @@ __metadata:
     nyc: ^15.1.0
     serverless: ^3.36.0
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^13.2.1
+    serverless-offline: ^13.3.0
     serverless-webpack: ^5.13.0
     showdown: ^2.1.0
     ts-jest: ^29.1.1
