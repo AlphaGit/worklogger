@@ -46,7 +46,7 @@
     "mustache": "^4.2.0",
     "node-fetch": "^3.3.2",
     "showdown": "^2.1.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.130",
