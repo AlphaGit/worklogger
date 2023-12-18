@@ -224,16 +224,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.470.0":
-  version: 3.470.0
-  resolution: "@aws-sdk/client-s3@npm:3.470.0"
+"@aws-sdk/client-s3@npm:^3.474.0":
+  version: 3.474.0
+  resolution: "@aws-sdk/client-s3@npm:3.474.0"
   dependencies:
     "@aws-crypto/sha1-browser": 3.0.0
     "@aws-crypto/sha256-browser": 3.0.0
     "@aws-crypto/sha256-js": 3.0.0
-    "@aws-sdk/client-sts": 3.470.0
-    "@aws-sdk/core": 3.468.0
-    "@aws-sdk/credential-provider-node": 3.470.0
+    "@aws-sdk/client-sts": 3.474.0
+    "@aws-sdk/core": 3.474.0
+    "@aws-sdk/credential-provider-node": 3.474.0
     "@aws-sdk/middleware-bucket-endpoint": 3.470.0
     "@aws-sdk/middleware-expect-continue": 3.468.0
     "@aws-sdk/middleware-flexible-checksums": 3.468.0
@@ -241,17 +241,17 @@ __metadata:
     "@aws-sdk/middleware-location-constraint": 3.468.0
     "@aws-sdk/middleware-logger": 3.468.0
     "@aws-sdk/middleware-recursion-detection": 3.468.0
-    "@aws-sdk/middleware-sdk-s3": 3.470.0
+    "@aws-sdk/middleware-sdk-s3": 3.474.0
     "@aws-sdk/middleware-signing": 3.468.0
     "@aws-sdk/middleware-ssec": 3.468.0
     "@aws-sdk/middleware-user-agent": 3.470.0
     "@aws-sdk/region-config-resolver": 3.470.0
-    "@aws-sdk/signature-v4-multi-region": 3.470.0
+    "@aws-sdk/signature-v4-multi-region": 3.474.0
     "@aws-sdk/types": 3.468.0
     "@aws-sdk/util-endpoints": 3.470.0
     "@aws-sdk/util-user-agent-browser": 3.468.0
     "@aws-sdk/util-user-agent-node": 3.470.0
-    "@aws-sdk/xml-builder": 3.465.0
+    "@aws-sdk/xml-builder": 3.472.0
     "@smithy/config-resolver": ^2.0.21
     "@smithy/eventstream-serde-browser": ^2.0.15
     "@smithy/eventstream-serde-config-resolver": ^2.0.15
@@ -285,7 +285,7 @@ __metadata:
     "@smithy/util-waiter": ^2.0.15
     fast-xml-parser: 4.2.5
     tslib: ^2.5.0
-  checksum: ebf5e3395bc87138365fcda79378da555a214b0bb6e7177f75eba304a2085cf20e41c9f66d2c82bd195921c2dec1cd3313e919d12ee29897fd44656bf75df6cc
+  checksum: 2e478ae30424a6ddd4687850601446595d36495d0c87079919ad24f59393cbbd24dd5a99cdbe780688d7183cdb509378b471356b7736690b22b40c1711b67d18
   languageName: node
   linkType: hard
 
@@ -1405,12 +1405,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/xml-builder@npm:3.465.0":
-  version: 3.465.0
-  resolution: "@aws-sdk/xml-builder@npm:3.465.0"
+"@aws-sdk/xml-builder@npm:3.472.0":
+  version: 3.472.0
+  resolution: "@aws-sdk/xml-builder@npm:3.472.0"
   dependencies:
+    "@smithy/types": ^2.7.0
     tslib: ^2.5.0
-  checksum: 33c370b216aece520352bc36dc147649bee0bca7139a5d5c6e49e99756e9ca369c73bacc55dff5920f6003d06a29a1375920e18b9776c264de925c5a9cfc3deb
+  checksum: e053e8e247b096e311b717a54d70270ba9fcb4bf049d66b3a1958b2136503ba292adfa7efe694ce76d7cb1b4d0fd838aa44b2a8612210c7e1673c5f27d72e88d
   languageName: node
   linkType: hard
 
@@ -13904,7 +13905,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.470.0
+    "@aws-sdk/client-s3": ^3.474.0
     "@aws-sdk/client-sesv2": ^3.470.0
     "@aws-sdk/signature-v4-crt": ^3.474.0
     "@types/aws-lambda": ^8.10.130
