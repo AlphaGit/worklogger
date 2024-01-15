@@ -4,7 +4,8 @@ LABEL maintainer="alphagma@gmail.com"
 COPY ./ /app/
 WORKDIR /app
 
-RUN yarn install --frozen-lockfile && \
+RUN yarn install --frozen-lockfile --immutable && \
+    
     yarn cache clean --all
 
 VOLUME /app/worklogger_home
