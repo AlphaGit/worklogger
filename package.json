@@ -32,11 +32,16 @@
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.485.0",
+<<<<<<< HEAD
     "@aws-sdk/client-sesv2": "^3.490.0",
     "@aws-sdk/signature-v4-crt": "^3.485.0",
+=======
+    "@aws-sdk/client-sesv2": "^3.485.0",
+    "@aws-sdk/signature-v4-crt": "^3.489.0",
+>>>>>>> origin/master
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
-    "aws-sdk": "^2.1531.0",
+    "aws-sdk": "^2.1536.0",
     "cacache": "^18.0.2",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^130.0.0",
@@ -54,10 +59,10 @@
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.5",
     "@types/mustache": "^4.2.5",
-    "@types/node": "^20.10.7",
+    "@types/node": "^20.11.1",
     "@types/node-fetch": "^2.6.10",
     "@typescript-eslint/eslint-plugin": "6.18.0",
-    "@typescript-eslint/parser": "6.18.0",
+    "@typescript-eslint/parser": "6.18.1",
     "eslint": "^8.56.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-import": "^2.29.1",
