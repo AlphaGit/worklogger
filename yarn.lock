@@ -4960,12 +4960,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.10.7":
-  version: 20.10.7
-  resolution: "@types/node@npm:20.10.7"
+"@types/node@npm:^20.11.1":
+  version: 20.11.1
+  resolution: "@types/node@npm:20.11.1"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 86f4f96f5169538f47bbd652ab8e3712cd307701481ff3e9ce0c1ea7d8424a38b5ac4a1d33088cdd9ea1bfe68fd27bbae005a21969aa6d9a36295904da6f09f2
+  checksum: d50670a5357968b9ff5214c807f688cb639054eb3d602741e4a381febe3b39624750ee0ea5817e33e3a9f88479cce6d3baf084c0412c614d48e7074d17b8a0de
   languageName: node
   linkType: hard
 
@@ -5049,21 +5049,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:6.18.0":
-  version: 6.18.0
-  resolution: "@typescript-eslint/parser@npm:6.18.0"
+"@typescript-eslint/parser@npm:6.18.1":
+  version: 6.18.1
+  resolution: "@typescript-eslint/parser@npm:6.18.1"
   dependencies:
-    "@typescript-eslint/scope-manager": 6.18.0
-    "@typescript-eslint/types": 6.18.0
-    "@typescript-eslint/typescript-estree": 6.18.0
-    "@typescript-eslint/visitor-keys": 6.18.0
+    "@typescript-eslint/scope-manager": 6.18.1
+    "@typescript-eslint/types": 6.18.1
+    "@typescript-eslint/typescript-estree": 6.18.1
+    "@typescript-eslint/visitor-keys": 6.18.1
     debug: ^4.3.4
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 2f9eb1b8f142cb191de6a6f34b913df1c09ea66bb09bd92c201e28fe84b6f3c13cbed3469c94d498e96ea06349b643632bb693dcf27b85908d7221b58c24bcff
+  checksum: f123310976a73d9f08470dbad917c9e7b038e9e1362924a225a29d35fac1a2726d447952ca77b914d47f50791d235bb66f5171c7a4a0536e9c170fb20e73a2e4
   languageName: node
   linkType: hard
 
@@ -5080,6 +5080,19 @@ __metadata:
 "@typescript-eslint/scope-manager@npm:6.18.1":
   version: 6.18.1
   resolution: "@typescript-eslint/scope-manager@npm:6.18.1"
+<<<<<<< HEAD
+=======
+  dependencies:
+    "@typescript-eslint/types": 6.18.1
+    "@typescript-eslint/visitor-keys": 6.18.1
+  checksum: d6708f9f2658ab68f9f4628b93c4131fb82c362383b4d5d671491082ff610258f2fc9e293739618dc76ed6d2c5909f000a54b9b905e58a5172e6e2f731666245
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/type-utils@npm:6.18.0":
+  version: 6.18.0
+  resolution: "@typescript-eslint/type-utils@npm:6.18.0"
+>>>>>>> origin/master
   dependencies:
     "@typescript-eslint/types": 6.18.1
     "@typescript-eslint/visitor-keys": 6.18.1
@@ -5156,9 +5169,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "@typescript-eslint/utils@npm:6.18.1":
   version: 6.18.1
   resolution: "@typescript-eslint/utils@npm:6.18.1"
+=======
+"@typescript-eslint/utils@npm:6.18.0":
+  version: 6.18.0
+  resolution: "@typescript-eslint/utils@npm:6.18.0"
+>>>>>>> origin/master
   dependencies:
     "@eslint-community/eslint-utils": ^4.4.0
     "@types/json-schema": ^7.0.12
@@ -5872,9 +5891,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1531.0":
-  version: 2.1531.0
-  resolution: "aws-sdk@npm:2.1531.0"
+"aws-sdk@npm:^2.1536.0":
+  version: 2.1536.0
+  resolution: "aws-sdk@npm:2.1536.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -5886,7 +5905,7 @@ __metadata:
     util: ^0.12.4
     uuid: 8.0.0
     xml2js: 0.5.0
-  checksum: 0322b0cf2685548a469b681cff4de3707e080d83690188938f34d021dc4ded8478d0a85c6d7680d85b8def4d5d36b3f3fc26a315cd02bc03037d04693f135bfc
+  checksum: 4f4eb086fb17607a63d89e8649a59d0fc9ce55dd44db77c7ff064a6a215ac5dd794f80a2963100e3f4847752a1ae7af8b375b6d0d01f54e1c7b5437df7792538
   languageName: node
   linkType: hard
 
@@ -14551,13 +14570,18 @@ __metadata:
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
     "@types/mustache": ^4.2.5
-    "@types/node": ^20.10.7
+    "@types/node": ^20.11.1
     "@types/node-fetch": ^2.6.10
+<<<<<<< HEAD
     "@typescript-eslint/eslint-plugin": 6.18.1
     "@typescript-eslint/parser": 6.18.0
+=======
+    "@typescript-eslint/eslint-plugin": 6.18.0
+    "@typescript-eslint/parser": 6.18.1
+>>>>>>> origin/master
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
-    aws-sdk: ^2.1531.0
+    aws-sdk: ^2.1536.0
     cacache: ^18.0.2
     eslint: ^8.56.0
     eslint-import-resolver-node: ^0.3.9
