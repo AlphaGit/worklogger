@@ -936,23 +936,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/middleware-sdk-s3@npm:3.496.0":
-  version: 3.496.0
-  resolution: "@aws-sdk/middleware-sdk-s3@npm:3.496.0"
-  dependencies:
-    "@aws-sdk/types": 3.496.0
-    "@aws-sdk/util-arn-parser": 3.495.0
-    "@smithy/node-config-provider": ^2.2.1
-    "@smithy/protocol-http": ^3.1.1
-    "@smithy/signature-v4": ^2.1.1
-    "@smithy/smithy-client": ^2.3.1
-    "@smithy/types": ^2.9.1
-    "@smithy/util-config-provider": ^2.2.1
-    tslib: ^2.5.0
-  checksum: e341f624e46912d09d14a4a7ad9ccc62cc8aa2cb4cdb683e86a3bfbb3134d07b6e5330344a63bae187448d2f0858679b1847fa2560f2ad2cdc32fa686360a0c0
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/middleware-sdk-s3@npm:3.499.0":
   version: 3.499.0
   resolution: "@aws-sdk/middleware-sdk-s3@npm:3.499.0"
@@ -1090,20 +1073,6 @@ __metadata:
     aws-crt: ^1.18.3
     tslib: ^2.5.0
   checksum: 43de56277057e4de39ec4055f0e63b039f6514fea3717a5efc6b7e619668d269a0f70b47d0274d4b3344809410129863bca0800a8ee11991c9712f0201e45fbb
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/signature-v4-multi-region@npm:3.496.0":
-  version: 3.496.0
-  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.496.0"
-  dependencies:
-    "@aws-sdk/middleware-sdk-s3": 3.496.0
-    "@aws-sdk/types": 3.496.0
-    "@smithy/protocol-http": ^3.1.1
-    "@smithy/signature-v4": ^2.1.1
-    "@smithy/types": ^2.9.1
-    tslib: ^2.5.0
-  checksum: c2d8c11e30b285b827972de881307e927755d1c48f74c7d4a312fc5b7d0f1939aa9640c5b2b953ecdf8a541acdd42270ac175c026defc19e5ed5f0d49f9e160c
   languageName: node
   linkType: hard
 
@@ -4229,10 +4198,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aws-lambda@npm:^8.10.131":
-  version: 8.10.131
-  resolution: "@types/aws-lambda@npm:8.10.131"
-  checksum: dcc3c37ea15950cc4f285d853fb8ef4f638710cb43889c0935e6741c942565314b84d6e6f59be1c1a7c4b82b78d4593d6e3db609a83d66276e887f962b20ec87
+"@types/aws-lambda@npm:^8.10.132":
+  version: 8.10.132
+  resolution: "@types/aws-lambda@npm:8.10.132"
+  checksum: e31ba1e1dbb3717e1d00b4765363f645112126fe68cc917baf42a445ab8b0bd26a8309d1db179a5c1dc023c674acf9a20c56a716ccc3003da8d37a74a9bce3cc
   languageName: node
   linkType: hard
 
@@ -14095,7 +14064,7 @@ __metadata:
     "@aws-sdk/client-s3": ^3.501.0
     "@aws-sdk/client-sesv2": ^3.496.0
     "@aws-sdk/signature-v4-crt": ^3.499.0
-    "@types/aws-lambda": ^8.10.131
+    "@types/aws-lambda": ^8.10.132
     "@types/jest": ^29.5.11
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
