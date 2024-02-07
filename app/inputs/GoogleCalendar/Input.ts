@@ -55,7 +55,8 @@ export class Input implements IInput {
                 timeMax: endDateTime.toISOString(),
                 maxResults: 2500,
                 singleEvents: true,
-                orderBy: 'startTime'
+                orderBy: 'startTime',
+                eventTypes: ["default"] // Add this line
             });
             this.logger.trace('Calendar response', { calendarResponse });
 
