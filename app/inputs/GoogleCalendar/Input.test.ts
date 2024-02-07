@@ -32,7 +32,7 @@ const defaultConfiguration: GoogleCalendarConfiguration = {
 
 describe('getWorklogs', () => {
     beforeEach(() => {
-        mockedGetEventsList.mockResolvedValue({ data: { items: [] } });
+        mockedGetEventsList.mockResolvedValue({ data: { items: [], eventTypes: ["default"] } });
         mockedGetUserAuthenticatedOAuthClient.mockResolvedValue({});
     });
 
