@@ -1138,23 +1138,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/middleware-sdk-s3@npm:3.515.0":
-  version: 3.515.0
-  resolution: "@aws-sdk/middleware-sdk-s3@npm:3.515.0"
-  dependencies:
-    "@aws-sdk/types": 3.515.0
-    "@aws-sdk/util-arn-parser": 3.495.0
-    "@smithy/node-config-provider": ^2.2.1
-    "@smithy/protocol-http": ^3.1.1
-    "@smithy/signature-v4": ^2.1.1
-    "@smithy/smithy-client": ^2.3.1
-    "@smithy/types": ^2.9.1
-    "@smithy/util-config-provider": ^2.2.1
-    tslib: ^2.5.0
-  checksum: cb67334b30eee8fcf52637407cab2787353e463bdf5a99a33966f0e765f6f8fc687c4bba2b63ec7a4374b2ab544be807e1849bd910e6f163ff43d036f026e7e1
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/middleware-sdk-s3@npm:3.521.0":
   version: 3.521.0
   resolution: "@aws-sdk/middleware-sdk-s3@npm:3.521.0"
@@ -1320,34 +1303,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.515.0":
-  version: 3.515.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.515.0"
+"@aws-sdk/signature-v4-crt@npm:^3.521.0":
+  version: 3.521.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.521.0"
   dependencies:
-    "@aws-sdk/signature-v4-multi-region": 3.515.0
-    "@aws-sdk/types": 3.515.0
-    "@aws-sdk/util-user-agent-node": 3.515.0
+    "@aws-sdk/signature-v4-multi-region": 3.521.0
+    "@aws-sdk/types": 3.521.0
+    "@aws-sdk/util-user-agent-node": 3.521.0
     "@smithy/querystring-parser": ^2.1.1
     "@smithy/signature-v4": ^2.1.1
-    "@smithy/types": ^2.9.1
-    "@smithy/util-middleware": ^2.1.1
+    "@smithy/types": ^2.10.0
+    "@smithy/util-middleware": ^2.1.2
     aws-crt: ^1.18.3
     tslib: ^2.5.0
-  checksum: bbf7c09bafdcd949ebe2f5588b4fe5821893f476727574fd78a81f8290b0e511b498d9a6569cb671a345e5b20bd618243f0933bceaf10ac16515c101c61dcc6b
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/signature-v4-multi-region@npm:3.515.0":
-  version: 3.515.0
-  resolution: "@aws-sdk/signature-v4-multi-region@npm:3.515.0"
-  dependencies:
-    "@aws-sdk/middleware-sdk-s3": 3.515.0
-    "@aws-sdk/types": 3.515.0
-    "@smithy/protocol-http": ^3.1.1
-    "@smithy/signature-v4": ^2.1.1
-    "@smithy/types": ^2.9.1
-    tslib: ^2.5.0
-  checksum: 1f780409af431b3ac91beee294cf4af74fff9f3dffc21ddd1c8a1782a01916da162ceec27c133a9e86452279bdf0005f9118809820d557a248613cd44f0f7ec3
+  checksum: 5d0276a1f7bf61920fcbb78a6ca7bc17005b9fab4ed4d68a328cf20f9a1c58e78418aefd779efb3335f626aa177a7b8a512d14ad0af1db0cb4225fb0335f7d4c
   languageName: node
   linkType: hard
 
@@ -1484,16 +1453,6 @@ __metadata:
     "@smithy/types": ^2.9.1
     tslib: ^2.5.0
   checksum: d0d3b8a5cf8e9ab588c005d63b39b9c76f15913982cbe055b12ab4ad51c4fecb8faed935e96d4f8b19a38d6668ccdcf3555a1ca69c18831042ec06927bd73c74
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:3.515.0":
-  version: 3.515.0
-  resolution: "@aws-sdk/types@npm:3.515.0"
-  dependencies:
-    "@smithy/types": ^2.9.1
-    tslib: ^2.5.0
-  checksum: 0874f1814b58eae6e7115c3d08c2bc56e558e73d1ff8c5f833a73b4a0f76a42743c83c36a4b2759177e41b1feff065e85450f7bc235a087b94e67db12f87d298
   languageName: node
   linkType: hard
 
@@ -1635,23 +1594,6 @@ __metadata:
     aws-crt:
       optional: true
   checksum: 9ea68207f061a04e93cdee7b4f0e47bae3f4afd8bb922179bd4ea284a4756e879c1f76f58c87a3aedb65eebbed82f453bf94dd26095ebd4728169b1e1a6c9d4c
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/util-user-agent-node@npm:3.515.0":
-  version: 3.515.0
-  resolution: "@aws-sdk/util-user-agent-node@npm:3.515.0"
-  dependencies:
-    "@aws-sdk/types": 3.515.0
-    "@smithy/node-config-provider": ^2.2.1
-    "@smithy/types": ^2.9.1
-    tslib: ^2.5.0
-  peerDependencies:
-    aws-crt: ">=1.0.0"
-  peerDependenciesMeta:
-    aws-crt:
-      optional: true
-  checksum: 4e91d9cd5bbe4aa8321417ea1bd9caf3229416ee624b7f67b5206b284a539116692412ca41d60dcb5759b841fed7d9fb570915566d1f7e620578657f89548a23
   languageName: node
   linkType: hard
 
@@ -14772,7 +14714,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.521.0
     "@aws-sdk/client-sesv2": ^3.521.0
-    "@aws-sdk/signature-v4-crt": ^3.515.0
+    "@aws-sdk/signature-v4-crt": ^3.521.0
     "@types/aws-lambda": ^8.10.134
     "@types/jest": ^29.5.12
     "@types/log4js": ^2.3.5
