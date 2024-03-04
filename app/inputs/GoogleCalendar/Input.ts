@@ -56,7 +56,7 @@ export class Input implements IInput {
                 maxResults: 2500,
                 singleEvents: true,
                 orderBy: 'startTime',
-                eventTypes: ["default"] // Add this line
+                eventTypes: ["default"]
             });
             this.logger.trace('Calendar response', { calendarResponse });
 
