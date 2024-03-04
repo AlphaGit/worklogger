@@ -45,8 +45,7 @@ describe('getWorklogs', () => {
     });
 
     test('filters results from events that started after our start time', async () => {
-        mockedGetEventsList.mockResolvedValueOnce({
-            config: { eventTypes: ["default"] },
+        mockedGetEventsList.mockResolvedValue({
             data: {
                 items: [{
                     start: { dateTime: Dates.now() },
