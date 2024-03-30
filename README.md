@@ -40,6 +40,7 @@ Also, here is information on how to setup the different input/output integration
     3. [True](docs/true.md)
 4. Transformations
     1. [AddTag](docs/add-tag.md)
+    2. [RemoveTag](docs/remove-tag.md)
 5. Formatters
     1. [SummaryText](docs/summary-text.md)
     2. [NoFormat](docs/no-format.md)

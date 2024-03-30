@@ -26,3 +26,4 @@ worklogger_home/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.aider*
