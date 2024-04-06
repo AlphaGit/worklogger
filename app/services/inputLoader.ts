@@ -18,6 +18,7 @@ export async function loadInputs(serviceRegistrations: IServiceRegistrations, ap
     const loadedInputs: IInput[] = [];
 
     for (const input of appConfiguration.inputs) {
+        if (!input.enabled) continue; // Skip loading if input is disabled
         logger.debug('Loading', input.type);
 
         const inputClass = inputClasses[input.type];
