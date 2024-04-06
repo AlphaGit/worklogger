@@ -14,13 +14,15 @@ describe('loadInputs', () => {
                 type: 'GoogleCalendar',
                 name: 'input1',
                 storageRelativePath: '.',
+                enabled: true,
             }, {
                 type: 'HarvestApp',
                 name: 'input2',
                 storageRelativePath: '.',
                 accountId: '1234',
                 token: '1234',
-                contactInformation: "abc <abc@example.com>"
+                contactInformation: "abc <abc@example.com>",
+                enabled: true
             }]
         };
 
