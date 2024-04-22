@@ -1544,20 +1544,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/signature-v4-crt@npm:^3.552.0":
-  version: 3.552.0
-  resolution: "@aws-sdk/signature-v4-crt@npm:3.552.0"
+"@aws-sdk/signature-v4-crt@npm:^3.556.0":
+  version: 3.556.0
+  resolution: "@aws-sdk/signature-v4-crt@npm:3.556.0"
   dependencies:
-    "@aws-sdk/signature-v4-multi-region": 3.552.0
+    "@aws-sdk/signature-v4-multi-region": 3.556.0
     "@aws-sdk/types": 3.535.0
     "@aws-sdk/util-user-agent-node": 3.535.0
     "@smithy/querystring-parser": ^2.2.0
-    "@smithy/signature-v4": ^2.2.1
+    "@smithy/signature-v4": ^2.3.0
     "@smithy/types": ^2.12.0
     "@smithy/util-middleware": ^2.2.0
     aws-crt: ^1.18.3
     tslib: ^2.6.2
-  checksum: 50e8d4deb3d338bc61d66a09e03eb2c4d15a87bca9d49a243a2b8403bb484470d01a3a3f48053373342d171cf480911b76ca5da84cbbd294b58f7796a032db98
+  checksum: 5ec7a79775d4139427d66002b18810b4d3a302bae7d0d378de608473e118f7a834be939a37faa469d1be32ded386c7154bb72f9cd3bac17b63995a0efb547b83
   languageName: node
   linkType: hard
 
@@ -15183,7 +15183,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.556.0
     "@aws-sdk/client-sesv2": ^3.554.0
-    "@aws-sdk/signature-v4-crt": ^3.552.0
+    "@aws-sdk/signature-v4-crt": ^3.556.0
     "@types/aws-lambda": ^8.10.137
     "@types/jest": ^29.5.12
     "@types/log4js": ^2.3.5
