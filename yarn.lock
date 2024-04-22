@@ -2879,10 +2879,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/figures@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@inquirer/figures@npm:1.0.0"
-  checksum: 91e3a5298d71c71eebdc7870e263bd5f1699de7e105b70db4d75984fe9670740fe933fff377cf6d4b432e3a0975368d540c2697f4d303007a5afbf0ef4d91ecc
+"@inquirer/figures@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@inquirer/figures@npm:1.0.1"
+  checksum: e428dac4921c12fa65f1e2f2846f3fdb2c8ea98ef250e8758bc117d67625496bf1f844b67364e69815b6a8d9b2b0857c9864aec5aebb8a92fc3408d16ccdcc39
   languageName: node
   linkType: hard
 
@@ -9833,11 +9833,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^9.2.18":
-  version: 9.2.18
-  resolution: "inquirer@npm:9.2.18"
+"inquirer@npm:^9.2.19":
+  version: 9.2.19
+  resolution: "inquirer@npm:9.2.19"
   dependencies:
-    "@inquirer/figures": ^1.0.0
+    "@inquirer/figures": ^1.0.1
     "@ljharb/through": ^2.3.13
     ansi-escapes: ^4.3.2
     chalk: ^5.3.0
@@ -9852,7 +9852,7 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
-  checksum: c9e33f5bb67d4281a76afa3d793a4eea84ce6cedbd3ea6b20eb7a393504e456dace31d59fec4b940a5390ad8a74048bbf056f88cf3c43fddd7945233a31cf5f4
+  checksum: 2bcfbed4293e4f0af85c240e86b192bba5dae6a8df6d01d7cddf54b76d8df5dd5706d67cd2e5934f679973311ab74228f25fb0237a58d63e44add425e93da3a6
   languageName: node
   linkType: hard
 
@@ -15202,7 +15202,7 @@ __metadata:
     eslint-plugin-import: ^2.29.1
     fetch-event: ^1.0.0-alpha
     googleapis: ^134.0.0
-    inquirer: ^9.2.18
+    inquirer: ^9.2.19
     jest: ^29.7.0
     jest-fetch-mock: ^3.0.3
     log4js: ^6.9.1
