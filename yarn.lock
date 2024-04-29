@@ -225,16 +225,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.556.0":
-  version: 3.556.0
-  resolution: "@aws-sdk/client-s3@npm:3.556.0"
+"@aws-sdk/client-s3@npm:^3.564.0":
+  version: 3.564.0
+  resolution: "@aws-sdk/client-s3@npm:3.564.0"
   dependencies:
     "@aws-crypto/sha1-browser": 3.0.0
     "@aws-crypto/sha256-browser": 3.0.0
     "@aws-crypto/sha256-js": 3.0.0
-    "@aws-sdk/client-sts": 3.556.0
     "@aws-sdk/core": 3.556.0
-    "@aws-sdk/credential-provider-node": 3.556.0
+    "@aws-sdk/credential-provider-node": 3.564.0
     "@aws-sdk/middleware-bucket-endpoint": 3.535.0
     "@aws-sdk/middleware-expect-continue": 3.535.0
     "@aws-sdk/middleware-flexible-checksums": 3.535.0
@@ -286,7 +285,7 @@ __metadata:
     "@smithy/util-utf8": ^2.3.0
     "@smithy/util-waiter": ^2.2.0
     tslib: ^2.6.2
-  checksum: e5b04013a9270b438b196ccf60bedba14187ee059fbd3fd42a8bac927c7935226ba031c1a5312befa6e37e4ea8cd075fe28b8b524fe51b5b372bf5543dd46216
+  checksum: 5886a10ba74e00d7ff319d421ec84f0a50f211bf217c8dc2d0844889d640d6067997543ca5f736a79e8d41f3501fba031e243c4e79f82fa41ee1385289836d4c
   languageName: node
   linkType: hard
 
@@ -14113,7 +14112,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.556.0
+    "@aws-sdk/client-s3": ^3.564.0
     "@aws-sdk/client-sesv2": ^3.564.0
     "@aws-sdk/signature-v4-crt": ^3.556.0
     "@types/aws-lambda": ^8.10.137
