@@ -5866,9 +5866,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1613.0":
-  version: 2.1613.0
-  resolution: "aws-sdk@npm:2.1613.0"
+"aws-sdk@npm:^2.1618.0":
+  version: 2.1618.0
+  resolution: "aws-sdk@npm:2.1618.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -5880,7 +5880,7 @@ __metadata:
     util: ^0.12.4
     uuid: 8.0.0
     xml2js: 0.6.2
-  checksum: 23a5ea5aa523ef39e5a1f3fbbf1ae8138f219507de58ab709027db89f90226ff40f8401b33fc48caeee32b847b500393167fc0a0cdf651a9aceb4adcb537fde3
+  checksum: ab1677ca85da1ac89b016aa3914c24049d244213a8ed3d779d04491e2c718258be9610b5097b72ada021f5eaf3ae7e347c1062802268173c3800bf92f30498a5
   languageName: node
   linkType: hard
 
@@ -14643,7 +14643,7 @@ __metadata:
     "@typescript-eslint/parser": 7.8.0
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
-    aws-sdk: ^2.1613.0
+    aws-sdk: ^2.1618.0
     cacache: ^18.0.3
     eslint: ^8.57.0
     eslint-import-resolver-node: ^0.3.9
