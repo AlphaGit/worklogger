@@ -32,7 +32,7 @@
   "homepage": "https://github.com/AlphaGit/worklogger#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.577.0",
-    "@aws-sdk/client-sesv2": "^3.574.0",
+    "@aws-sdk/client-sesv2": "^3.577.0",
     "@aws-sdk/signature-v4-crt": "^3.577.0",
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
