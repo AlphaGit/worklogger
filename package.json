@@ -36,7 +36,7 @@
     "@aws-sdk/signature-v4-crt": "^3.569.0",
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
-    "aws-sdk": "^2.1618.0",
+    "aws-sdk": "^2.1623.0",
     "cacache": "^18.0.3",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^137.1.0",
