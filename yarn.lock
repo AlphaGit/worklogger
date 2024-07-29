@@ -6232,21 +6232,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.14.11":
-  version: 20.14.11
-  resolution: "@types/node@npm:20.14.11"
-  dependencies:
-    undici-types: ~5.26.4
-  checksum: 24396dea2bc803c2d2ebfdd31a3e6e93818ba1a5933d63cd0f64fad1e2955a8280ba09338a48ffe68cd84748eec8bee27135045f15661aa389656f67fe0b0924
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^20.14.13":
   version: 20.14.13
   resolution: "@types/node@npm:20.14.13"
   dependencies:
     undici-types: ~5.26.4
   checksum: 928e877aadfea75f3a14c38223674b3a9fb206340ab7b2af3ffe7040c384a55678f235860f6652d18026fd59e44c237d060e3f5ce7b62b1b9e6fb593c9ef39b9
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.0.0":
+  version: 22.0.0
+  resolution: "@types/node@npm:22.0.0"
+  dependencies:
+    undici-types: ~6.11.1
+  checksum: ef58d59bbffd9a79449ef632ea9a4f3b006496926cac2717368f80fdd152b1937e44093c17c9fac74650309c9d5387bb5c5bf4fd304adafebcbda1e6e4435fe4
   languageName: node
   linkType: hard
 
@@ -15616,6 +15616,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici-types@npm:~6.11.1":
+  version: 6.11.1
+  resolution: "undici-types@npm:6.11.1"
+  checksum: d7fc11bded93bc55ef3b88464e856ab061a747cf50ef2eff5df5ba3be18b9fcafe60e1b36a8c99e28aac2eade12891d32a504f2a32422452c44662e598e3b188
+  languageName: node
+  linkType: hard
+
 "uni-global@npm:^1.0.0":
   version: 1.0.0
   resolution: "uni-global@npm:1.0.0"
@@ -16094,7 +16101,7 @@ __metadata:
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
     "@types/mustache": ^4.2.5
-    "@types/node": ^20.14.11
+    "@types/node": ^22.0.0
     "@types/node-fetch": ^2.6.11
     "@typescript-eslint/eslint-plugin": 7.17.0
     "@typescript-eslint/parser": 7.16.1
