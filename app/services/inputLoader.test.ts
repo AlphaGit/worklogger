@@ -34,54 +34,51 @@ describe('loadInputs', () => {
 
         expect(results[1].name).toBe('input2');
         expect(results[1]).toBeInstanceOf(HarvestAppInput);
-        test('only loads inputs with enabled: true', async () => {
-        const config = {
-            ...appConfiguration,
-            inputs: [{
-                type: 'GoogleCalendar',
-                name: 'input1',
-                storageRelativePath: '.',
-                enabled: true,
-            }, {
-                type: 'HarvestApp',
-                name: 'input2',
-                storageRelativePath: '.',
-                accountId: '1234',
-                token: '1234',
-                contactInformation: "abc <abc@example.com>",
-                enabled: false
-            }]
-        };
+test('only loads inputs with enabled: true', async () => {
+    const config = {
+        ...appConfiguration,
+        inputs: [{
+            type: 'GoogleCalendar',
+            name: 'input1',
+            storageRelativePath: '.',
+            enabled: true,
+        }, {
+            type: 'HarvestApp',
+            name: 'input2',
+            storageRelativePath: '.',
+            accountId: '1234',
+            token: '1234',
+            contactInformation: "abc <abc@example.com>",
+            enabled: false
+        }]
+    };
 
-        const results = await loadInputs(serviceRegistations, config);
+    const results = await loadInputs(serviceRegistations, config);
 
-        expect(results.length).toBe(1);
-        expect(results[0].name).toBe('input1');
-        expect(results[0]).toBeInstanceOf(GoogleCalendarInput);
-    });
+    expect(results.length).toBe(1);
+    expect(results[0].name).toBe('input1');
+    expect(results[0]).toBeInstanceOf(GoogleCalendarInput);
+test('returns an empty array when all inputs have enabled: false', async () => {
+    const config = {
+        ...appConfiguration,
+        inputs: [{
+            type: 'GoogleCalendar',
+            name: 'input1',
+            storageRelativePath: '.',
+            enabled: false,
+        }, {
+            type: 'HarvestApp',
+            name: 'input2',
+            storageRelativePath: '.',
+            accountId: '1234',
+            token: '1234',
+            contactInformation: "abc <abc@example.com>",
+            enabled: false
+        }]
+    };
 
-    test('returns an empty array when all inputs have enabled: false', async () => {
-        const config = {
-            ...appConfiguration,
-            inputs: [{
-                type: 'GoogleCalendar',
-                name: 'input1',
-                storageRelativePath: '.',
-                enabled: false,
-            }, {
-                type: 'HarvestApp',
-                name: 'input2',
-                storageRelativePath: '.',
-                accountId: '1234',
-                token: '1234',
-                contactInformation: "abc <abc@example.com>",
-                enabled: false
-            }]
-        };
+    const results = await loadInputs(serviceRegistations, config);
 
-        const results = await loadInputs(serviceRegistations, config);
-
-        expect(results.length).toBe(0);
-    });
+    expect(results.length).toBe(0);
 });
 });
