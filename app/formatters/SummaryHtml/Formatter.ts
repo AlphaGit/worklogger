@@ -1,4 +1,4 @@
-import { Converter } from 'showdown';
+import showdown from 'showdown';
 import { WorklogSet } from '../../models/WorklogSet';
 import { getLogger, LoggerCategory } from '../../services/Logger';
 import { SummaryTextFormatter } from '../SummaryText';
@@ -12,7 +12,7 @@ export class SummaryHtmlFormatter extends SummaryTextFormatter {
 
         logger.debug('Initializing markdown converter');
         const configuration = this._configuration as SummaryHtmlFormatterConfiguration;
-        const markdownConverter = new Converter(configuration);
+        const markdownConverter = new showdown.Converter(configuration);
 
         logger.debug('Converting summary to html');
         const output = markdownConverter.makeHtml(summaryText);

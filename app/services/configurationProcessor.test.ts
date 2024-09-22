@@ -1,3 +1,5 @@
+import { describe, test, expect } from "@jest/globals";
+
 import * as moment from "moment-timezone";
 import { AppConfigurations } from "../../tests/entities";
 import { TimeSpecification } from "../models";

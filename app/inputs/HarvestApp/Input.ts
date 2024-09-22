@@ -2,7 +2,7 @@ import { HarvestClient } from '../../services/HarvestClient/HarvestClient';
 import { IAppConfiguration, Worklog, IServiceRegistrations, Tag } from '../../models';
 import { HarvestInputConfiguration, HarvestTimeEntry } from '.';
 
-import { tz } from 'moment-timezone';
+import momentTimezone from 'moment-timezone';
 import { getLogger, LoggerCategory } from '../../services/Logger';
 
 export class Input {
@@ -46,11 +46,11 @@ export class Input {
             // 1. Timers enabled, in which case, time entries have a spent_date, a start and an end time
             // 2. Timers disabled, in which case, time entries have a spent_date and a duration (hours)
             if (te.spent_date && te.started_time && te.ended_time) {
-                startTime = tz(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
-                endTime = tz(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
+                startTime = momentTimezone.tz(`${te.spent_date} ${te.started_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
+                endTime = momentTimezone.tz(`${te.spent_date} ${te.ended_time}`, 'YYYY-MM-DD hh:mma', timeZone).toDate();
             } else if (te.spent_date && te.hours) {
-                startTime = tz(te.spent_date, timeZone).toDate();
-                endTime = tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
+                startTime = momentTimezone.tz(te.spent_date, timeZone).toDate();
+                endTime = momentTimezone.tz(te.spent_date, timeZone).add(te.hours, 'hours').toDate();
             } else {
                 this.logger.warn(`[${this.name}] Cannot detect worklog duration from time_entry`, te);
                 return null;

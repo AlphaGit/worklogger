@@ -1,3 +1,5 @@
+import { describe, test, expect } from "@jest/globals";
+
 import { Worklog, Tag } from ".";
 import { Tags, Worklogs } from '../../tests/entities';
 
@@ -107,6 +109,34 @@ describe('addTag', () => {
 
         worklog.addTag(new Tag('tag1', 'value1'));
         expect(worklog.getTagValue('tag1')).toBe('value1');
+    });
+
+    test('has a tag listed in getTagKeys', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        expect(worklog.getTagKeys()).toContain('tag1');
+    });
+});
+
+describe('getTagKeys', () => {
+    test('gets tag keys', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        expect(worklog.getTagKeys()).toStrictEqual(['tag1']);
+    });
+
+    test('can get value out of the listed tags', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        worklog.addTag(new Tag('tag2', 'value2'));
+        const tagKeys = worklog.getTagKeys();
+        expect(tagKeys).toStrictEqual(['tag1', 'tag2']);
+
+        expect(worklog.getTagValue(tagKeys[0])).toBe('value1');
+        expect(worklog.getTagValue(tagKeys[1])).toBe('value2');
     });
 });
 

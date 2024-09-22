@@ -1,3 +1,5 @@
+import { describe, test, expect } from "@jest/globals";
+
 import { IConditionConfig } from "../conditions/IConditionConfig";
 import { loadCondition } from "./conditionLoader";
 import { TrueCondition } from '../conditions/True';

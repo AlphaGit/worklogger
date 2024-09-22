@@ -1,2 +1,2 @@
-export { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
+export type { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 export { AwsSesOutput } from './Output';

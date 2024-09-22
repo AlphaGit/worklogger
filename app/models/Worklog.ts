@@ -1,7 +1,7 @@
 import { Tag } from '.';
 
 export class Worklog {
-    private tags: Record<string, Tag> = {};
+    private tags: Map<string, Tag> = new Map();
 
     constructor(public name: string, public startDateTime: Date, public endDateTime: Date) {
         if (!startDateTime) throw new Error('Missing startDateTime parameter');
@@ -14,8 +14,8 @@ export class Worklog {
 
     toString(): string {
         let string = `${this.name || '(No name)'} (${this.getDurationInMinutes()} minutes)`;
-        for (const tagName in this.tags) {
-            const tagValue = this.tags[tagName].value;
+        for (const tagName of this.getTagKeys()) {
+            const tagValue = this.getTagValue(tagName);
             string += `\n    ${tagName}:${tagValue}`;
         }
         return string;
@@ -23,8 +23,8 @@ export class Worklog {
 
     toOneLinerString(): string {
         let string = `(${this.getShortDuration()}) ${this.name || '(No name)'}`;
-        for (const tagName in this.tags) {
-            const tagValue = this.tags[tagName].value;
+        for (const tagName of this.getTagKeys()) {
+            const tagValue = this.getTagValue(tagName);
             string += ` [${tagName}:${tagValue}]`;
         }
         return string;
@@ -39,18 +39,18 @@ export class Worklog {
     }
 
     addTag(tag: Tag): void {
-        this.tags[tag.name] = tag;
+        this.tags.set(tag.name, tag);
     }
 
     removeTag(tagName: string): void {
-        delete this.tags[tagName];
+        this.tags.delete(tagName);
     }
 
     getTagValue(name: string): string {
-        return this.tags[name]?.value;
+        return this.tags.get(name)?.value;
     }
 
     getTagKeys(): string[] {
-        return Object.keys(this.tags);
+        return Array.from(this.tags.keys());
     }
 }

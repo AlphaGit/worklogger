@@ -1,3 +1,5 @@
+import { describe, test, expect } from "@jest/globals";
+
 import { HasTagCondition } from ".";
 import { Worklogs } from "../../../tests/entities";
 

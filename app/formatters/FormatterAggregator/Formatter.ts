@@ -1,4 +1,4 @@
-import { IAppConfiguration, WorklogSet } from "../../models";
+import { WorklogSet } from "../../models";
 import { getLogger, LoggerCategory } from "../../services/Logger";
 import { FormatterBase } from "../FormatterBase";
 import { FormatterAggregatorFormatterConfiguration } from "./FormatterConfiguration";
@@ -7,10 +7,6 @@ import { loadFormatter } from "../../services/outputLoader";
 const logger = getLogger(LoggerCategory.Formatters);
 
 export class FormatterAggregatorFormatter extends FormatterBase {
-    constructor(configuration: FormatterAggregatorFormatterConfiguration, appConfiguration: IAppConfiguration) {
-        super(configuration, appConfiguration);
-    }
-
     async format(worklogSet: WorklogSet): Promise<string> {
         if (!(worklogSet instanceof WorklogSet)) throw new Error('Missing WorklogSet.');
 

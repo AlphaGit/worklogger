@@ -1,12 +1,15 @@
+import { jest, describe, test, expect } from "@jest/globals";
+
 import { AppConfigurations, Dates, ServiceRegistrations } from '../../../tests/entities';
 import { Input, HarvestTask, HarvestTimeEntry, HarvestProject, HarvestClient } from '.';
 
 const getTimeEntriesMock = jest.fn().mockResolvedValue([]);
 jest.mock('../../services/HarvestClient/HarvestClient', () => ({
-    HarvestClient: () => ({
+    HarvestClient: jest.fn().mockImplementation(() => ({
         getTimeEntries: getTimeEntriesMock
-    })
+    }))
 }));
+
 
 const harvestInputConfiguration = {
     name: 'Company1 Harvest',
@@ -41,7 +44,7 @@ describe('getWorkLogs', () => {
         expect(getTimeEntriesMock).toHaveBeenCalledWith({ from, to });
     });
 
-    it('parses timeEntries into worklogs', async () => {
+    test('parses timeEntries into worklogs', async () => {
         const input = new Input(ServiceRegistrations.mock(), AppConfigurations.normal(), harvestInputConfiguration);
         const from = Dates.pastOneHour();
         const to = Dates.now();

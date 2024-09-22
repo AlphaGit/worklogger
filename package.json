@@ -7,13 +7,15 @@
     "type": "git",
     "url": "git+https://github.com/AlphaGit/worklogger.git"
   },
+  "type": "module",
   "scripts": {
     "lint": "eslint '**/*.ts'",
     "lint:fix": "eslint --fix .",
-    "start": "ts-node index.ts",
+    "start": "tsx index.ts",
     "test": "TZ=America/Vancouver jest",
+    "test:typecheck": "tsc --noEmit",
     "test:coverage": "TZ=America/Vancouver jest --coverage",
-    "test:all": "yarn lint && yarn test:coverage",
+    "test:all": "yarn lint && yarn test:typecheck && yarn test:coverage",
     "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:v$npm_package_version && docker push alphadock/worklogger:latest"
   },
   "keywords": [
@@ -44,22 +46,20 @@
     "moment-timezone": "^0.5.45",
     "mustache": "^4.2.0",
     "node-fetch": "^3.3.2",
-    "showdown": "^2.1.0",
-    "ts-node": "^10.9.2"
+    "showdown": "^2.1.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.11.0",
+    "@jest/globals": "^29.7.0",
     "@types/aws-lambda": "^8.10.145",
+    "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.13",
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.5",
     "@types/mustache": "^4.2.5",
     "@types/node": "^22.5.5",
     "@types/node-fetch": "^2.6.11",
-    "@typescript-eslint/eslint-plugin": "7.18.0",
-    "@typescript-eslint/parser": "8.6.0",
-    "eslint": "^8.57.1",
-    "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-import": "^2.30.0",
+    "eslint": "^9.11.0",
     "inquirer": "^11.0.2",
     "jest": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
@@ -70,15 +70,16 @@
     "serverless-webpack": "^5.14.2",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2",
-    "webpack": "^5.94.0",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "typescript-eslint": "^8.6.0"
   },
   "jest": {
     "automock": false,
     "clearMocks": true,
     "coverageDirectory": "coverage",
     "preset": "ts-jest",
+    "injectGlobals": false,
     "setupFiles": [
       "<rootDir>/tests/jestSetup.ts"
     ],

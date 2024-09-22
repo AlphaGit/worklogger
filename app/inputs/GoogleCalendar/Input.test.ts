@@ -1,3 +1,5 @@
+import { jest, beforeEach, describe, test, expect } from "@jest/globals";
+
 const mockedGetUserAuthenticatedOAuthClient = jest.fn();
 jest.mock('../../services/authHandler', () => ({
     getUserAuthenticatedOAuthClient: mockedGetUserAuthenticatedOAuthClient

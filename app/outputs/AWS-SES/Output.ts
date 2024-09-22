@@ -5,7 +5,7 @@ import { IAwsSesOutputConfiguration } from './IAwsSesOutputConfiguration';
 
 import { getLogger, LoggerCategory } from '../../services/Logger';
 import { SESv2Client, SendEmailCommand, SendEmailCommandInput } from '@aws-sdk/client-sesv2';
-import { render } from 'mustache';
+import mustache from 'mustache';
 
 export class AwsSesOutput extends OutputBase {
     private SES: SESv2Client;
@@ -27,8 +27,8 @@ export class AwsSesOutput extends OutputBase {
 
         const formattedOutput = await this.formatter.format(worklogSet);
 
-        const subject = render(this._configuration.subjectTemplate, worklogSet);
-        const body = render(this._configuration.bodyTemplate, { contents: formattedOutput, ...worklogSet });
+        const subject = mustache.render(this._configuration.subjectTemplate, worklogSet);
+        const body = mustache.render(this._configuration.bodyTemplate, { contents: formattedOutput, ...worklogSet });
 
         const email: SendEmailCommandInput = {
             FromEmailAddress: this._configuration.fromAddress,

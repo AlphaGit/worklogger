@@ -1,3 +1,5 @@
+import { jest, beforeEach, describe, test, expect } from "@jest/globals";
+
 import { HarvestAppOutput, HarvestTimeEntry } from ".";
 import { IHarvestAppOutputConfiguration } from "./IHarvestAppOutputConfiguration";
 import { AppConfigurations, Formatters, WorklogSets } from '../../../tests/entities';
@@ -9,11 +11,12 @@ import moment from "moment-timezone";
 const getProjectsAndTasksMock = jest.fn();
 const saveNewTimeEntryMock = jest.fn();
 jest.mock('../../services/HarvestClient/HarvestClient', () => ({
-    HarvestClient: () => ({
+    HarvestClient: jest.fn().mockImplementation(() => ({
         getProjectsAndTasks: getProjectsAndTasksMock,
         saveNewTimeEntry: saveNewTimeEntryMock
-    })
+    }))
 }));
+
 
 const configuration: IHarvestAppOutputConfiguration = {
     selectProjectFromTag: 'HarvestProjectTag',
@@ -80,7 +83,7 @@ describe('outputWorklogSet', () => {
         });
     });
 
-    test('ignores worklogs that don\' match projects', async () => {
+    test('ignores worklogs that do not match projects', async () => {
         const output = new HarvestAppOutput(Formatters.fake(), configuration, AppConfigurations.normal());
         const worklogSet = WorklogSets.mixed();
         worklogSet.worklogs.forEach(w => {
@@ -95,7 +98,7 @@ describe('outputWorklogSet', () => {
         expect(saveNewTimeEntryMock).toHaveBeenCalledTimes(1);
     });
 
-    test('ignores worklogs that don\' match tasks', async () => {
+    test('ignores worklogs that do not match tasks', async () => {
         const output = new HarvestAppOutput(Formatters.fake(), configuration, AppConfigurations.normal());
         const worklogSet = WorklogSets.mixed();
         worklogSet.worklogs.forEach(w => {

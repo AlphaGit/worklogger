@@ -1,3 +1,5 @@
+import { describe, test, expect } from "@jest/globals";
+
 import { SummaryMatchesCondition } from "./SummaryMatchesCondition";
 import { Worklogs } from "../../../tests/entities";
 

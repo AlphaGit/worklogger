@@ -1,10 +1,12 @@
+import { describe, test, expect } from "@jest/globals";
+
 import { AppConfigurations } from "../../tests/entities";
 import { WorklogSet } from "../models/WorklogSet";
 import { FormatterBase } from "./FormatterBase";
 
 class TestFormatter extends FormatterBase {
-    format(worklogSet: WorklogSet): string {
-        return worklogSet.toString();
+    format(worklogSet: WorklogSet): Promise<string> {
+        return Promise.resolve(worklogSet.toString());
     }
 }
 

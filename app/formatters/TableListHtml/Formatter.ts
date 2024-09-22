@@ -1,4 +1,4 @@
-import { Converter } from 'showdown';
+import showdown from 'showdown';
 import { WorklogSet } from '../../models/WorklogSet';
 import { getLogger, LoggerCategory } from '../../services/Logger';
 import { TableListFormatter } from '../TableList';
@@ -12,7 +12,7 @@ export class TableListHtmlFormatter extends TableListFormatter {
 
         logger.debug('Initializing markdown converter');
         const configuration = this._configuration as TableListHtmlFormatterConfiguration;
-        const markdownConverter = new Converter({
+        const markdownConverter = new showdown.Converter({
             ...configuration,
             tables: true,
         });

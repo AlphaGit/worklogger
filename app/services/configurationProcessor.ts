@@ -1,7 +1,7 @@
 import { RelativeTime } from '../models/RelativeTime';
 import { IAppConfiguration } from '../models/AppConfiguration';
 import { TimeSpecification } from '../models';
-import { tz, DurationInputArg2 } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { getLogger, LoggerCategory } from '../services/Logger';
 
 const logger = getLogger(LoggerCategory.Services);
@@ -14,7 +14,7 @@ export type ParsedTimeFrame = {
 
 export function getProcessedConfiguration(configuration: IAppConfiguration): ParsedTimeFrame {
     const { begin, end } = configuration.options.timePeriod;
-    const timeZone = configuration.options.timeZone || tz.guess();
+    const timeZone = configuration.options.timeZone || moment.tz.guess();
 
     const parsedStart = parseAbsoluteTime(begin, timeZone) || parseRelativeTime(begin, timeZone) || parseOffset(begin, timeZone);
     if (!parsedStart) {
@@ -44,7 +44,7 @@ function parseAbsoluteTime(timePeriod: TimeSpecification, timeZone: string) {
     const dateTimeString = timePeriod.dateTime;
     if (!(dateTimeString || '').length) return null;
 
-    return tz(dateTimeString, timeZone).toDate();
+    return moment.tz(dateTimeString, timeZone).toDate();
 }
 
 function parseOffset(timePeriod: TimeSpecification, timeZone: string) {
@@ -55,7 +55,7 @@ function parseOffset(timePeriod: TimeSpecification, timeZone: string) {
     if (!match) {
         throw new Error(`Unrecognized offset setting: ${offset}`);
     }
-    const { value, unit } = match.groups as unknown as { value: number, unit: DurationInputArg2 };
+    const { value, unit } = match.groups as unknown as { value: number, unit: moment.DurationInputArg2 };
 
-    return tz(timeZone).add(value, unit).toDate();
+    return moment.tz(timeZone).add(value, unit).toDate();
 }

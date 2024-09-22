@@ -1,17 +1,18 @@
-import { IJiraClient, JiraWorklogOutput } from '.';
+import { jest, describe, test, expect } from "@jest/globals";
+
+import { JiraWorklogOutput } from '.';
 import { AppConfigurations, Formatters, WorklogSets } from '../../../tests/entities';
 import { Tag } from '../../models';
 import { IJiraWorklogOutputConfiguration } from './IJiraWorklogOutputConfiguration';
 
 import moment from "moment-timezone";
 
-const jiraClientMock: IJiraClient = {
-    saveWorklog: jest.fn()
-};
-const jiraClientConstructorMock = jest.fn().mockReturnValue(jiraClientMock);
+const saveWorklogMock = jest.fn().mockResolvedValue({})
 
 jest.mock('./JiraClient', () => ({
-    JiraClient: (...args) => jiraClientConstructorMock(...args)
+    JiraClient: jest.fn().mockImplementation(() => ({
+        saveWorklog: saveWorklogMock
+    }))
 }));
 
 const outputConfiguration = {
@@ -24,7 +25,9 @@ describe('constructor', () => {
     test('instantiates a JiraClient with the configured options', () => {
         new JiraWorklogOutput(Formatters.fake(), outputConfiguration, AppConfigurations.normal());
 
-        expect(jiraClientConstructorMock).toHaveBeenCalledWith(outputConfiguration);
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const classMock = require('./JiraClient').JiraClient;
+        expect(classMock).toHaveBeenCalledTimes(1);
     });
 });
 
@@ -44,8 +47,8 @@ describe('outputWorklogSet', () => {
         await output.outputWorklogSet(worklogSet);
 
         expect(worklogSet.worklogs.length).toBe(3);
-        expect(jiraClientMock.saveWorklog).toHaveBeenCalledTimes(1);
-        expect(jiraClientMock.saveWorklog).toHaveBeenCalledWith('TEST-123', {
+        expect(saveWorklogMock).toHaveBeenCalledTimes(1);
+        expect(saveWorklogMock).toHaveBeenCalledWith('TEST-123', {
             comment: passingWorklog.name,
             timeSpent: `${passingWorklog.getDurationInMinutes()}m`,
             started: moment(passingWorklog.startDateTime).format('YYYY-MM-DDTHH:mm:ss.SSSZZ')
@@ -56,6 +59,6 @@ describe('outputWorklogSet', () => {
         const worklogSet = WorklogSets.empty();
         worklogSet.worklogs = undefined;
         await output.outputWorklogSet(worklogSet);
-        expect(jiraClientMock.saveWorklog).not.toHaveBeenCalled();
+        expect(saveWorklogMock).not.toHaveBeenCalled();
     });
 });

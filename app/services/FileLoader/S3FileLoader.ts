@@ -1,4 +1,4 @@
-import { S3 } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { IFileLoader } from './IFileLoader';
 import { getLogger, LoggerCategory } from '../Logger';
 import { Readable } from 'stream';
@@ -21,8 +21,8 @@ export class S3FileLoader implements IFileLoader {
         logger.info(`Loading from S3 bucket: ${requestParams.Bucket}/${requestParams.Key}`)
 
         try {
-            const s3 = new S3({ });
-            const data = await s3.getObject(requestParams);
+            const s3 = new S3Client({ });
+            const data = await s3.send(new GetObjectCommand(requestParams));
             const json = await this.streamToString(data.Body as Readable);
 
             if (!json) throw new Error(`Did not receive any data from ${requestParams.Bucket}/${requestParams.Key}`);
@@ -44,8 +44,8 @@ export class S3FileLoader implements IFileLoader {
         logger.info(`Saving to S3 bucket: ${requestParams.Bucket}/${requestParams.Key}`)
 
         try {
-            const s3 = new S3({ });
-            await s3.putObject(requestParams);
+            const s3 = new S3Client({ });
+            await s3.send(new PutObjectCommand(requestParams));
         } catch (err) {
             logger.error(`Error while saving ${requestParams.Bucket}/${requestParams.Key}`, err);
             throw err;
