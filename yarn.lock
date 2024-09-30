@@ -9752,9 +9752,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^11.0.2":
-  version: 11.0.2
-  resolution: "inquirer@npm:11.0.2"
+"inquirer@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "inquirer@npm:11.1.0"
   dependencies:
     "@inquirer/core": ^9.2.1
     "@inquirer/prompts": ^6.0.1
@@ -9764,7 +9764,7 @@ __metadata:
     mute-stream: ^1.0.0
     run-async: ^3.0.0
     rxjs: ^7.8.1
-  checksum: d4d0e06ac935e093bb5e97c4f75edb9a67fc90ec7ee6aa9780e062238e8f09a8784237f0a58935b830188d2ea0322d4699250c34c0ebf023a4d9078fd4f07f99
+  checksum: f544a5586c44e2eab14bd68c34c9ee221507cb87320a93fbb5a796317c5140ddf61ecef69977e7800c36e074537c1065fb94d9ea618aa09d3b3d28d01719ad0b
   languageName: node
   linkType: hard
 
@@ -14548,7 +14548,7 @@ __metadata:
     eslint: ^9.11.0
     fetch-event: ^1.0.0-alpha
     googleapis: ^144.0.0
-    inquirer: ^11.0.2
+    inquirer: ^11.1.0
     jest: ^29.7.0
     jest-fetch-mock: ^3.0.3
     log4js: ^6.9.1
