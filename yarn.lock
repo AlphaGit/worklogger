@@ -13535,9 +13535,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-offline@npm:^13.8.0":
-  version: 13.8.0
-  resolution: "serverless-offline@npm:13.8.0"
+"serverless-offline@npm:^13.8.1":
+  version: 13.8.1
+  resolution: "serverless-offline@npm:13.8.1"
   dependencies:
     "@aws-sdk/client-lambda": ^3.636.0
     "@hapi/boom": ^10.0.1
@@ -13563,7 +13563,7 @@ __metadata:
     ws: ^8.18.0
   peerDependencies:
     serverless: ^3.2.0
-  checksum: 9060dc5b00bfbe344ebbca713631fd5cfa064293215432e6925dfa229a13b6b6cc8e0422b9aa9b8c8cbc87eecfc57cd54966a271f4cbfd57a91314268d60bd29
+  checksum: 5875a718b343140dbd20400f681420b455b94980ca6bc8d747975b4816786943b224c9b6f077eb09cb61313a038392b65313f1b30c46a45b8fe5475047f2af94
   languageName: node
   linkType: hard
 
@@ -14989,7 +14989,7 @@ __metadata:
     nyc: ^17.1.0
     serverless: ^3.39.0
     serverless-event-constant-inputs: 0.0.1
-    serverless-offline: ^13.8.0
+    serverless-offline: ^13.8.1
     serverless-webpack: ^5.14.2
     showdown: ^2.1.0
     ts-jest: ^29.2.5
