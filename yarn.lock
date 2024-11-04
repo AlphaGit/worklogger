@@ -7122,12 +7122,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.8.1":
-  version: 22.8.1
-  resolution: "@types/node@npm:22.8.1"
+"@types/node@npm:^22.8.7":
+  version: 22.8.7
+  resolution: "@types/node@npm:22.8.7"
   dependencies:
     undici-types: ~6.19.8
-  checksum: 2fc10ff364690f7962659d163cf9a9b71d46a2414f15ceeb5ea9fb6a1e81d2b04f550d0dfd9156576b192d76e886b24d13932d8eb5447075d455481c70fd2ad1
+  checksum: c7b200d06da97a4d4f46528ae962c028bb06b6ef9ab7f7949639420f3b3d236f041756ca1945dcaec0fcefbafd07b8ca47bbc1b47b77d33a4173211425641426
   languageName: node
   linkType: hard
 
@@ -15746,7 +15746,7 @@ __metadata:
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
     "@types/mustache": ^4.2.5
-    "@types/node": ^22.8.1
+    "@types/node": ^22.8.7
     "@types/node-fetch": ^2.6.11
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
