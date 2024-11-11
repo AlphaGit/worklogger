@@ -66,7 +66,7 @@
     "nyc": "^17.1.0",
     "serverless": "^4.4.7",
     "serverless-event-constant-inputs": "0.0.1",
-    "serverless-offline": "^14.3.3",
+    "serverless-offline": "^14.3.4",
     "serverless-webpack": "^5.15.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
