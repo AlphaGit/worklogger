@@ -37,7 +37,7 @@
     "@aws-sdk/client-sesv2": "^3.684.0",
     "app-module-path": "^2.2.0",
     "aws-lambda": "^1.0.7",
-    "aws-sdk": "^2.1691.0",
+    "aws-sdk": "^2.1692.0",
     "cacache": "^19.0.1",
     "fetch-event": "^1.0.0-alpha",
     "googleapis": "^144.0.0",
