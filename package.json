@@ -59,7 +59,7 @@
     "@types/mustache": "^4.2.5",
     "@types/node": "^22.9.3",
     "@types/node-fetch": "^2.6.12",
-    "eslint": "^9.14.0",
+    "eslint": "^9.16.0",
     "inquirer": "^12.1.0",
     "jest": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
