@@ -51,7 +51,7 @@
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "@jest/globals": "^29.7.0",
-    "@types/aws-lambda": "^8.10.145",
+    "@types/aws-lambda": "^8.10.146",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.14",
     "@types/log4js": "^2.3.5",
