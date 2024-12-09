@@ -167,9 +167,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.703.0":
-  version: 3.703.0
-  resolution: "@aws-sdk/client-s3@npm:3.703.0"
+"@aws-sdk/client-s3@npm:^3.705.0":
+  version: 3.705.0
+  resolution: "@aws-sdk/client-s3@npm:3.705.0"
   dependencies:
     "@aws-crypto/sha1-browser": 5.2.0
     "@aws-crypto/sha256-browser": 5.2.0
@@ -229,7 +229,7 @@ __metadata:
     "@smithy/util-utf8": ^3.0.0
     "@smithy/util-waiter": ^3.1.9
     tslib: ^2.6.2
-  checksum: 5f75efe96eaa28a0ca15428ee6c49bf35066c7b302a895d05607cdf765a5be970f04fce2407a44c170959f6be3b7f0c341f6de34ca6532813140b08327541897
+  checksum: f7a5982e0bfedb1f0f4782efe1bdf090ef1f1d1e77391ca6e1e1a67985665da9e6ce3aad779856f605ae6f03c3129e091e375f9e541ff4e6020de95f5b58f8ac
   languageName: node
   linkType: hard
 
@@ -2192,14 +2192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.16.0":
-  version: 9.16.0
-  resolution: "@eslint/js@npm:9.16.0"
-  checksum: ba2d7f7266df827df72cec069df9284ad5e7edb4894a8c58c41db0d489136b22815dc76cd34cf565284979feb4d3a8197b511e08529c03f30c80b5235d25030b
-  languageName: node
-  linkType: hard
-
-"@eslint/js@npm:^9.16.0":
+"@eslint/js@npm:9.16.0, @eslint/js@npm:^9.16.0":
   version: 9.16.0
   resolution: "@eslint/js@npm:9.16.0"
   checksum: ba2d7f7266df827df72cec069df9284ad5e7edb4894a8c58c41db0d489136b22815dc76cd34cf565284979feb4d3a8197b511e08529c03f30c80b5235d25030b
@@ -11114,7 +11107,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.703.0
+    "@aws-sdk/client-s3": ^3.705.0
     "@aws-sdk/client-sesv2": ^3.699.0
     "@eslint/js": ^9.16.0
     "@jest/globals": ^29.7.0
