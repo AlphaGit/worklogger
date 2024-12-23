@@ -64,7 +64,7 @@
     "jest": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
     "nyc": "^17.1.0",
-    "serverless": "^4.4.16",
+    "serverless": "^4.4.18",
     "serverless-event-constant-inputs": "0.0.1",
     "serverless-offline": "^14.4.0",
     "serverless-webpack": "^5.15.0",
