@@ -1,4 +1,100 @@
 import { beforeEach, describe, test, expect } from "@jest/globals";
+import * as moment from "moment-timezone";
+import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/entities";
+import { Tag } from "../../models";
+import { IAppConfiguration } from "../../models/AppConfiguration";
+import { SummaryHtmlFormatter, SummaryHtmlFormatterConfiguration } from ".";
+
+describe('format with filters', () => {
+    let formatter: SummaryHtmlFormatter;
+    let appConfiguration: IAppConfiguration;
+
+    beforeEach(() => {
+        appConfiguration = AppConfigurations.normal();
+    });
+
+    test('filters worklog entries by tag value', async () => {
+        const configuration = new SummaryHtmlFormatterConfiguration(
+            [['client', 'project']], 
+            [{
+                tagNames: ['client', 'project'],
+                filter: (worklog) => worklog.getTagValue('project') === 'Project1'
+            }]
+        );
+        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
+
+        const worklogSet = WorklogSets.double();
+        worklogSet.worklogs[0].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[0].addTag(new Tag('project', 'Project1'));
+        worklogSet.worklogs[1].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[1].addTag(new Tag('project', 'Project2'));
+
+        const formatted = await formatter.format(worklogSet);
+        
+        expect(formatted).toMatch('Project1');
+        expect(formatted).not.toMatch('Project2');
+    });
+
+    test('applies multiple filters to grouped entries', async () => {
+        const configuration = new SummaryHtmlFormatterConfiguration(
+            [['client', 'project']], 
+            [{
+                tagNames: ['client', 'project'],
+                filter: (worklog) => worklog.getTagValue('project') === 'Project1'
+            }, {
+                tagNames: ['client', 'project'],
+                filter: (worklog) => worklog.getDurationInMinutes() > 60
+            }]
+        );
+        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
+
+        const worklogSet = WorklogSets.double();
+        worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
+        worklogSet.worklogs[0].endDateTime = Dates.now();
+        worklogSet.worklogs[0].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[0].addTag(new Tag('project', 'Project1'));
+
+        worklogSet.worklogs[1].startDateTime = Dates.pastHalfHour();
+        worklogSet.worklogs[1].endDateTime = Dates.now();
+        worklogSet.worklogs[1].addTag(Tags.client.ProCorp());
+        worklogSet.worklogs[1].addTag(new Tag('project', 'Project1'));
+
+        const formatted = await formatter.format(worklogSet);
+        
+        expect(formatted).toMatch('2hs 0m');
+        expect(formatted).not.toMatch('0hs 30m');
+    });
+
+    test('handles empty filters gracefully', async () => {
+        const configuration = new SummaryHtmlFormatterConfiguration(
+            [['client', 'project']], 
+            []
+        );
+        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
+
+        const worklogSet = WorklogSets.double();
+        const formatted = await formatter.format(worklogSet);
+        
+        expect(formatted).toMatch('Total time:');
+    });
+
+    test('maintains HTML structure with filtered groups', async () => {
+        const configuration = new SummaryHtmlFormatterConfiguration(
+            [['client', 'project']], 
+            [{
+                tagNames: ['client', 'project'],
+                filter: () => false // Filter out everything
+            }]
+        );
+        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
+
+        const worklogSet = WorklogSets.double();
+        const formatted = await formatter.format(worklogSet);
+        
+        expect(formatted).toMatch(/<[^>]+>/); // Contains HTML tags
+        expect(formatted).toMatch(/<p>.*<\/p>/); // Has proper HTML structure
+    });
+});foreEach, describe, test, expect } from "@jest/globals";
 
 import * as moment from "moment-timezone";
 import { AppConfigurations, Dates, Tags, WorklogSets } from "../../../tests/entities";
