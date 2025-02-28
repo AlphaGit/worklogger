@@ -1,10 +1,10 @@
 import { beforeEach, describe, test, expect } from "@jest/globals";
 
 import { SummaryTextFormatter } from './Formatter';
-import { Worklog } from '../../models/Worklog';
 import { Tag } from '../../models/Tag';
 import { SummaryTextFormatterConfiguration } from './SummaryTextFormatterConfiguration';
 import { AppConfigurations, WorklogSets, Worklogs } from '../../../tests/entities';
+import { WorklogSet } from '../../models/WorklogSet';
 
 describe('SummaryTextFormatter', () => {
     let formatter: SummaryTextFormatter;
@@ -25,7 +25,7 @@ describe('SummaryTextFormatter', () => {
         });
 
         test('should throw error when worklogSet is invalid', async () => {
-            await expect(formatter.format(null as any)).rejects.toThrow('Missing WorklogSet.');
+            await expect(async () => await formatter.format(null as unknown as WorklogSet)).rejects.toThrow('Missing WorklogSet.');
         });
     });
 
@@ -130,17 +130,4 @@ describe('SummaryTextFormatter', () => {
             expect(result).toHaveLength(0);
         });
     });
-
-    // Helper functions to create mock worklogs
-    function createMockWorklog(description: string, startDateTime: Date, endDateTime: Date): Worklog {
-        return new Worklog(description, startDateTime, endDateTime);
-    }
-
-    function createMockWorklogWithTags(description: string, startDateTime: Date, endDateTime: Date, tags: Record<string, string>): Worklog {
-        const worklog = createMockWorklog(description, startDateTime, endDateTime);
-        Object.entries(tags).forEach(([key, value]) => {
-            worklog.addTag(new Tag(key, value));
-        });
-        return worklog;
-    }
 }); 

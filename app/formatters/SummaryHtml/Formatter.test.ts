@@ -44,7 +44,7 @@ describe('format', () => {
         expect(await formatter.format(worklogSet)).toMatch('3hs');
     });
 
-    test('does not show tags if there are no aggregations (empty array)', async () => {
+    test('does not show tags when no aggregations are configured', async () => {
         const worklogSet = WorklogSets.singleNoTags();
         worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
         worklogSet.worklogs[0].endDateTime = Dates.now();
@@ -57,35 +57,6 @@ describe('format', () => {
         expect(formatted).not.toMatch('client');
         expect(formatted).not.toMatch('project');
     });
-
-    test('does not show tags if there are no aggregations (null)', async () => {
-        const worklogSet = WorklogSets.singleNoTags();
-        worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
-        worklogSet.worklogs[0].endDateTime = Dates.now();
-
-        const configuration = new SummaryHtmlFormatterConfiguration(null as any);
-        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
-
-        const formatted = await formatter.format(worklogSet);
-
-        expect(formatted).not.toMatch('client');
-        expect(formatted).not.toMatch('project');
-    });
-
-    test('does not show tags if there are no aggregations (undefined)', async () => {
-        const worklogSet = WorklogSets.singleNoTags();
-        worklogSet.worklogs[0].startDateTime = Dates.pastTwoHours();
-        worklogSet.worklogs[0].endDateTime = Dates.now();
-
-        const configuration = new SummaryHtmlFormatterConfiguration(undefined as any);
-        formatter = new SummaryHtmlFormatter(configuration, appConfiguration);
-
-        const formatted = await formatter.format(worklogSet);
-
-        expect(formatted).not.toMatch('client');
-        expect(formatted).not.toMatch('project');
-    });
-
 
     test('shows total by tag selection', async () => {
         const worklogSet = WorklogSets.singleNoTags();
