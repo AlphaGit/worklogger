@@ -49,13 +49,25 @@ export class SummaryTextFormatter extends FormatterBase {
     _generateAggregations(worklogSet: WorklogSet): string[][] {
         const configuration = this._configuration as SummaryTextFormatterConfiguration;
 
-        if (!configuration.aggregateByTags) return [];
+        if (!configuration.aggregateByTags || !configuration.aggregateByTags.length) return [];
 
         return configuration.aggregateByTags
             .map(tags => {
-                const aggregationLines = this._generateAggregationLines(worklogSet.worklogs, tags);
+                // Get worklogs that have at least one of the required tags
+                const taggedWorklogs = worklogSet.worklogs.filter(w => 
+                    tags.some(tag => w.getTagValue(tag) !== undefined)
+                );
+                
+                // Calculate non-tagged time
+                const nonTaggedWorklogs = worklogSet.worklogs.filter(w => 
+                    tags.every(tag => w.getTagValue(tag) === undefined)
+                );
+                const nonTaggedDurationMinutes = this._getWorklogDurationSumInMinutes(nonTaggedWorklogs);
+                const nonTaggedDurationString = this._getTotalHsMsString(nonTaggedDurationMinutes);
+
+                const aggregationLines = this._generateAggregationLines(taggedWorklogs, tags);
                 return [
-                    `Total time by ${tags.join(' / ')}:`,
+                    `Total time by ${tags.join(' / ')}: (excluding non-tagged: ${nonTaggedDurationString})`,
                     '',
                     ...aggregationLines,
                     ''
@@ -71,7 +83,12 @@ export class SummaryTextFormatter extends FormatterBase {
 
         let aggregatedSummaries: string[] = [];
         for (const worklogGrouping of worklogsByTagValue) {
-            const groupingTagValue = worklogGrouping.key || '(no value)';
+            // Skip entries with no key value
+            if (!worklogGrouping.key) {
+                continue;
+            }
+            
+            const groupingTagValue = worklogGrouping.key;
             const workslogsInGroup = worklogGrouping.value;
 
             const groupedDurationInMinutes = this._getWorklogDurationSumInMinutes(workslogsInGroup);
