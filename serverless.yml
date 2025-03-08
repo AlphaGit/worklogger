@@ -92,6 +92,11 @@ plugins:
   - serverless-offline
   - serverless-event-constant-inputs
   - serverless-webpack
+
 custom:
   webpack:
+    webpackConfig: 'webpack.config.cjs'
     includeModules: true
+
+build:
+  esbuild: false
