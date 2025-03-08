@@ -1,6 +1,14 @@
 commit_guidelines:
   description: Rules for creating and formatting git commits
   rules:
+    - name: Commit Verification
+      description: |
+        Before executing any commit:
+        1. Present the proposed commit message for review
+        2. Wait for explicit approval before proceeding
+        3. If changes to the commit message are requested, present the updated message for review again
+        4. Only proceed with the commit after receiving explicit approval
+
     - name: Commit Message Structure
       description: |
         Commit messages should follow the Conventional Commits specification with a clear structure:
