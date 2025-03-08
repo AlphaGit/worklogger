@@ -19,7 +19,11 @@ provider:
           Action:
             - "s3:PutObject"
             - "s3:GetObject"
-          Resource: "arn:aws:s3:::worklogger-${self:provider.stage}/*"
+          Resource:
+            - "arn:aws:s3:::${self:custom.environments.${self:provider.stage}.S3_BUCKET}/*"
+            - "arn:aws:s3:::${self:custom.environments.${self:provider.stage}.S3_BUCKET}"
+            - "arn:aws:s3:::worklogger/*"
+            - "arn:aws:s3:::worklogger"
         - Effect: "Allow"
           Action:
             - "ses:SendEmail"
@@ -98,10 +102,10 @@ custom:
   environments:
     prod:
       SCHEDULE_ENABLED: true
-      S3_BUCKET: worklogger-prod
+      S3_BUCKET: worklogger
     dev:
       SCHEDULE_ENABLED: false
-      S3_BUCKET: worklogger-dev
+      S3_BUCKET: worklogger
 
 build:
   esbuild: false
