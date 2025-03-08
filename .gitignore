@@ -27,3 +27,4 @@ worklogger_home/
 !.yarn/sdks
 !.yarn/versions
 .aider*
+.webpack/
