@@ -62,7 +62,7 @@ functions:
     name: worklogger-storeToken-${opt:stage, 'dev'}
     description: Stores the token from the OAuth flow
     memorySize: 128
-    timeout: 30
+    timeout: 29
     package:
       patterns:
         - "*.js"
@@ -78,7 +78,7 @@ functions:
     name: worklogger-loginRedirect-${opt:stage, 'dev'}
     description: Redirects to the OAuth flow
     memorySize: 128
-    timeout: 30
+    timeout: 29
     package:
       patterns:
         - "*.js"
