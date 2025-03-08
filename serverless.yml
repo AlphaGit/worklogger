@@ -8,6 +8,9 @@ provider:
   httpApi:
     disableDefaultEndpoint: true
   endpointType: regional
+  stage: ${opt:stage, 'dev'}
+  environment:
+    STAGE: ${self:provider.stage}
 
   iam:
     role:
@@ -16,7 +19,7 @@ provider:
           Action:
             - "s3:PutObject"
             - "s3:GetObject"
-          Resource: "arn:aws:s3:::worklogger/*"
+          Resource: "arn:aws:s3:::worklogger-${self:provider.stage}/*"
         - Effect: "Allow"
           Action:
             - "ses:SendEmail"
@@ -34,28 +37,20 @@ functions:
         - "*.mjs"
         - "app/**/*.mjs"
     events:
-      # TODO make these configurable per deployment
       - schedule:
           rate: cron(0 11 * * ? *)
-          enabled: true
+          enabled: ${self:custom.environments.${self:provider.stage}.SCHEDULE_ENABLED}
           description: Daily run
           input:
-            s3: worklogger
+            s3: ${self:custom.environments.${self:provider.stage}.S3_BUCKET}
             c: daily_configuration.json
       - schedule:
           rate: cron(0 11 1 * ? *)
-          enabled: true
+          enabled: ${self:custom.environments.${self:provider.stage}.SCHEDULE_ENABLED}
           description: Monthly run
           input:
-            s3: worklogger
+            s3: ${self:custom.environments.${self:provider.stage}.S3_BUCKET}
             c: monthly_configuration.json
-      - schedule:
-          rate: rate(1 minute)
-          enabled: false
-          description: Test hook for quick usage
-          input:
-            s3: worklogger
-            c: test_config.json
 
   tokenLogger:
     handler: lambdaHandler.storeToken
@@ -99,6 +94,14 @@ custom:
     includeModules: true
     packager: 'npm'
     keepOutputDirectory: true
+  isProd: ${self:provider.stage, 'dev'}
+  environments:
+    prod:
+      SCHEDULE_ENABLED: true
+      S3_BUCKET: worklogger-prod
+    dev:
+      SCHEDULE_ENABLED: false
+      S3_BUCKET: worklogger-dev
 
 build:
   esbuild: false
