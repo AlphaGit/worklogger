@@ -31,8 +31,8 @@ functions:
     timeout: 60
     package:
       patterns:
-        - "*.js"
-        - "app/**/*.js"
+        - "*.mjs"
+        - "app/**/*.mjs"
     events:
       # TODO make these configurable per deployment
       - schedule:
@@ -65,8 +65,8 @@ functions:
     timeout: 29
     package:
       patterns:
-        - "*.js"
-        - "app/**/*.js" 
+        - "*.mjs"
+        - "app/**/*.mjs"
     events:
       - http:
           path: /token
@@ -81,8 +81,8 @@ functions:
     timeout: 29
     package:
       patterns:
-        - "*.js"
-        - "app/**/*.js" 
+        - "*.mjs"
+        - "app/**/*.mjs"
     events:
       - http:
           path: /login
@@ -97,6 +97,8 @@ custom:
   webpack:
     webpackConfig: 'webpack.config.cjs'
     includeModules: true
+    packager: 'npm'
+    keepOutputDirectory: true
 
 build:
   esbuild: false

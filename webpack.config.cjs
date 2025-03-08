@@ -15,6 +15,10 @@ module.exports = {
   // Enable source maps
   devtool: 'source-map',
   
+  experiments: {
+    outputModule: true,
+  },
+  
   // Resolve .ts and .js extensions
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -26,16 +30,28 @@ module.exports = {
   
   // Output configuration
   output: {
-    libraryTarget: 'commonjs2',
+    library: {
+      type: 'module',
+    },
+    module: true,
+    environment: {
+      module: true,
+    },
     path: path.join(__dirname, '.webpack'),
-    filename: '[name].js',
+    filename: '[name].mjs',
     sourceMapFilename: '[file].map',
+    chunkFormat: 'module',
   },
   
   // External modules (modules that should not be bundled)
   externals: [
     nodeExternals({
-      allowlist: ['webpack/hot/poll?1000', /\.(eot|woff|woff2|ttf|otf)(\?.*)?$/]
+      allowlist: [
+        'webpack/hot/poll?1000',
+        /\.(eot|woff|woff2|ttf|otf)(\?.*)?$/,
+        'moment-timezone'
+      ],
+      importType: 'module',
     }),
   ],
   
@@ -50,6 +66,10 @@ module.exports = {
             loader: 'ts-loader',
             options: {
               configFile: 'tsconfig.json',
+              compilerOptions: {
+                module: 'ESNext',
+                moduleResolution: 'node',
+              }
             },
           },
         ],
