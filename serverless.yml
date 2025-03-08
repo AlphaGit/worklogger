@@ -105,3 +105,4 @@ custom:
 
 build:
   esbuild: false
+configValidationMode: error
