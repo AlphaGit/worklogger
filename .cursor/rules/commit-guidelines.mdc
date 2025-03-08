@@ -102,3 +102,21 @@ rules:
 
     BREAKING CHANGE: Authentication response format has changed
     ``` 
+
+- name: Commit Command Format
+    description: | 
+    Indications of how to construct the git commit command to be executed:
+
+    1. Use a single `-m` parameter, avoid using multiple
+    2. Include the entire message including newlines
+    3. Show the proper format with the command
+
+    Example:
+    ```
+    git commit -m "feat(api): change authentication endpoint response format
+    ```
+
+    Example 2:
+    ```
+    git commit -m  "feat(api): change authentication format\n- Change token format from JWT to opaque token"
+    ```
