@@ -5274,7 +5274,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^11.2.0":
+"fs-extra@npm:^11.2.0, fs-extra@npm:^11.3.0":
   version: 11.3.0
   resolution: "fs-extra@npm:11.3.0"
   dependencies:
@@ -8086,7 +8086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.3, semver@npm:^7.7.1":
+"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.7.1":
   version: 7.7.1
   resolution: "semver@npm:7.7.1"
   bin:
@@ -8147,18 +8147,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-webpack@npm:^5.15.0":
-  version: 5.15.0
-  resolution: "serverless-webpack@npm:5.15.0"
+"serverless-webpack@npm:^5.15.1":
+  version: 5.15.1
+  resolution: "serverless-webpack@npm:5.15.1"
   dependencies:
     archiver: ^7.0.1
     bluebird: ^3.7.2
     find-yarn-workspace-root: ^2.0.0
-    fs-extra: ^11.2.0
+    fs-extra: ^11.3.0
     glob: ^10.4.5
     is-builtin-module: ^3.2.1
     lodash: ^4.17.21
-    semver: ^7.6.3
+    semver: ^7.7.1
   peerDependencies:
     serverless: 1 || 2 || 3 || 4
     ts-node: ">= 8.3.0"
@@ -8166,7 +8166,7 @@ __metadata:
   peerDependenciesMeta:
     ts-node:
       optional: true
-  checksum: 0d0013a8e990a7f631f836f6441ca50e062f8098a9a9a3fe4b3dbd1b33f31d0de102a54c482df6ef1ca0c72b5eb12c3e0c72681ddc4a1cd02736045a4b6f461a
+  checksum: 3b76d12dfaadffc7c3a47063584577b85109c19ddc044fa5f527fa80e67738ec04485cc7d1961032d06fc47e2490c32156514875e00c9f2a897a56e78567ad32
   languageName: node
   linkType: hard
 
@@ -9227,7 +9227,7 @@ __metadata:
     serverless: ^4.7.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^14.4.0
-    serverless-webpack: ^5.15.0
+    serverless-webpack: ^5.15.1
     showdown: ^2.1.0
     ts-jest: ^29.2.6
     ts-loader: ^9.5.2
