@@ -3776,14 +3776,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.4":
-  version: 1.8.2
-  resolution: "axios@npm:1.8.2"
+"axios@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "axios@npm:1.8.3"
   dependencies:
     follow-redirects: ^1.15.6
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: c47a43b79a058aa9e53a65bec9ade35c9f6e76a3999c795a79a2d205fb5f803fd4245497a0209a9727cbbe4f558791dd852ad2c168c5fc030259c11598ed8fd7
+  checksum: 85fc8ad7d968e43ea9da5513310637d29654b181411012ee14cc0a4b3662782e6c81ac25eea40b5684f86ed2d8a01fa6fc20b9b48c4da14ef4eaee848fea43bc
   languageName: node
   linkType: hard
 
@@ -8170,18 +8170,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "serverless@npm:4.7.0"
+"serverless@npm:^4.9.0":
+  version: 4.9.0
+  resolution: "serverless@npm:4.9.0"
   dependencies:
-    axios: ^1.7.4
+    axios: ^1.8.3
     axios-proxy-builder: ^0.1.2
     rimraf: ^5.0.5
     xml2js: 0.6.2
   bin:
     serverless: run.js
     sls: run.js
-  checksum: d08f3a767330e34bf97a5dde0d003c4c29ba67cde5dec9ce386a07f69616dbcf58a5bb02eef559ac245c3c520e2aacc7cb95f167a40ff95125d58c82dd4f5d06
+  checksum: 240f77abd058b05cd7fc7ec9930ca00be939c96350758881fd69e4396521752c9e5b17e9cc0f4b365c5a9b95a728abb96f116b75e6f204ed95801362c0249e68
   languageName: node
   linkType: hard
 
@@ -9224,7 +9224,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.3.2
     nyc: ^17.1.0
-    serverless: ^4.7.0
+    serverless: ^4.9.0
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^14.4.0
     serverless-webpack: ^5.15.1
