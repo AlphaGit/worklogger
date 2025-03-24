@@ -149,22 +149,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.758.0":
-  version: 3.758.0
-  resolution: "@aws-sdk/client-s3@npm:3.758.0"
+"@aws-sdk/client-s3@npm:^3.772.0":
+  version: 3.772.0
+  resolution: "@aws-sdk/client-s3@npm:3.772.0"
   dependencies:
     "@aws-crypto/sha1-browser": 5.2.0
     "@aws-crypto/sha256-browser": 5.2.0
     "@aws-crypto/sha256-js": 5.2.0
     "@aws-sdk/core": 3.758.0
-    "@aws-sdk/credential-provider-node": 3.758.0
+    "@aws-sdk/credential-provider-node": 3.772.0
     "@aws-sdk/middleware-bucket-endpoint": 3.734.0
     "@aws-sdk/middleware-expect-continue": 3.734.0
     "@aws-sdk/middleware-flexible-checksums": 3.758.0
     "@aws-sdk/middleware-host-header": 3.734.0
     "@aws-sdk/middleware-location-constraint": 3.734.0
     "@aws-sdk/middleware-logger": 3.734.0
-    "@aws-sdk/middleware-recursion-detection": 3.734.0
+    "@aws-sdk/middleware-recursion-detection": 3.772.0
     "@aws-sdk/middleware-sdk-s3": 3.758.0
     "@aws-sdk/middleware-ssec": 3.734.0
     "@aws-sdk/middleware-user-agent": 3.758.0
@@ -209,7 +209,7 @@ __metadata:
     "@smithy/util-utf8": ^4.0.0
     "@smithy/util-waiter": ^4.0.2
     tslib: ^2.6.2
-  checksum: d630cdb561e1f63804172bf9714256ec83cf60765aec684f9358a1201c0c7f41b740f3ec44198f642864e9160da8b0e2659c92daca9f1e17dc4f57e7cc0b7db9
+  checksum: 7855bc35a4d31bef30d93054d13d50be61f4cbe64c08b146b53ce1561c9f1e9877204260f589c3a9c44e507525e75535e772ab6a48d252c7de9795153d4ec629
   languageName: node
   linkType: hard
 
@@ -9385,7 +9385,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "worklogger@workspace:."
   dependencies:
-    "@aws-sdk/client-s3": ^3.758.0
+    "@aws-sdk/client-s3": ^3.772.0
     "@aws-sdk/client-sesv2": ^3.772.0
     "@eslint/js": ^9.20.0
     "@jest/globals": ^29.7.0
