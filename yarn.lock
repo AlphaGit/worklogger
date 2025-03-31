@@ -1715,17 +1715,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.23.0":
+"@eslint/js@npm:*, @eslint/js@npm:9.23.0, @eslint/js@npm:^9.23.0":
   version: 9.23.0
   resolution: "@eslint/js@npm:9.23.0"
   checksum: 5ce796f9fd4cb7b8995062bd7697bf4406560089af039fe1f548b9d0948570763fa6d9f848f87fb13558ab85d4d88152d94d82fb9f6cf091b0dc4b4d6e15cfba
-  languageName: node
-  linkType: hard
-
-"@eslint/js@npm:^9.20.0":
-  version: 9.22.0
-  resolution: "@eslint/js@npm:9.22.0"
-  checksum: 3eb6ed01c31f185b1822b78a872af5b87daa4aaf2ed753ce81c0c7227c852a09e1c7356103259f35f09e77d9e116c796cec6958702044d057f0c179b53b783ec
   languageName: node
   linkType: hard
 
@@ -3846,12 +3839,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__js@npm:^8.42.3":
-  version: 8.42.3
-  resolution: "@types/eslint__js@npm:8.42.3"
+"@types/eslint__js@npm:^9.14.0":
+  version: 9.14.0
+  resolution: "@types/eslint__js@npm:9.14.0"
   dependencies:
-    "@types/eslint": "*"
-  checksum: e31f19de642d35a664695d0cab873ce6de19b8a3506755835b91f8a49a8c41099dcace449df49f1a486de6fa6565d21ceb1fa33be6004fc7adef9226e5d256a1
+    "@eslint/js": "*"
+  checksum: 2bffe2e3d9401b6a530ba7fe8961ea786a6cf520abe11ef59435934df593fdd927c3cb3ac7afcd1c77961f0fab9a99d0d86b678f1124a96402105fd43309d38c
   languageName: node
   linkType: hard
 
@@ -9999,10 +9992,10 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.777.0
     "@aws-sdk/client-sesv2": ^3.777.0
-    "@eslint/js": ^9.20.0
+    "@eslint/js": ^9.23.0
     "@jest/globals": ^29.7.0
     "@types/aws-lambda": ^8.10.148
-    "@types/eslint__js": ^8.42.3
+    "@types/eslint__js": ^9.14.0
     "@types/jest": ^29.5.14
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
