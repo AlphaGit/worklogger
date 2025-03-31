@@ -9188,9 +9188,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless@npm:^4.9.0":
-  version: 4.9.0
-  resolution: "serverless@npm:4.9.0"
+"serverless@npm:^4.9.1":
+  version: 4.9.1
+  resolution: "serverless@npm:4.9.1"
   dependencies:
     axios: ^1.8.3
     axios-proxy-builder: ^0.1.2
@@ -9199,7 +9199,7 @@ __metadata:
   bin:
     serverless: run.js
     sls: run.js
-  checksum: 240f77abd058b05cd7fc7ec9930ca00be939c96350758881fd69e4396521752c9e5b17e9cc0f4b365c5a9b95a728abb96f116b75e6f204ed95801362c0249e68
+  checksum: d89ecb3b490043066d27e1197879567d918bd159a8901b8ada6070be0882d9e2673a3e32500b4de7a97741300e00467c0c3ac493865a1256fb93a105af6b88ef
   languageName: node
   linkType: hard
 
@@ -10250,7 +10250,7 @@ __metadata:
     mustache: ^4.2.0
     node-fetch: ^3.3.2
     nyc: ^17.1.0
-    serverless: ^4.9.0
+    serverless: ^4.9.1
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^14.4.0
     serverless-webpack: ^5.15.1
