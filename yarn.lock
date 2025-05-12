@@ -4503,10 +4503,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mustache@npm:^4.2.5":
-  version: 4.2.5
-  resolution: "@types/mustache@npm:4.2.5"
-  checksum: 0ff1d52022fd3ab0db1c97964ca0c24b45ad74e81ec62e05d27eab5b66ef1d78ff257f4cfb481c72b8b511f15520ca48717e000dc5fa8c3fdf732790b28f05cb
+"@types/mustache@npm:^4.2.6":
+  version: 4.2.6
+  resolution: "@types/mustache@npm:4.2.6"
+  checksum: 6480867fab64737a04fea5568a55cd5c118fa3e76a99f66521387f201abbc9413d6d6b9395379a1fbfa49387189e20cd4ab42678d304e9c3a9af6bf20209bbef
   languageName: node
   linkType: hard
 
@@ -11028,7 +11028,7 @@ __metadata:
     "@types/jest": ^29.5.14
     "@types/log4js": ^2.3.5
     "@types/minimist": ^1.2.5
-    "@types/mustache": ^4.2.5
+    "@types/mustache": ^4.2.6
     "@types/node": ^22.15.17
     "@types/node-fetch": ^2.6.12
     app-module-path: ^2.2.0
