@@ -68,7 +68,7 @@
     "serverless-event-constant-inputs": "0.0.1",
     "serverless-offline": "^14.4.0",
     "serverless-webpack": "^5.15.1",
-    "ts-jest": "^29.3.2",
+    "ts-jest": "^29.3.4",
     "ts-loader": "^9.5.2",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
