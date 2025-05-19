@@ -57,7 +57,7 @@
     "@types/log4js": "^2.3.5",
     "@types/minimist": "^1.2.5",
     "@types/mustache": "^4.2.6",
-    "@types/node": "^22.15.17",
+    "@types/node": "^22.15.19",
     "@types/node-fetch": "^2.6.12",
     "eslint": "^9.26.0",
     "inquirer": "^12.6.1",
