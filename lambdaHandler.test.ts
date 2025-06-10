@@ -37,4 +37,11 @@ describe('storeToken', () => {
         expect(response.statusCode).toBe(200);
         expect(mockedStoreGoogleTokenFromCode).toHaveBeenCalledWith('abc');
     });
+
+    test('returns 500 if token storage fails', async () => {
+        mockedStoreGoogleTokenFromCode.mockRejectedValueOnce(new Error('boom'));
+        const response = await storeToken(createEvent({ code: 'abc' }));
+        expect(response.statusCode).toBe(500);
+        expect(JSON.parse(response.body).error).toBe('boom');
+    });
 });

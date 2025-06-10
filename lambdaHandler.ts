@@ -35,7 +35,15 @@ export const storeToken = async (event: APIGatewayProxyEvent): Promise<APIGatewa
         };
     }
 
-    await storeGoogleTokenFromCode(code);
+    try {
+        await storeGoogleTokenFromCode(code);
+    } catch (err) {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: message })
+        };
+    }
 
     return {
         statusCode: 200,
