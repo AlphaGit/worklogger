@@ -15,16 +15,35 @@ export const logTimesheets = async (event: APIGatewayProxyEvent): Promise<APIGat
 };
 
 export const storeToken = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    if (event.queryStringParameters.error) {
+    const { code, error } = event.queryStringParameters ?? {};
+
+    if (error) {
         return {
             statusCode: 400,
             body: JSON.stringify({
-                error: event.queryStringParameters.error
+                error
             })
         };
     }
 
-    await storeGoogleTokenFromCode(event.queryStringParameters.code);
+    if (!code) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                error: 'Missing code or error.'
+            })
+        };
+    }
+
+    try {
+        await storeGoogleTokenFromCode(code);
+    } catch (err) {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: message })
+        };
+    }
 
     return {
         statusCode: 200,

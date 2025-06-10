@@ -72,4 +72,38 @@ describe('loadOutputs', () => {
         expect(output3.output).toBeInstanceOf(JiraWorklogOutput);
         expect(output3.output.formatter).toBeInstanceOf(NoFormatFormatter);
     });
+
+    test('rejects if output type is not recognized', async () => {
+        const outputConfigs = [{
+            type: 'UnknownOutput',
+            name: 'output1',
+            excludeFromNonProcessedWarning: false,
+            condition: {
+                type: ''
+            },
+            formatter: {
+                type: ''
+            }
+        }];
+
+        await expect(async () => await loadOutputs(outputConfigs, appConfiguration))
+            .rejects.toThrow('Output UnknownOutput not recognized.');
+    });
+
+    test('rejects if formatter type is not recognized', async () => {
+        const outputConfigs = [{
+            type: 'Logger',
+            name: 'output1',
+            excludeFromNonProcessedWarning: false,
+            condition: {
+                type: ''
+            },
+            formatter: {
+                type: 'UnknownFormatter'
+            }
+        }];
+
+        await expect(async () => await loadOutputs(outputConfigs, appConfiguration))
+            .rejects.toThrow('Formatter UnknownFormatter not recognized.');
+    });
 });
