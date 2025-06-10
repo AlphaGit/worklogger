@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test, jest } from '@jest/globals';
 
-const mockedStoreGoogleTokenFromCode = jest.fn();
+const mockedStoreGoogleTokenFromCode = jest.fn() as jest.MockedFunction<(code: string) => Promise<void>>;
 jest.mock('./app/services/authHandler', () => ({
     storeGoogleTokenFromCode: mockedStoreGoogleTokenFromCode,
     generateAuthUrl: jest.fn()
