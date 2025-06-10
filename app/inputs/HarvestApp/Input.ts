@@ -5,10 +5,12 @@ import { HarvestInputConfiguration, HarvestTimeEntry } from '.';
 import momentTimezone from 'moment-timezone';
 import { getLogger, LoggerCategory } from '../../services/Logger';
 
-export class Input {
+import { IInput } from '../IInput';
+
+export class Input implements IInput {
     private logger = getLogger(LoggerCategory.Inputs);
     private harvestClient: HarvestClient;
-    private name: string;
+    public readonly name: string;
 
     constructor(
         private serviceRegistrations: IServiceRegistrations,
