@@ -63,7 +63,7 @@ Document public classes and methods with brief comments when adding new function
 
 | Path            | Description                                   |
 |-----------------|-----------------------------------------------|
-| `app/`          | Source code for actions, inputs, outputs and services. |
+| `app/`          | Source code for actions, conditions, formatters, inputs, outputs and services. |
 | `tests/`        | Shared test helpers and additional unit tests. |
 | `docs/`         | Project documentation and design notes.        |
 | `configuration.json` | Example configuration for running the app. |
