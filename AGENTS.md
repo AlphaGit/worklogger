@@ -81,4 +81,3 @@ Refer to `docs/README.md` for an overview of the documentation structure.
 4. After changes, leave the working tree clean (`git status` shows no modifications).
 5. For any change that includes a new configuration option, add an example of it in `docs/configuration.md`. This file is not meant to be valid JSON, but rather a readable example with the different configuration options and their possible values.
 
----

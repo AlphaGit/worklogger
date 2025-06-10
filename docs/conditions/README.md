@@ -7,6 +7,7 @@ Conditions are components that determine whether certain actions should be appli
 - [Has Tag](./has-tag.md): Checks if a worklog has a specific tag
 - [Summary Matches](./summary-matches.md): Matches worklog summaries against regular expressions
 - [True](./true.md): Always returns true, useful as a default condition
+- [Comparison](./comparison.md): Compares fields or constants using operators
 
 ## Common Concepts
 
