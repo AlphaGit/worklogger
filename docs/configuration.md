@@ -94,6 +94,11 @@
 
             // type: summaryMatches
             "regex": "string"
+
+            // type: comparison
+            "operator": "gt",
+            "operand1": { "type": "field", "field": "totalDuration" },
+            "operand2": { "type": "constant", "value": 2400 }
         },
         "action": {
             "type": "string",
