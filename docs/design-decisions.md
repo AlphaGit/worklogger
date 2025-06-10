@@ -1,4 +1,4 @@
-## Logger categoroies
+## Logger categories
 
 The categories used for the logger should be one of:
 
