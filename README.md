@@ -6,7 +6,7 @@ The particular objective of this system is to allow me to automate my timesheet 
 
 ## Application data flow
 
-1. **Inputs** read worklogs from different data sources. Each worklog represents a particular instance of work to be outputed somewhere. After reading the input from all the sources, they all get added into a WorklogSet instance.
+1. **Inputs** read worklogs from different data sources. Each worklog represents a particular instance of work to be outputted somewhere. After reading the input from all the sources, they all get added into a WorklogSet instance.
 1. **WorklogSetOperations** allow to transform that end-result of worklog set. For example, operations like adding new worklogs or merging different worklogs together would work here. The worklog set gets modified to leave a new set of worklogs.
 1. Transformation **actions** operate on each particular worklog, by reading and modifying data on it. Most of the modifications will be done over a tagging system: every worklog has tags that will determine if it goes through any particular flow. These transformations will create more tags to them.
     1. **Conditions** will filter worklogs from reaching a particular action.
