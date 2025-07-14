@@ -9071,7 +9071,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.7.1":
+"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
   version: 7.7.1
   resolution: "semver@npm:7.7.1"
   bin:
@@ -9141,9 +9141,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serverless-webpack@npm:^5.15.1":
-  version: 5.15.1
-  resolution: "serverless-webpack@npm:5.15.1"
+"serverless-webpack@npm:^5.15.2":
+  version: 5.15.2
+  resolution: "serverless-webpack@npm:5.15.2"
   dependencies:
     archiver: ^7.0.1
     bluebird: ^3.7.2
@@ -9152,7 +9152,7 @@ __metadata:
     glob: ^10.4.5
     is-builtin-module: ^3.2.1
     lodash: ^4.17.21
-    semver: ^7.7.1
+    semver: ^7.7.2
   peerDependencies:
     serverless: 1 || 2 || 3 || 4
     ts-node: ">= 8.3.0"
@@ -9160,7 +9160,7 @@ __metadata:
   peerDependenciesMeta:
     ts-node:
       optional: true
-  checksum: 3b76d12dfaadffc7c3a47063584577b85109c19ddc044fa5f527fa80e67738ec04485cc7d1961032d06fc47e2490c32156514875e00c9f2a897a56e78567ad32
+  checksum: 232d9583da3f76a425fc5bb47d17649e9d5d00ad1338673fe9452709f8baf7d9c7003115c4845082fbbd1525d4845852a29c88f05fe9eb0c7c7cdfb7ec8488e3
   languageName: node
   linkType: hard
 
@@ -10255,7 +10255,7 @@ __metadata:
     serverless: ^4.17.1
     serverless-event-constant-inputs: 0.0.1
     serverless-offline: ^14.4.0
-    serverless-webpack: ^5.15.1
+    serverless-webpack: ^5.15.2
     showdown: ^2.1.0
     ts-jest: ^29.4.0
     ts-loader: ^9.5.2
