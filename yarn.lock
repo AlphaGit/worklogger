@@ -4285,10 +4285,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aws-lambda@npm:^8.10.150":
-  version: 8.10.150
-  resolution: "@types/aws-lambda@npm:8.10.150"
-  checksum: 5bde42dfb6f566f00c55542585f81ecf6cda8063b9c27a3a49da6cab853c222987f078315000b0b9d2668a4398507c37378de66d6472727fcf3c1c6360641964
+"@types/aws-lambda@npm:^8.10.152":
+  version: 8.10.152
+  resolution: "@types/aws-lambda@npm:8.10.152"
+  checksum: b74f705a54abc9a60600ddbbc669e137f6b7a4071e510d73d73c850e9b5583efe3da84ef2c08bf3106ceab6c45533d78ca43ea4e0f86d8671cf16267e927ce1e
   languageName: node
   linkType: hard
 
@@ -10725,7 +10725,7 @@ __metadata:
     "@aws-sdk/client-sesv2": ^3.844.0
     "@eslint/js": ^9.30.1
     "@jest/globals": ^29.7.0
-    "@types/aws-lambda": ^8.10.150
+    "@types/aws-lambda": ^8.10.152
     "@types/eslint__js": ^8.42.3
     "@types/jest": ^29.5.14
     "@types/log4js": ^2.3.5
