@@ -15,7 +15,7 @@ beforeEach(() => {
 describe('getLogger', () => {
     test('returns a logger from log4js', () => {
         getLogger(LoggerCategory.App);
-        expect(getLoggerMock).toBeCalledWith(LoggerCategory.App.toString());
+        expect(getLoggerMock).toHaveBeenCalledWith(LoggerCategory.App.toString());
     });
 });
 
@@ -37,6 +37,6 @@ describe('configureLogger', () => {
         };
 
         configureLogger(configuration);
-        expect(configureMock).toBeCalledWith(configuration);
+        expect(configureMock).toHaveBeenCalledWith(configuration);
     });
 });
