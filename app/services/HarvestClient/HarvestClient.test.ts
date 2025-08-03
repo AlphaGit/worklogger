@@ -58,7 +58,7 @@ describe('getTimeEntries', () => {
         const url = new URL(`${HarvestClient.HarvestBaseUrl}/time_entries`);
         url.searchParams.set('from', times.from.toISOString());
         url.searchParams.set('to', times.to.toISOString());
-        expect(fetchMock).toBeCalledWith(url.toString(), {
+        expect(fetchMock).toHaveBeenCalledWith(url.toString(), {
             headers: {
                 Authorization: `Bearer ${harvestClientConfig.token}`,
                 'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ describe('getProjectsAndTasks', () => {
         const response = await harvestClient.getProjectsAndTasks();
 
         const url = `${HarvestClient.HarvestBaseUrl}/users/me/project_assignments.json`;
-        expect(fetchMock).toBeCalledWith(url, {
+        expect(fetchMock).toHaveBeenCalledWith(url, {
             headers: {
                 Authorization: `Bearer ${harvestClientConfig.token}`,
                 'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ describe('saveNewTimeEntry', () => {
         await harvestClient.saveNewTimeEntry(timeEntry);
 
         const url = `${HarvestClient.HarvestBaseUrl}/time_entries`;
-        expect(fetchMock).toBeCalledWith(url, {
+        expect(fetchMock).toHaveBeenCalledWith(url, {
             headers: {
                 Authorization: `Bearer ${harvestClientConfig.token}`,
                 'Content-Type': 'application/json',

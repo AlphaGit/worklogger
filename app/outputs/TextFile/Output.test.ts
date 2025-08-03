@@ -52,7 +52,7 @@ describe('outputWorklogSet', () => {
 
         await output.outputWorklogSet(worklogSet);
 
-        expect(formatter.formatFunction).toBeCalledWith(worklogSet);
-        expect(writeFile).toBeCalledWith('./output.txt', 'Example formatted string');
+        expect(formatter.formatFunction).toHaveBeenCalledWith(worklogSet);
+        expect(writeFile).toHaveBeenCalledWith('./output.txt', 'Example formatted string');
     });
 });
