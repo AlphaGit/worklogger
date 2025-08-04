@@ -59,7 +59,7 @@
     "@types/node": "^24.1.0",
     "@types/node-fetch": "^2.6.12",
     "eslint": "^9.32.0",
-    "inquirer": "^12.8.2",
+    "inquirer": "^12.9.0",
     "jest": "^30.0.5",
     "jest-fetch-mock": "^3.0.3",
     "nyc": "^17.1.0",
