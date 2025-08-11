@@ -6874,6 +6874,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"google-auth-library@npm:^10.2.0":
+  version: 10.2.1
+  resolution: "google-auth-library@npm:10.2.1"
+  dependencies:
+    base64-js: ^1.3.0
+    ecdsa-sig-formatter: ^1.0.11
+    gaxios: ^7.0.0
+    gcp-metadata: ^7.0.0
+    google-logging-utils: ^1.0.0
+    gtoken: ^8.0.0
+    jws: ^4.0.0
+  checksum: 07320917304e9b36f3a6b52b5a28fbebdf8b9619085f65c195f31fa3c54984a62a328905d5fa415d3f0054a63003e818bb84f50cce7e11d7947a61c83c3a40e5
+  languageName: node
+  linkType: hard
+
 "google-logging-utils@npm:^1.0.0":
   version: 1.1.1
   resolution: "google-logging-utils@npm:1.1.1"
@@ -6894,13 +6909,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"googleapis@npm:^154.1.0":
-  version: 154.1.0
-  resolution: "googleapis@npm:154.1.0"
+"googleapis@npm:^155.0.1":
+  version: 155.0.1
+  resolution: "googleapis@npm:155.0.1"
   dependencies:
-    google-auth-library: ^10.1.0
+    google-auth-library: ^10.2.0
     googleapis-common: ^8.0.0
-  checksum: d15dcbd363d32d384983904b11c92002f10eaab97b72a72c6192ea6cc80b4d34cae36f4d45c9ffdc0cbe45ce377b6aa81c8f9cb56af57a687f03439cdf1c5021
+  checksum: 7ddd4e36e29518c2b35f14b60f3c81fb35ef9db1b14156a8154587211e962a49b23b5119e51b309c4b9a52d1911246ce5c47dc6f35bb0c0f498756a67eeff727
   languageName: node
   linkType: hard
 
@@ -10679,7 +10694,7 @@ __metadata:
     cacache: ^20.0.0
     eslint: ^9.33.0
     fetch-event: ^1.0.0-alpha
-    googleapis: ^154.1.0
+    googleapis: ^155.0.1
     inquirer: ^12.9.1
     jest: ^30.0.5
     jest-fetch-mock: ^3.0.3
