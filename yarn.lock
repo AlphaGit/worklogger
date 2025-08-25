@@ -5381,9 +5381,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacache@npm:^20.0.0":
-  version: 20.0.0
-  resolution: "cacache@npm:20.0.0"
+"cacache@npm:^20.0.1":
+  version: 20.0.1
+  resolution: "cacache@npm:20.0.1"
   dependencies:
     "@npmcli/fs": ^4.0.0
     fs-minipass: ^3.0.0
@@ -5395,9 +5395,8 @@ __metadata:
     minipass-pipeline: ^1.2.4
     p-map: ^7.0.2
     ssri: ^12.0.0
-    tar: ^7.4.3
     unique-filename: ^4.0.0
-  checksum: 85709f17046e5c6281829ebe68991dd62f2124e0af15eac561ddbfb390d2046b64dd9b558bdb3b61bef54d74045a9f5844e54733fb4da9d775f247906a8e6939
+  checksum: 33d1514f5c05ba761601fe6e5a49eb396e91bdb439a2ceabdb5a3490552393a5c01d97b14eb2eb12849f7062e5704a3ec3de48f22fa7196e0cbc4b2623406527
   languageName: node
   linkType: hard
 
@@ -10672,7 +10671,7 @@ __metadata:
     app-module-path: ^2.2.0
     aws-lambda: ^1.0.7
     aws-sdk: ^2.1692.0
-    cacache: ^20.0.0
+    cacache: ^20.0.1
     eslint: ^9.33.0
     fetch-event: ^1.0.0-alpha
     googleapis: ^154.1.0
