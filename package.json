@@ -68,7 +68,7 @@
     "serverless-offline": "^14.4.0",
     "serverless-webpack": "^5.15.2",
     "ts-jest": "^29.4.1",
-    "ts-loader": "^9.5.2",
+    "ts-loader": "^9.5.4",
     "tsx": "^4.20.4",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
