@@ -1,9 +1,10 @@
 import { beforeEach, describe, test, expect } from "@jest/globals";
 
-import { Worklogs } from "../../../tests/entities";
-import { AddTagAction } from "./AddTagAction";
-import { AddTagConfiguration } from "./AddTagConfiguration";
-import { AddTagDefinition } from "./AddTagDefinition";
+import { Worklogs } from '../../../tests/entities';
+import { AddTagAction } from './AddTagAction';
+import { AddTagConfiguration } from './AddTagConfiguration';
+import { AddTagDefinition } from './AddTagDefinition';
+import { Tag } from '../../models';
 
 let addTagDefinition: AddTagDefinition;
 let addTagConfiguration: AddTagConfiguration;
@@ -75,6 +76,14 @@ describe('apply', () => {
 
             expect(worklog.getTagValue('tagName')).toBe('');
         });
+    });
+
+    test('overwrites existing tag value', () => {
+        const worklog = Worklogs.noTags();
+        worklog.addTag(new Tag(addTagDefinition.name, 'oldValue'));
+        addTagAction.apply(worklog);
+        const { name, value } = addTagDefinition;
+        expect(worklog.getTagValue(name)).toBe(value);
     });
 
     test('reject invalid worklogs', () => {

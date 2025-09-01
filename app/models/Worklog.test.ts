@@ -117,6 +117,15 @@ describe('addTag', () => {
         worklog.addTag(new Tag('tag1', 'value1'));
         expect(worklog.getTagKeys()).toContain('tag1');
     });
+
+    test('overwrites existing tag value when adding the same tag again', () => {
+        const worklog = Worklogs.noTags();
+
+        worklog.addTag(new Tag('tag1', 'value1'));
+        worklog.addTag(new Tag('tag1', 'value2'));
+
+        expect(worklog.getTagValue('tag1')).toBe('value2');
+    });
 });
 
 describe('getTagKeys', () => {
