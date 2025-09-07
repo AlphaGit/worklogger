@@ -1,13 +1,12 @@
-import { google } from 'googleapis';
 import { S3FileLoader } from './FileLoader/S3FileLoader';
 import { BUCKET_OR_FOLDER_NAME, GOOGLE_APPLICATION_CREDENTIALS_FILE_NAME, GOOGLE_USER_CREDENTIALS_FILE_NAME } from '../config/authConfiguration';
-import { OAuth2Client } from 'google-auth-library';
+import { OAuth2Client } from 'googleapis-common';
 
 async function getAppAuthenticatedOAuthClient(): Promise<OAuth2Client> {
     const s3FileLoader = new S3FileLoader(BUCKET_OR_FOLDER_NAME);
     const authFileJson = await s3FileLoader.loadJson(GOOGLE_APPLICATION_CREDENTIALS_FILE_NAME);
     const { client_id, client_secret, redirect_uris } = authFileJson.web as { client_id: string, client_secret: string, redirect_uris: string[] };
-    const oauth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+    const oauth2Client = new OAuth2Client(client_id, client_secret, redirect_uris[0]);
     return oauth2Client;
 }
 
