@@ -1,5 +1,6 @@
 import { getLogger, LoggerCategory } from '../../services/Logger';
-import { google, Auth } from 'googleapis';
+import { google } from 'googleapis';
+import { OAuth2Client } from 'googleapis-common';
 
 import { IAppConfiguration, IServiceRegistrations, Worklog } from '../../models';
 import { getUserAuthenticatedOAuthClient } from '../../services/authHandler';
@@ -36,13 +37,13 @@ export class Input implements IInput {
         return this.modelMapper.map(apiResponses);
     }
 
-    async _getEventsFromApi(auth: Auth.OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
+    async _getEventsFromApi(auth: OAuth2Client, startDateTime: Date, endDateTime: Date): Promise<IApiResponse[]> {
         const calendarReturnPromises = this.inputConfiguration.calendars
             .map(calendarInfo => this._getEventsFromApiSingleCalendar(auth, calendarInfo, startDateTime, endDateTime));
         return await Promise.all(calendarReturnPromises);
     }
 
-    async _getEventsFromApiSingleCalendar(auth: Auth.OAuth2Client, calendar: GoogleCalendarCalendarConfiguration, startDateTime: Date, endDateTime: Date): Promise<IApiResponse> {
+    async _getEventsFromApiSingleCalendar(auth: OAuth2Client, calendar: GoogleCalendarCalendarConfiguration, startDateTime: Date, endDateTime: Date): Promise<IApiResponse> {
         this.logger.debug('Filtering calendar events from', startDateTime, 'to', endDateTime);
 
         this.logger.debug('Retrieving entries from calendar', calendar.id);
