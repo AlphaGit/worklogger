@@ -1952,10 +1952,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.35.0, @eslint/js@npm:^9.35.0":
+"@eslint/js@npm:9.35.0":
   version: 9.35.0
   resolution: "@eslint/js@npm:9.35.0"
   checksum: ea644f0b1abb4da49ba0cb61db4d039492e844d959e7127dd7c501aa27a256348496bce43334ecd3ca990c9a49fb3ea93d6729de0a79d216f63869236c153148
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:^9.36.0":
+  version: 9.36.0
+  resolution: "@eslint/js@npm:9.36.0"
+  checksum: 17ff28272337357783b55e76417e61306e528dced99bb49d49e06298023b4071cb30f4aeb0bf30a337817d3eb3132784db6b8edd3a90118c5217833136712713
   languageName: node
   linkType: hard
 
@@ -10960,7 +10967,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.888.0
     "@aws-sdk/client-sesv2": ^3.888.0
-    "@eslint/js": ^9.35.0
+    "@eslint/js": ^9.36.0
     "@jest/globals": ^30.1.2
     "@types/aws-lambda": ^8.10.152
     "@types/jest": ^30.0.0
