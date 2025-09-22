@@ -10372,9 +10372,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.4.1":
-  version: 29.4.1
-  resolution: "ts-jest@npm:29.4.1"
+"ts-jest@npm:^29.4.4":
+  version: 29.4.4
+  resolution: "ts-jest@npm:29.4.4"
   dependencies:
     bs-logger: ^0.2.6
     fast-json-stable-stringify: ^2.1.0
@@ -10408,7 +10408,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 641f17ecb44caa987bc12feb87abbebc7cb0e4ba8725afe8208a14ec13ff0cce80fe47f79f3b8c37c7fe56e36fadee8314ed05c863b104bb7531bba71c3b9524
+  checksum: 4cb712fd05363d1264aed544b78fb3a00ad28069b5d08ce6fc330f35dddcdecdf475d4855eefd0ef6cc01cdcf510b92f121d0d5b6d83029ad23e5750ae544d7c
   languageName: node
   linkType: hard
 
@@ -10997,7 +10997,7 @@ __metadata:
     serverless-offline: ^14.4.0
     serverless-webpack: ^5.15.3
     showdown: ^2.1.0
-    ts-jest: ^29.4.1
+    ts-jest: ^29.4.4
     ts-loader: ^9.5.4
     tsx: ^4.20.5
     typescript: ^5.9.2
