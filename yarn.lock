@@ -10791,9 +10791,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.20.5":
-  version: 4.20.5
-  resolution: "tsx@npm:4.20.5"
+"tsx@npm:^4.20.6":
+  version: 4.20.6
+  resolution: "tsx@npm:4.20.6"
   dependencies:
     esbuild: ~0.25.0
     fsevents: ~2.3.3
@@ -10803,7 +10803,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: f7d3716075e3dc858ecd8b6760e860d55074606a182029fcba7cc7341c3631bfb2a0a9e1d1b10bd8c2f411bf4b50c498c443dbe4a83ec83b1464b049c51c380b
+  checksum: d514bea59ec58fe7746271dd287b52e6e482a2236dd486d2fbf2eab11810ad2bc37e064210580824ce1c91a3e1ddd952499e6f48055e087abff5472468ac0d7b
   languageName: node
   linkType: hard
 
@@ -11339,7 +11339,7 @@ __metadata:
     showdown: ^2.1.0
     ts-jest: ^29.4.4
     ts-loader: ^9.5.4
-    tsx: ^4.20.5
+    tsx: ^4.20.6
     typescript: ^5.9.2
     typescript-eslint: ^8.44.0
     webpack: ^5.101.3
