@@ -60,7 +60,7 @@
     "@types/node-fetch": "^2.6.13",
     "eslint": "^9.36.0",
     "inquirer": "^12.9.6",
-    "jest": "^30.1.3",
+    "jest": "^30.2.0",
     "jest-fetch-mock": "^3.0.3",
     "nyc": "^17.1.0",
     "serverless": "^4.19.1",
