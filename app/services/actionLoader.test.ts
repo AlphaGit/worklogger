@@ -29,4 +29,26 @@ describe('loadActionsAndConditions', () => {
         expect(action2.action).toBeInstanceOf(AddTagAction);
         expect(action2.condition).toBeInstanceOf(TrueCondition)
     });
+
+    test('ignores disabled actions', async () => {
+        const actionsToLoad = [{
+            action: {
+                type: 'AddTag',
+                tagsToAdd: ['tag1']
+            },
+            condition: {
+                type: 'SummaryMatches'
+            },
+            enabled: false,
+        }, {
+            action: {
+                type: 'AddTag',
+                tagsToAdd: ['tag2']
+            }
+        }];
+        const [action1] = await loadActionsAndConditions(actionsToLoad);
+
+        expect(action1.action).toBeInstanceOf(AddTagAction);
+        expect(action1.condition).toBeInstanceOf(TrueCondition);
+    });
 });

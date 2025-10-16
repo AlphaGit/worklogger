@@ -7,4 +7,5 @@ export interface IOutputConfiguration {
     condition: IConditionConfig;
     formatter?: IFormatterConfig;
     name: string;
+    enabled?: boolean;
 }

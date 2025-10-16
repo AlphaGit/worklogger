@@ -15,7 +15,15 @@ const actionClasses = {
 const logger = getLogger(LoggerCategory.Services);
 
 export async function loadActionsAndConditions(actionConfigs: ITransformation[]): Promise<IActionWithCondition[]> {
-    return await Promise.all(actionConfigs.map(async config => {
+    const filteredActionConfigs = actionConfigs.filter(config => {
+        if (config.enabled === false) {
+            logger.debug(`Skipping disabled transformation.`);
+            return false;
+        }
+        return true;
+    });
+
+    return await Promise.all(filteredActionConfigs.map(async config => {
         const action = await loadAction(config.action) as IAction;
         const condition = await loadCondition(config.condition) as ICondition;
         logger.debug('Loaded: On condition', condition.toString(), 'apply action', action.toString());
@@ -36,6 +44,7 @@ export interface ITransformation {
         type: string
     };
     condition: IConditionConfig | undefined;
+    enabled?: boolean;
 }
 
 export interface IActionWithCondition {
