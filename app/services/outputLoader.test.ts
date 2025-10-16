@@ -106,4 +106,42 @@ describe('loadOutputs', () => {
         await expect(async () => await loadOutputs(outputConfigs, appConfiguration))
             .rejects.toThrow('Formatter UnknownFormatter not recognized.');
     });
+
+    test('ignores disabled outputs', async () => {
+        const outputConfigs = [{
+            type: 'Logger',
+            name: 'output1',
+            excludeFromNonProcessedWarning: false,
+            condition: {
+                type: ''
+            },
+            formatter: {
+                type: ''
+            },
+            enabled: false,
+        }, {
+            type: 'JiraWorklog',
+            name: 'output2',
+            excludeFromNonProcessedWarning: false,
+            condition: {
+                type: 'HasTag'
+            },
+            formatter: {
+                type: 'SummaryText'
+            },
+            JiraUrl: 'https://example.com',
+            JiraUsername: 'username',
+            JiraPassword: 'password'
+        }];
+
+        const outputs = await loadOutputs(outputConfigs, appConfiguration);
+
+        expect(outputs.length).toBe(1);
+        const [output1] = outputs;
+
+        expect(output1.condition).toBeInstanceOf(HasTagCondition);
+        expect(output1.excludeFromNonProcessedWarning).toBe(false);
+        expect(output1.output).toBeInstanceOf(JiraWorklogOutput);
+        expect(output1.output.formatter).toBeInstanceOf(SummaryTextFormatter);
+    });
 });

@@ -35,4 +35,29 @@ describe('loadInputs', () => {
         expect(results[1].name).toBe('input2');
         expect(results[1]).toBeInstanceOf(HarvestAppInput);
     });
+
+    test('ignores disabled inputs', async () => {
+        const config = {
+            ...appConfiguration,
+            inputs: [{
+                type: 'GoogleCalendar',
+                name: 'input1',
+                storageRelativePath: '.',
+                enabled: false,
+            }, {
+                type: 'HarvestApp',
+                name: 'input2',
+                storageRelativePath: '.',
+                accountId: '1234',
+                token: '1234',
+                contactInformation: "abc <abc@example.com>"
+            }]
+        };
+
+        const results = await loadInputs(serviceRegistations, config);
+
+        expect(results.length).toBe(1);
+        expect(results[0].name).toBe('input2');
+        expect(results[0]).toBeInstanceOf(HarvestAppInput);
+    });
 });

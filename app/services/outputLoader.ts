@@ -42,7 +42,15 @@ const formatterClasses = {
 }
 
 export async function loadOutputs(outputConfigurations: IOutputConfiguration[], appConfiguration: IAppConfiguration): Promise<OutputWithCondition[]> {
-    return Promise.all(outputConfigurations.map(async outputConfig => {
+    const filteredOutputConfigs = outputConfigurations.filter(config => {
+        if (config.enabled === false) {
+            logger.debug(`Skipping disabled output: ${config.name}`);
+            return false;
+        }
+        return true;
+    });
+
+    return Promise.all(filteredOutputConfigs.map(async outputConfig => {
         const output = await loadOuput(outputConfig, appConfiguration);
         const condition = await loadCondition(outputConfig.condition);
         const excludeFromNonProcessedWarning = !!outputConfig.excludeFromNonProcessedWarning;

@@ -53,6 +53,9 @@
         "type": "string",
         "name": "string",
 
+        // optional: defaults to true
+        "enabled": true,
+
         // optional: manage the input storage in this particular path
         // if not passed, will use the current location
         "storageRelativePath": "string",
@@ -84,6 +87,9 @@
         // (none yet)
     }],
     "transformations": [{
+        // optional: defaults to true
+        "enabled": true,
+
         "condition": {
             "type": "string",
             // other properties specific to the condition type
@@ -115,6 +121,9 @@
     "outputs": [{
         "type": "string",
         "name": "string",
+
+        // optional: defaults to true
+        "enabled": true,
 
         // if true, will not consider this output for the warning of worklogs non processed by any output
         "excludeFromNonProcessedWarning": true,
