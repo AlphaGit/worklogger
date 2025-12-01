@@ -71,7 +71,7 @@
     "ts-loader": "^9.5.4",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.47.0",
+    "typescript-eslint": "^8.48.0",
     "webpack": "^5.103.0",
     "webpack-node-externals": "^3.0.0"
   },
