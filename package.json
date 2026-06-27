@@ -1,0 +1,98 @@
+{
+  "name": "worklogger",
+  "version": "3.1.0",
+  "description": "Reads worklogs from a variety of sources and consolidates them to several outputs.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlphaGit/worklogger.git"
+  },
+  "type": "module",
+  "scripts": {
+    "lint": "eslint '**/*.ts'",
+    "lint:fix": "eslint --fix .",
+    "start": "tsx index.ts",
+    "test": "TZ=America/Vancouver jest",
+    "test:typecheck": "tsc --noEmit",
+    "test:coverage": "TZ=America/Vancouver jest --coverage",
+    "test:all": "yarn lint && yarn test:typecheck && yarn test:coverage",
+    "postversion": "docker build -t alphadock/worklogger:latest -t alphadock/worklogger:v$npm_package_version . && docker push alphadock/worklogger:v$npm_package_version && docker push alphadock/worklogger:latest"
+  },
+  "keywords": [
+    "work",
+    "logger",
+    "worklog",
+    "harvest",
+    "jira",
+    "tempo"
+  ],
+  "author": "Alpha <alphagma@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlphaGit/worklogger/issues"
+  },
+  "homepage": "https://github.com/AlphaGit/worklogger#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.879.0",
+    "@aws-sdk/client-sesv2": "^3.873.0",
+    "app-module-path": "^2.2.0",
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1692.0",
+    "cacache": "^20.0.1",
+    "fetch-event": "^1.0.0-alpha",
+    "googleapis": "^156.0.0",
+    "log4js": "^6.9.1",
+    "minimist": "^1.2.8",
+    "moment-timezone": "^0.6.0",
+    "mustache": "^4.2.0",
+    "node-fetch": "^3.3.2",
+    "showdown": "^2.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@jest/globals": "^30.0.5",
+    "@types/aws-lambda": "^8.10.152",
+    "@types/jest": "^30.0.0",
+    "@types/log4js": "^2.3.5",
+    "@types/minimist": "^1.2.5",
+    "@types/mustache": "^4.2.6",
+    "@types/node": "^24.3.0",
+    "@types/node-fetch": "^2.6.13",
+    "eslint": "^9.34.0",
+    "inquirer": "^12.9.4",
+    "jest": "^30.1.2",
+    "jest-fetch-mock": "^3.0.3",
+    "nyc": "^17.1.0",
+    "serverless": "^4.18.2",
+    "serverless-event-constant-inputs": "0.0.1",
+    "serverless-offline": "^14.4.0",
+    "serverless-webpack": "^5.15.2",
+    "ts-jest": "^29.4.1",
+    "ts-loader": "^9.5.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.41.0",
+    "webpack": "^5.101.3",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "jest": {
+    "automock": false,
+    "clearMocks": true,
+    "coverageDirectory": "coverage",
+    "preset": "ts-jest",
+    "injectGlobals": false,
+    "setupFiles": [
+      "<rootDir>/tests/jestSetup.ts"
+    ],
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json"
+        }
+      ]
+    }
+  },
+  "packageManager": "yarn@3.1.0"
+}

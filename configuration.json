@@ -1,0 +1,78 @@
+{
+    "log4js": {
+        "appenders": {
+            "outAppender": {
+                "type": "stdout",
+                "layout": {
+                    "type": "pattern",
+                    "pattern": "%[%[[%d{ABSOLUTETIME}]%] [%c] [%-5p]%] %m"
+                }
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": [
+                    "outAppender"
+                ],
+                "level": "trace"
+            }
+        }
+    },
+    "options": {
+        "minimumLoggableTimeSlotInMinutes": 30,
+        "timePeriod": {
+            "begin": {
+                "fromNow": "last",
+                "unit": "hour"
+            },
+            "end": {
+                "fromNow": "this",
+                "unit": "hour"
+            }
+        },
+        "timeZone": "America/Toronto"
+    },
+    "inputs": [
+        {
+            "type": "GoogleCalendar",
+            "name": "My Google Calendar",
+            "calendars": [
+                {
+                    "id": "calendar1@group.calendar.google.com",
+                    "includeTags": [
+                        "client:My Client 1",
+                        "project:My Project 1"
+                    ]
+                },
+                {
+                    "id": "calendar2@group.calendar.google.com",
+                    "includeTags": [
+                        "client:My Client 2",
+                        "project:My Project 2"
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "HarvestApp",
+            "name": "My Harvest Timesheets",
+            "accountId": "12345",
+            "token": "abc123",
+            "contactInformation": "email@example.com"
+        }
+    ],
+    "outputs": [
+        {
+            "type": "TextFile",
+            "filePath": "output.txt",
+            "formatter": {
+                "type": "SummaryTextFormatter",
+                "aggregateByTags": [
+                    [
+                        "client"
+                    ]
+                ]
+            }
+        }
+    ]
+}

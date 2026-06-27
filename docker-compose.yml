@@ -1,0 +1,8 @@
+services:
+  worklogger:
+    image: alphadock/worklogger:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./worklogger_home:/app/worklogger_home
